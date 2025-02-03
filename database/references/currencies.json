@@ -1,0 +1,24 @@
+[ 
+{"name": "USD", "code": "USD", "symbol": "", "is_default": 1},
+{"name": "EUR", "code": "EUR", "symbol": "", "is_default": 0},
+{"name": "GBP", "code": "GBP", "symbol": "", "is_default": 0},
+{"name": "JPY", "code": "JPY", "symbol": "", "is_default": 0},
+{"name": "AUD", "code": "AUD", "symbol": "", "is_default": 0},
+{"name": "CAD", "code": "CAD", "symbol": "", "is_default": 0},
+{"name": "CHF", "code": "CHF", "symbol": "", "is_default": 0},
+{"name": "CNY", "code": "CNY", "symbol": "", "is_default": 0},
+{"name": "SEK", "code": "SEK", "symbol": "", "is_default": 0},
+{"name": "NZD", "code": "NZD", "symbol": "", "is_default": 0},
+{"name": "MXN", "code": "MXN", "symbol": "", "is_default": 0},
+{"name": "SGD", "code": "SGD", "symbol": "", "is_default": 0},
+{"name": "HKD", "code": "HKD", "symbol": "", "is_default": 0},
+{"name": "NOK", "code": "NOK", "symbol": "", "is_default": 0},
+{"name": "KRW", "code": "KRW", "symbol": "", "is_default": 0},
+{"name": "TRY", "code": "TRY", "symbol": "", "is_default": 0},
+{"name": "RUB", "code": "RUB", "symbol": "", "is_default": 0},
+{"name": "INR", "code": "INR", "symbol": "", "is_default": 0},
+{"name": "BRL", "code": "BRL", "symbol": "", "is_default": 0},
+{"name": "ZAR", "code": "ZAR", "symbol": "", "is_default": 0},
+{"name": "TWD", "code": "TWD", "symbol": "", "is_default": 0}
+]
+
