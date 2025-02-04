@@ -31,6 +31,9 @@ class DatabaseSeeder extends Seeder
 
             // Settings
             SiteSettingsSeeder::class,
+
+            // Notifications
+            NotificationSeeder::class,
             
         ]);
 

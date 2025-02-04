@@ -16,7 +16,7 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('message');
-            $table->string('type');
+            $table->string('type')->nullable();
             $table->string('status')->default('unread');
             $table->foreignId('user_id')->on('users');
             $table->foreignId('user_id_to')->on('users')->nullable();
