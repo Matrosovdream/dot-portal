@@ -7,6 +7,21 @@ class DashboardReferences {
 
         return array(
             array(
+                'title' => 'Notifications manager',
+                'url' => '',
+                'icon' => 'ki-basket',
+                'roles' => ['admin'],
+                'childs' => array(
+                    array(
+                        'title' => 'All',
+                        'url' => route('dashboard.notifications-manage.index'),
+                        'roles' => ['admin', 'manager'],
+                    ),
+                ),
+            ),
+
+
+            array(
                 'title' => 'Services',
                 'url' => '',
                 'icon' => 'ki-basket',
@@ -65,12 +80,30 @@ class DashboardReferences {
                 'childs' => array(
                     array(
                         'title' => 'Active',
-                        'url' => '/',
-                        'roles' => ['user'],
+                        'url' => route('dashboard.notifications'),
+                        'roles' => ['user', 'manager', 'admin'],
                     ),
                 ),
             ),
             array(
+                'title' => 'Drivers',
+                'url' => '',
+                'icon' => 'ki-notification',
+                'roles' => ['user'],
+                'childs' => array(
+                    array(
+                        'title' => 'All',
+                        'url' => route('dashboard.drivers.index'),
+                        'roles' => ['user'],
+                    ),
+                    array(
+                        'title' => 'New driver',
+                        'url' => route('dashboard.drivers.create'),
+                        'roles' => ['user'],
+                    ),
+                ),
+            ),
+            /*array(
                 'title' => 'Service request',
                 'url' => '',
                 'icon' => 'ki-request',
@@ -107,13 +140,14 @@ class DashboardReferences {
                         'url' => route('dashboard.profile'),
                         'roles' => ['user'],
                     ),
-                    /*array(
+                    array(
                         'title' => 'Orders',
                         'url' => route('dashboard.my-orders'),
                         'roles' => ['user'],
-                    ),*/
+                    ),
                 ),
             ),
+            */
         );
 
     }
