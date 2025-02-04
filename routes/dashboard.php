@@ -1,7 +1,7 @@
 <?php
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\Dashboard\DashboardHomeController;
+use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\DashboardUsersController;
 use App\Http\Controllers\Dashboard\DashboardSettingsController;
 use App\Http\Controllers\Dashboard\DashboardGatewaysController;
@@ -9,9 +9,9 @@ use App\Http\Controllers\Dashboard\DashboardProfileController;
 use App\Http\Controllers\Dashboard\ServiceController;
 use App\Http\Controllers\Dashboard\ServiceFieldsController;
 use App\Http\Controllers\Dashboard\AdminRequestController;
-
-
-
+use App\Http\Controllers\Dashboard\NotificationsController;
+use App\Http\Controllers\Dashboard\NotificationsAdminController;
+use App\Http\Controllers\Dashboard\DriverController;
 
 
 Route::group(
@@ -24,9 +24,39 @@ Route::group(
     function(){
     
     // Home dashboard page
-    Route::get('/', [DashboardHomeController::class, 'index'])->name('dashboard.home');
+    Route::get('/', [HomeController::class, 'index'])->name('dashboard.home');
+
+    // Notifications
+    Route::get('notifications', [NotificationsController::class, 'index'])->name('dashboard.notifications');
+
+
+    // Drivers
+    Route::group(['prefix' => 'my-drivers'], function () {
+        Route::get('/', [DriverController::class, 'index'])->name('dashboard.drivers.index');
+        Route::get('create', [DriverController::class, 'create'])->name('dashboard.drivers.create');
+        Route::post('/', [DriverController::class, 'store'])->name('dashboard.drivers.store');
+        Route::get('{service}', [DriverController::class, 'show'])->name('dashboard.drivers.show');
+        Route::post('{service}', [DriverController::class, 'update'])->name('dashboard.drivers.update');
+        Route::delete('{service}', [DriverController::class, 'destroy'])->name('dashboard.drivers.destroy');
+    });
+
 
     // Admin routes
+    Route::middleware('hasRole:admin')->group(function () {
+
+        // Notifications manager
+        Route::group(['prefix' => 'notifications-manager'], function () {
+            Route::get('/', [NotificationsAdminController::class, 'index'])->name('dashboard.notifications-manage.index');
+            Route::get('create', [NotificationsAdminController::class, 'create'])->name('dashboard.notifications-manage.create');
+            Route::post('/', [NotificationsAdminController::class, 'store'])->name('dashboard.notifications-manage.store');
+            Route::get('{service}', [NotificationsAdminController::class, 'show'])->name('dashboard.notifications-manage.show');
+            Route::post('{service}', [NotificationsAdminController::class, 'update'])->name('dashboard.notifications-manage.update');
+            Route::delete('{service}', [NotificationsAdminController::class, 'destroy'])->name('dashboard.notifications-manage.destroy');
+        });
+
+    });
+
+    // Admin/manager routes
     Route::middleware('hasRole:admin,manager')->group(function () {
 
         Route::middleware('hasRole:admin')->group(function() {
