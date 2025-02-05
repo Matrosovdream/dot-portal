@@ -2,8 +2,8 @@
 
 @section('toolbar-buttons')
 
-    <a href="{{ route('dashboard.services.create') }}" class="btn btn-sm fw-bold btn-primary">
-        New Service
+    <a href="{{ route('dashboard.drivers.create') }}" class="btn btn-sm fw-bold btn-primary">
+        New Driver
     </a>
 
 @endsection 
@@ -20,7 +20,7 @@
                     <span class="path2"></span>
                 </i>
                 <input type="text" data-kt-ecommerce-product-filter="search"
-                    class="form-control form-control-solid w-250px ps-12" placeholder="Search Users">
+                    class="form-control form-control-solid w-250px ps-12" placeholder="Search Drivers">
             </div>
         </div>
     </div>
@@ -43,7 +43,7 @@
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
 
-                    @foreach($drivers as $driver)
+                    @foreach($drivers['items'] as $driver)
 
                         <tr>
                             <td>
@@ -52,14 +52,14 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ route('dashboard.services.show', $driver['id']) }}"
+                                <a href="{{ route('dashboard.drivers.show', $driver['id']) }}"
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
                                     {{ $driver['name'] }}
                                 </a>
                             </td>
                             <td class="text-center pe-0">
-                                {{ $driver['Model']->created_at->format('d/m/Y') }}
+                                {{ $driver['Model']->created_at->format('d/m/Y H:i') }}
                             </td>
                             <td class="text-center">
                                 <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
@@ -70,12 +70,12 @@
                                     data-kt-menu="true">
 
                                     <div class="menu-item px-3">
-                                        <a href="{{ route('dashboard.services.show', $driver['id']) }}"
+                                        <a href="{{ route('dashboard.drivers.show', $driver['id']) }}"
                                             class="menu-link px-3">Edit</a>
                                     </div>
 
                                     <div class="menu-item px-3">
-                                        <form action="{{ route('dashboard.services.destroy', $driver['id']) }}" method="POST">
+                                        <form action="{{ route('dashboard.drivers.destroy', $driver['id']) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="menu-link px-3" type="submit">

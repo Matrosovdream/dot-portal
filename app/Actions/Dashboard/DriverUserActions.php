@@ -31,4 +31,48 @@ class DriverUserActions {
         return $data;
     }
 
+    public function show($driver_id)
+    {
+        $driver = $this->driverRepo->getByID($driver_id);
+
+        $data = [
+            'title' => 'Driver details',
+            'driver' => $driver,
+            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+        ];
+
+        return $data;
+    }
+
+    public function update($driver_id, $request)
+    {
+        $data = $this->driverRepo->update($driver_id, $request);
+
+        return $data;
+    }
+
+    public function create()
+    {
+        $data = [
+            'title' => 'Create driver',
+            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+        ];
+
+        return $data;
+    }
+
+    public function store($request)
+    {
+        $data = $this->driverRepo->create($request);
+
+        return $data;
+    }
+
+    public function destroy($driver_id)
+    {
+        $data = $this->driverRepo->delete($driver_id);
+
+        return $data;
+    }
+
 }

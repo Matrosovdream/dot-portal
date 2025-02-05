@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             LanguageSeeder::class,
             CurrencySeeder::class,
             RequestStatusSeeder::class,
+            CountryStateSeeder::class,
 
             // Services
             ServiceSeeder::class,

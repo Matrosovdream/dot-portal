@@ -2,8 +2,8 @@
 
 @section('toolbar-buttons')
 
-    <a href="{{ route('dashboard.services.create') }}" class="btn btn-sm fw-bold btn-primary">
-        New Service
+    <a href="{{ route('dashboard.notifications-manage.create') }}" class="btn btn-sm fw-bold btn-primary">
+        New Notification
     </a>
 
 @endsection 

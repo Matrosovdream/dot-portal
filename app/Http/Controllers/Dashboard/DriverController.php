@@ -24,18 +24,22 @@ class DriverController extends Controller
         );
     }
 
-    public function show( Service $service )
+    public function show( $driver_id )
     {
         return view(
             'dashboard.drivers.show', 
-            $this->driverUserActions->show($service)
+            $this->driverUserActions->show($driver_id)
         );
     }
 
-    public function update($service, Request $request)
+    public function update($driver_id, Request $request)
     {
-        $data = $this->driverUserActions->update($service, $request);
-        
+
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $data = $this->driverUserActions->update($driver_id, $validated);
         return redirect()->route('dashboard.drivers.index');
     }
 
@@ -49,8 +53,12 @@ class DriverController extends Controller
 
     public function store(Request $request)
     {
-        $data = $this->driverUserActions->store($request);
 
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $data = $this->driverUserActions->store($validated);
         return redirect()->route('dashboard.drivers.index');
     }
 

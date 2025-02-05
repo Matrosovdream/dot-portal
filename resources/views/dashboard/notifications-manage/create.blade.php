@@ -9,20 +9,9 @@
             <div class="card-body pt-15">
                 
                 <div class="d-flex flex-center flex-column mb-5">
-                    <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">{{ $notification['title'] }}</a>
+                    <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">New notification</a>
                 </div>
 
-                <div class="d-flex flex-stack fs-4 py-3">
-                    <div class="fw-bold">Details</div>
-                </div>
-
-                <div class="separator separator-dashed my-3"></div>
-                <div class="pb-5 fs-6">
-                    
-                    <div class="fw-bold mt-5">Type</div>
-                    <div class="text-gray-600">#{{ $notification['type'] }}</div>
-                    
-                </div>
             </div>
 
         </div>
@@ -53,7 +42,7 @@
                     
                     <div class="card-body pt-0 pb-5">
                         
-                        <form class="form" method="POST" action="{{ route('dashboard.notifications-manage.update', $notification['id']) }}" id="kt_ecommerce_customer_profile">
+                        <form class="form" method="POST" action="{{ route('dashboard.notifications-manage.store') }}" id="kt_ecommerce_customer_profile">
                             @csrf
 
                             <div class="row row-cols-1 row-cols-md-2">
@@ -80,7 +69,7 @@
                                 <input 
                                     type="text" 
                                     name="title"
-                                    value="{{ $notification['title'] }}" 
+                                    value="{{ old('title') }}" 
                                     class="form-control form-control-solid" 
                                     placeholder="" 
                                     />
@@ -102,7 +91,7 @@
                                             placeholder=""
                                             name="message" 
                                             value="" 
-                                            >{{ $notification['message'] }}</textarea>
+                                            >{{ old('message') }}</textarea>
                                         
                                     </div>
                                 </div>
@@ -110,8 +99,6 @@
                                 
                                 
                             </div>
-                            
-                            
                             
                             <div class="d-flex justify-content-end">
                                 

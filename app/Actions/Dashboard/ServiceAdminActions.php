@@ -3,47 +3,59 @@ namespace App\Actions\Dashboard;
 
 use App\Models\Service;
 use App\Helpers\adminSettingsHelper;
+use App\Repositories\Service\ServiceRepo;
 
 class ServiceAdminActions {
 
+    private $serviceRepo;
+
     public function __construct()
     {
-        // 
+        $this->serviceRepo = new ServiceRepo();
     }
 
     public function index()
     {
+
+        // Get drivers by user
+        $services = $this->serviceRepo->getUserDrivers( 
+            auth()->user()->id, 
+            $paginate = 10 
+        );
+
         $data = [
-            'title' => 'Services list',
-            'services' => Service::paginate(10),
+            'title' => 'Services',
+            'drivers' => $services,
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
         return $data;
     }
 
-    public function show( $service )
+    public function show($service_id)
     {
+        $driver = $this->serviceRepo->getByID($service_id);
+
         $data = [
-            'title' => 'Service details #' . $service->id,
-            'service' => $service,
+            'title' => 'Service details',
+            'driver' => $driver,
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
         return $data;
     }
 
-    public function update($service, $request)
+    public function update($service_id, $request)
     {
-        $service->update($request->all());
+        $data = $this->serviceRepo->update($service_id, $request);
 
-        return $service;
+        return $data;
     }
 
     public function create()
     {
         $data = [
-            'title' => 'Create new service',
+            'title' => 'Create driver',
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
@@ -52,16 +64,16 @@ class ServiceAdminActions {
 
     public function store($request)
     {
-        $service = Service::create($request->all());
+        $data = $this->serviceRepo->create($request);
 
-        return $service;
+        return $data;
     }
 
-    public function destroy($service)
+    public function destroy($service_id)
     {
-        $service->delete();
+        $data = $this->serviceRepo->delete($service_id);
 
-        return $service;
+        return $data;
     }
 
 }

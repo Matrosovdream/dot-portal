@@ -48,6 +48,7 @@ class NotificationAdminActions {
 
     public function store($request)
     {
+
         $this->notificationsRepo->create( $request );
 
         return redirect()->route('dashboard.notifications-manage.index');
