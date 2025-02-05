@@ -24,17 +24,24 @@ class ServiceController extends Controller
         );
     }
 
-    public function show( Service $service )
+    public function show( $service_id )
     {
         return view(
             'dashboard.services.show', 
-            $this->serviceAdminActions->show($service)
+            $this->serviceAdminActions->show($service_id)
         );
     }
 
-    public function update($service, Request $request)
+    public function update($service_id, Request $request)
     {
-        $data = $this->serviceAdminActions->update($service, $request);
+
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+        ]);
+
+        $data = $this->serviceAdminActions->update($service_id, $request);
         
         return redirect()->route('dashboard.services.index');
     }
@@ -49,14 +56,21 @@ class ServiceController extends Controller
 
     public function store(Request $request)
     {
+
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+        ]);
+
         $data = $this->serviceAdminActions->store($request);
 
         return redirect()->route('dashboard.services.index');
     }
 
-    public function destroy($service)
+    public function destroy($service_id)
     {
-        $data = $this->serviceAdminActions->destroy($service);
+        $data = $this->serviceAdminActions->delete($service_id);
         
         return redirect()->route('dashboard.services.index');
     }

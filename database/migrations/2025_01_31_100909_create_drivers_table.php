@@ -14,13 +14,46 @@ return new class extends Migration
 
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('phone');
-            $table->string('email');
-            $table->string('address');
+            $table->string('firstname');
+            $table->string('middlename')->nullable();
+            $table->string('lastname');
+            $table->string('phone')->nullable();
+            $table->string('email')->nullable();
+            $table->date('dob')->nullable();
+            $table->string('ssn')->nullable();
+            $table->date('hire_date')->nullable();
+            $table->foreignId('driver_type_id')->on('ref_driver_type');
+            $table->foreignId('license_type_id')->on('ref_driver_license_type');
+            $table->foreignId('license_endrs_id')->on('ref_driver_license_endrs');
+            $table->string('license_number')->nullable();
+            $table->date('license_expiration')->nullable();
+            $table->foreignId('license_state_id')->on('ref_country_states');
             $table->foreignId('user_id')->on('users');
             $table->timestamps();
         });
+
+        // Documents table
+        Schema::create('driver_documents', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('driver_id')->on('drivers');
+            $table->string('type');
+            $table->string('title')->nullable();
+            $table->foreignId('file_id')->on('files');
+            $table->string('extension')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('driver_address', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('item_id')->on('drivers');
+            $table->string('address1')->nullable();
+            $table->string('address2')->nullable();
+            $table->string('city')->nullable();
+            $table->foreignId('state_id')->on('ref_country_states');
+            $table->string('zip')->nullable();
+            $table->text('value')->nullable();
+        });
+
 
         Schema::create('driver_meta', function (Blueprint $table) {
             $table->id();
@@ -37,6 +70,31 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('ref_driver_type', function (Blueprint $table) {
+            $table->id();
+            $table->text('title');
+            $table->text('slug');
+            $table->boolean('is_published')->default(true);
+            $table->timestamps();
+        });
+
+        Schema::create('ref_driver_license_type', function (Blueprint $table) {
+            $table->id();
+            $table->text('title');
+            $table->text('slug');
+            $table->boolean('is_published')->default(true);
+            $table->timestamps();
+        });
+
+        Schema::create('ref_driver_license_endrs', function (Blueprint $table) {
+            $table->id();
+            $table->text('title');
+            $table->text('slug');
+            $table->boolean('is_published')->default(true);
+            $table->timestamps();
+        });
+
+
     }
 
     /**
@@ -45,7 +103,13 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('drivers');
+        Schema::dropIfExists('driver_documents');
+        Schema::dropIfExists('driver_address');
         Schema::dropIfExists('driver_meta');
         Schema::dropIfExists('driver_history');
+        Schema::dropIfExists('ref_driver_type');
+        Schema::dropIfExists('ref_driver_license_type');
+        Schema::dropIfExists('ref_driver_license_endrs');
     }
+
 };

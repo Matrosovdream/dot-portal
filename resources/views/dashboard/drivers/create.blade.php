@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form class="form" method="POST" action="{{ route('dashboard.services.store') }}" id="kt_ecommerce_customer_profile">
+<form class="form" method="POST" action="{{ route('dashboard.drivers.store') }}" id="kt_ecommerce_customer_profile">
     @csrf
 
     <div class="d-flex flex-column flex-xl-row">
@@ -12,7 +12,7 @@
                 <div class="card-body pt-5">
 
                     <div class="d-flex flex-stack fs-4 py-3">
-                        <div class="fw-bold">Create new service</div>
+                        <div class="fw-bold">Add a new driver</div>
 
                     </div>
 

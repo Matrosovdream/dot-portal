@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Actions\Dashboard\NotificationAdminActions;
 
 class NotificationsAdminController extends Controller
@@ -24,9 +25,17 @@ class NotificationsAdminController extends Controller
         return view('dashboard.notifications-manage.create', $this->NotificationAdminActions->create());
     }
 
-    public function store()
+    public function store( Request $request )
     {
-        $this->NotificationAdminActions->store(request());
+
+        // Validate
+        $validated = $request->validate([
+            'title' => 'required',
+            'message' => 'required',
+            'type' => 'required',
+        ]);
+
+        $this->NotificationAdminActions->store( $validated );
         return redirect()->route('dashboard.notifications-manage.index');
     }
 
@@ -40,9 +49,17 @@ class NotificationsAdminController extends Controller
         return view('dashboard.notifications-manage.edit', $this->NotificationAdminActions->edit($id));
     }
 
-    public function update($id)
+    public function update($id, Request $request)
     {
-        $this->NotificationAdminActions->update(request(), $id);
+
+        // Validate
+        $validated = $request->validate([
+            'title' => 'required',
+            'message' => 'required',
+            'type' => 'required',
+        ]);
+
+        $this->NotificationAdminActions->update($validated, $id);
         return redirect()->route('dashboard.notifications-manage.index');
     }
 
