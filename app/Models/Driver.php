@@ -28,6 +28,30 @@ class Driver extends Model
     {
         return $this->hasMany(DriverHistory::class);
     }
-    
+
+    public function documents()
+    {
+        return $this->hasMany(DriverDocument::class);
+    }
+
+    public function address()
+    {
+        return $this->hasOne(DriverAddress::class);
+    }
+
+    public function driverType()
+    {
+        return $this->belongsTo(RefDriverType::class, 'driver_type_id');
+    }
+
+    public function licenseType()
+    {
+        return $this->belongsTo(RefDriverLicenseType::class, 'license_type_id');
+    }
+
+    public function licenseEndorsement()
+    {
+        return $this->belongsTo(RefDriverLicenseEndorsement::class, 'license_endrs_id');
+    }
 
 }

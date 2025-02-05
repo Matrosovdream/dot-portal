@@ -47,7 +47,10 @@ class NotificationRepo
 
     public function create($data)
     {
-        //$data = $this->validate($data);
+        
+        // Add current user ID
+        $data['user_id'] = auth()->user()->id;
+
         $item = $this->model->create($data);
         return $this->mapItem($item);
     }
