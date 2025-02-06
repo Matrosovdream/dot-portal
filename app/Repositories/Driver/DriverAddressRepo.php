@@ -2,10 +2,10 @@
 namespace App\Repositories\Driver;
 
 use App\Repositories\AbstractRepo;
-use App\Models\Service;
+use App\Models\DriverAddress;
 
 
-class ServiceRepo extends AbstractRepo
+class DriverAddressRepo extends AbstractRepo
 {
 
     protected $model;
@@ -15,19 +15,30 @@ class ServiceRepo extends AbstractRepo
         'user_id' => [ 'type' => 'integer', 'required' => true ],
     ];
 
+    protected $withRelations = [];
+
     public function __construct()
     {
-        $this->model = new Service();
+        $this->model = new DriverAddress();
     }
 
     public function mapItem($item)
     {
+
+        if( empty($item) ) {
+            return null;
+        }
+
         $res = [
             'id' => $item->id,
-            'name' => $item->name,
-            'user_id' => $item->user_id,
+            'address1' => $item->address_1,
+            'address2' => $item->address_2,
+            'city' => $item->city,
+            'state_id' => $item->state_id,
+            'zip' => $item->zip,
             'Model' => $item
         ];
+
         return $res;
     }
 

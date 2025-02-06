@@ -15,4 +15,6 @@ class RefCountryStates extends Model
         'country_id',
     ];
 
+    public $timestamps = false;
+
 }

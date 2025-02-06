@@ -1,11 +1,12 @@
 <?php
-namespace App\Repositories\Driver;
+namespace App\Repositories\User;
 
 use App\Repositories\AbstractRepo;
-use App\Models\Service;
+use App\Models\User;
 
 
-class ServiceRepo extends AbstractRepo
+
+class UserRepo extends AbstractRepo
 {
 
     protected $model;
@@ -15,19 +16,27 @@ class ServiceRepo extends AbstractRepo
         'user_id' => [ 'type' => 'integer', 'required' => true ],
     ];
 
+    protected $withRelations = [];
+
     public function __construct()
     {
-        $this->model = new Service();
+        $this->model = new User();
     }
 
     public function mapItem($item)
     {
+
+        if( empty($item) ) {
+            return null;
+        }
+
         $res = [
             'id' => $item->id,
-            'name' => $item->name,
+            'comment' => $item->comment,
             'user_id' => $item->user_id,
             'Model' => $item
         ];
+
         return $res;
     }
 
