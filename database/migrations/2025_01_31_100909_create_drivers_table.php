@@ -23,16 +23,10 @@ return new class extends Migration
             $table->string('ssn')->nullable();
             $table->date('hire_date')->nullable();
             $table->foreignId('driver_type_id')->on('ref_driver_type');
-            $table->foreignId('license_type_id')->on('ref_driver_license_type');
-            $table->foreignId('license_endrs_id')->on('ref_driver_license_endrs');
-            $table->string('license_number')->nullable();
-            $table->date('license_expiration')->nullable();
-            $table->foreignId('license_state_id')->on('ref_country_states');
             $table->foreignId('user_id')->on('users');
             $table->timestamps();
         });
 
-        // Documents table
         Schema::create('driver_documents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('driver_id')->on('drivers');
@@ -42,6 +36,18 @@ return new class extends Migration
             $table->string('extension')->nullable();
             $table->timestamps();
         });
+
+        Schema::create('driver_license', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('driver_id')->on('drivers');
+            $table->foreignId('type_id')->on('ref_driver_license_type');
+            $table->foreignId('endorsement_id')->on('ref_driver_license_endrs');
+            $table->string('license_number')->nullable();
+            $table->date('expiration_date')->nullable();
+            $table->foreignId('state_id')->on('ref_country_states');
+            $table->timestamps();
+        });
+
 
         Schema::create('driver_address', function (Blueprint $table) {
             $table->id();
@@ -54,6 +60,15 @@ return new class extends Migration
             $table->text('value')->nullable();
         });
 
+        Schema::create('driver_medical_card', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('driver_id')->on('drivers');
+            $table->string('examiner_name')->nullable();
+            $table->string('national_registry')->nullable();
+            $table->date('issue_date')->nullable();
+            $table->date('expiration_date')->nullable();
+            $table->timestamps();
+        });
 
         Schema::create('driver_meta', function (Blueprint $table) {
             $table->id();
@@ -74,6 +89,7 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('slug');
+            $table->integer('order')->default(0);
             $table->boolean('is_published')->default(true);
             $table->timestamps();
         });
@@ -82,6 +98,7 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('slug');
+            $table->integer('order')->default(0);
             $table->boolean('is_published')->default(true);
             $table->timestamps();
         });
@@ -90,10 +107,10 @@ return new class extends Migration
             $table->id();
             $table->text('title');
             $table->text('slug');
+            $table->integer('order')->default(0);
             $table->boolean('is_published')->default(true);
             $table->timestamps();
         });
-
 
     }
 
@@ -104,7 +121,9 @@ return new class extends Migration
     {
         Schema::dropIfExists('drivers');
         Schema::dropIfExists('driver_documents');
+        Schema::dropIfExists('driver_license');
         Schema::dropIfExists('driver_address');
+        Schema::dropIfExists('driver_medical_card');
         Schema::dropIfExists('driver_meta');
         Schema::dropIfExists('driver_history');
         Schema::dropIfExists('ref_driver_type');

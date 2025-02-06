@@ -2,10 +2,10 @@
 namespace App\Repositories\Driver;
 
 use App\Repositories\AbstractRepo;
-use App\Models\Service;
+use App\Models\DriverHistory;
 
 
-class ServiceRepo extends AbstractRepo
+class DriverHistoryRepo extends AbstractRepo
 {
 
     protected $model;
@@ -15,19 +15,27 @@ class ServiceRepo extends AbstractRepo
         'user_id' => [ 'type' => 'integer', 'required' => true ],
     ];
 
+    protected $withRelations = [];
+
     public function __construct()
     {
-        $this->model = new Service();
+        $this->model = new DriverHistory();
     }
 
     public function mapItem($item)
     {
+
+        if( empty($item) ) {
+            return null;
+        }
+
         $res = [
             'id' => $item->id,
-            'name' => $item->name,
+            'comment' => $item->comment,
             'user_id' => $item->user_id,
             'Model' => $item
         ];
+
         return $res;
     }
 

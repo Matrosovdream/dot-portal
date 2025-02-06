@@ -1,10 +1,11 @@
 <?php
 namespace App\Repositories\Notification;
 
+use App\Repositories\AbstractRepo;
 use App\Models\Notification;
 
 
-class NotificationRepo
+class NotificationRepo extends AbstractRepo
 {
 
     protected $model;
@@ -23,66 +24,7 @@ class NotificationRepo
         $this->model = new Notification();
     }
 
-    public function getAll($filter = [], $paginate = 10)
-    {
-        $items = $this->model->where($filter)->paginate($paginate);
-        return $this->mapItems($items);
-    }
-
-    public function getUserNotifications($user_id, $paginate = 10)
-    {
-        $items = $this->model->where(function ($query) use ($user_id) {
-            $query->where('user_id_to', $user_id)
-                  ->orWhereNull('user_id_to');
-        })->paginate($paginate);
-        
-        return $this->mapItems($items);
-    }
-
-    public function getByID($id)
-    {
-        $item = $this->model->find($id);
-        return $this->mapItem($item);
-    }
-
-    public function create($data)
-    {
-        
-        // Add current user ID
-        $data['user_id'] = auth()->user()->id;
-
-        $item = $this->model->create($data);
-        return $this->mapItem($item);
-    }
-
-    public function update($id, $data)
-    {
-        //$data = $this->validate($data);
-        $item = $this->model->find($id);
-        $item->update($data);
-        return $this->mapItem($item);
-    }
-
-    public function delete($id)
-    {
-        $item = $this->model->find($id);
-        $item->delete();
-    }
-
-    private function mapItems($items)
-    {
-        $itemsMapped = $items->getCollection()->transform(function ($item) {
-            return $this->mapItem($item);
-        });
-
-        return [
-            'items' => $itemsMapped,
-            'links' => $items->links(),
-            'Model' => $items
-        ];
-    }
-
-    private function mapItem($item)
+    public function mapItem($item)
     {
         $res = [
             'id' => $item->id,

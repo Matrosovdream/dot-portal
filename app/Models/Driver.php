@@ -26,7 +26,7 @@ class Driver extends Model
 
     public function history()
     {
-        return $this->hasMany(DriverHistory::class);
+        return $this->hasMany(DriverHistory::class, 'item_id');
     }
 
     public function documents()
@@ -36,22 +36,17 @@ class Driver extends Model
 
     public function address()
     {
-        return $this->hasOne(DriverAddress::class);
+        return $this->hasOne(DriverAddress::class, 'item_id');
     }
 
-    public function driverType()
+    public function license()
     {
-        return $this->belongsTo(RefDriverType::class, 'driver_type_id');
+        return $this->hasOne(DriverLicense::class);
     }
 
-    public function licenseType()
+    public function medicalCard()
     {
-        return $this->belongsTo(RefDriverLicenseType::class, 'license_type_id');
-    }
-
-    public function licenseEndorsement()
-    {
-        return $this->belongsTo(RefDriverLicenseEndorsement::class, 'license_endrs_id');
+        return $this->hasOne(DriverMedicalCard::class);
     }
 
 }

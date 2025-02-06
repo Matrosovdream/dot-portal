@@ -26,6 +26,9 @@ class DatabaseSeeder extends Seeder
             CurrencySeeder::class,
             RequestStatusSeeder::class,
             CountryStateSeeder::class,
+            DriverLicenseEndrsSeeder::class,
+            DriverLicenseTypeSeeder::class,
+            DriverTypeSeeder::class,
 
             // Services
             ServiceSeeder::class,
