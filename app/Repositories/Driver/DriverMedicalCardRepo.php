@@ -2,10 +2,10 @@
 namespace App\Repositories\Driver;
 
 use App\Repositories\AbstractRepo;
-use App\Models\Service;
+use App\Models\DriverMedicalCard;
 
 
-class ServiceRepo extends AbstractRepo
+class DriverMedicalCardRepo extends AbstractRepo
 {
 
     protected $model;
@@ -15,19 +15,29 @@ class ServiceRepo extends AbstractRepo
         'user_id' => [ 'type' => 'integer', 'required' => true ],
     ];
 
+    protected $withRelations = [];
+
     public function __construct()
     {
-        $this->model = new Service();
+        $this->model = new DriverMedicalCard();
     }
 
     public function mapItem($item)
     {
+
+        if( empty($item) ) {
+            return null;
+        }
+
         $res = [
             'id' => $item->id,
-            'name' => $item->name,
-            'user_id' => $item->user_id,
+            'examiner_name' => $item->examiner_name,
+            'national_registry' => $item->national_registry,
+            'issue_date' => $item->issue_date,
+            'expiration_date' => $item->expiration_date,
             'Model' => $item
         ];
+
         return $res;
     }
 
