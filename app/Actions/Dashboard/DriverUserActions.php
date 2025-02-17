@@ -70,6 +70,7 @@ class DriverUserActions {
 
     public function store($request)
     {
+
         $data = $this->driverRepo->create($request);
 
         return $data;

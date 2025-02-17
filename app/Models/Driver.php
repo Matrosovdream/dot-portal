@@ -12,10 +12,15 @@ class Driver extends Model
     protected $table = 'drivers';
     
     protected $fillable = [
-        'name',
+        'firstname',
+        'middlename',
+        'lastname',
         'phone',
         'email',
-        'address',
+        'dob',
+        'ssn',
+        'hire_date',
+        'driver_type_id',
         'user_id',
     ];
     
