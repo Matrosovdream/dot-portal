@@ -58,6 +58,7 @@ return new class extends Migration
             $table->foreignId('state_id')->on('ref_country_states');
             $table->string('zip')->nullable();
             $table->text('value')->nullable();
+            $table->timestamps();
         });
 
         Schema::create('driver_medical_card', function (Blueprint $table) {

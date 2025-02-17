@@ -12,6 +12,7 @@ use App\Http\Controllers\Dashboard\AdminRequestController;
 use App\Http\Controllers\Dashboard\NotificationsController;
 use App\Http\Controllers\Dashboard\NotificationsAdminController;
 use App\Http\Controllers\Dashboard\DriverController;
+use App\Http\Controllers\Dashboard\SubscriptionUserController;
 
 
 Route::group(
@@ -99,7 +100,11 @@ Route::group(
     // User routes
     Route::middleware('isUser')->group(function () {
 
-        // dashboard.profile.destroy, dashboard.password.update, dashboard.profile.update
+        // My subscription
+        Route::group(['prefix' => 'subscription'], function () {
+            Route::get('/', [SubscriptionUserController::class, 'index'])->name('dashboard.subscription.index');
+            Route::post('', [SubscriptionUserController::class, 'update'])->name('dashboard.subscription.update');
+        });
 
         // User
         Route::get('profile', [DashboardProfileController::class, 'profile'])->name('dashboard.profile');

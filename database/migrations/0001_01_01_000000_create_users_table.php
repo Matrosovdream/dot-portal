@@ -53,6 +53,19 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('user_company', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->on('users');
+            $table->string('name')->nullable();
+            $table->string('address')->nullable();
+            $table->string('phone')->nullable();
+            $table->string('dot_number')->nullable();
+            $table->string('mc_number')->nullable();
+            $table->text('business_address')->nullable();
+            $table->text('mailing_address')->nullable();
+            $table->timestamps();
+        });
+
     }
 
     /**

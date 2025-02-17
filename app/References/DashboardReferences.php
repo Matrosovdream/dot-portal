@@ -89,16 +89,34 @@ class DashboardReferences {
                 'title' => 'Drivers',
                 'url' => '',
                 'icon' => 'ki-notification',
-                'roles' => ['user'],
+                'roles' => ['user', 'manager', 'admin'],
                 'childs' => array(
                     array(
                         'title' => 'All',
                         'url' => route('dashboard.drivers.index'),
-                        'roles' => ['user'],
+                        'roles' => ['user', 'manager', 'admin'],
                     ),
                     array(
                         'title' => 'New driver',
                         'url' => route('dashboard.drivers.create'),
+                        'roles' => ['user', 'manager', 'admin'],
+                    ),
+                ),
+            ),
+            array(
+                'title' => 'My cabinet',
+                'url' => '',
+                'icon' => 'ki-user',
+                'roles' => ['user'],
+                'childs' => array(
+                    array(
+                        'title' => 'Settings',
+                        'url' => route('dashboard.profile'),
+                        'roles' => ['user'],
+                    ),
+                    array(
+                        'title' => 'Subscription',
+                        'url' => route('dashboard.subscription.index'),
                         'roles' => ['user'],
                     ),
                 ),
@@ -112,37 +130,6 @@ class DashboardReferences {
                     array(
                         'title' => 'Some service',
                         'url' => '/',
-                        'roles' => ['user'],
-                    ),
-                ),
-            ),
-            array(
-                'title' => 'Drivers',
-                'url' => '',
-                'icon' => 'ki-request',
-                'roles' => ['user'],
-                'childs' => array(
-                    array(
-                        'title' => 'All',
-                        'url' => '/',
-                        'roles' => ['user'],
-                    ),
-                ),
-            ),
-            array(
-                'title' => 'My cabinet',
-                'url' => '',
-                'icon' => 'ki-user',
-                'roles' => ['user'],
-                'childs' => array(
-                    array(
-                        'title' => 'Profile',
-                        'url' => route('dashboard.profile'),
-                        'roles' => ['user'],
-                    ),
-                    array(
-                        'title' => 'Orders',
-                        'url' => route('dashboard.my-orders'),
                         'roles' => ['user'],
                     ),
                 ),

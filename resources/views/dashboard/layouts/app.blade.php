@@ -14,6 +14,7 @@
 
         <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" rel="stylesheet"/>
 
+        @php /*
         @vite(
             [
                 // CSS
@@ -27,9 +28,9 @@
                 // JS
                 'resources/js/app.js'
         ])
+        */ @endphp
 
         <!-- Scripts -->
-        @php /*
         @foreach([
             '/assets/admin/plugins/custom/fullcalendar/fullcalendar.bundle.css',
             '/assets/admin/plugins/custom/datatables/datatables.bundle.css',
@@ -39,7 +40,6 @@
         ] as $style)
             <link href="{{ asset($style) }}" rel="stylesheet"/>
         @endforeach
-        */ @endphp
 
     </head>
 
