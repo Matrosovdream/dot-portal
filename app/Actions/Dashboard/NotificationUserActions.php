@@ -1,7 +1,6 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Models\Service;
 use App\Helpers\adminSettingsHelper;
 use App\Repositories\Notification\NotificationRepo;
 
@@ -18,8 +17,9 @@ class NotificationUserActions {
     {
 
         // Get notifications by user
-        $notifications = $this->notificationsRepo->getUserNotifications( 
-            auth()->user()->id, 
+        $filter = ['user_id_to' => auth()->user()->id];
+        $notifications = $this->notificationsRepo->getAll( 
+            $filter, 
             $paginate = 10 
         );
 

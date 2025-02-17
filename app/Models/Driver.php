@@ -49,4 +49,10 @@ class Driver extends Model
         return $this->hasOne(DriverMedicalCard::class);
     }
 
+    // Driver type
+    public function driverType()
+    {
+        return $this->belongsTo(RefDriverType::class, 'driver_type_id');
+    }
+
 }

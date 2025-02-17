@@ -31,6 +31,12 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'user_roles');
     }
 
+    // Get company
+    public function company()
+    {
+        return $this->hasOne(UserCompany::class);
+    }
+
     // Check if user has role admin
     public function isAdmin()
     {
@@ -59,12 +65,6 @@ class User extends Authenticatable
     public function hasRole($roles)
     {
         return $this->roles()->whereIn('slug', $roles)->exists();
-    }
-
-    // Orders
-    public function orders()
-    {
-        return $this->hasMany(Order::class);
     }
 
     public function setRole($role_slug)

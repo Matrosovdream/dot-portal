@@ -38,6 +38,9 @@ class DatabaseSeeder extends Seeder
 
             // Notifications
             NotificationSeeder::class,
+
+            // Drivers
+            DriverSeeder::class,
             
         ]);
 
