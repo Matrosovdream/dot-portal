@@ -36,7 +36,12 @@
                                     data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1" />
                             </div>
                         </th>
-                        <th class="min-w-200px">Name</th>
+                        <th class="min-w-200px">Driver Name</th>
+                        <th class="min-w-200px text-center">Driver Type</th>
+                        <th class="min-w-200px text-center">Dob</th>
+                        <th class="min-w-200px text-center">License type</th>
+                        <th class="min-w-200px text-center">License state / Number</th>
+                        <th class="min-w-200px text-center">Hire date</th>
                         <th class="min-w-200px text-center">Added</th>
                         <th class="min-w-200px text-center">Actions</th>
                     </tr>
@@ -55,11 +60,26 @@
                                 <a href="{{ route('dashboard.drivers.show', $driver['id']) }}"
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
-                                    {{ $driver['name'] }}
+                                    {{ $driver['firstname'] }} {{ $driver['lastname'] }}
                                 </a>
                             </td>
-                            <td class="text-center pe-0">
-                                {{ $driver['Model']->created_at->format('d/m/Y H:i') }}
+                            <td class="text-center">
+                                {{ $driver['Model']->driverType->title }}
+                            </td>
+                            <td class="text-center">
+                                {{ $driver['dob'] }}
+                            </td>
+                            <td class="text-center">
+                                {{ $driver['license']['Model']['type']->title }}
+                            </td>
+                            <td class="text-center">
+                                {{ $driver['license']['Model']->countryState->name }} / {{ $driver['license']['license_number'] }}
+                            </td>
+                            <td class="text-center">
+                                {{ $driver['hire_date'] }}
+                            </td>
+                            <td class="text-center">
+                                {{ $driver['Model']->created_at->format('d M Y') }}
                             </td>
                             <td class="text-center">
                                 <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"

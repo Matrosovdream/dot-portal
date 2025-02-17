@@ -26,6 +26,8 @@ class NotificationRepo extends AbstractRepo
 
     public function mapItem($item)
     {
+        if (!$item) return null;
+        
         $res = [
             'id' => $item->id,
             'title' => $item->title,

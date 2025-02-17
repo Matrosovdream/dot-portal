@@ -16,6 +16,16 @@ abstract class AbstractRepo {
         return $this->mapItem($item);
     }
 
+    public function getByUserID($user_id)
+    {
+        $item = $this->model
+            ->where('user_id', $user_id)
+            ->with($this->withRelations)
+            ->first();
+
+        return $this->mapItem($item);
+    }
+
     public function getAll($filter = [], $paginate = 10)
     {
         $items = $this->model->where($filter)->paginate($paginate);

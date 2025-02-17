@@ -8,6 +8,11 @@ class DriverAddress extends Model
 {
     
     protected $table = 'driver_address';
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
     
     protected $fillable = [
         'item_id',
@@ -27,6 +32,5 @@ class DriverAddress extends Model
     {
         return $this->belongsTo(RefCountryStates::class, 'state_id');
     }
-
 
 }

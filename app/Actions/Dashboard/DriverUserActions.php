@@ -3,14 +3,17 @@ namespace App\Actions\Dashboard;
 
 use App\Helpers\adminSettingsHelper;
 use App\Repositories\Driver\DriverRepo;
+use App\Repositories\References\RefDriverTypeRepo;
 
 class DriverUserActions {
 
     private $driverRepo;
+    private $refDriverTypeRepo;
 
     public function __construct()
     {
         $this->driverRepo = new DriverRepo();
+        $this->refDriverTypeRepo = new RefDriverTypeRepo();
     }
 
     public function index()
@@ -38,6 +41,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver details',
             'driver' => $driver,
+            'references' => $this->getReferences(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
@@ -55,8 +59,11 @@ class DriverUserActions {
     {
         $data = [
             'title' => 'Create driver',
+            'references' => $this->getReferences(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
+
+        //dd($data);
 
         return $data;
     }
@@ -73,6 +80,15 @@ class DriverUserActions {
         $data = $this->driverRepo->delete($driver_id);
 
         return $data;
+    }
+
+    public function getReferences()
+    {
+        $references = [
+            'driverType' => $this->refDriverTypeRepo->getAll([], $paginate=100),
+        ];
+
+        return $references;
     }
 
 }
