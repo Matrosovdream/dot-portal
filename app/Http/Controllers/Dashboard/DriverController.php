@@ -18,6 +18,7 @@ class DriverController extends Controller
 
     public function index()
     {
+        //dd($this->driverUserActions->index());
         return view(
             'dashboard.drivers.index', 
             $this->driverUserActions->index()
@@ -55,7 +56,15 @@ class DriverController extends Controller
     {
 
         $validated = $request->validate([
-            'name' => 'required',
+            'firstname' => 'required',
+            'middlename' => 'nullable',
+            'lastname' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'dob' => 'nullable|date',
+            'ssn' => 'nullable',
+            'hire_date' => 'nullable|date',
+            'driver_type_id' => 'required',
         ]);
 
         $data = $this->driverUserActions->store($validated);

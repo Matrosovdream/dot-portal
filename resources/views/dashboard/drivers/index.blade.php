@@ -64,19 +64,19 @@
                                 </a>
                             </td>
                             <td class="text-center">
-                                {{ $driver['Model']->driverType->title }}
+                                {{ $driver['Model']->driverType->title ?? 'N/A' }}
                             </td>
                             <td class="text-center">
-                                {{ $driver['dob'] }}
+                                {{ $driver['dob'] ?? '' }}
                             </td>
                             <td class="text-center">
-                                {{ $driver['license']['Model']['type']->title }}
+                                {{ $driver['license']['Model']['type']->title ?? '' }}
                             </td>
                             <td class="text-center">
-                                {{ $driver['license']['Model']->countryState->name }} / {{ $driver['license']['license_number'] }}
+                                {{ $driver['license']['Model']->countryState->name ?? '' }} / {{ $driver['license']['license_number'] ?? '' }}
                             </td>
                             <td class="text-center">
-                                {{ $driver['hire_date'] }}
+                                {{ $driver['hire_date'] ?? '' }}
                             </td>
                             <td class="text-center">
                                 {{ $driver['Model']->created_at->format('d M Y') }}

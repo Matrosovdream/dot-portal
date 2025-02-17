@@ -24,6 +24,20 @@
                 enctype="multipart/form-data"
                 >
 
+                @csrf
+
+                @if( $errors->any() )
+
+                    <div class="alert alert-danger p-9">
+                        <ul>
+                            @foreach( $errors->all() as $error )
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+
+                @endif
+
                 <div class="card-body border-top p-9">
 
                     <div class="row mb-6">
@@ -84,8 +98,8 @@
                         </label>
 
                         <div class="col-lg-8 fv-row">
-                            <select name="country" aria-label="Select a Country" data-control="select2"
-                                data-placeholder="Select a country..."
+                            <select name="driver_type_id" aria-label="Select a Driver type" data-control="select2"
+                                data-placeholder="Select a Driver type"
                                 class="form-select form-select-solid form-select-lg fw-semibold">
                                 <option value="">Select a Driver type</option>
 
