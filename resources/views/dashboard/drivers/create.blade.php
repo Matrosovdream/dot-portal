@@ -40,6 +40,7 @@
 
                 <div class="card-body border-top p-9">
 
+                    @php /*
                     <div class="row mb-6">
 
                         <label class="col-lg-4 col-form-label fw-semibold fs-6">Photo</label>
@@ -90,6 +91,7 @@
                         </div>
 
                     </div>
+                    */ @endphp
 
                     <div class="row mb-6">
 
@@ -97,7 +99,7 @@
                             <span class="required">Driver type</span>
                         </label>
 
-                        <div class="col-lg-8 fv-row">
+                        <div class="col-lg-4 fv-row">
                             <select name="driver_type_id" aria-label="Select a Driver type" data-control="select2"
                                 data-placeholder="Select a Driver type"
                                 class="form-select form-select-solid form-select-lg fw-semibold">
@@ -159,7 +161,7 @@
 
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">Phone</label>
 
-                        <div class="col-lg-8 fv-row">
+                        <div class="col-lg-4 fv-row">
                             <input 
                                 type="text" 
                                 name="phone" 
@@ -174,7 +176,7 @@
 
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">Email</label>
 
-                        <div class="col-lg-8 fv-row">
+                        <div class="col-lg-4 fv-row">
                             <input 
                                 type="text" 
                                 name="email" 
@@ -189,7 +191,7 @@
 
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">DOB</label>
 
-                        <div class="col-lg-8 fv-row">
+                        <div class="col-lg-4 fv-row">
                             <input 
                                 type="date" 
                                 name="dob" 
@@ -203,7 +205,7 @@
 
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">SSN</label>
 
-                        <div class="col-lg-8 fv-row">
+                        <div class="col-lg-4 fv-row">
                             <input 
                                 type="text" 
                                 name="ssn" 
@@ -218,7 +220,7 @@
 
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">Hire date</label>
 
-                        <div class="col-lg-8 fv-row">
+                        <div class="col-lg-4 fv-row">
                             <input 
                                 type="date" 
                                 name="hire_date" 
