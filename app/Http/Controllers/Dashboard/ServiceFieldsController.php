@@ -2,119 +2,79 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
-use App\Models\User;
-use App\Helpers\adminSettingsHelper;
+use App\Actions\Dashboard\ServiceFieldActions;
 use Illuminate\Http\Request;
 
 class ServiceFieldsController extends Controller
 {
 
+    private $serviceFieldActions;
+
+    public function __construct()
+    {
+        $this->serviceFieldActions = new ServiceFieldActions;
+    }
+
+
     public function index()
     {
-
-        $data = [
-            'title' => 'Users',
-            'users' => User::paginate(10),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
-        return view('dashboard.users.index', $data);
+        //dd($this->serviceFieldActions->index());
+        return view(
+            'dashboard.servicefields.index', 
+            $this->serviceFieldActions->index()
+        );
     }
 
-    public function show($user_id)
+    public function show( $driver_id )
     {
-        $user = User::find($user_id);
-
-        $data = [
-            'title' => 'User details',
-            'user' => $user,
-            'roles' => Role::all(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
-        return view('dashboard.users.show', $data);
+        return view(
+            'dashboard.servicefields.show', 
+            $this->serviceFieldActions->show($driver_id)
+        );
     }
 
-    public function update($user_id, Request $request)
+    public function update($driver_id, Request $request)
     {
 
-        if ($request->action == 'save_general') {
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
 
-            $request->validate([
-                'name' => 'required',
-                'role' => 'required',
-            ]);
-
-            $user = User::find($user_id);
-            $user->update(request()->all());
-
-            $user->setRole($request->role);
-
-            return redirect()->route('dashboard.users.index');
-        }
-
-        if ($request->action == 'save_password') {
-
-            $request->validate([
-                'password' => 'required',
-            ]);
-
-            $user = User::find($user_id);
-            $user->password = bcrypt($request->password);
-            $user->save();
-
-            return redirect()->route('dashboard.users.index');
-        }
-
-        $user = User::find($user_id);
-        $user->update(request()->all());
-
-        return redirect()->route('dashboard.users.index');
+        $data = $this->serviceFieldActions->update($driver_id, $validated);
+        return redirect()->route('dashboard.servicefields.index');
     }
 
     public function create()
     {
-
-        $data = [
-            'title' => 'Create user',
-            'roles' => Role::all(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
-        return view('dashboard.users.create', $data);
+        return view(
+            'dashboard.servicefields.create', 
+            $this->serviceFieldActions->create()
+        );
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required:email',
-            'password' => 'required',
-            'role' => 'required',
+
+        $validated = $request->validate([
+            'firstname' => 'required',
+            'middlename' => 'nullable',
+            'lastname' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'dob' => 'nullable|date',
+            'ssn' => 'nullable',
+            'hire_date' => 'nullable|date',
+            'driver_type_id' => 'required',
         ]);
 
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-
-        // Fix the bug
-        $user->password = bcrypt($request->password);
-        $user->save();
-
-        $user->setRole($request->role);
-
-        return redirect()->route('dashboard.users.index');
+        $data = $this->serviceFieldActions->store($validated);
+        return redirect()->route('dashboard.servicefields.index');
     }
 
-    public function destroy($user_id)
+    public function destroy($service)
     {
-        $user = User::find($user_id);
-        $user->delete();
-
-        return redirect()->route('dashboard.users.index');
+        $data = $this->serviceFieldActions->destroy($service);
+        
+        return redirect()->route('dashboard.servicefields.index');
     }
-
 }
