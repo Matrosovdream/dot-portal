@@ -2,11 +2,6 @@
 
 @section('content')
 
-@php
-
-//dd($driver);
-@endphp
-
     <div class="card mb-5 mb-xl-10">
         <div class="card-body pt-9 pb-0">
 
@@ -15,20 +10,44 @@
         </div>
     </div>
 
-    <div class="card mb-5 mb-xl-10">
+    @if( request()->routeIs('dashboard.drivers.show') )
 
         <div id="kt_account_settings_profile_details" class="collapse show">
-            @include('dashboard.drivers.sections.overview')
+
+            @include('dashboard.drivers.sections.overview-profile')
+
+            @include('dashboard.drivers.sections.overview-medical')
+
+            @include('dashboard.drivers.sections.overview-mvr')
+
+            @include('dashboard.drivers.sections.overview-clearing')
+
         </div>
 
+    @endif
+
+    @if( request()->routeIs('dashboard.drivers.show.profile') )
+
         <div id="kt_account_settings_profile_details" class="collapse show">
-            @include('dashboard.drivers.sections.general')
+            @include('dashboard.drivers.sections.profile')
         </div>
+
+    @endif
+
+    @if( request()->routeIs('dashboard.drivers.show.address') )
+
+        <div id="kt_account_settings_profile_details" class="collapse show">
+            @include('dashboard.drivers.sections.address')
+        </div>
+
+    @endif
+
+    @if( request()->routeIs('dashboard.drivers.show.medicalcard') )
 
         <div id="kt_account_settings_profile_details" class="collapse show">
             @include('dashboard.drivers.sections.medical')
         </div>
 
-    </div>
+    @endif
 
 @endsection

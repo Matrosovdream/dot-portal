@@ -36,9 +36,25 @@ Route::group(
         Route::get('/', [DriverController::class, 'index'])->name('dashboard.drivers.index');
         Route::get('create', [DriverController::class, 'create'])->name('dashboard.drivers.create');
         Route::post('/', [DriverController::class, 'store'])->name('dashboard.drivers.store');
-        Route::get('{service}', [DriverController::class, 'show'])->name('dashboard.drivers.show');
-        Route::post('{service}', [DriverController::class, 'update'])->name('dashboard.drivers.update');
-        Route::delete('{service}', [DriverController::class, 'destroy'])->name('dashboard.drivers.destroy');
+        Route::get('{driver}', [DriverController::class, 'show'])->name('dashboard.drivers.show');
+        Route::post('{driver}', [DriverController::class, 'update'])->name('dashboard.drivers.update');
+        Route::delete('{driver}', [DriverController::class, 'destroy'])->name('dashboard.drivers.destroy');
+
+        // Profile
+        Route::get('{driver}/profile', [DriverController::class, 'profile'])->name('dashboard.drivers.show.profile');
+        Route::post('{driver}/profile', [DriverController::class, 'updateProfile'])->name('dashboard.drivers.show.profile.update');
+
+        // Medical card
+        Route::get('{driver}/address', [DriverController::class, 'address'])->name('dashboard.drivers.show.address');
+        Route::post('{driver}/address', [DriverController::class, 'updateAddress'])->name('dashboard.drivers.show.address.update');
+
+        // Medical card
+        Route::get('{driver}/medical-card', [DriverController::class, 'medicalCard'])->name('dashboard.drivers.show.medicalcard');
+        Route::post('{driver}/medical-card', [DriverController::class, 'updateMedicalCard'])->name('dashboard.drivers.show.medicalcard.update');
+
+        // Logs
+        Route::get('{driver}/logs', [DriverController::class, 'logs'])->name('dashboard.drivers.show.logs');
+
     });
 
 
@@ -86,7 +102,17 @@ Route::group(
         });
 
         // Service fields
-        Route::get('servicefields', [ServiceFieldsController::class, 'index'])->name('dashboard.servicefields.index');
+        Route::group(['prefix' => 'servicefields'], function () {
+            Route::get('/', [ServiceFieldsController::class, 'index'])->name('dashboard.servicefields.index');
+            Route::get('create', [ServiceFieldsController::class, 'create'])->name('dashboard.servicefields.create');
+            Route::post('/', [ServiceFieldsController::class, 'store'])->name('dashboard.servicefields.store');
+            Route::get('{field_id}', [ServiceFieldsController::class, 'show'])->name('dashboard.servicefields.show');
+            Route::post('{field_id}', [ServiceFieldsController::class, 'update'])->name('dashboard.servicefields.update');
+            Route::delete('{field_id}', [ServiceFieldsController::class, 'destroy'])->name('dashboard.servicefields.destroy');
+        });
+
+
+        //Route::get('servicefields', [ServiceFieldsController::class, 'index'])->name('dashboard.servicefields.index');
 
         // Admin request
         Route::get('requests', [AdminRequestController::class, 'index'])->name('dashboard.admin.requests.index');

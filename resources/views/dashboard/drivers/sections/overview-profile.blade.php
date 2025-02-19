@@ -24,7 +24,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Phone</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['phone'] }}
+                    {{ $driver['phone'] ?? '-' }}
                 </span>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Email</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['email'] }}
+                    {{ $driver['email'] ?? '-' }}
                 </span>
             </div>
         </div>
@@ -42,7 +42,7 @@
             <label class="col-lg-4 fw-semibold text-muted">DOB</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['dob'] }}
+                    {{ $driver['dob'] ?? '-' }}
                 </span>
             </div>
         </div>
@@ -51,7 +51,7 @@
             <label class="col-lg-4 fw-semibold text-muted">SSN</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['ssn'] }}
+                    {{ $driver['ssn'] ?? '-' }}
                 </span>
             </div>
         </div>

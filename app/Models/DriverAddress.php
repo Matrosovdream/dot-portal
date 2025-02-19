@@ -16,7 +16,8 @@ class DriverAddress extends Model
     
     protected $fillable = [
         'item_id',
-        'address',
+        'address1',
+        'address2',
         'city',
         'state_id',
         'zip',

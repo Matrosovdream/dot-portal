@@ -1,15 +1,15 @@
 <?php
 namespace App\References;
 
-class ProductReferences {
+class ServiceReferences {
 
-    public static function userFields() {
+    public static function serviceFields() {
 
         return [
             [
                 'title' => "When do you arrive at the country destination?",
                 'slug' => "arrival_date",
-                'entity' => "order",
+                'entity' => "service",
                 'type' => "date",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -24,7 +24,7 @@ class ProductReferences {
             [
                 'title' => "Which airport do you arrive?",
                 'slug' => "destination_airport",
-                'entity' => "order",
+                'entity' => "service",
                 'type' => "reference",
                 'placeholder' => "",
                 'tooltip' => "If your arrival point isn't listed, we can't process your request.",
@@ -38,7 +38,7 @@ class ProductReferences {
             [
                 'title' => "Your full name",
                 'slug' => "full_name",
-                'entity' => "order",
+                'entity' => "service",
                 'type' => "text",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -48,12 +48,11 @@ class ProductReferences {
                 'default' => true,
                 'section' => "trip",
                 'icon' => 'c_user.svg',
-                'is_fullname' => true
             ],
             [
                 'title' => "Phone number",
                 'slug' => "phone_number",
-                'entity' => "order",
+                'entity' => "service",
                 'type' => "phone",
                 'placeholder' => "",
                 'tooltip' => "",
@@ -63,12 +62,11 @@ class ProductReferences {
                 'default' => true,
                 'section' => "trip",
                 'icon' => 'c_call.svg',
-                'is_phone' => true
             ],
             [
                 'title' => "Email address",
                 'slug' => "email",
-                'entity' => "order",
+                'entity' => "service",
                 'type' => "email",
                 'placeholder' => "",
                 'tooltip' => "We use this to create your account and send you updates about your application.",
@@ -78,7 +76,6 @@ class ProductReferences {
                 'default' => true,
                 'section' => "trip",
                 'icon' => 'c_mail.svg',
-                'is_email' => true
             ],
         ];
 
