@@ -49,7 +49,6 @@ abstract class AbstractRepo {
 
     public function update($id, $data)
     {
-        //$data = $this->validate($data);
         $item = $this->model->find($id);
         $item->update($data);
         return $this->mapItem($item);

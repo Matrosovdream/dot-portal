@@ -24,9 +24,9 @@ class RefCountryStateRepo extends AbstractRepo
     {
         $res = [
             'id' => $item->id,
-            'title' => $item->title,
-            'slug' => $item->slug,
-            'order' => $item->order,
+            'name' => $item->name,
+            'code' => $item->code,
+            'country_id' => $item->country_id,
             'Model' => $item
         ];
         return $res;

@@ -3,27 +3,31 @@
     $sections = [
         'overview' => [
             'title' => 'Overview',
-            'url' => 'account/overview.html',
+            'url' => route('dashboard.drivers.show', $driver['id']),
         ],
         'general' => [
             'title' => 'Profile information',
-            'url' => 'account/overview.html',
+            'url' => route('dashboard.drivers.show.profile', $driver['id']),
+        ],
+        'address' => [
+            'title' => 'Address',
+            'url' => route('dashboard.drivers.show.address', $driver['id']),
         ],
         'medical' => [
             'title' => 'Medical card',
-            'url' => 'account/settings.html',
+            'url' => route('dashboard.drivers.show.medicalcard', $driver['id']),
         ],
-        'mvr' => [
+        /*'mvr' => [
             'title' => 'MVR',
             'url' => 'account/security.html',
         ],
         'clearing' => [
             'title' => 'Clearing house',
             'url' => 'account/activity.html',
-        ],
+        ],*/
         'logs' => [
             'title' => 'Logs',
-            'url' => 'account/logs.html',
+            'url' => route('dashboard.drivers.show.logs', $driver['id']),
         ],
     ];
 
@@ -48,7 +52,7 @@
 
                 <div class="d-flex align-items-center mb-2">
                     <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">
-                        {{ $driver['firstname'] }} {{ $driver['lastname'] }}
+                        {{ $driver['firstname'] ?? '' }} {{ $driver['lastname'] ?? '' }}
                     </a>
                     <a href="#">
                         <i class="ki-duotone ki-verify fs-1 text-primary">
@@ -72,14 +76,14 @@
                             <span class="path1"></span>
                             <span class="path2"></span>
                         </i>
-                        {{ $driver['address']['city'] }}, {{ $driver['address']['zip'] }}
+                        {{ $driver['address']['city'] ?? '' }}, {{ $driver['address']['zip'] ?? '' }}
                     </a>
                     <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary mb-2">
                         <i class="ki-duotone ki-sms fs-4 me-1">
                             <span class="path1"></span>
                             <span class="path2"></span>
                         </i>
-                        {{ $driver['email'] }}
+                        {{ $driver['email'] ?? '' }}
                     </a>
                 </div>
 
@@ -200,7 +204,12 @@
 
     @foreach ($sections as $key => $section)
         <li class="nav-item">
-            <a class="nav-link text-active-primary py-5" href="{{ $section['url'] }}">
+            <a 
+                class="nav-link text-active-primary py-5 
+                {{ request()->url() == $section['url'] ? 'active' : '' }}
+                " 
+                href="{{ $section['url'] }}"
+                >
                 {{ $section['title'] }}
             </a>
         </li>

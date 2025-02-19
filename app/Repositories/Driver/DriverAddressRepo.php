@@ -31,8 +31,8 @@ class DriverAddressRepo extends AbstractRepo
 
         $res = [
             'id' => $item->id,
-            'address1' => $item->address_1,
-            'address2' => $item->address_2,
+            'address1' => $item->address1,
+            'address2' => $item->address2,
             'city' => $item->city,
             'state_id' => $item->state_id,
             'zip' => $item->zip,
