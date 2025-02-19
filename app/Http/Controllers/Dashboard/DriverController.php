@@ -104,6 +104,28 @@ class DriverController extends Controller
         return redirect()->route('dashboard.drivers.show.profile', $driver_id);
     }
 
+    public function license($driver_id)
+    {
+        return view(
+            'dashboard.drivers.show', 
+            $this->driverUserActions->license($driver_id)
+        );
+    }
+
+    public function updateLicense($driver_id, Request $request)
+    {
+
+        $validated = $request->validate([
+            'endorsement_id' => 'nullable',
+            'license_number' => 'nullable',
+            'expiration_date' => 'nullable',
+            'state_id' => 'nullable',
+        ]);
+
+        $data = $this->driverUserActions->updateLicense($driver_id, $validated);
+        return redirect()->route('dashboard.drivers.show.license', $driver_id);
+    }
+
     public function medicalCard($driver_id)
     {
         return view(

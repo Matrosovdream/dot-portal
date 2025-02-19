@@ -5,7 +5,7 @@
             <h3 class="fw-bold m-0">Medical card</h3>
         </div>
 
-        <a href="account/settings.html" class="btn btn-sm btn-primary align-self-center">Edit medical card</a>
+        <a href="{{ route('dashboard.drivers.show.medicalcard', $driver['id']) }}" class="btn btn-sm btn-primary align-self-center">Edit medical card</a>
 
     </div>
 

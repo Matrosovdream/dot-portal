@@ -9,6 +9,10 @@
             'title' => 'Profile information',
             'url' => route('dashboard.drivers.show.profile', $driver['id']),
         ],
+        'license' => [
+            'title' => 'Driver license',
+            'url' => route('dashboard.drivers.show.license', $driver['id']),
+        ],
         'address' => [
             'title' => 'Address',
             'url' => route('dashboard.drivers.show.address', $driver['id']),

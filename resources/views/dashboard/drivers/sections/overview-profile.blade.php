@@ -5,7 +5,7 @@
             <h3 class="fw-bold m-0">Profile Details</h3>
         </div>
 
-        <a href="account/settings.html" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
+        <a href="{{ route('dashboard.drivers.show.profile', $driver['id']) }}" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
 
     </div>
 

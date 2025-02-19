@@ -16,6 +16,8 @@
 
             @include('dashboard.drivers.sections.overview-profile')
 
+            @include('dashboard.drivers.sections.overview-license')
+
             @include('dashboard.drivers.sections.overview-medical')
 
             @include('dashboard.drivers.sections.overview-mvr')
@@ -30,6 +32,14 @@
 
         <div id="kt_account_settings_profile_details" class="collapse show">
             @include('dashboard.drivers.sections.profile')
+        </div>
+
+    @endif
+
+    @if( request()->routeIs('dashboard.drivers.show.license') )
+
+        <div id="kt_account_settings_profile_details" class="collapse show">
+            @include('dashboard.drivers.sections.license')
         </div>
 
     @endif
