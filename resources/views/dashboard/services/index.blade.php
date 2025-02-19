@@ -20,7 +20,7 @@
                     <span class="path2"></span>
                 </i>
                 <input type="text" data-kt-ecommerce-product-filter="search"
-                    class="form-control form-control-solid w-250px ps-12" placeholder="Search Users">
+                    class="form-control form-control-solid w-250px ps-12" placeholder="Search Services">
             </div>
         </div>
     </div>
@@ -37,13 +37,14 @@
                             </div>
                         </th>
                         <th class="min-w-200px">Name</th>
+                        <th class="min-w-200px">Price</th>
                         <th class="min-w-200px text-center">Added</th>
                         <th class="min-w-200px text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
 
-                    @foreach($services as $service)
+                    @foreach($services['items'] as $service)
 
                         <tr>
                             <td>
@@ -52,14 +53,17 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ route('dashboard.services.show', $service->id) }}"
+                                <a href="{{ route('dashboard.services.show', $service['id']) }}"
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
-                                    {{ $service->name }}
+                                    {{ $service['name'] }}
                                 </a>
                             </td>
                             <td class="text-center pe-0">
-                                {{ $service->created_at->format('d/m/Y') }}
+                                {{ $service['price'] }} $
+                            </td>
+                            <td class="text-center pe-0">
+                                {{ $service['Model']->created_at->format('d/m/Y') }}
                             </td>
                             <td class="text-center">
                                 <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
@@ -70,12 +74,12 @@
                                     data-kt-menu="true">
 
                                     <div class="menu-item px-3">
-                                        <a href="{{ route('dashboard.services.show', $service->id) }}"
+                                        <a href="{{ route('dashboard.services.show', $service['id']) }}"
                                             class="menu-link px-3">Edit</a>
                                     </div>
 
                                     <div class="menu-item px-3">
-                                        <form action="{{ route('dashboard.services.destroy', $service->id) }}" method="POST">
+                                        <form action="{{ route('dashboard.services.destroy', $service['id']) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="menu-link px-3" type="submit">
@@ -95,7 +99,7 @@
 
 
         <div id="" class="row">
-            {{ $services->links('dashboard.includes.pagination.default') }}
+            {{ $services['Model']->links('dashboard.includes.pagination.default') }}
         </div>
 
     </div>

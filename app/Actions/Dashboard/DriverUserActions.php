@@ -3,28 +3,39 @@ namespace App\Actions\Dashboard;
 
 use App\Helpers\adminSettingsHelper;
 use App\Repositories\Driver\DriverRepo;
+use App\Repositories\Driver\DriverLicenseRepo;
 use App\Repositories\Driver\DriverAddressRepo;
 use App\Repositories\Driver\DriverMedicalCardRepo;
 use App\Repositories\References\RefDriverTypeRepo;
 use App\Repositories\References\RefCountryStateRepo;
+use App\Repositories\References\RefDriverLicenseTypeRepo;
+use App\Repositories\References\RefDriverLicenseEndrsRepo;
+
 
 class DriverUserActions {
 
     private $driverRepo;
+    private $driverLicenseRepo;
     private $driverAddressRepo;
     private $driverMedicalCardRepo;
     private $refDriverTypeRepo;
     private $refStateRepo;
+    private $refDriverLicenseTypeRepo;
+    private $refDriverLicenseEndrsRepo;
 
     public function __construct()
     {
         $this->driverRepo = new DriverRepo();
+        $this->driverLicenseRepo = new DriverLicenseRepo();
         $this->driverAddressRepo = new DriverAddressRepo();
         $this->driverMedicalCardRepo = new DriverMedicalCardRepo();
 
         // References
         $this->refDriverTypeRepo = new RefDriverTypeRepo();
         $this->refStateRepo = new RefCountryStateRepo();
+        $this->refDriverLicenseTypeRepo = new RefDriverLicenseTypeRepo();
+        $this->refDriverLicenseEndrsRepo = new RefDriverLicenseEndrsRepo();
+
     }
 
     public function index()
@@ -114,6 +125,35 @@ class DriverUserActions {
         return $data;
     }
 
+    public function license($driver_id)
+    {
+        $driver = $this->driverRepo->getByID($driver_id);
+
+        $data = [
+            'title' => 'Driver license',
+            'driver' => $driver,
+            'references' => $this->getReferences(),
+            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+        ];
+
+        return $data;
+    }
+
+    public function updateLicense($driver_id, $request)
+    {
+        $driver = $this->driverRepo->getByID($driver_id);
+
+        // If isset license
+        if ( $driver['license'] ) {
+            $data = $this->driverLicenseRepo->update($driver['license']['id'], $request);
+        } else {
+            $request['driver_id'] = $driver_id;
+            $data = $this->driverLicenseRepo->create($request);
+        }
+
+        return $data;
+    }
+
     public function address($driver_id)
     {
         $driver = $this->driverRepo->getByID($driver_id);
@@ -192,6 +232,7 @@ class DriverUserActions {
         $references = [
             'driverType' => $this->refDriverTypeRepo->getAll([], $paginate=100),
             'state' => $this->refStateRepo->getAll([], $paginate=100),
+            'licenseEndrs' => $this->refDriverLicenseEndrsRepo->getAll([], $paginate=100),
         ];
 
         return $references;

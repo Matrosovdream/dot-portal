@@ -18,14 +18,14 @@ class ServiceAdminActions {
     {
 
         // Get drivers by user
-        $services = $this->serviceRepo->getUserDrivers( 
-            auth()->user()->id, 
+        $services = $this->serviceRepo->getAll( 
+            [], 
             $paginate = 10 
         );
 
         $data = [
             'title' => 'Services',
-            'drivers' => $services,
+            'services' => $services,
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 

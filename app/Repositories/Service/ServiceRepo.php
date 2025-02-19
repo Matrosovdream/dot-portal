@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\Driver;
+namespace App\Repositories\Service;
 
 use App\Repositories\AbstractRepo;
 use App\Models\Service;
@@ -10,10 +10,7 @@ class ServiceRepo extends AbstractRepo
 
     protected $model;
 
-    protected $fields = [
-        'name' => [ 'type' => 'string', 'required' => true ],
-        'user_id' => [ 'type' => 'integer', 'required' => true ],
-    ];
+    protected $fields = [];
 
     public function __construct()
     {
@@ -22,13 +19,14 @@ class ServiceRepo extends AbstractRepo
 
     public function mapItem($item)
     {
-        $res = [
+        return [
             'id' => $item->id,
             'name' => $item->name,
-            'user_id' => $item->user_id,
+            'slug' => $item->slug,
+            'description' => $item->description,
+            'price' => $item->price,
             'Model' => $item
         ];
-        return $res;
     }
 
 }
