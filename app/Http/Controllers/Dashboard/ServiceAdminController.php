@@ -4,16 +4,16 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Actions\Dashboard\ServiceAdminActions;
-use App\Models\Service;
 
-class ServiceController extends Controller
+
+class ServiceAdminController extends Controller
 {
 
     private $serviceAdminActions;
 
-    public function __construct(ServiceAdminActions $serviceAdminActions)
+    public function __construct()
     {
-        $this->serviceAdminActions = $serviceAdminActions;
+        $this->serviceAdminActions = new ServiceAdminActions();
     }
 
     public function index()
@@ -37,8 +37,8 @@ class ServiceController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
+            'description' => 'nullable',
+            'price' => 'nullable',
         ]);
 
         $data = $this->serviceAdminActions->update($service_id, $request);
@@ -59,8 +59,8 @@ class ServiceController extends Controller
 
         $request->validate([
             'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
+            'description' => 'nullable',
+            'price' => 'nullable',
         ]);
 
         $data = $this->serviceAdminActions->store($request);

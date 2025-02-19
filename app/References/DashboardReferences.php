@@ -121,7 +121,7 @@ class DashboardReferences {
                     ),
                 ),
             ),
-            /*array(
+            array(
                 'title' => 'Service request',
                 'url' => '',
                 'icon' => 'ki-request',
@@ -134,7 +134,6 @@ class DashboardReferences {
                     ),
                 ),
             ),
-            */
         );
 
     }
