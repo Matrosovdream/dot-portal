@@ -115,9 +115,15 @@ Route::group(
                 Route::delete('{field_id}', [ServiceFieldsController::class, 'destroy'])->name('dashboard.servicefields.destroy');
             });
 
+            Route::group(['prefix' => 'servicegroups'], function () {
+                Route::get('/', [ServiceGroupsController::class, 'index'])->name('dashboard.servicegroups.index');
+                Route::get('create', [ServiceGroupsController::class, 'create'])->name('dashboard.servicefields.create');
+                Route::post('/', [ServiceGroupsController::class, 'store'])->name('dashboard.servicefields.store');
+                Route::get('{group_id}', [ServiceGroupsController::class, 'show'])->name('dashboard.servicefields.show');
+                Route::post('{group_id}', [ServiceGroupsController::class, 'update'])->name('dashboard.servicefields.update');
+                Route::delete('{group_id}', [ServiceGroupsController::class, 'destroy'])->name('dashboard.servicefields.destroy');
+            });
 
-            //Route::get('servicefields', [ServiceFieldsController::class, 'index'])->name('dashboard.servicefields.index');
-    
             // Admin request
             Route::get('requests', [AdminRequestController::class, 'index'])->name('dashboard.admin.requests.index');
 
