@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -29,6 +28,27 @@ return new class extends Migration
             $table->text('value')->nullable();
         });
 
+        Schema::create('service_fields', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('field_id')->on('order_fields');
+            $table->foreignId('service_id')->on('services');
+            $table->string('entity');
+            $table->string('section')->nullable();
+            $table->string('placeholder')->nullable();
+            $table->boolean('required')->default(false);
+            $table->string('default_value')->nullable();
+            $table->string('classes')->nullable();
+            $table->timestamps();
+        });
+
+        // Service groups
+        Schema::create('service_groups', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('service_id')->on('services');
+            $table->foreignId('group_id')->on('ref_service_groups');
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -38,5 +58,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('services');
         Schema::dropIfExists('service_meta');
+        Schema::dropIfExists('service_fields');
+        Schema::dropIfExists('service_groups');
     }
 };

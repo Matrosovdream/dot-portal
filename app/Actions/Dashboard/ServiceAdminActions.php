@@ -34,11 +34,11 @@ class ServiceAdminActions {
 
     public function show($service_id)
     {
-        $driver = $this->serviceRepo->getByID($service_id);
+        $service = $this->serviceRepo->getByID($service_id);
 
         $data = [
             'title' => 'Service details',
-            'driver' => $driver,
+            'service' => $service,
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 

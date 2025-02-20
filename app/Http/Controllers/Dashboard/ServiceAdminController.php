@@ -57,13 +57,14 @@ class ServiceAdminController extends Controller
     public function store(Request $request)
     {
 
-        $request->validate([
+        $validated = $request->validate([
             'name' => 'required',
+            'slug' => 'required',
             'description' => 'nullable',
             'price' => 'nullable',
         ]);
 
-        $data = $this->serviceAdminActions->store($request);
+        $data = $this->serviceAdminActions->store($validated);
 
         return redirect()->route('dashboard.services.index');
     }
