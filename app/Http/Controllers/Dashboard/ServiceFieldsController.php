@@ -37,11 +37,23 @@ class ServiceFieldsController extends Controller
     {
 
         $validated = $request->validate([
-            'name' => 'required',
+            'title' => 'required',
+            'slug' => 'required',
+            'entity' => 'nullable',
+            'type' => 'nullable',
+            'section' => 'nullable',
+            'placeholder' => 'nullable',
+            'tooltip' => 'nullable',
+            'description' => 'nullable',
+            'default_value' => 'nullable',
+            'reference_code' => 'nullable',
+            'icon' => 'nullable',
+            'default' => 'nullable',
+            'classes' => 'nullable',
         ]);
 
         $data = $this->serviceFieldActions->update($driver_id, $validated);
-        return redirect()->route('dashboard.servicefields.index');
+        return redirect()->back();
     }
 
     public function create()
@@ -56,15 +68,19 @@ class ServiceFieldsController extends Controller
     {
 
         $validated = $request->validate([
-            'firstname' => 'required',
-            'middlename' => 'nullable',
-            'lastname' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'dob' => 'nullable|date',
-            'ssn' => 'nullable',
-            'hire_date' => 'nullable|date',
-            'driver_type_id' => 'required',
+            'title' => 'required',
+            'slug' => 'required',
+            'entity' => 'nullable',
+            'type' => 'nullable',
+            'section' => 'nullable',
+            'placeholder' => 'nullable',
+            'tooltip' => 'nullable',
+            'description' => 'nullable',
+            'default_value' => 'nullable',
+            'reference_code' => 'nullable',
+            'icon' => 'nullable',
+            'default' => 'nullable',
+            'classes' => 'nullable',
         ]);
 
         $data = $this->serviceFieldActions->store($validated);

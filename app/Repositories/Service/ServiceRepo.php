@@ -17,6 +17,13 @@ class ServiceRepo extends AbstractRepo
         $this->model = new Service();
     }
 
+    public function beforeCreate( $data ) {
+
+        $data['status_id'] = 1;
+        return $data;
+
+    }
+
     public function mapItem($item)
     {
         return [

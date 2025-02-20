@@ -78,5 +78,6 @@ return new class extends Migration
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('roles');
         Schema::dropIfExists('user_roles');
+        Schema::dropIfExists('user_company');
     }
 };

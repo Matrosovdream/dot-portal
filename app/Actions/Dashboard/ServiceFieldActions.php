@@ -63,7 +63,6 @@ class ServiceFieldActions {
     public function store($request)
     {
         $data = $this->formFieldRepo->create($request);
-
         return $data;
     }
 
