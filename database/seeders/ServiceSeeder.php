@@ -15,9 +15,9 @@ class ServiceSeeder extends Seeder
     {
         
         $services = [
-            ['name' => 'MCS-150 Update', 'slug' => 'msc-150-update', 'description' => 'Service 1 description', 'price' => 50, 'status_id' => 1],
-            ['name' => 'UCR Renewal', 'slug' => 'ucr-renewel', 'description' => 'Service 2 description', 'price' => 70, 'status_id' => 1],
-            ['name' => 'MVR Check', 'slug' => 'mvr-check', 'description' => 'Service 3 description', 'price' => 90, 'status_id' => 1],
+            ['name' => 'MCS-150 Update', 'slug' => 'msc-150-update', 'description' => 'Service 1 description', 'price' => 50, 'status_id' => 1, 'group_id' => 1],
+            ['name' => 'UCR Renewal', 'slug' => 'ucr-renewel', 'description' => 'Service 2 description', 'price' => 70, 'status_id' => 1, 'group_id' => 1],
+            ['name' => 'MVR Check', 'slug' => 'mvr-check', 'description' => 'Service 3 description', 'price' => 90, 'status_id' => 1, 'group_id' => 2],
         ];
         
         foreach ($services as $service) {

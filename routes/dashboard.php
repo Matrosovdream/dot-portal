@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\NotificationsController;
 use App\Http\Controllers\Dashboard\NotificationsAdminController;
 use App\Http\Controllers\Dashboard\DriverController;
 use App\Http\Controllers\Dashboard\SubscriptionUserController;
+use App\Http\Controllers\Dashboard\ServiceGroupsController;
 
 
 Route::group(
@@ -117,11 +118,11 @@ Route::group(
 
             Route::group(['prefix' => 'servicegroups'], function () {
                 Route::get('/', [ServiceGroupsController::class, 'index'])->name('dashboard.servicegroups.index');
-                Route::get('create', [ServiceGroupsController::class, 'create'])->name('dashboard.servicefields.create');
-                Route::post('/', [ServiceGroupsController::class, 'store'])->name('dashboard.servicefields.store');
-                Route::get('{group_id}', [ServiceGroupsController::class, 'show'])->name('dashboard.servicefields.show');
-                Route::post('{group_id}', [ServiceGroupsController::class, 'update'])->name('dashboard.servicefields.update');
-                Route::delete('{group_id}', [ServiceGroupsController::class, 'destroy'])->name('dashboard.servicefields.destroy');
+                Route::get('create', [ServiceGroupsController::class, 'create'])->name('dashboard.servicegroups.create');
+                Route::post('/', [ServiceGroupsController::class, 'store'])->name('dashboard.servicegroups.store');
+                Route::get('{group_id}', [ServiceGroupsController::class, 'show'])->name('dashboard.servicegroups.show');
+                Route::post('{group_id}', [ServiceGroupsController::class, 'update'])->name('dashboard.servicegroups.update');
+                Route::delete('{group_id}', [ServiceGroupsController::class, 'destroy'])->name('dashboard.servicegroups.destroy');
             });
 
             // Admin request

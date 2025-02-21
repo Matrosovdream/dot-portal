@@ -93,7 +93,7 @@ class DriverRepo extends AbstractRepo
 
     public function mapRelations($item)
     {
-//dd($item->getRelations());
+
         $res = [
             'user' => $this->userRepo->mapItem( $item['user']->first() ),
             'history' => $this->historyRepo->mapItem( $item['history']->first() ),

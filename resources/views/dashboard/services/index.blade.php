@@ -38,7 +38,7 @@
                         </th>
                         <th class="min-w-200px">Name</th>
                         <th class="min-w-200px">Price</th>
-                        <th class="min-w-200px text-center">Added</th>
+                        <th class="min-w-200px">Group</th>
                         <th class="min-w-200px text-center">Actions</th>
                     </tr>
                 </thead>
@@ -59,11 +59,11 @@
                                     {{ $service['name'] }}
                                 </a>
                             </td>
-                            <td class="text-center pe-0">
+                            <td class="pe-0">
                                 {{ $service['price'] }} $
                             </td>
-                            <td class="text-center pe-0">
-                                {{ $service['Model']->created_at->format('d/m/Y') }}
+                            <td class="pe-0">
+                                {{ $service['group']['name'] ?? '-' }}
                             </td>
                             <td class="text-center">
                                 <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"

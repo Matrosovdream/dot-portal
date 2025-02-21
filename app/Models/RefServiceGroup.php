@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RefServiceGroups extends Model
+class RefServiceGroup extends Model
 {
     
     protected $table = 'ref_service_groups';
