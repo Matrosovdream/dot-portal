@@ -2,7 +2,7 @@
 
 @section('content')
 
-    <form class="form" method="POST" action="{{ route('dashboard.services.store') }}" id="kt_ecommerce_customer_profile">
+    <form class="form" method="POST" action="{{ route('dashboard.servicegroups.update', $group['id']) }}">
         @csrf
 
         <div class="d-flex flex-column flex-xl-row">
@@ -12,8 +12,7 @@
                     <div class="card-body pt-5">
 
                         <div class="d-flex flex-stack fs-4 py-3">
-                            <div class="fw-bold">Create new service</div>
-
+                            <div class="fw-bold">{{ $title }}</div>
                         </div>
 
                     </div>
@@ -23,11 +22,15 @@
 
             <div class="flex-lg-row-fluid ms-lg-15">
 
+                @foreach($errors->all() as $error)
+                    <div class="alert alert-danger">{{ $error }}</div>
+                @endforeach
+
                 <ul class="nav nav-custom nav-tabs nav-line-tabs nav-line-tabs-2x border-0 fs-4 fw-semibold mb-8">
 
                     <li class="nav-item">
                         <a class="nav-link text-active-primary pb-4 active" data-bs-toggle="tab"
-                            href="#kt_ecommerce_customer_general">General Settings</a>
+                            href="#kt_ecommerce_customer_general">General</a>
                     </li>
 
                 </ul>
@@ -37,57 +40,49 @@
                     <div class="tab-pane fade active show" id="kt_ecommerce_customer_general" role="tabpanel">
                         <div class="card pt-4 mb-6 mb-xl-9">
 
-                            <div class="card-header border-0">
-                                <div class="card-title">
-                                    <h2>Profile</h2>
-                                </div>
-                            </div>
-
-
                             <div class="card-body pt-0 pb-5">
 
-                                @include('dashboard.includes.errors.default')
-
                                 <input type="hidden" name="action" value="save_general" />
-
-                                <!-- Groups -->
+                                
                                 <div class="fv-row mb-7">
-                                    <label class="fs-6 fw-semibold mb-2 required">Group</label>
-                                    <select name="group_id" class="form-select form-select-solid" data-control="select2"
-                                        data-placeholder="Select a group">
-                                        <option></option>
-                                        @foreach ($references['serviceGroups']['items'] as $group)
-                                            <option 
-                                                value="{{ $group['id'] }}"
-                                                {{ old('group_id') == $group['id'] ? 'selected' : '' }}
-                                                >{{ $group['name'] }}</option>
-                                        @endforeach
-                                    </select>
-                                </div>
-
-                                <div class="fv-row mb-7">
-                                    <label class="fs-6 fw-semibold mb-2 required">Name</label>
-                                    <input type="text" name="name" value="{{ old('name') }}"
+                                    <label class="fs-6 fw-semibold mb-2 required">Title</label>
+                                    <input type="name" name="name" value="{{ $group['name'] }}"
                                         class="form-control form-control-solid" placeholder="" />
                                 </div>
 
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Slug</label>
-                                    <input type="text" name="slug" value="{{ old('slug') }}"
+                                    <input type="text" name="slug" value="{{ $group['slug'] }}"
                                         class="form-control form-control-solid" placeholder="" />
                                 </div>
 
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Description</label>
-                                    <textarea name="description" class="form-control form-control-solid"
-                                        placeholder="">{{ old('description') }}</textarea>
-                                </div>
-
-                                <div class="fv-row mb-7">
-                                    <label class="fs-6 fw-semibold mb-2 required">Price</label>
-                                    <input type="text" name="price" value="{{ old('price') }}"
+                                    <input type="text" name="description" value="{{ $group['description'] }}"
                                         class="form-control form-control-solid" placeholder="" />
                                 </div>
+
+                                <div class="row mb-0">
+  
+                                    <label class="col-lg-4 col-form-label fw-semibold fs-6">Is active</label>
+
+                                    <div class="col-lg-8 d-flex align-items-center">
+                                        <div class="form-check form-check-solid form-switch form-check-custom fv-row">
+                                            <input 
+                                                class="form-check-input w-45px h-30px" 
+                                                type="checkbox"
+                                                name="is_active"
+                                                id="is_active" 
+                                                value="1"
+                                                {{ $group['is_active'] ? 'checked' : '' }}
+                                                />
+                                            <label class="form-check-label" for="allowmarketing"></label>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+     
 
                                 <div class="d-flex justify-content-end">
 
@@ -99,7 +94,6 @@
                                     </button>
 
                                 </div>
-
 
                             </div>
 

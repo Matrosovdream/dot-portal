@@ -2,7 +2,7 @@
 
 @section('toolbar-buttons')
 
-    <a href="{{ route('dashboard.servicefields.create') }}" class="btn btn-sm fw-bold btn-primary">
+    <a href="{{ route('dashboard.servicegroups.create') }}" class="btn btn-sm fw-bold btn-primary">
         New field
     </a>
 
@@ -20,7 +20,7 @@
                     <span class="path2"></span>
                 </i>
                 <input type="text" data-kt-ecommerce-product-filter="search"
-                    class="form-control form-control-solid w-250px ps-12" placeholder="Search fields">
+                    class="form-control form-control-solid w-250px ps-12" placeholder="Search groups">
             </div>
         </div>
     </div>
@@ -36,14 +36,16 @@
                                     data-kt-check-target="#kt_ecommerce_products_table .form-check-input" value="1" />
                             </div>
                         </th>
-                        <th class="min-w-200px">Title</th>
-                        <th class="min-w-200px text-center">Type</th>
+                        <th class="min-w-200px">Name</th>
+                        <th class="min-w-200px text-center">Slug</th>
+                        <th class="min-w-200px text-center">Description</th>
+                        <th class="min-w-200px text-center">Is active</th>
                         <th class="min-w-200px text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
 
-                    @foreach($fields['items'] as $field)
+                    @foreach($groups['items'] as $group)
 
                         <tr>
                             <td>
@@ -52,15 +54,25 @@
                                 </div>
                             </td>
                             <td>
-                                <a href="{{ route('dashboard.servicefields.show', $field['id']) }}"
+                                <a href="{{ route('dashboard.servicegroups.show', $group['id']) }}"
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
-                                    {{ $field['title'] }}
+                                    {{ $group['name'] }}
                                 </a>
                             </td>
                             <td class="text-center pe-0">
                                 <span class="text-gray-800 fw-bold d-block fs-6">
-                                    {{ $field['type'] }}
+                                    {{ $group['slug'] }}
+                                </span>
+                            </td>
+                            <td class="text-center pe-0">
+                                <span class="text-gray-800 fw-bold d-block fs-6">
+                                    {{ $group['description'] }}
+                                </span>
+                            </td>
+                            <td class="text-center pe-0">
+                                <span class="text-gray-800 fw-bold d-block fs-6">
+                                    {{ $group['is_active'] ? 'Yes' : 'No' }}
                                 </span>
                             </td>
                             <td class="text-center">
@@ -72,12 +84,12 @@
                                     data-kt-menu="true">
 
                                     <div class="menu-item px-3">
-                                        <a href="{{ route('dashboard.servicefields.show', $field['id']) }}"
+                                        <a href="{{ route('dashboard.servicegroups.show', $group['id']) }}"
                                             class="menu-link px-3">Edit</a>
                                     </div>
 
                                     <div class="menu-item px-3">
-                                        <form action="{{ route('dashboard.servicefields.destroy', $field['id']) }}" method="POST">
+                                        <form action="{{ route('dashboard.servicegroups.destroy', $group['id']) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
                                             <button class="menu-link px-3" type="submit">
@@ -97,7 +109,7 @@
 
 
         <div id="" class="row">
-            {{ $fields['Model']->links('dashboard.includes.pagination.default') }}
+            {{ $groups['Model']->links('dashboard.includes.pagination.default') }}
         </div>
 
     </div>

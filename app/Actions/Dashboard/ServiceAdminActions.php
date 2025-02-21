@@ -1,17 +1,19 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Models\Service;
 use App\Helpers\adminSettingsHelper;
 use App\Repositories\Service\ServiceRepo;
+use App\Repositories\References\RefServiceGroupRepo;
 
 class ServiceAdminActions {
 
     private $serviceRepo;
+    private $serviceGroupRepo;
 
     public function __construct()
     {
         $this->serviceRepo = new ServiceRepo();
+        $this->serviceGroupRepo = new RefServiceGroupRepo();
     }
 
     public function index()
@@ -39,6 +41,7 @@ class ServiceAdminActions {
         $data = [
             'title' => 'Service details',
             'service' => $service,
+            'references' => $this->getReferences(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
@@ -56,6 +59,7 @@ class ServiceAdminActions {
     {
         $data = [
             'title' => 'Create driver',
+            'references' => $this->getReferences(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
@@ -69,11 +73,18 @@ class ServiceAdminActions {
         return $data;
     }
 
-    public function destroy($service_id)
+    public function delete($service_id)
     {
         $data = $this->serviceRepo->delete($service_id);
 
         return $data;
+    }
+
+    public function getReferences()
+    {
+        return [
+            'serviceGroups' => $this->serviceGroupRepo->getAll([], $paginate = 10000),
+        ];
     }
 
 }
