@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('ref_service_fields');
+        Schema::dropIfExists('ref_form_fields');
     }
 };

@@ -19,8 +19,6 @@ class DashboardReferences {
                     ),
                 ),
             ),
-
-
             array(
                 'title' => 'Services',
                 'url' => '',
@@ -35,6 +33,11 @@ class DashboardReferences {
                     array(
                         'title' => 'Service fields',
                         'url' => route('dashboard.servicefields.index'),
+                        'roles' => ['admin'],
+                    ),
+                    array(
+                        'title' => 'Service groups',
+                        'url' => route('dashboard.servicegroups.index'),
                         'roles' => ['admin'],
                     ),
 

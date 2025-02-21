@@ -17,12 +17,18 @@ class Service extends Model
         'slug',
         'description', 
         'price', 
-        'status_id'
+        'status_id',
+        'group_id',
     ];
     
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function group()
+    {
+        return $this->belongsTo(RefServiceGroup::class, 'group_id');
     }
 
 }

@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             DriverLicenseTypeSeeder::class,
             DriverTypeSeeder::class,
             ReferenceFormFieldsSeeder::class,
+            ReferenceServiceGroupSeeder::class,
 
             // Services
             ServiceSeeder::class,

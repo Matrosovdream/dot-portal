@@ -66,12 +66,28 @@
 
                                 <input type="hidden" name="action" value="save_general" />
 
+                                <!-- Groups -->
+                                <div class="fv-row mb-7">
+                                    <label class="fs-6 fw-semibold mb-2 required">Group</label>
+                                    <select name="group_id" class="form-select form-select-solid" data-control="select2"
+                                        data-placeholder="Select a group">
+                                        <option></option>
+                                        @foreach ($references['serviceGroups']['items'] as $group)
+                                            <option 
+                                                value="{{ $group['id'] }}"
+                                                {{ $service['group']['id'] == $group['id'] ? 'selected' : '' }}>
+                                                {{ $group['name'] }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Name</label>
                                     <input type="text" name="name" value="{{ $service['name'] }}"
                                         class="form-control form-control-solid" placeholder="" />
                                 </div>
-
+                                
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Slug</label>
                                     <input type="text" name="slug" value="{{ $service['slug'] }}"
