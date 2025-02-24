@@ -37,6 +37,12 @@ class User extends Authenticatable
         return $this->hasOne(UserCompany::class);
     }
 
+    // Get subscriptions
+    public function subscriptions()
+    {
+        return $this->hasOne(Subscription::class);
+    }
+
     // Check if user has role admin
     public function isAdmin()
     {
