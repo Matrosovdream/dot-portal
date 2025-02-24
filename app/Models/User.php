@@ -37,6 +37,12 @@ class User extends Authenticatable
         return $this->hasOne(UserCompany::class);
     }
 
+    // User address
+    public function address()
+    {
+        return $this->hasOne(UserAddress::class);
+    }
+
     // Get subscriptions
     public function subscriptions()
     {

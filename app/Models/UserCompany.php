@@ -25,4 +25,22 @@ class UserCompany extends Model
         return $this->belongsTo(User::class);
     }
 
+    // Get company addresses
+    public function addresses()
+    {
+        return $this->hasMany(UserCompanyAddress::class);
+    }
+
+    // Get business address
+    public function businessAddress()
+    {
+        return $this->hasOne(UserCompanyAddress::class)->where('type', 'business');
+    }
+
+    // Get mailing address
+    public function mailingAddress()
+    {
+        return $this->hasOne(UserCompanyAddress::class)->where('type', 'mailing');
+    }
+
 }

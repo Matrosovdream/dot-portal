@@ -12,16 +12,16 @@ class UserSeeder extends Seeder
     public function run()
     {
         $users = [
-            ['name' => 'Admin', 'email' => 'admin@gmail.com', 'password' => '123456', 'role' => 1],
-            ['name' => 'Manager', 'email' => 'manager@gmail.com', 'password' => '123456', 'role' => 2],
-            ['name' => 'user', 'email' => 'user@gmail.com', 'password' => '123456', 'role' => 3],
+            ['firstname' => 'Admin', 'email' => 'admin@gmail.com', 'password' => '123456', 'role' => 1],
+            ['firstname' => 'Manager', 'email' => 'manager@gmail.com', 'password' => '123456', 'role' => 2],
+            ['firstname' => 'user', 'email' => 'user@gmail.com', 'password' => '123456', 'role' => 3],
         ];
 
         foreach ($users as $userData) {
 
             $user = User::firstOrCreate(
                 ['email' => $userData['email']], // Check by email
-                ['name' => $userData['name'], 'password' => Hash::make($userData['password'])] // Create if not found
+                ['firstname' => $userData['firstname'], 'password' => Hash::make($userData['password'])] // Create if not found
             );
 
             // It fixes a bug
