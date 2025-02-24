@@ -10,10 +10,7 @@ class SubscriptionRepo extends AbstractRepo
 
     protected $model;
 
-    protected $fields = [
-        'name' => [ 'type' => 'string', 'required' => true ],
-        'user_id' => [ 'type' => 'integer', 'required' => true ],
-    ];
+    protected $fields = [];
 
     public function __construct()
     {
@@ -27,7 +24,12 @@ class SubscriptionRepo extends AbstractRepo
 
         $res = [
             'id' => $item->id,
-            'user_id' => $item->user_id,
+            'name' => $item->name,
+            'price' => $item->price,
+            'discount' => $item->discount,
+            'duration' => $item->duration,
+            'duration_type' => $item->duration_type,
+            'duration_period' => $item->duration_period,
             'Model' => $item
         ];
         return $res;

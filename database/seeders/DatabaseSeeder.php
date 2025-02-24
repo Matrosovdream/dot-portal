@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
-use Request;
 
 class DatabaseSeeder extends Seeder
 {
@@ -20,6 +19,7 @@ class DatabaseSeeder extends Seeder
             // Users
             RoleSeeder::class,
             UserSeeder::class,
+            UserSubscriptionSeeder::class,
 
             // Referecences
             LanguageSeeder::class,
@@ -43,6 +43,9 @@ class DatabaseSeeder extends Seeder
 
             // Drivers
             DriverSeeder::class,
+
+            // Subscriptions
+            SubscriptionSeeder::class,
             
         ]);
 
