@@ -13,8 +13,11 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('firstname')->nullable();
+            $table->string('lastname')->nullable();
             $table->string('email')->unique();
+            $table->string('phone')->nullable();
+            $table->date('birthday')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_active')->default(true);
@@ -57,12 +60,33 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->on('users');
             $table->string('name')->nullable();
-            $table->string('address')->nullable();
             $table->string('phone')->nullable();
             $table->string('dot_number')->nullable();
             $table->string('mc_number')->nullable();
-            $table->text('business_address')->nullable();
-            $table->text('mailing_address')->nullable();
+            $table->timestamps();
+        });
+
+        Schema::create('user_company_address', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('item_id')->on('users');
+            $table->string('type')->nullable();
+            $table->string('address1')->nullable();
+            $table->string('address2')->nullable();
+            $table->string('city')->nullable();
+            $table->foreignId('state_id')->on('ref_country_states')->nullable();
+            $table->string('zip')->nullable();
+            $table->timestamps();
+        });
+
+
+        Schema::create('user_address', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('item_id')->on('users');
+            $table->string('address1')->nullable();
+            $table->string('address2')->nullable();
+            $table->string('city')->nullable();
+            $table->foreignId('state_id')->on('ref_country_states')->nullable();
+            $table->string('zip')->nullable();
             $table->timestamps();
         });
 
@@ -107,6 +131,8 @@ return new class extends Migration
         Schema::dropIfExists('roles');
         Schema::dropIfExists('user_roles');
         Schema::dropIfExists('user_company');
+        Schema::dropIfExists('user_company_address');
+        Schema::dropIfExists('user_address');
         Schema::dropIfExists('user_subscription');
         Schema::dropIfExists('user_subscription_payments');
     }
