@@ -66,6 +66,34 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // User subscription
+        Schema::create('user_subscription', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->on('users');
+            $table->foreignId('subscription_id')->on('subscriptions');
+            $table->float('price')->default(0);
+            $table->float('discount')->default(0);
+            $table->timestamp('start_date')->nullable();
+            $table->timestamp('end_date')->nullable();
+            $table->string('status')->nullable();
+            $table->timestamps();
+        });
+
+        // User subscription payments
+        Schema::create('user_subscription_payments', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->on('users');
+            $table->foreignId('subscription_id')->on('subscriptions');
+            $table->foreignId('user_subscription_id')->on('user_subscription');
+            $table->foreignId('payment_method_id')->on('payment_gateways');
+            $table->float('amount')->default(0);
+            $table->timestamp('payment_date')->nullable();
+            $table->string('transaction_id')->nullable();
+            $table->string('status')->nullable();
+            $table->text('notes')->nullable();
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -79,5 +107,7 @@ return new class extends Migration
         Schema::dropIfExists('roles');
         Schema::dropIfExists('user_roles');
         Schema::dropIfExists('user_company');
+        Schema::dropIfExists('user_subscription');
+        Schema::dropIfExists('user_subscription_payments');
     }
 };

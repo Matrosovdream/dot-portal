@@ -7,15 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Subscription extends Model
 {
     
-    protected $table = 'subscription';
+    protected $table = 'subscriptions';
 
     protected $fillable = [
-        'user_id',
+        'name',
+        'price',
+        'discount',
+        'duration',
+        'duration_type',
+        'duration_period',
     ];
-
-    public function user()
-    {
-        return $this->belongsTo(User::class);
-    }
 
 }
