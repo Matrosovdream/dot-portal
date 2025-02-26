@@ -2,41 +2,73 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Order;
-use App\Helpers\adminSettingsHelper;
+use Illuminate\Http\Request;
+use App\Actions\Dashboard\ProfileUserActions;
 
 
 class DashboardProfileController {
 
-    public function profile()
-    {
-        $data = [
-            'title' => 'Profile',
-            'user' => auth()->user(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
+    private $userProfileActions;
 
-        return view('dashboard.profile.index', $data);
+    public function __construct()
+    {
+        $this->userProfileActions = new ProfileUserActions();
     }
 
-    public function update()
+    public function profilePreview()
     {
-        $data = [
-            'title' => 'Update profile',
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
-
-        return view('dashboard.profile.update', $data);
+        return view(
+            'dashboard.profile.show', 
+            $this->userProfileActions->profilePreview()
+            );
     }
 
-    public function updatePassword()
+    public function profileEdit()
     {
-        $data = [
-            'title' => 'Update password',
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
-        ];
+        return view(
+            'dashboard.profile.show', 
+            $this->userProfileActions->profileEdit()
+            );
+    }
 
-        return view('dashboard.profile.update_password', $data);
+    public function profileUpdate(Request $request)
+    {
+        dd($request->all());
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'password' => 'nullable',
+            'password_confirmation' => 'nullable',
+        ]);
+
+        $data = $this->userProfileActions->profileUpdate($request);
+        
+        return redirect()->route('dashboard.profile.index');
+    }
+
+    public function companyEdit()
+    {
+        return view(
+            'dashboard.profile.show', 
+            $this->userProfileActions->companyEdit()
+            );
+    }
+
+    public function companyUpdate(Request $request)
+    {
+        dd($request->all());    
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'password' => 'nullable',
+            'password_confirmation' => 'nullable',
+        ]);
+
+        $data = $this->userProfileActions->profileUpdate($request);
+        
+        return redirect()->route('dashboard.profile.index');
     }
 
 }
