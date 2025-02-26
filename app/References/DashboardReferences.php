@@ -114,7 +114,7 @@ class DashboardReferences {
                 'childs' => array(
                     array(
                         'title' => 'Settings',
-                        'url' => route('dashboard.profile'),
+                        'url' => route('dashboard.profile.show'),
                         'roles' => ['user'],
                     ),
                     array(

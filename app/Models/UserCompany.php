@@ -28,19 +28,19 @@ class UserCompany extends Model
     // Get company addresses
     public function addresses()
     {
-        return $this->hasMany(UserCompanyAddress::class);
+        return $this->hasMany(UserCompanyAddress::class, 'item_id');
     }
 
     // Get business address
     public function businessAddress()
     {
-        return $this->hasOne(UserCompanyAddress::class)->where('type', 'business');
+        return $this->addresses()->where('type', 'business');
     }
 
     // Get mailing address
     public function mailingAddress()
     {
-        return $this->hasOne(UserCompanyAddress::class)->where('type', 'mailing');
+        return $this->addresses()->where('type', 'mailing');
     }
 
 }
