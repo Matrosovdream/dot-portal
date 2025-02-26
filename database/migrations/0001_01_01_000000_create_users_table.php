@@ -81,7 +81,7 @@ return new class extends Migration
 
         Schema::create('user_address', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('item_id')->on('users');
+            $table->foreignId('user_id')->on('users');
             $table->string('address1')->nullable();
             $table->string('address2')->nullable();
             $table->string('city')->nullable();

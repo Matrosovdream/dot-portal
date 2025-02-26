@@ -144,11 +144,13 @@ Route::group(
             });
 
             // User
-            Route::get('profile', [DashboardProfileController::class, 'profile'])->name('dashboard.profile');
+            Route::get('profile', [DashboardProfileController::class, 'profilePreview'])->name('dashboard.profile.show');
             Route::post('profile', [DashboardProfileController::class, 'updateProfile'])->name('dashboard.profile.update');
             Route::post('profile/password', [DashboardProfileController::class, 'updatePassword'])->name('dashboard.password.update');
-            Route::post('profile/destroy', [DashboardProfileController::class, 'destroy'])->name('dashboard.profile.destroy');
-
+            Route::get('profile/edit', [DashboardProfileController::class, 'profileEdit'])->name('dashboard.profile.edit');
+            Route::post('profile/edit', [DashboardProfileController::class, 'profileUpdate'])->name('dashboard.profile.update');
+            Route::get('profile/company', [DashboardProfileController::class, 'companyEdit'])->name('dashboard.profile.company');
+            Route::post('profile/company', [DashboardProfileController::class, 'companyUpdate'])->name('dashboard.company.update');
         });
 
     }
