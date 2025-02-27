@@ -39,6 +39,7 @@ class UserCompanyAddressRepo extends AbstractRepo
             'address2' => $item->address2,
             'city' => $item->city,
             'state' => $this->countryStateRepo->mapItem( $item->state ),
+            'state_id' => $item->state_id,
             'zip' => $item->zip,
             'full_address' => $this->mapFullAddress( $item ),
             'Model' => $item
@@ -54,11 +55,11 @@ class UserCompanyAddressRepo extends AbstractRepo
         }
 
         $parts = [
-            $item->address1,
-            $item->address2,
-            $item->city,
-            $item->state->name,
-            $item->zip,
+            $item->address1 ?? '',
+            $item->address2 ?? '',
+            $item->city ?? '',
+            $item->state->name ?? '',
+            $item->zip ?? '',
         ];
 
         return implode(', ', array_filter($parts));
