@@ -4,20 +4,24 @@ namespace App\Repositories\Service;
 use App\Repositories\AbstractRepo;
 use App\Models\Service;
 use App\Repositories\References\RefServiceGroupRepo;
+use App\Repositories\Service\ServiceFieldRepo;
 
 
 class ServiceRepo extends AbstractRepo
 {
 
     protected $ServiceGroupRepo;
+    protected $serviceFieldRepo;
 
     protected $model;
 
-    protected $fields = [];
+    protected $fields = ['formFields'];
 
     public function __construct()
     {
         $this->model = new Service();
+
+        $this->serviceFieldRepo = new ServiceFieldRepo();
 
         // References
         $this->ServiceGroupRepo = new RefServiceGroupRepo();
@@ -33,6 +37,9 @@ class ServiceRepo extends AbstractRepo
 
     public function mapItem($item)
     {
+        if (empty($item)) {
+            return null;
+        }
 
         return [
             'id' => $item->id,
@@ -41,6 +48,7 @@ class ServiceRepo extends AbstractRepo
             'description' => $item->description,
             'price' => $item->price,
             'group' => $this->ServiceGroupRepo->mapItem( $item->group ),
+            'formFields' => $this->serviceFieldRepo->mapItems( $item['formFields']->all() ), 
             'Model' => $item
         ];
     }
