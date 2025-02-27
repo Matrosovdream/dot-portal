@@ -65,12 +65,10 @@ abstract class AbstractRepo {
     {
 
         if( empty($items) ) { return null; }
-
+//dd($items);
         $itemsMapped = $items->getCollection()->transform(function ($item) {
             return $this->mapItem($item);
         });
-
-        //dd($itemsMapped);
 
         return [
             'items' => $itemsMapped,

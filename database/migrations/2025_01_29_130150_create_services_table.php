@@ -39,6 +39,7 @@ return new class extends Migration {
             $table->boolean('required')->default(false);
             $table->string('default_value')->nullable();
             $table->string('classes')->nullable();
+            $table->integer('order')->default(0);
             $table->timestamps();
         });
 
