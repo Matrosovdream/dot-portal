@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ServiceFields extends Model
+class ServiceField extends Model
 {
     
     protected $table = 'service_fields';
@@ -26,7 +26,7 @@ class ServiceFields extends Model
 
     public function field()
     {
-        return $this->belongsTo(ServiceFields::class);
+        return $this->belongsTo(ServiceField::class);
     }
 
 }

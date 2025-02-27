@@ -31,4 +31,9 @@ class Service extends Model
         return $this->belongsTo(RefServiceGroup::class, 'group_id');
     }
 
+    public function formFields()
+    {
+        return $this->hasMany(ServiceField::class, 'service_id');
+    }
+
 }
