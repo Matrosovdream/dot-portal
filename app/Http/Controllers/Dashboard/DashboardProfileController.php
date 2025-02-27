@@ -33,18 +33,33 @@ class DashboardProfileController {
 
     public function profileUpdate(Request $request)
     {
-        dd($request->all());
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'password' => 'nullable',
-            'password_confirmation' => 'nullable',
+
+        $validated = $request->validate([
+            'firstname' => 'nullable',
+            'lastname' => 'nullable',
+            'phone' => 'nullable',
+            'birthday' => 'nullable'
         ]);
 
-        $data = $this->userProfileActions->profileUpdate($request);
+        $data = $this->userProfileActions->profileUpdate($validated);
         
-        return redirect()->route('dashboard.profile.index');
+        return redirect()->route('dashboard.profile.edit');
+    }
+
+    public function profileAddressUpdate(Request $request)
+    {
+
+        $validated = $request->validate([
+            'address1' => 'nullable',
+            'address2' => 'nullable',
+            'city' => 'nullable',
+            'state_id' => 'nullable',
+            'zip' => 'nullable',
+        ]);
+
+        $data = $this->userProfileActions->profileAddressUpdate($validated);
+        
+        return redirect()->route('dashboard.profile.edit');
     }
 
     public function companyEdit()
@@ -57,18 +72,27 @@ class DashboardProfileController {
 
     public function companyUpdate(Request $request)
     {
-        dd($request->all());    
-        $request->validate([
-            'name' => 'required',
-            'email' => 'required|email',
-            'phone' => 'required',
-            'password' => 'nullable',
-            'password_confirmation' => 'nullable',
+  
+        $validated = $request->validate([
+            'name' => 'nullable',
+            'phone' => 'nullable',
+            'dot_number' => 'nullable',
+            'mc_number' => 'nullable',
+            'business.address1' => 'nullable',
+            'business.address2' => 'nullable',
+            'business.city' => 'nullable',
+            'business.state_id' => 'nullable',
+            'business.zip' => 'nullable',
+            'mailing.address1' => 'nullable',
+            'mailing.address2' => 'nullable',
+            'mailing.city' => 'nullable',
+            'mailing.state_id' => 'nullable',
+            'mailing.zip' => 'nullable',
         ]);
 
-        $data = $this->userProfileActions->profileUpdate($request);
+        $data = $this->userProfileActions->companyUpdate($validated);
         
-        return redirect()->route('dashboard.profile.index');
+        return redirect()->route('dashboard.profile.company');
     }
 
 }

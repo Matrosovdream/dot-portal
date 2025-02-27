@@ -34,7 +34,7 @@
 
                         <div class="col-lg-6 fv-row">
                             <input type="text" name="lastname" class="form-control form-control-lg form-control-solid"
-                                placeholder="Lastname name" value="{{ $user['lastname'] }}" />
+                                placeholder="Last name" value="{{ $user['lastname'] }}" />
                         </div>
 
                     </div>
@@ -58,7 +58,7 @@
 
                 <div class="col-lg-4 fv-row">
                     <input type="date" name="birthday" class="form-control form-control-lg form-control-solid"
-                        value="{{ $user['dob'] ?? '' }}" />
+                        value="{{ $user['birthday'] ?? '' }}" />
                 </div>
 
             </div>
@@ -66,7 +66,6 @@
         </div>
 
         <div class="card-footer d-flex justify-content-end py-6 px-9">
-            <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
             <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save
                 Changes</button>
         </div>
@@ -88,7 +87,7 @@
     </div>
 
     <form id="kt_account_profile_details_form" class="form" method="POST"
-        action="{{ route('dashboard.profile.update', $user['id']) }}" enctype="multipart/form-data">
+        action="{{ route('dashboard.profile.address.update') }}" enctype="multipart/form-data">
         @csrf
 
         <input type="hidden" name="entity" value="address">
@@ -103,7 +102,7 @@
 
                 <div class="col-lg-4 fv-row">
                     <input type="text" name="address1" class="form-control form-control-lg form-control-solid"
-                        placeholder="Address 2" value="{{ $user['address']['address1'] }}" />
+                        placeholder="Address 2" value="{{ $user['address']['address1'] ?? '' }}" />
                 </div>
 
             </div>
@@ -114,7 +113,7 @@
 
                 <div class="col-lg-4 fv-row">
                     <input type="text" name="address2" class="form-control form-control-lg form-control-solid"
-                        placeholder="Address 2" value="{{ $user['address']['address2'] }}" />
+                        placeholder="Address 2" value="{{ $user['address']['address2'] ?? '' }}" />
                 </div>
 
             </div>
@@ -125,7 +124,7 @@
 
                 <div class="col-lg-4 fv-row">
                     <input type="text" name="city" class="form-control form-control-lg form-control-solid"
-                        placeholder="City" value="{{ $user['address']['city'] }}" />
+                        placeholder="City" value="{{ $user['address']['city'] ?? '' }}" />
                 </div>
 
             </div>
@@ -137,15 +136,15 @@
                 </label>
 
                 <div class="col-lg-4 fv-row">
-                    <select name="driver_type_id" aria-label="Select a Driver type" data-control="select2"
-                        data-placeholder="Select a Driver type"
+                    <select name="state_id" aria-label="" data-control="select2"
+                        data-placeholder="Select state"
                         class="form-select form-select-solid form-select-lg fw-semibold">
                         <option value="">Select state</option>
 
                         @foreach($references['state']['items'] as $item)
                             <option 
                                 value="{{ $item['id'] }}"
-                                {{ $item['id'] == $user['address']['state']['id'] ? 'selected' : '' }}
+                                {{ $item['id'] == ($user['address']['state']['id'] ?? '') ? 'selected' : '' }}
                                 >
                                 {{ $item['name'] }}
                             </option>
@@ -158,7 +157,6 @@
         </div>
 
         <div class="card-footer d-flex justify-content-end py-6 px-9">
-            <button type="reset" class="btn btn-light btn-active-light-primary me-2">Discard</button>
             <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save
                 Changes</button>
         </div>

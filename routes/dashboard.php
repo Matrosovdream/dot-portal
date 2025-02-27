@@ -149,6 +149,7 @@ Route::group(
             Route::post('profile/password', [DashboardProfileController::class, 'updatePassword'])->name('dashboard.password.update');
             Route::get('profile/edit', [DashboardProfileController::class, 'profileEdit'])->name('dashboard.profile.edit');
             Route::post('profile/edit', [DashboardProfileController::class, 'profileUpdate'])->name('dashboard.profile.update');
+            Route::post('profile/address', [DashboardProfileController::class, 'profileAddressUpdate'])->name('dashboard.profile.address.update');
             Route::get('profile/company', [DashboardProfileController::class, 'companyEdit'])->name('dashboard.profile.company');
             Route::post('profile/company', [DashboardProfileController::class, 'companyUpdate'])->name('dashboard.company.update');
         });

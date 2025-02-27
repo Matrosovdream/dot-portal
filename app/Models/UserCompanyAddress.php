@@ -15,7 +15,7 @@ class UserCompanyAddress extends Model
         'address1',
         'address2',
         'city',
-        'state',
+        'state_id',
         'zip'
     ];
 
