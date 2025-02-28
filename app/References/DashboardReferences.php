@@ -1,6 +1,8 @@
 <?php
 namespace App\References;
 
+use App\Repositories\References\RefServiceGroupRepo;
+
 class DashboardReferences {
 
     public static function sidebarMenu() {
@@ -129,15 +131,26 @@ class DashboardReferences {
                 'url' => '',
                 'icon' => 'ki-request',
                 'roles' => ['user'],
-                'childs' => array(
-                    array(
-                        'title' => 'Some service',
-                        'url' => '/',
-                        'roles' => ['user'],
-                    ),
-                ),
+                'childs' => (new self)->getUserRequestGroups(),
             ),
         );
+
+    }
+
+    public function getUserRequestGroups( $user_id = null ) {
+
+        $urls = [];
+
+        $groups = (new RefServiceGroupRepo)->getAll([], $paginate = 1000);
+        foreach( $groups['items'] as $group ) {
+            $urls[] = array(
+                'title' => $group['name'],
+                'url' => route('dashboard.servicerequest.group', ['group' => $group['slug']]),
+                'roles' => ['user'],
+            );
+        }
+
+        return $urls;
 
     }
 
