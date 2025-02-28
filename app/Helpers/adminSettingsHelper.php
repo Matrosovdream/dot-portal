@@ -15,6 +15,8 @@ class adminSettingsHelper {
         // Set active menus
         $menu = self::setActiveMenus($menu);
 
+        //dd($menu);
+
         return $menu;
 
     }
