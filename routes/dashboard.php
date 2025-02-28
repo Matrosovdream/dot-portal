@@ -14,6 +14,7 @@ use App\Http\Controllers\Dashboard\NotificationsAdminController;
 use App\Http\Controllers\Dashboard\DriverController;
 use App\Http\Controllers\Dashboard\SubscriptionUserController;
 use App\Http\Controllers\Dashboard\ServiceGroupsController;
+use App\Http\Controllers\Dashboard\RequestUserController;
 
 
 Route::group(
@@ -153,6 +154,19 @@ Route::group(
             Route::get('profile/company', [DashboardProfileController::class, 'companyEdit'])->name('dashboard.profile.company');
             Route::post('profile/company', [DashboardProfileController::class, 'companyUpdate'])->name('dashboard.company.update');
         });
+
+        // Requests
+        Route::group(['prefix' => 'service-request'], function () {
+
+            // Groups
+            Route::get('/{group}', [RequestUserController::class, 'showGroup'])->name('dashboard.servicerequest.group');
+
+            // Others
+            Route::get('/{group}/{service}', [RequestUserController::class, 'show'])->name('dashboard.servicerequest.show');
+            Route::post('/{group}/{service}', [RequestUserController::class, 'store'])->name('dashboard.servicerequest.store');
+
+        });
+
 
     }
 );
