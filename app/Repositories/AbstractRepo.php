@@ -1,6 +1,8 @@
 <?php
 namespace App\Repositories;
 
+use Illuminate\Database\Eloquent\Collection;
+
 abstract class AbstractRepo {
 
     protected $model;
@@ -14,6 +16,18 @@ abstract class AbstractRepo {
             ->find($id);
 
         return $this->mapItem($item);
+    }
+
+    public function getBySlug( $slug )
+    {
+
+        $item = $this->model
+            ->where('slug', $slug)
+            ->with($this->withRelations)
+            ->first();
+
+        return $this->mapItem($item);
+
     }
 
     public function getByUserID($user_id)
@@ -65,14 +79,24 @@ abstract class AbstractRepo {
     {
 
         if( empty($items) ) { return null; }
-//dd($items);
-        $itemsMapped = $items->getCollection()->transform(function ($item) {
-            return $this->mapItem($item);
-        });
+
+        if( $items instanceof Collection ) { 
+
+            $itemsMapped = $items->transform(function ($item) {
+                return $this->mapItem($item);
+            });
+
+        } else {
+
+            $itemsMapped = $items->getCollection()->transform(function ($item) {
+                return $this->mapItem($item);
+            });
+
+        }
 
         return [
             'items' => $itemsMapped,
-            'links' => $items->links(),
+            //'links' => $items->links(),
             'Model' => $items
         ];
     }
