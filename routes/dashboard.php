@@ -158,10 +158,10 @@ Route::group(
         // Requests
         Route::group(['prefix' => 'service-request'], function () {
 
-            // Groups
+            // Group
             Route::get('/{group}', [RequestUserController::class, 'showGroup'])->name('dashboard.servicerequest.group');
 
-            // Others
+            // Service forms
             Route::get('/{group}/{service}', [RequestUserController::class, 'show'])->name('dashboard.servicerequest.show');
             Route::post('/{group}/{service}', [RequestUserController::class, 'store'])->name('dashboard.servicerequest.store');
 
