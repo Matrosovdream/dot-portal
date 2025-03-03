@@ -42,12 +42,11 @@ class RequestUserActions {
 
         // Service
         $service = $this->serviceRepo->getBySlug($serviceslug);
-        dd($service);
         
         return [
             'title' => 'Services of ' . $groupslug,
             'group' => $group,
-            'services' => $services,
+            'service' => $service,
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
     }
