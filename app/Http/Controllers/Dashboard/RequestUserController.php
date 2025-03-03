@@ -17,6 +17,7 @@ class RequestUserController extends Controller
 
     public function showGroup( $groupslug )
     {
+        //dd($this->RequestUserActions->showGroup(  $groupslug));
         return view(
             'dashboard.servicegroups.index', 
             $this->RequestUserActions->showGroup(  $groupslug)

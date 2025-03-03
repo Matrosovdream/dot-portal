@@ -28,6 +28,11 @@ class ServiceRepo extends AbstractRepo
 
     }
 
+    public function getByGroupID($group_id)
+    {
+        return $this->getAll(['group_id' => $group_id], $paginate = 1000);
+    }
+
     public function beforeCreate( $data ) {
 
         $data['status_id'] = 1;
@@ -40,7 +45,7 @@ class ServiceRepo extends AbstractRepo
         if (empty($item)) {
             return null;
         }
-
+//dd($this->serviceFieldRepo->mapItems( $item->formFields ));
         return [
             'id' => $item->id,
             'name' => $item->name,
@@ -48,7 +53,7 @@ class ServiceRepo extends AbstractRepo
             'description' => $item->description,
             'price' => $item->price,
             'group' => $this->ServiceGroupRepo->mapItem( $item->group ),
-            'formFields' => $this->serviceFieldRepo->mapItems( $item['formFields']->all() ), 
+            'formFields' => $this->serviceFieldRepo->mapItems( $item->formFields ), 
             'Model' => $item
         ];
     }

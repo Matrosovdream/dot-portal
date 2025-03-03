@@ -38,7 +38,7 @@ class ServiceFieldRepo extends AbstractRepo
             'classes' => $item->classes,
             'order' => $item->order,
             'field_id' => $item->field_id,
-            'field' => $item->refFormFieldRepo->mapItem( $item->field ),
+            //'field' => $item->refFormFieldRepo->mapItem( $item->field ),
             'service_id' => $item->service_id,
             'Model' => $item
         ];
