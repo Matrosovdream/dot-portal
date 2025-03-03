@@ -19,7 +19,7 @@ class RequestUserController extends Controller
     {
         //dd($this->RequestUserActions->showGroup(  $groupslug));
         return view(
-            'dashboard.servicegroups.index', 
+            'dashboard.servicerequest.index', 
             $this->RequestUserActions->showGroup(  $groupslug)
         );
     }
@@ -27,7 +27,7 @@ class RequestUserController extends Controller
     public function show( $groupslug, $serviceslug )
     {
         return view(
-            'dashboard.servicegroups.show', 
+            'dashboard.servicerequest.show', 
             $this->RequestUserActions->show( $groupslug, $serviceslug )
         );
     }
@@ -43,12 +43,12 @@ class RequestUserController extends Controller
         ]);
 
         $data = $this->RequestUserActions->store($validated);
-        return redirect()->route('dashboard.servicegroups.index');
+        return redirect()->route('dashboard.servicerequest.index');
     }
 
     public function destroy($service)
     {
         $data = $this->RequestUserActions->destroy($service);
-        return redirect()->route('dashboard.servicegroups.index');
+        return redirect()->route('dashboard.servicerequest.index');
     }
 }
