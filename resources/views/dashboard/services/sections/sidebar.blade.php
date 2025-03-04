@@ -1,22 +1,29 @@
-<div class="card mb-5 mb-xl-8">
 
-    <div class="card-body pt-15">
+<div class="card card-flush py-4">
+			<div class="card-header">
+				<div class="card-title">
+					<h2>{{ $service['name'] }}</h2>
+				</div>
+				<div class="card-toolbar">
+					<div class="rounded-circle @if( 1 == 1 ) bg-success @else bg-danger @endif w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
+				</div>
+			</div>
 
-        <div class="d-flex flex-center flex-column mb-5">
-            <a href="#" class="fs-3 text-gray-800 text-hover-primary fw-bold mb-1">{{ $service['name'] }}</a>
-        </div>
+			<div class="card-body pt-0">
 
-        <div class="d-flex flex-stack fs-4 py-3">
-            <div class="fw-bold">Details</div>
-        </div>
+				<select class="form-select mb-2" data-control="select2" data-hide-search="true"
+					data-placeholder="Select an option" id="kt_ecommerce_add_product_status_select" name="status">
+					<option value="published" @if( 1 == 1 ) selected="selected" @endif >Published</option>
+					<option value="draft" @if( 1 == 1 ) selected="selected" @endif>Draft</option>
+				</select>
 
-        <div class="separator separator-dashed my-3"></div>
-        <div class="pb-5 fs-6">
+			</div>
 
-            <div class="fw-bold mt-5">Service ID</div>
-            <div class="text-gray-600">#{{ $service['id'] }}</div>
+			<div class="d-flex justify-content-center mt-30">
+				<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+					<span class="indicator-label">Save Changes</span>
+				</button>
+			</div>
 
-        </div>
-    </div>
+		</div>
 
-</div>

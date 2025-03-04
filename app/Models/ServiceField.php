@@ -17,6 +17,7 @@ class ServiceField extends Model
         'required',
         'default_value',
         'classes',
+        'order'
     ];
 
     public function services()
@@ -26,7 +27,7 @@ class ServiceField extends Model
 
     public function field()
     {
-        return $this->belongsTo(ServiceField::class);
+        return $this->belongsTo(RefFormFields::class);
     }
 
 }
