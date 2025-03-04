@@ -105,6 +105,14 @@ Route::group(
                 Route::get('{service}', [ServiceAdminController::class, 'show'])->name('dashboard.services.show');
                 Route::post('{service}', [ServiceAdminController::class, 'update'])->name('dashboard.services.update');
                 Route::delete('{service}', [ServiceAdminController::class, 'destroy'])->name('dashboard.services.destroy');
+            
+                // Service fields
+                Route::group(['prefix' => '{service}/fields'], function () {
+                    Route::post('/', [ServiceAdminController::class, 'storeField'])->name('dashboard.services.fields.store');
+                    Route::post('{field_id}', [ServiceAdminController::class, 'updateField'])->name('dashboard.services.fields.update');
+                    Route::delete('{field_id}', [ServiceAdminController::class, 'destroyField'])->name('dashboard.services.fields.destroy');
+                });
+            
             });
 
             // Service fields

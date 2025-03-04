@@ -76,4 +76,47 @@ class ServiceAdminController extends Controller
         return redirect()->route('dashboard.services.index');
     }
 
+    public function storeField( $service_id, Request $request ) {
+
+        $validated = $request->validate([
+            'field_id' => 'required',
+            'entity' => 'nullable',
+            'required' => 'nullable',
+            'default_value' => 'nullable',
+            'placeholder' => 'nullable',
+            'classes' => 'nullable',
+            'order' => 'nullable',
+        ]);
+
+        $data = $this->serviceAdminActions->storeField($service_id, $validated);
+
+        return redirect()->route('dashboard.services.show', $service_id);
+
+    }
+
+    public function updateField( $service_id, $field_id, Request $request ) {
+
+        $validated = $request->validate([
+            'field_id' => 'required',
+            'entity' => 'nullable',
+            'required' => 'nullable',
+            'default_value' => 'nullable',
+            'placeholder' => 'nullable',
+            'classes' => 'nullable',
+            'order' => 'nullable',
+        ]);
+        $data = $this->serviceAdminActions->storeField($service_id, $validated, $field_id);
+
+        return redirect()->route('dashboard.services.show', $service_id);
+
+    }
+
+    public function destroyField( $service_id, $field_id ) {
+
+        $data = $this->serviceAdminActions->deleteField($service_id, $field_id);
+
+        return redirect()->route('dashboard.services.show', $service_id);
+
+    }
+
 }
