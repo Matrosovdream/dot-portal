@@ -173,6 +173,9 @@ Route::group(
             Route::get('/{group}/{service}', [RequestUserController::class, 'show'])->name('dashboard.servicerequest.show');
             Route::post('/{group}/{service}', [RequestUserController::class, 'store'])->name('dashboard.servicerequest.store');
 
+            // Store request
+            Route::post('/{group}/{service}/store', [RequestUserController::class, 'storeRequest'])->name('dashboard.servicerequest.store.request');
+
         });
 
 

@@ -46,6 +46,11 @@ class RequestUserController extends Controller
         return redirect()->route('dashboard.servicerequest.index');
     }
 
+    public function storeRequest($groupslug, $serviceslug, Request $request)
+    {
+        $data = $this->RequestUserActions->storeRequest($groupslug, $serviceslug, $request);
+        return redirect()->route('dashboard.servicerequest.index');
+    }
     public function destroy($service)
     {
         $data = $this->RequestUserActions->destroy($service);

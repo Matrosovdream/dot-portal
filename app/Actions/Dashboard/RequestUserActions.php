@@ -1,6 +1,8 @@
 <?php
 namespace App\Actions\Dashboard;
 
+use Illuminate\Http\Request;
+
 use App\Helpers\adminSettingsHelper;
 use App\Repositories\References\RefServiceGroupRepo;
 use App\Repositories\Service\ServiceRepo;
@@ -42,7 +44,9 @@ class RequestUserActions {
 
         // Service
         $service = $this->serviceRepo->getBySlug($serviceslug);
-        
+
+        //dd($service['formFields']['items']);
+
         return [
             'title' => 'Services of ' . $groupslug,
             'group' => $group,
@@ -71,6 +75,13 @@ class RequestUserActions {
     public function store($request)
     {
         $data = $this->serviceGroupRepo->create($request);
+        return $data;
+    }
+
+    public function storeRequest($groupslug, $serviceslug, Request $request)
+    {
+        dd($request->all());
+        $data = $this->serviceRepo->create($request);
         return $data;
     }
 
