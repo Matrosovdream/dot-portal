@@ -29,58 +29,11 @@
 
             <div class="d-flex flex-column flex-lg-row mb-17">
 
-                <div class="flex-lg-row-fluid me-0 me-lg-20">
-
-                    <form 
-                        action="{{ route('dashboard.servicegroups.update', $group['id']) }}"
-                        class="form mb-15 fv-plugins-bootstrap5 fv-plugins-framework" 
-                        method="POST"
-                        >
-                        @csrf
-
-                        @include('dashboard.includes.errors.default')
-
-                        <div class="row mb-5">
-
-                            <div class="col-md-6 fv-row fv-plugins-icon-container">
-
-                                <label class="required fs-5 fw-semibold mb-2">First Name</label>
-                                <input type="text" class="form-control form-control-solid" placeholder="" name="first_name">
-
-                                <div
-                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                </div>
-                            </div>
-
-                            <div class="col-md-6 fv-row fv-plugins-icon-container">
-
-                                <label class="required fs-5 fw-semibold mb-2">Last Name</label>
-                                <input type="text" class="form-control form-control-solid" placeholder="" name="last_name">
-
-                                <div
-                                    class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="separator mb-8"></div>
-
-                        <button type="submit" class="btn btn-primary" id="kt_careers_submit_button">
-
-                            <span class="indicator-label">Apply Now</span>
-
-                            <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                            </span>
-
-                        </button>
-
-                    </form>
-
+                <div class="flex-lg-row-fluid me-0 me-lg-10">
+                    @include('dashboard.servicerequest.sections.submit-form')
                 </div>
 
-                <div class="flex-lg-row-auto w-100 w-lg-275px w-xxl-350px">
+                <div class="flex-lg-row-auto w-100 w-lg-275px w-xxl-330px">
                     <div class="card bg-light">
 
                         <div class="card-body">
@@ -97,15 +50,14 @@
 
                             </div>
 
-
                             <div class="mb-8">
 
-                                <h4 class="text-gray-700 w-bolder mb-0">Our Achievements</h4>
+                                <h4 class="text-gray-700 w-bolder mb-0">Title</h4>
                                 <div class="my-2">
 
                                     <div class="d-flex align-items-center mb-3">
                                         <span class="bullet me-3"></span>
-                                        <div class="text-gray-600 fw-semibold fs-6">Experience with JavaScript</div>
+                                        <div class="text-gray-600 fw-semibold fs-6">Lorem ipsum</div>
                                     </div>
 
                                 </div>
