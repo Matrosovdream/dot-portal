@@ -33,7 +33,7 @@ return new class extends Migration {
             $table->id();
             $table->foreignId('field_id')->on('order_fields');
             $table->foreignId('service_id')->on('services');
-            $table->string('entity');
+            $table->string('entity')->nullable();
             $table->string('section')->nullable();
             $table->string('placeholder')->nullable();
             $table->boolean('required')->default(false);

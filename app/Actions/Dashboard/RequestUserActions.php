@@ -6,16 +6,19 @@ use Illuminate\Http\Request;
 use App\Helpers\adminSettingsHelper;
 use App\Repositories\References\RefServiceGroupRepo;
 use App\Repositories\Service\ServiceRepo;
+use App\Repositories\Request\RequestRepo;
 
 class RequestUserActions {
 
     private $serviceGroupRepo;
     private $serviceRepo;
+    private $requestRepo;
 
     public function __construct()
     {
         $this->serviceGroupRepo = new RefServiceGroupRepo();
         $this->serviceRepo = new ServiceRepo();
+        $this->requestRepo = new RequestRepo();
     }
 
     public function showGroup( $groupslug )
@@ -45,7 +48,7 @@ class RequestUserActions {
         // Service
         $service = $this->serviceRepo->getBySlug($serviceslug);
 
-        //dd($service['formFields']['items']);
+        //dd($service);
 
         return [
             'title' => 'Services of ' . $groupslug,
@@ -57,9 +60,7 @@ class RequestUserActions {
 
     public function update($group_id, $request)
     {
-        $data = $this->serviceGroupRepo->update($group_id, $request);
-
-        return $data;
+        return $this->serviceGroupRepo->update($group_id, $request);
     }
 
     public function create()
@@ -80,16 +81,49 @@ class RequestUserActions {
 
     public function storeRequest($groupslug, $serviceslug, Request $request)
     {
-        dd($request->all());
-        $data = $this->serviceRepo->create($request);
-        return $data;
+
+        $service = $this->serviceRepo->getBySlug($serviceslug);
+
+        // Create request
+        $requestPayload = [
+            'user_id' => auth()->user()->id,
+            'status_id' => 1,
+            'service_id' => $service['id'],
+        ]; 
+        $requestData = $this->requestRepo->create($requestPayload);
+
+        // Attach field values
+        $this->requestRepo->syncFieldValues( $requestData['id'], $request->fields );
+        
+        // Return updated request entity
+        return $this->requestRepo->getById($requestData['id']);
+    }
+
+    public function history()
+    {
+        $requests = $this->requestRepo->getAll( ['user_id' => auth()->user()->id] );
+
+        return [
+            'title' => 'My requests',
+            'requests' => $requests,
+            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+        ];
+    }
+
+    public function historyShow($service_id)
+    {
+        $request = $this->requestRepo->getById($service_id);
+//dd($request);
+        return [
+            'title' => 'Request details #' . $service_id,
+            'request' => $request,
+            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+        ];
     }
 
     public function destroy($group_id)
     {
-        $data = $this->serviceGroupRepo->delete($group_id);
-
-        return $data;
+        return $this->serviceGroupRepo->delete($group_id);
     }
 
 }

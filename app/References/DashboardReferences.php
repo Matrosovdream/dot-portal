@@ -141,6 +141,12 @@ class DashboardReferences {
 
         $urls = [];
 
+        $urls[] = array(
+            'title' => 'My requests',
+            'url' => route('dashboard.servicerequest.history.index'),
+            'roles' => ['user'],
+        );
+
         $groups = (new RefServiceGroupRepo)->getAll([], $paginate = 1000);
         foreach( $groups['items'] as $group ) {
             $urls[] = array(
@@ -149,7 +155,7 @@ class DashboardReferences {
                 'roles' => ['user'],
             );
         }
-
+        
         return $urls;
 
     }
