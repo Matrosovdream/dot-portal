@@ -49,11 +49,33 @@ class RequestUserController extends Controller
     public function storeRequest($groupslug, $serviceslug, Request $request)
     {
         $data = $this->RequestUserActions->storeRequest($groupslug, $serviceslug, $request);
-        return redirect()->route('dashboard.servicerequest.index');
+        return redirect()->route('dashboard.servicerequest.history.index');
     }
+
+    public function history() {
+
+        return view(
+            'dashboard.servicerequest.history.index', 
+            $this->RequestUserActions->history()
+        );
+
+    }
+
+    public function historyShow($service_id) {
+
+        return view(
+            'dashboard.servicerequest.history.show', 
+            $this->RequestUserActions->historyShow($service_id)
+        );
+
+    }
+
+
+
     public function destroy($service)
     {
         $data = $this->RequestUserActions->destroy($service);
         return redirect()->route('dashboard.servicerequest.index');
     }
+
 }

@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('requests', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->foreignId('user_id')->on('users');
             $table->foreignId('status_id')->on('request_statuses');
+            $table->foreignId('service_id')->on('services');
             $table->timestamps();
         });
 
@@ -44,6 +44,13 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('request_field_values', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('request_id')->on('requests');
+            $table->foreignId('field_id')->on('ref_form_fields');
+            $table->text('value')->nullable();
+        });
+
     }
 
     /**
@@ -55,5 +62,7 @@ return new class extends Migration
         Schema::dropIfExists('request_meta');
         Schema::dropIfExists('request_history');
         Schema::dropIfExists('ref_request_statuses');
+        Schema::dropIfExists('request_field_values');
     }
+    
 };

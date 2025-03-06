@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 //use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\ServiceField;
 use Illuminate\Database\Seeder;
 use App\Models\Service;
 
@@ -13,6 +14,13 @@ class ServiceSeeder extends Seeder
      */
     public function run(): void
     {
+
+        $fields = [
+            ['field_id' => 1, 'order' => 1],
+            ['field_id' => 3, 'order' => 2],
+            ['field_id' => 4, 'order' => 3],
+            ['field_id' => 5, 'order' => 3],
+        ];
         
         $services = [
             ['name' => 'MCS-150 Update', 'slug' => 'msc-150-update', 'description' => 'Service 1 description', 'price' => 50, 'status_id' => 1, 'group_id' => 1],
@@ -21,7 +29,16 @@ class ServiceSeeder extends Seeder
         ];
         
         foreach ($services as $service) {
-            Service::firstOrCreate($service);
+            $serviceData = Service::firstOrCreate($service);
+            
+            // Add fields
+            foreach ($fields as $field) {
+                ServiceField::firstOrCreate([
+                    'service_id' => $serviceData->id,
+                    'field_id' => $field['field_id'],
+                    'order' => $field['order'],
+                ]);
+            }
         }
 
     }

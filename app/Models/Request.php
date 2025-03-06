@@ -13,9 +13,9 @@ class Request extends Model
     protected $table = 'requests';
 
     protected $fillable = [
-        'name', 
         'user_id', 
-        'status_id'
+        'status_id',
+        'service_id'
     ];
     
     public function user()
@@ -26,6 +26,10 @@ class Request extends Model
     public function status()
     {
         return $this->belongsTo(RefRequestStatus::class);
+    }
+
+    public function service() {
+        return $this->belongsTo(Service::class);
     }
     
     public function meta()
@@ -38,5 +42,9 @@ class Request extends Model
         return $this->hasMany(RequestHistory::class);
     }
 
+    public function fieldValues()
+    {
+        return $this->hasMany(RequestFieldValue::class);
+    }
 
 }
