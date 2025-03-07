@@ -7,6 +7,7 @@ use App\Helpers\adminSettingsHelper;
 use App\Repositories\References\RefServiceGroupRepo;
 use App\Repositories\Service\ServiceRepo;
 use App\Repositories\Request\RequestRepo;
+use App\Repositories\References\RefRequestStatusRepo;
 
 class RequestAdminActions {
 
@@ -14,11 +15,16 @@ class RequestAdminActions {
     private $serviceRepo;
     private $requestRepo;
 
+    private $refRequestStatus;
+
     public function __construct()
     {
         $this->serviceGroupRepo = new RefServiceGroupRepo();
         $this->serviceRepo = new ServiceRepo();
         $this->requestRepo = new RequestRepo();
+
+        // References
+        $this->refRequestStatus = new RefRequestStatusRepo();
     }
 
     public function index()
@@ -39,6 +45,7 @@ class RequestAdminActions {
         return [
             'title' => 'Request details #' . $service_id,
             'request' => $request,
+            'references' => $this->getReferences(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
     }
@@ -46,6 +53,13 @@ class RequestAdminActions {
     public function destroy($group_id)
     {
         return $this->requestRepo->delete($group_id);
+    }
+
+    public function getReferences()
+    {
+        return [
+            'requestStatus' => $this->refRequestStatus->getAll(),
+        ];
     }
 
 }

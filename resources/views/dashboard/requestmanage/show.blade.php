@@ -6,42 +6,23 @@
 
         <div class="d-flex flex-column gap-7 gap-lg-10 w-100 w-lg-250px min-w-250px mb-7 me-lg-10">
 
-            @include('dashboard.services.sections.sidebar')
+            @include('dashboard.requestmanage.sections.sidebar')
             
         </div>
 
         <div class="d-flex flex-column flex-row-fluid gap-7 gap-lg-10">
 
-            @include('dashboard.services.sections.navbar')
+            @include('dashboard.requestmanage.sections.navbar')
 
             <div class="tab-content" id="myTabContent">
 
-                @include('dashboard.services.sections.general')
+                @include('dashboard.requestmanage.sections.fields')
 
-                @include('dashboard.services.sections.custom-fields')
+                @include('dashboard.requestmanage.sections.history')
 
             </div>
 
         </div>
     </div>
-
-    <!-- Create form field modal -->
-    @include('dashboard.services.modals.create-form-field', 
-	[
-		'service' => $service, 
-		'formFields' => $formFieldsRef['items']
-	])
-
-    <!-- Update form field modal -->
-    @foreach($service['formFields']['items'] as $field)
-		@php
-			//dd($formFieldsRef['items']);
-		@endphp
-		@include('dashboard.services.modals.edit-form-field', 
-		[
-			'fieldValue' => $field,
-			'formFields' => $formFieldsRef['items']
-		])
-	@endforeach
 
 @endsection
