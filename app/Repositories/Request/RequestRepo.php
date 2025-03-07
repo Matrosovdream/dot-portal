@@ -4,6 +4,7 @@ namespace App\Repositories\Request;
 use App\Repositories\AbstractRepo;
 use App\Models\Request;
 use App\Repositories\Request\RequestFieldValueRepo;
+use App\Repositories\Request\RequestHistoryRepo;
 use App\Repositories\User\UserRepo;
 use App\Repositories\Service\ServiceRepo;
 use App\Repositories\References\RefRequestStatusRepo;
@@ -16,6 +17,7 @@ class RequestRepo extends AbstractRepo
     protected $serviceFieldRepo;
     protected $fieldValueRepo;
     protected $requestStatusRepo;
+    protected $requestHistoryRepo;
 
     protected $userRepo;
     protected $serviceRepo;
@@ -31,9 +33,12 @@ class RequestRepo extends AbstractRepo
         // Field values
         $this->fieldValueRepo = new RequestFieldValueRepo();
 
+        // History
+        $this->requestHistoryRepo = new RequestHistoryRepo();
+
         // References
         $this->userRepo = new UserRepo();
-         $this->serviceRepo = new ServiceRepo();
+        $this->serviceRepo = new ServiceRepo();
         $this->requestStatusRepo = new RefRequestStatusRepo();
 
     }
@@ -57,13 +62,14 @@ class RequestRepo extends AbstractRepo
         if (empty($item)) {
             return null;
         }
-
+//dd($item->history);
         return [
             'id' => $item->id,
             'user' => $this->userRepo->mapItem( $item->user ),
             'status' => $this->requestStatusRepo->mapItem( $item->status ),
             'service' => $this->serviceRepo->mapItem( $item->service ),
             'fieldValues' => $this->fieldValueRepo->mapItems($item->fieldValues),
+            'history' => $this->requestHistoryRepo->mapItems($item->history),
             'Model' => $item
         ];
     }
