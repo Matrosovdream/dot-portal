@@ -53,7 +53,7 @@ class DashboardReferences {
                 'childs' => array(
                     array(
                         'title' => 'All',
-                        'url' => route('dashboard.admin.requests.index'),
+                        'url' => route('dashboard.requestmanage.index'),
                         'roles' => ['admin', 'manager'],
                     ),
                 ),

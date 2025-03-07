@@ -15,6 +15,7 @@ use App\Http\Controllers\Dashboard\DriverController;
 use App\Http\Controllers\Dashboard\SubscriptionUserController;
 use App\Http\Controllers\Dashboard\ServiceGroupsController;
 use App\Http\Controllers\Dashboard\RequestUserController;
+use App\Http\Controllers\Dashboard\RequestAdminController;
 
 
 Route::group(
@@ -133,6 +134,14 @@ Route::group(
                 Route::post('{group_id}', [ServiceGroupsController::class, 'update'])->name('dashboard.servicegroups.update');
                 Route::delete('{group_id}', [ServiceGroupsController::class, 'destroy'])->name('dashboard.servicegroups.destroy');
             });
+
+            Route::group(['prefix' => 'request-manage'], function () {
+                Route::get('/', [RequestAdminController::class, 'index'])->name('dashboard.requestmanage.index');
+                Route::get('{request_id}', [RequestAdminController::class, 'show'])->name('dashboard.requestmanage.show');
+                Route::post('{request_id}', [RequestAdminController::class, 'update'])->name('dashboard.requestmanage.update');
+                Route::delete('{request_id}', [RequestAdminController::class, 'destroy'])->name('dashboard.requestmanage.destroy');
+            });
+
 
             // Admin request
             Route::get('requests', [AdminRequestController::class, 'index'])->name('dashboard.admin.requests.index');

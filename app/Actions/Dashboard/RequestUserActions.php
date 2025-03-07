@@ -113,7 +113,7 @@ class RequestUserActions {
     public function historyShow($service_id)
     {
         $request = $this->requestRepo->getById($service_id);
-//dd($request);
+
         return [
             'title' => 'Request details #' . $service_id,
             'request' => $request,
