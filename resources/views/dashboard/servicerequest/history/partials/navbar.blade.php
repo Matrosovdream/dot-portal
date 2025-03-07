@@ -3,15 +3,7 @@
     $sections = [
         'overview' => [
             'title' => 'Overview',
-            'url' => route('dashboard.profile.show'),
-        ],
-        'profile' => [
-            'title' => 'Profile',
-            'url' => route('dashboard.profile.edit'),
-        ],
-        'company' => [
-            'title' => 'Company',
-            'url' => route('dashboard.profile.company'),
+            'url' => route('dashboard.servicerequest.history.show', $request['id']),
         ],
     ];
 
@@ -20,20 +12,6 @@
 
 <div class="d-flex flex-wrap flex-sm-nowrap">
 
-    <!--
-    <div class="me-7 mb-4">
-
-        <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-            
-            <img src="{{ asset('assets/admin/media/avatars/300-2.png') }}" alt="image" />
-            
-            <div
-                class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
-            </div>
-        </div>
-    </div>
-    -->
-
     <div class="flex-grow-1">
 
         <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
@@ -41,7 +19,7 @@
 
                 <div class="d-flex align-items-center mb-2">
                     <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">
-                        {{ $user['firstname'] ?? '' }} {{ $user['lastname'] ?? '' }}
+                        {{ $request['service']['name'] ?? '' }}
                     </a>
                     <a href="#">
                         <i class="ki-duotone ki-verify fs-1 text-primary">
@@ -57,14 +35,7 @@
                             <span class="path1"></span>
                             <span class="path2"></span>
                         </i>
-                        {{ $user['address']['city'] ?? '' }}, {{ $user['address']['zip'] ?? '' }}
-                    </a>
-                    <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary mb-2">
-                        <i class="ki-duotone ki-sms fs-4 me-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                        {{ $user['email'] ?? '' }}
+                        {{ $request['service']['group']['name'] ?? '' }}
                     </a>
                 </div>
 
@@ -173,11 +144,11 @@
 
             <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
                 <div class="d-flex justify-content-between w-100 mt-auto mb-2">
-                    <span class="fw-semibold fs-6 text-gray-500">Profile Completion</span>
-                    <span class="fw-bold fs-6">50%</span>
+                    <span class="fw-semibold fs-6 text-gray-500">Request Completion</span>
+                    <span class="fw-bold fs-6">100%</span>
                 </div>
                 <div class="h-5px mx-3 w-100 bg-light mb-3">
-                    <div class="bg-success rounded h-5px" role="progressbar" style="width: 50%;" aria-valuenow="50"
+                    <div class="bg-success rounded h-5px" role="progressbar" style="width: 100%;" aria-valuenow="100"
                         aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
             </div>
