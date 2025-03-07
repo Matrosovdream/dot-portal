@@ -10,13 +10,11 @@
         </div>
     </div>
 
-    @if(request()->routeIs('dashboard.profile.show'))
+    @if(request()->routeIs('dashboard.servicerequest.history.show'))
 
-        <div id="kt_account_settings_profile_details" class="collapse show">
+        <div class="collapse show">
 
-            @include('dashboard.profile.sections.overview-profile')
-
-            @include('dashboard.profile.sections.overview-company', ['company' => $user['company']])
+            @include('dashboard.servicerequest.history.sections.overview')
 
         </div>
 

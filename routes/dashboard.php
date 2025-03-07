@@ -167,8 +167,8 @@ Route::group(
         Route::group(['prefix' => 'service-request'], function () {
 
             // My requests
-            Route::get('/all', [RequestUserController::class, 'history'])->name('dashboard.servicerequest.history.index');
-            Route::get('/{request_id}', [RequestUserController::class, 'historyShow'])->name('dashboard.servicerequest.history.show');
+            Route::get('/history', [RequestUserController::class, 'history'])->name('dashboard.servicerequest.history.index');
+            Route::get('/history/{request_id}', [RequestUserController::class, 'historyShow'])->name('dashboard.servicerequest.history.show');
 
             // Group
             Route::get('/{group}', [RequestUserController::class, 'showGroup'])->name('dashboard.servicerequest.group');
@@ -180,10 +180,7 @@ Route::group(
             // Store request
             Route::post('/{group}/{service}/store', [RequestUserController::class, 'storeRequest'])->name('dashboard.servicerequest.store.request');
 
-            
-
         });
-
 
     }
 );
