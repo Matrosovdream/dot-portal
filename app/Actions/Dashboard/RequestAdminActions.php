@@ -41,7 +41,7 @@ class RequestAdminActions {
     public function show($service_id)
     {
         $request = $this->requestRepo->getById($service_id);
-dd($request);
+//dd($request);
         return [
             'title' => 'Request details #' . $service_id,
             'request' => $request,
