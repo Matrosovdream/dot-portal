@@ -1,6 +1,6 @@
 <?php
-use Illuminate\Support\Facades\Route;
 
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\DashboardUsersController;
 use App\Http\Controllers\Dashboard\DashboardSettingsController;
@@ -17,180 +17,160 @@ use App\Http\Controllers\Dashboard\ServiceGroupsController;
 use App\Http\Controllers\Dashboard\RequestUserController;
 use App\Http\Controllers\Dashboard\RequestAdminController;
 
+Route::group([
+    'prefix' => 'dashboard',
+    'as'       => 'dashboard.',
+    'middleware' => ['auth']
+], function () {
 
-Route::group(
-    [
-        'as' => '',
-        'prefix' => 'dashboard',
-        'namespace' => '',
-        'middleware' => ['auth', /*'hasRole:admin,manager'*/]
-    ],
-    function () {
+    // Home dashboard
+    Route::get('/', [HomeController::class, 'index'])->name('home');
+    
+    // Notifications
+    Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
 
-        // Home dashboard page
-        Route::get('/', [HomeController::class, 'index'])->name('dashboard.home');
+    // Drivers
+    Route::prefix('my-drivers')->name('drivers.')->group(function () {
+        Route::get('/', [DriverController::class, 'index'])->name('index');
+        Route::get('create', [DriverController::class, 'create'])->name('create');
+        Route::post('/', [DriverController::class, 'store'])->name('store');
+        Route::get('{driver}', [DriverController::class, 'show'])->name('show');
+        Route::post('{driver}', [DriverController::class, 'update'])->name('update');
+        Route::delete('{driver}', [DriverController::class, 'destroy'])->name('destroy');
 
-        // Notifications
-        Route::get('notifications', [NotificationsController::class, 'index'])->name('dashboard.notifications');
-
-
-        // Drivers
-        Route::group(['prefix' => 'my-drivers'], function () {
-            Route::get('/', [DriverController::class, 'index'])->name('dashboard.drivers.index');
-            Route::get('create', [DriverController::class, 'create'])->name('dashboard.drivers.create');
-            Route::post('/', [DriverController::class, 'store'])->name('dashboard.drivers.store');
-            Route::get('{driver}', [DriverController::class, 'show'])->name('dashboard.drivers.show');
-            Route::post('{driver}', [DriverController::class, 'update'])->name('dashboard.drivers.update');
-            Route::delete('{driver}', [DriverController::class, 'destroy'])->name('dashboard.drivers.destroy');
-
-            // Profile
-            Route::get('{driver}/profile', [DriverController::class, 'profile'])->name('dashboard.drivers.show.profile');
-            Route::post('{driver}/profile', [DriverController::class, 'updateProfile'])->name('dashboard.drivers.show.profile.update');
-
-            // Driver license
-            Route::get('{driver}/license', [DriverController::class, 'license'])->name('dashboard.drivers.show.license');
-            Route::post('{driver}/license', [DriverController::class, 'updateLicense'])->name('dashboard.drivers.show.license.update');
-
-            // Address
-            Route::get('{driver}/address', [DriverController::class, 'address'])->name('dashboard.drivers.show.address');
-            Route::post('{driver}/address', [DriverController::class, 'updateAddress'])->name('dashboard.drivers.show.address.update');
-
-            // Medical card
-            Route::get('{driver}/medical-card', [DriverController::class, 'medicalCard'])->name('dashboard.drivers.show.medicalcard');
-            Route::post('{driver}/medical-card', [DriverController::class, 'updateMedicalCard'])->name('dashboard.drivers.show.medicalcard.update');
-
-            // Logs
-            Route::get('{driver}/logs', [DriverController::class, 'logs'])->name('dashboard.drivers.show.logs');
-
+        // Driver subroutes
+        Route::prefix('{driver}')->group(function () {
+            Route::get('profile', [DriverController::class, 'profile'])->name('profile.show');
+            Route::post('profile', [DriverController::class, 'updateProfile'])->name('profile.update');
+            Route::get('license', [DriverController::class, 'license'])->name('license.show');
+            Route::post('license', [DriverController::class, 'updateLicense'])->name('license.update');
+            Route::get('address', [DriverController::class, 'address'])->name('address.show');
+            Route::post('address', [DriverController::class, 'updateAddress'])->name('address.update');
+            Route::get('medical-card', [DriverController::class, 'medicalCard'])->name('medicalcard.show');
+            Route::post('medical-card', [DriverController::class, 'updateMedicalCard'])->name('medicalcard.update');
+            Route::get('logs', [DriverController::class, 'logs'])->name('logs');
         });
+    });
 
+    // Admin routes
+    Route::middleware('hasRole:admin')->group(function () {
+        Route::prefix('notifications-manager')->name('notifications-manage.')->group(function () {
+            Route::get('/', [NotificationsAdminController::class, 'index'])->name('index');
+            Route::get('create', [NotificationsAdminController::class, 'create'])->name('create');
+            Route::post('/', [NotificationsAdminController::class, 'store'])->name('store');
+            Route::get('{service}', [NotificationsAdminController::class, 'show'])->name('show');
+            Route::post('{service}', [NotificationsAdminController::class, 'update'])->name('update');
+            Route::delete('{service}', [NotificationsAdminController::class, 'destroy'])->name('destroy');
+        });
+    });
 
-        // Admin routes
+    // Admin/Manager routes
+    Route::middleware('hasRole:admin,manager')->group(function () {
+
+        // Admin-only: Users management
         Route::middleware('hasRole:admin')->group(function () {
-
-            // Notifications manager
-            Route::group(['prefix' => 'notifications-manager'], function () {
-                Route::get('/', [NotificationsAdminController::class, 'index'])->name('dashboard.notifications-manage.index');
-                Route::get('create', [NotificationsAdminController::class, 'create'])->name('dashboard.notifications-manage.create');
-                Route::post('/', [NotificationsAdminController::class, 'store'])->name('dashboard.notifications-manage.store');
-                Route::get('{service}', [NotificationsAdminController::class, 'show'])->name('dashboard.notifications-manage.show');
-                Route::post('{service}', [NotificationsAdminController::class, 'update'])->name('dashboard.notifications-manage.update');
-                Route::delete('{service}', [NotificationsAdminController::class, 'destroy'])->name('dashboard.notifications-manage.destroy');
+            Route::prefix('users')->name('users.')->group(function () {
+                Route::get('/', [DashboardUsersController::class, 'index'])->name('index');
+                Route::get('create', [DashboardUsersController::class, 'create'])->name('create');
+                Route::post('/', [DashboardUsersController::class, 'store'])->name('store');
+                Route::get('{user_id}', [DashboardUsersController::class, 'show'])->name('show');
+                Route::post('{user_id}', [DashboardUsersController::class, 'update'])->name('update');
+                Route::delete('{user_id}', [DashboardUsersController::class, 'destroy'])->name('destroy');
             });
-
         });
 
-        // Admin/manager routes
-        Route::middleware('hasRole:admin,manager')->group(function () {
+        // Payment gateways
+        Route::get('gateways', [DashboardGatewaysController::class, 'index'])->name('gateways.index');
 
-            Route::middleware('hasRole:admin')->group(function () {
-
-                // User
-                Route::get('users', [DashboardUsersController::class, 'index'])->name('dashboard.users.index');
-                Route::get('users/create', [DashboardUsersController::class, 'create'])->name('dashboard.users.create');
-                Route::post('users', [DashboardUsersController::class, 'store'])->name('dashboard.users.store');
-                Route::get('users/{user_id}', [DashboardUsersController::class, 'show'])->name('dashboard.users.show');
-                Route::post('users/{user_id}', [DashboardUsersController::class, 'update'])->name('dashboard.users.update');
-                Route::delete('users/{user_id}', [DashboardUsersController::class, 'destroy'])->name('dashboard.users.destroy');
-
-            });
-
-            // Payment gateways
-            Route::get('gateways', [DashboardGatewaysController::class, 'index'])->name('dashboard.gateways.index');
-
-            // Services admin
-            Route::group(['prefix' => 'services'], function () {
-                Route::get('/', [ServiceAdminController::class, 'index'])->name('dashboard.services.index');
-                Route::get('create', [ServiceAdminController::class, 'create'])->name('dashboard.services.create');
-                Route::post('/', [ServiceAdminController::class, 'store'])->name('dashboard.services.store');
-                Route::get('{service}', [ServiceAdminController::class, 'show'])->name('dashboard.services.show');
-                Route::post('{service}', [ServiceAdminController::class, 'update'])->name('dashboard.services.update');
-                Route::delete('{service}', [ServiceAdminController::class, 'destroy'])->name('dashboard.services.destroy');
-            
-                // Service fields
-                Route::group(['prefix' => '{service}/fields'], function () {
-                    Route::post('/', [ServiceAdminController::class, 'storeField'])->name('dashboard.services.fields.store');
-                    Route::post('{field_id}', [ServiceAdminController::class, 'updateField'])->name('dashboard.services.fields.update');
-                    Route::delete('{field_id}', [ServiceAdminController::class, 'destroyField'])->name('dashboard.services.fields.destroy');
-                });
-            
-            });
+        // Services admin
+        Route::prefix('services')->name('services.')->group(function () {
+            Route::get('/', [ServiceAdminController::class, 'index'])->name('index');
+            Route::get('create', [ServiceAdminController::class, 'create'])->name('create');
+            Route::post('/', [ServiceAdminController::class, 'store'])->name('store');
+            Route::get('{service}', [ServiceAdminController::class, 'show'])->name('show');
+            Route::post('{service}', [ServiceAdminController::class, 'update'])->name('update');
+            Route::delete('{service}', [ServiceAdminController::class, 'destroy'])->name('destroy');
 
             // Service fields
-            Route::group(['prefix' => 'servicefields'], function () {
-                Route::get('/', [ServiceFieldsController::class, 'index'])->name('dashboard.servicefields.index');
-                Route::get('create', [ServiceFieldsController::class, 'create'])->name('dashboard.servicefields.create');
-                Route::post('/', [ServiceFieldsController::class, 'store'])->name('dashboard.servicefields.store');
-                Route::get('{field_id}', [ServiceFieldsController::class, 'show'])->name('dashboard.servicefields.show');
-                Route::post('{field_id}', [ServiceFieldsController::class, 'update'])->name('dashboard.servicefields.update');
-                Route::delete('{field_id}', [ServiceFieldsController::class, 'destroy'])->name('dashboard.servicefields.destroy');
+            Route::prefix('{service}/fields')->name('fields.')->group(function () {
+                Route::post('/', [ServiceAdminController::class, 'storeField'])->name('store');
+                Route::post('{field_id}', [ServiceAdminController::class, 'updateField'])->name('update');
+                Route::delete('{field_id}', [ServiceAdminController::class, 'destroyField'])->name('destroy');
             });
-
-            Route::group(['prefix' => 'servicegroups'], function () {
-                Route::get('/', [ServiceGroupsController::class, 'index'])->name('dashboard.servicegroups.index');
-                Route::get('create', [ServiceGroupsController::class, 'create'])->name('dashboard.servicegroups.create');
-                Route::post('/', [ServiceGroupsController::class, 'store'])->name('dashboard.servicegroups.store');
-                Route::get('{group_id}', [ServiceGroupsController::class, 'show'])->name('dashboard.servicegroups.show');
-                Route::post('{group_id}', [ServiceGroupsController::class, 'update'])->name('dashboard.servicegroups.update');
-                Route::delete('{group_id}', [ServiceGroupsController::class, 'destroy'])->name('dashboard.servicegroups.destroy');
-            });
-
-            Route::group(['prefix' => 'request-manage'], function () {
-                Route::get('/', [RequestAdminController::class, 'index'])->name('dashboard.requestmanage.index');
-                Route::get('{request_id}', [RequestAdminController::class, 'show'])->name('dashboard.requestmanage.show');
-                Route::post('{request_id}', [RequestAdminController::class, 'update'])->name('dashboard.requestmanage.update');
-                Route::delete('{request_id}', [RequestAdminController::class, 'destroy'])->name('dashboard.requestmanage.destroy');
-            });
-
-
-            // Admin request
-            Route::get('requests', [AdminRequestController::class, 'index'])->name('dashboard.admin.requests.index');
-
-            // Settings
-            Route::get('settings', [DashboardSettingsController::class, 'index'])->name('dashboard.settings.index');
-            Route::post('settings', [DashboardSettingsController::class, 'store'])->name('dashboard.settings.store');
-
         });
 
-        // User routes
-        Route::middleware('isUser')->group(function () {
-
-            // My subscription
-            Route::group(['prefix' => 'subscription'], function () {
-                Route::get('/', [SubscriptionUserController::class, 'index'])->name('dashboard.subscription.index');
-                Route::post('', [SubscriptionUserController::class, 'update'])->name('dashboard.subscription.update');
-            });
-
-            // User
-            Route::get('profile', [DashboardProfileController::class, 'profilePreview'])->name('dashboard.profile.show');
-            Route::post('profile', [DashboardProfileController::class, 'updateProfile'])->name('dashboard.profile.update');
-            Route::post('profile/password', [DashboardProfileController::class, 'updatePassword'])->name('dashboard.password.update');
-            Route::get('profile/edit', [DashboardProfileController::class, 'profileEdit'])->name('dashboard.profile.edit');
-            Route::post('profile/edit', [DashboardProfileController::class, 'profileUpdate'])->name('dashboard.profile.update');
-            Route::post('profile/address', [DashboardProfileController::class, 'profileAddressUpdate'])->name('dashboard.profile.address.update');
-            Route::get('profile/company', [DashboardProfileController::class, 'companyEdit'])->name('dashboard.profile.company');
-            Route::post('profile/company', [DashboardProfileController::class, 'companyUpdate'])->name('dashboard.company.update');
+        // Standalone Service fields
+        Route::prefix('servicefields')->name('servicefields.')->group(function () {
+            Route::get('/', [ServiceFieldsController::class, 'index'])->name('index');
+            Route::get('create', [ServiceFieldsController::class, 'create'])->name('create');
+            Route::post('/', [ServiceFieldsController::class, 'store'])->name('store');
+            Route::get('{field_id}', [ServiceFieldsController::class, 'show'])->name('show');
+            Route::post('{field_id}', [ServiceFieldsController::class, 'update'])->name('update');
+            Route::delete('{field_id}', [ServiceFieldsController::class, 'destroy'])->name('destroy');
         });
 
-        // Requests
-        Route::group(['prefix' => 'service-request'], function () {
-
-            // My requests
-            Route::get('/history', [RequestUserController::class, 'history'])->name('dashboard.servicerequest.history.index');
-            Route::get('/history/{request_id}', [RequestUserController::class, 'historyShow'])->name('dashboard.servicerequest.history.show');
-
-            // Group
-            Route::get('/{group}', [RequestUserController::class, 'showGroup'])->name('dashboard.servicerequest.group');
-
-            // Service forms
-            Route::get('/{group}/{service}', [RequestUserController::class, 'show'])->name('dashboard.servicerequest.show');
-            Route::post('/{group}/{service}', [RequestUserController::class, 'store'])->name('dashboard.servicerequest.store');
-
-            // Store request
-            Route::post('/{group}/{service}/store', [RequestUserController::class, 'storeRequest'])->name('dashboard.servicerequest.store.request');
-
+        // Service groups
+        Route::prefix('servicegroups')->name('servicegroups.')->group(function () {
+            Route::get('/', [ServiceGroupsController::class, 'index'])->name('index');
+            Route::get('create', [ServiceGroupsController::class, 'create'])->name('create');
+            Route::post('/', [ServiceGroupsController::class, 'store'])->name('store');
+            Route::get('{group_id}', [ServiceGroupsController::class, 'show'])->name('show');
+            Route::post('{group_id}', [ServiceGroupsController::class, 'update'])->name('update');
+            Route::delete('{group_id}', [ServiceGroupsController::class, 'destroy'])->name('destroy');
         });
 
-    }
-);
+        // Request management
+        Route::prefix('request-manage')->name('requestmanage.')->group(function () {
+            Route::get('/', [RequestAdminController::class, 'index'])->name('index');
+            Route::get('{request_id}', [RequestAdminController::class, 'show'])->name('show');
+            Route::post('{request_id}', [RequestAdminController::class, 'update'])->name('update');
+            Route::delete('{request_id}', [RequestAdminController::class, 'destroy'])->name('destroy');
+        });
 
+        // Admin requests
+        Route::get('requests', [AdminRequestController::class, 'index'])->name('admin.requests.index');
+
+        // Settings
+        Route::prefix('settings')->name('settings.')->group(function () {
+            Route::get('/', [DashboardSettingsController::class, 'index'])->name('index');
+            Route::post('/', [DashboardSettingsController::class, 'store'])->name('store');
+        });
+    });
+
+    // User routes
+    Route::middleware('isUser')->group(function () {
+        // Subscription
+        Route::prefix('subscription')->name('subscription.')->group(function () {
+            Route::get('/', [SubscriptionUserController::class, 'index'])->name('index');
+            Route::post('/', [SubscriptionUserController::class, 'update'])->name('update');
+        });
+
+        // Profile
+        Route::prefix('profile')->name('profile.')->group(function () {
+            Route::get('/', [DashboardProfileController::class, 'profilePreview'])->name('show');
+            Route::post('/', [DashboardProfileController::class, 'updateProfile'])->name('update');
+            Route::post('password', [DashboardProfileController::class, 'updatePassword'])->name('password.update');
+            Route::get('edit', [DashboardProfileController::class, 'profileEdit'])->name('edit');
+            Route::post('edit', [DashboardProfileController::class, 'profileUpdate'])->name('update');
+            Route::post('address', [DashboardProfileController::class, 'profileAddressUpdate'])->name('address.update');
+            Route::get('company', [DashboardProfileController::class, 'companyEdit'])->name('company.edit');
+            Route::post('company', [DashboardProfileController::class, 'companyUpdate'])->name('company.update');
+        });
+    });
+
+    // Service requests
+    Route::prefix('service-request')->name('servicerequest.')->group(function () {
+        Route::get('history', [RequestUserController::class, 'history'])->name('history.index');
+        Route::get('history/{request_id}', [RequestUserController::class, 'historyShow'])->name('history.show');
+
+        // Group requests
+        Route::get('{group}', [RequestUserController::class, 'showGroup'])->name('group');
+
+        // Service forms
+        Route::get('{group}/{service}', [RequestUserController::class, 'show'])->name('show');
+        Route::post('{group}/{service}', [RequestUserController::class, 'store'])->name('store');
+
+        // Store request
+        Route::post('{group}/{service}/store', [RequestUserController::class, 'storeRequest'])->name('store.request');
+    });
+});
