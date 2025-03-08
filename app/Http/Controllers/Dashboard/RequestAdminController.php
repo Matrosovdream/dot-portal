@@ -3,7 +3,6 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Actions\Dashboard\RequestAdminActions;
-use Illuminate\Http\Request;
 
 class RequestAdminController extends Controller
 {
