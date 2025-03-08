@@ -110,6 +110,65 @@ class AuthnetGateway implements GatewayInterface
             return $this->response->getData();
         } 
     }
+
+    public function createSubscription()
+    {
+        try {
+            $subscriptionData = [
+                'amount'            => $this->params['subscription_data']['amount'],
+                'currency'          => $this->params['subscription_data']['currency'],
+                'intervalUnit'      => $this->params['subscription_data']['interval_unit'],
+                'intervalLength'    => $this->params['subscription_data']['interval_length'],
+                'startDate'         => $this->params['subscription_data']['start_date'],
+                'totalOccurrences'  => $this->params['subscription_data']['total_occurrences'],
+                'trialOccurrences'  => isset($this->params['subscription_data']['trial_occurrences']) ? $this->params['subscription_data']['trial_occurrences'] : 0,
+                'card'              => new \Omnipay\Common\CreditCard([
+                    'number'      => $this->params['cart_data']['cc_number'],
+                    'expiryMonth' => $this->params['cart_data']['expiry_month'],
+                    'expiryYear'  => $this->params['cart_data']['expiry_year'],
+                    'cvv'         => $this->params['cart_data']['cvv'],
+                ]),
+            ];
+
+            $response = $this->gateway->createSubscription($subscriptionData)->send();
+            $this->response = $response;
+
+            if ($response->isSuccessful()) {
+                // Assuming the response contains a subscription ID
+                $this->transaction_id = $response->getData()['subscriptionId'] ?? null;
+                $this->success = true;
+            } else {
+                $this->setError($response->getMessage());
+            }
+        } catch(Exception $e) {
+            $this->setError($e->getMessage());
+        }
+    }
+
+    /**
+     * Update an existing subscription
+     *
+     * @param string $subscriptionId The subscription identifier to update.
+     * @param array $updateData The subscription fields to update (e.g., amount, interval, etc.)
+     */
+    public function updateSubscription($subscriptionId, $updateData)
+    {
+        try {
+            // Add the subscription id to the update data array
+            $updateData['subscriptionId'] = $subscriptionId;
+
+            $response = $this->gateway->updateSubscription($updateData)->send();
+            $this->response = $response;
+
+            if ($response->isSuccessful()) {
+                $this->success = true;
+            } else {
+                $this->setError($response->getMessage());
+            }
+        } catch(Exception $e) {
+            $this->setError($e->getMessage());
+        }
+    }
     
 
 }
