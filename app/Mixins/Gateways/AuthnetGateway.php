@@ -169,6 +169,29 @@ class AuthnetGateway implements GatewayInterface
             $this->setError($e->getMessage());
         }
     }
+
+    /**
+     * Cancel an existing subscription
+     *
+     * @param string $subscriptionId The subscription identifier to cancel.
+     */
+    public function cancelSubscription($subscriptionId)
+    {
+        try {
+            $response = $this->gateway->cancelSubscription([
+                'subscriptionId' => $subscriptionId
+            ])->send();
+            $this->response = $response;
+
+            if ($response->isSuccessful()) {
+                $this->success = true;
+            } else {
+                $this->setError($response->getMessage());
+            }
+        } catch(Exception $e) {
+            $this->setError($e->getMessage());
+        }
+    }
     
 
 }
