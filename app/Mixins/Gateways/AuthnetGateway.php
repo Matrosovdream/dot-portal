@@ -4,7 +4,7 @@ namespace App\Mixins\Gateways;
 use Omnipay\Omnipay;
 use Exception;
 
-class AuthnetGateway
+class AuthnetGateway implements GatewayInterface
 {
     
     public $params;
