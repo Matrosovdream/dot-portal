@@ -3,22 +3,30 @@ namespace App\Mixins\Gateways;
 
 interface GatewayInterface {
 
-    public function setParams($params);
+    public function setParams(array $params);
 
     public function charge();
 
     public function setCreditCard();
 
-    public function processResponse();
+    public function getCreditCard();
 
-    public function makeTransactionId();
+    public function handleResponse();
 
-    public function setError($error);
+    public function createSubscription();
+
+    public function updateSubscription();
+
+    public function cancelSubscription();
+
+    public function recordError(string $error);
 
     public function getErrors();
 
-    public function isErrors();
+    public function hasErrors();
 
     public function getResponse();
+
+    public function makeTransactionId();
 
 }
