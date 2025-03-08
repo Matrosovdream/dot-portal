@@ -57,7 +57,7 @@
                                 <a href="{{ route('dashboard.users.show', $user->id) }}"
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
-                                    {{ $user->name }}
+                                    {{ $user->firstname }} {{ $user->lastname }}
                                 </a>
                             </td>
                             <td>
