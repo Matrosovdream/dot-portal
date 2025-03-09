@@ -30,14 +30,14 @@
             <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
                 <thead>
                     <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                        <th class="min-w-200px">Driver Name</th>
-                        <th class="min-w-200px text-center">Driver Type</th>
-                        <th class="min-w-200px text-center">Dob</th>
-                        <th class="min-w-200px text-center">License type</th>
-                        <th class="min-w-200px text-center">License state / Number</th>
-                        <th class="min-w-200px text-center">Hire date</th>
-                        <th class="min-w-200px text-center">Added</th>
-                        <th class="min-w-200px text-center">Actions</th>
+                        <th class="">Driver Name</th>
+                        <th class=" text-center">Driver Type</th>
+                        <th class=" text-center">Dob</th>
+                        <th class=" text-center">License type</th>
+                        <th class=" text-center">License state / Number</th>
+                        <th class=" text-center">Hire date</th>
+                        <th class=" text-center">Added</th>
+                        <th class=" text-center">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
