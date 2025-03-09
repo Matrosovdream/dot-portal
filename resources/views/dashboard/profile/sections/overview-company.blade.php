@@ -5,7 +5,7 @@
             <h3 class="fw-bold m-0">Company Details</h3>
         </div>
 
-        <a href="{{ route('dashboard.profile.company') }}" class="btn btn-sm btn-primary align-self-center">
+        <a href="{{ route('dashboard.profile.company.edit') }}" class="btn btn-sm btn-primary align-self-center">
             Edit Company
         </a>
 

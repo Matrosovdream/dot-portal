@@ -11,7 +11,7 @@
         ],
         'company' => [
             'title' => 'Company',
-            'url' => route('dashboard.profile.company'),
+            'url' => route('dashboard.profile.company.edit'),
         ],
     ];
 
