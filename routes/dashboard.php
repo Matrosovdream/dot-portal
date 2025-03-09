@@ -39,14 +39,14 @@ Route::group([
         Route::delete('{driver}', [DriverController::class, 'destroy'])->name('destroy');
 
         // Driver subroutes
-        Route::prefix('{driver}')->group(function () {
-            Route::get('profile', [DriverController::class, 'profile'])->name('profile.show');
+        Route::prefix('{driver}')->name('show.')->group(function () {
+            Route::get('profile', [DriverController::class, 'profile'])->name('profile');
             Route::post('profile', [DriverController::class, 'updateProfile'])->name('profile.update');
-            Route::get('license', [DriverController::class, 'license'])->name('license.show');
+            Route::get('license', [DriverController::class, 'license'])->name('license');
             Route::post('license', [DriverController::class, 'updateLicense'])->name('license.update');
-            Route::get('address', [DriverController::class, 'address'])->name('address.show');
+            Route::get('address', [DriverController::class, 'address'])->name('address');
             Route::post('address', [DriverController::class, 'updateAddress'])->name('address.update');
-            Route::get('medical-card', [DriverController::class, 'medicalCard'])->name('medicalcard.show');
+            Route::get('medical-card', [DriverController::class, 'medicalCard'])->name('medicalcard');
             Route::post('medical-card', [DriverController::class, 'updateMedicalCard'])->name('medicalcard.update');
             Route::get('logs', [DriverController::class, 'logs'])->name('logs');
         });
