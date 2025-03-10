@@ -4,6 +4,7 @@ namespace App\Repositories\User;
 use App\Repositories\AbstractRepo;
 use App\Repositories\User\UserAddressRepo;
 use App\Repositories\User\UserCompanyRepo;
+use App\Repositories\User\UserPaymentCardRepo;
 use App\Models\User;
 
 class UserRepo extends AbstractRepo
@@ -11,12 +12,13 @@ class UserRepo extends AbstractRepo
 
     private $userAdressRepo;
     private $userCompanyRepo;
+    private $userPaymentCardRepo;
 
     protected $model;
 
     protected $fields = [];
 
-    protected $withRelations = [];
+    protected $withRelations = ['address', 'company', 'paymentCards'];
 
     public function __construct()
     {
@@ -24,6 +26,7 @@ class UserRepo extends AbstractRepo
 
         $this->userAdressRepo = new UserAddressRepo();
         $this->userCompanyRepo = new UserCompanyRepo();
+        $this->userPaymentCardRepo = new UserPaymentCardRepo();
     }
 
     public function mapItem($item)
@@ -43,9 +46,10 @@ class UserRepo extends AbstractRepo
             'is_active' => $item->is_active,
             'address' => $this->userAdressRepo->mapItem( $item->address ),
             'company' => $this->userCompanyRepo->mapItem( $item->company ),
+            'payment_cards' => $this->userPaymentCardRepo->mapItems( $item->paymentCards ),
             'Model' => $item
         ];
-
+//dd($res);
         return $res;
     }
 
