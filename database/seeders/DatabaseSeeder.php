@@ -20,6 +20,7 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             UserSeeder::class,
             UserSubscriptionSeeder::class,
+            UserPaymentCardSeeder::class,
 
             // Referecences
             LanguageSeeder::class,

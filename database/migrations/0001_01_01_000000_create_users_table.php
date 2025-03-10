@@ -118,6 +118,17 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // User Payment cards
+        Schema::create('user_payment_cards', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->on('users');
+            $table->string('card_number')->nullable();
+            $table->string('card_holder_name')->nullable();
+            $table->string('expiry_date')->nullable();
+            $table->foreignId('payment_method_id')->on('payment_gateways')->nullable();
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -135,5 +146,6 @@ return new class extends Migration
         Schema::dropIfExists('user_address');
         Schema::dropIfExists('user_subscription');
         Schema::dropIfExists('user_subscription_payments');
+        Schema::dropIfExists('user_payment_cards');
     }
 };
