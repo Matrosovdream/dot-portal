@@ -52,6 +52,12 @@ class User extends Authenticatable
         return $this->hasOne(Subscription::class);
     }
 
+    // Get user payment cards
+    public function paymentCards()
+    {
+        return $this->hasMany(UserPaymentCard::class);
+    }
+
     // Check if user has role admin
     public function isAdmin()
     {
@@ -88,6 +94,8 @@ class User extends Authenticatable
         if (!$role) { return false; }
         return $this->roles()->sync($role->id);
     }
+
+
 
     /**
      * Get the attributes that should be cast.
