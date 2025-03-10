@@ -46,7 +46,7 @@ class UserRepo extends AbstractRepo
             'is_active' => $item->is_active,
             'address' => $this->userAdressRepo->mapItem( $item->address ),
             'company' => $this->userCompanyRepo->mapItem( $item->company ),
-            'payment_cards' => $this->userPaymentCardRepo->mapItems( $item->paymentCards ),
+            'paymentCards' => $this->userPaymentCardRepo->mapItems( $item->paymentCards ),
             'Model' => $item
         ];
 

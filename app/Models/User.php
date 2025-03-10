@@ -58,6 +58,12 @@ class User extends Authenticatable
         return $this->hasMany(UserPaymentCard::class);
     }
 
+    // Get user payment history
+    public function paymentHistory()
+    {
+        return $this->hasMany(UserPaymentHistory::class);
+    }
+
     // Check if user has role admin
     public function isAdmin()
     {
