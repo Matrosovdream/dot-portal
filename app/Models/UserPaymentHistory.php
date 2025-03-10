@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserPaymentHistory extends Model
 {
     
-    protected $table = 'user_company';
+    protected $table = 'user_payment_history';
     
     protected $fillable = [
         'user_id',
