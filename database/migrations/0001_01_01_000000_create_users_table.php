@@ -103,21 +103,6 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        // User subscription payments
-        Schema::create('user_subscription_payments', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('user_id')->on('users');
-            $table->foreignId('subscription_id')->on('subscriptions');
-            $table->foreignId('user_subscription_id')->on('user_subscription');
-            $table->foreignId('payment_method_id')->on('payment_gateways');
-            $table->float('amount')->default(0);
-            $table->timestamp('payment_date')->nullable();
-            $table->string('transaction_id')->nullable();
-            $table->string('status')->nullable();
-            $table->text('notes')->nullable();
-            $table->timestamps();
-        });
-
         // User Payment cards
         Schema::create('user_payment_cards', function (Blueprint $table) {
             $table->id();
@@ -126,6 +111,21 @@ return new class extends Migration
             $table->string('card_holder_name')->nullable();
             $table->string('expiry_date')->nullable();
             $table->foreignId('payment_method_id')->on('payment_gateways')->nullable();
+            $table->timestamps();
+        });
+
+        // User Payment history including single and subscription payments
+        Schema::create('user_payment_history', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->on('users');
+            $table->foreignId('payment_method_id')->on('payment_gateways');
+            $table->foreignId('subscription_id')->on('user_subscription')->nullable();
+            $table->string('type')->nullable();
+            $table->float('amount')->default(0);
+            $table->timestamp('payment_date')->nullable();
+            $table->string('transaction_id')->nullable();
+            $table->string('status')->nullable();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
 
@@ -145,7 +145,7 @@ return new class extends Migration
         Schema::dropIfExists('user_company_address');
         Schema::dropIfExists('user_address');
         Schema::dropIfExists('user_subscription');
-        Schema::dropIfExists('user_subscription_payments');
         Schema::dropIfExists('user_payment_cards');
+        Schema::dropIfExists('user_payment_history');
     }
 };
