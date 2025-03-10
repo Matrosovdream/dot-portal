@@ -27,6 +27,8 @@
             <h3 class="mb-5">My Cards</h3>
 
             <div class="row gx-9 gy-6">
+
+
                 <div class="col-xl-6" data-kt-billing-element="card">
 
                     <div class="card card-dashed h-xl-100 flex-row flex-stack flex-wrap p-6">
@@ -60,9 +62,35 @@
                     </div>
 
                 </div>
+
+
+                <div class="col-xl-6">
+                    <div
+                        class="notice d-flex bg-light-primary rounded border-primary border border-dashed h-lg-100 p-6">
+
+                        <div class="d-flex flex-stack flex-grow-1 flex-wrap flex-md-nowrap">
+
+                            <div class="mb-3 mb-md-0 fw-semibold">
+                                <h4 class="text-gray-900 fw-bold">Important Note!</h4>
+                                <div class="fs-6 text-gray-700 pe-7">Please carefully read
+                                    <a href="#" class="fw-bold me-1">Product Terms</a>adding
+                                    <br />your new payment card
+                                </div>
+                            </div>
+
+                            <a href="#" class="btn btn-primary px-6 align-self-center text-nowrap"
+                                data-bs-toggle="modal" data-bs-target="#kt_modal_new_card">Add Card</a>
+
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
 
         </div>
 
     </div>
 </div>
+
+@include('dashboard.subscription.modals.add-new-card')
