@@ -49,7 +49,7 @@ class UserRepo extends AbstractRepo
             'payment_cards' => $this->userPaymentCardRepo->mapItems( $item->paymentCards ),
             'Model' => $item
         ];
-//dd($res);
+
         return $res;
     }
 
