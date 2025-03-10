@@ -28,11 +28,11 @@ class SubscriptionUserActions {
             'title' => 'My subscription',
             'user' => $this->userRepo->getByID( $user_id ),
             'subscription' => $this->userSubRepo->getByUserID( $user_id ),
-            'paymentHistory' => $this->userPaymentHistoryRepo->getByUserID( $user_id ),
+            'paymentHistory' => $this->userPaymentHistoryRepo->getAll( ['user_id' => $user_id], 100 ),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
-        dd($data);
+        //dd($data);
 
         return $data;
     }

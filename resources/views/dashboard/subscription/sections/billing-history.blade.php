@@ -26,35 +26,40 @@
             aria-labelledby="kt_billing_all">
             <div class="table-responsive">
 
-                @if(isset($description['payments']))
+                @if(isset($paymentHistory))
 
                     <table class="table table-row-bordered align-middle gy-4 gs-9">
                         <thead class="border-bottom border-gray-200 fs-6 text-gray-600 fw-bold bg-light bg-opacity-75">
                             <tr>
-                                <td class="min-w-150px">Date</td>
-                                <td class="min-w-250px">Description</td>
-                                <td class="min-w-150px">Amount</td>
-                                <td class="min-w-150px">Invoice</td>
+                                <td>Date</td>
+                                <td>Status</td>
+                                <td>Notes</td>
+                                <td>Amount</td>
+                                <td>Transaction ID</td>
                                 <td></td>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600">
 
-                            @foreach($description['payments'] as $payment)
+                        @php
+                        //dd($paymentHistory['items']);
+                        @endphp
+
+                            @foreach($paymentHistory['items'] as $payment)
 
                                 <tr>
                                     <td>{{ $payment['payment_date'] }}</td>
                                     <td>
-                                        <a href="#">{{ $payment['notes'] }}</a>
+                                        <span class="badge badge-light fw-bold">{{ $payment['status'] }}</span>
+                                    </td>
+                                    <td>
+                                        {{ $payment['notes'] ?? '' }}
                                     </td>
                                     <td>
                                         ${{ $payment['amount'] }}
                                     </td>
                                     <td>
-                                        <a href="#" class="btn btn-sm btn-light btn-active-light-primary">PDF</a>
-                                    </td>
-                                    <td class="text-right">
-                                        <a href="#" class="btn btn-sm btn-light btn-active-light-primary">View</a>
+                                        {{ $payment['transaction_id'] }}
                                     </td>
                                 </tr>
 

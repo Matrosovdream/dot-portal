@@ -89,7 +89,9 @@
                             </div>
 
                             <a href="#" class="btn btn-primary px-6 align-self-center text-nowrap"
-                                data-bs-toggle="modal" data-bs-target="#kt_modal_new_card">Add Card</a>
+                                data-bs-toggle="modal" data-bs-target="#kt_modal_new_card">
+                                Add Card
+                            </a>
 
                         </div>
 
