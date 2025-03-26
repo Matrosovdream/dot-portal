@@ -19,20 +19,28 @@ class HomeController extends Controller
         $this->homeManagerActions = new HomeManagerActions();
         $this->homeUserActions = new HomeUserActions();
     }
-    
+
     public function index()
     {
 
         // User role
-        if( auth()->user()->isAdmin() ) {
-            $route = 'dashboard.home.admin';
-            $data = $this->homeAdminActions->index();
-        } elseif( auth()->user()->isManager() ) {
-            $route = 'dashboard.home.admin';
-            $data = $this->homeManagerActions->index();
-        } elseif( auth()->user()->isUser() ) {
-            $route = 'dashboard.home.user';
-            $data = $this->homeUserActions->index();
+        switch (true) {
+            case auth()->user()->isAdmin():
+                $route = 'dashboard.home.admin';
+                $data = $this->homeAdminActions->index();
+                break;
+            case auth()->user()->isManager():
+                $route = 'dashboard.home.admin';
+                $data = $this->homeManagerActions->index();
+                break;
+            case auth()->user()->isUser():
+                $route = 'dashboard.home.user';
+                $data = $this->homeUserActions->index();
+                break;
+            default:
+                $route = 'dashboard.home.user';
+                $data = $this->homeUserActions->index();
+                break;
         }
 
         return view($route, $data);
