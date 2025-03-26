@@ -9,9 +9,6 @@ class adminSettingsHelper {
 
         $menu = DashboardReferences::sidebarMenu();
 
-        // Filter menu by user role
-        $menu = self::filterMenuByRole($menu);
-
         // Set active menus
         $menu = self::setActiveMenus($menu);
 
@@ -21,22 +18,6 @@ class adminSettingsHelper {
 
     }
 
-    public static function filterMenuByRole( $menu ) {
-
-        $user = auth()->user();
-        $menu = array_filter($menu, function($item) use ($user) {
-            if (isset($item['roles'])) {
-                if (in_array($user->getRole()->slug, $item['roles'])) {
-                    return true;
-                }
-            } else {
-                return true;
-            }
-        });
-
-        return $menu;
-
-    }
 
     public static function setActiveMenus( $menu ) {
 
