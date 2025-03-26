@@ -5,15 +5,18 @@ namespace App\References;
 use App\References\Menu\AdminMenu;
 use App\References\Menu\ManagerMenu;
 use App\References\Menu\CompanyMenu;
+use App\References\Menu\DriverMenu;
 
 
-class DashboardReferences {
+class DashboardReferences
+{
 
-    public static function sidebarMenu() {
+    public static function sidebarMenu()
+    {
 
         $userRole = auth()->user()->getRole()->slug;
 
-        switch( $userRole ) {
+        switch ($userRole) {
             case 'admin':
                 $menu = new AdminMenu();
                 break;
@@ -23,8 +26,11 @@ class DashboardReferences {
             case 'manager':
                 $menu = new ManagerMenu();
                 break;
+            case 'driver':
+                $menu = new DriverMenu();
+                break;
             default:
-            $menu = new CompanyMenu();
+                $menu = new CompanyMenu();
                 break;
         }
 
