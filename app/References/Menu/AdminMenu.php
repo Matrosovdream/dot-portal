@@ -1,0 +1,91 @@
+<?php
+
+namespace App\References\Menu;
+
+class AdminMenu implements InterfaceMenu {
+
+    public function getMenus() : array {
+
+        return [
+            'sidebar' => $this->sidebarMenu(),
+        ];
+
+    }
+
+    public function sidebarMenu() : array {
+
+        return array(
+            array(
+                'title' => 'Notifications manager',
+                'url' => '',
+                'icon' => 'ki-basket',
+                'roles' => ['admin'],
+                'childs' => array(
+                    array(
+                        'title' => 'All',
+                        'url' => route('dashboard.notifications-manage.index'),
+                        'roles' => ['admin', 'manager'],
+                    ),
+                ),
+            ),
+            array(
+                'title' => 'Services',
+                'url' => '',
+                'icon' => 'ki-basket',
+                'roles' => ['admin', 'manager'],
+                'childs' => array(
+                    array(
+                        'title' => 'Services list',
+                        'url' => route('dashboard.services.index'),
+                        'roles' => ['admin', 'manager'],
+                    ),
+                    array(
+                        'title' => 'Service fields',
+                        'url' => route('dashboard.servicefields.index'),
+                        'roles' => ['admin'],
+                    ),
+                    array(
+                        'title' => 'Service groups',
+                        'url' => route('dashboard.servicegroups.index'),
+                        'roles' => ['admin'],
+                    ),
+
+                ),
+            ),
+            array(
+                'title' => 'Requests',
+                'url' => '',
+                'icon' => 'ki-element-9',
+                'roles' => ['admin', 'manager'],
+                'childs' => array(
+                    array(
+                        'title' => 'All',
+                        'url' => route('dashboard.requestmanage.index'),
+                        'roles' => ['admin', 'manager'],
+                    ),
+                ),
+            ),
+            array(
+                'title' => 'Settings',
+                'url' => route('dashboard.settings.index'),
+                'icon' => 'ki-element-11',
+                'roles' => ['admin'],
+                'childs' => array(
+                    array(
+                        'title' => 'General',
+                        'url' => route('dashboard.settings.index'),
+                        'roles' => ['admin'],
+                    ),
+                    array(
+                        'title' => 'Users',
+                        'url' => route('dashboard.users.index'),
+                        'roles' => ['admin'],
+                    ),
+                ),
+
+            ),
+        );
+
+    }
+
+}
