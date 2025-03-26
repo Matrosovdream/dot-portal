@@ -79,7 +79,7 @@ class User extends Authenticatable
     // Check if user has role user
     public function isUser()
     {
-        return $this->roles()->where('slug', 'user')->exists();
+        return $this->roles()->where('slug', 'company')->exists();
     }
 
     // Get the user role
