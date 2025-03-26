@@ -15,7 +15,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Driver type</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['license']['driverType']['title'] }}
+                    {{ $driver['license']['driverType']['title'] ?? '' }}
                 </span>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Endorsement type</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['license']['endorsement']['title'] }}
+                    {{ $driver['license']['endorsement']['title'] ?? '' }}
                 </span>
             </div>
         </div>
@@ -42,7 +42,7 @@
             <label class="col-lg-4 fw-semibold text-muted">State</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['license']['state']['name'] }}
+                    {{ $driver['license']['state']['name'] ?? '' }}
                 </span>
             </div>
         </div>

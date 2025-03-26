@@ -14,13 +14,14 @@ class RoleSeeder extends Seeder
         $roles = [
             ['title' => 'Administrator', 'slug' => 'admin'],
             ['title' => 'Manager', 'slug' => 'manager'],
-            ['title' => 'User', 'slug' => 'user'],
+            ['title' => 'Company', 'slug' => 'company'],
+            ['title' => 'Driver', 'slug' => 'driver'],
         ];
 
         foreach ($roles as $role) {
-            Role::firstOrCreate(
+            Role::updateOrCreate(
                 ['slug' => $role['slug']], // Check by slug
-                ['title' => $role['title']] // Create if not found
+                ['title' => $role['title']] // Create or update
             );
         }
     }
