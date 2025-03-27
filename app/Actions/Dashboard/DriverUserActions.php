@@ -151,7 +151,7 @@ class DriverUserActions {
         $file = $this->fileStorage->uploadFile(
             'license_file', 
             'drivers/' . $driver_id . '/license',
-            'public',
+            'local',
         );
         if( $file ) {
 
@@ -222,6 +222,23 @@ class DriverUserActions {
     {
 
         $driver = $this->driverRepo->getByID($driver_id);
+
+        // Driver document from request
+        $file = $this->fileStorage->uploadFile(
+            'medical_card', 
+            'drivers/' . $driver_id . '/medical_card',
+            'local',
+        );
+        if( $file ) {
+
+            // Add document, in our case license
+            $this->driverRepo->addDocument(
+                $driver_id, 
+                $file['file'], 
+                'medical_card'
+            );
+
+        }
 
         // If isset medical card
         if ( $driver['medicalCard'] ) {

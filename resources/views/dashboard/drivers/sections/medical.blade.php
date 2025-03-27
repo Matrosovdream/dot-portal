@@ -81,6 +81,27 @@
 
             </div>
 
+            <div class="row mb-6">
+
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">
+                    Medical card
+                </label>
+
+                <div class="col-lg-4 fv-row">
+                    @include('dashboard.includes.file.file-uploader-default', [
+                        'inputName' => 'medical_card',
+                        'value' => '',
+                        'accept' => 'image/*,application/pdf',
+                        'multiple' => false,
+                        'required' => false,
+                        'label' => 'Upload file',
+                        'note' => 'Upload 1 image or PDF',
+                        'description' => '',
+                    ])
+                </div>
+
+            </div>
+
 
 
         </div>

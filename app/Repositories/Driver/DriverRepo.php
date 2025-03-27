@@ -63,6 +63,9 @@ class DriverRepo extends AbstractRepo
 
     public function addDocument($driver_id, $file, $type)
     {
+
+        if( !$file ) { return null; }
+
         $driver = $this->getByID($driver_id);
 
         $data = [
