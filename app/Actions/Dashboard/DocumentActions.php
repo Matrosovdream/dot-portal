@@ -2,22 +2,29 @@
 
 namespace App\Actions\Dashboard;
 
+use App\Repositories\File\FileRepo;
+use App\Helpers\adminSettingsHelper;
+
 
 class DocumentActions {
 
-    private $driverRepo;
+    private $fileRepo;
 
     public function __construct()
     {
 
-        //$this->driverRepo = new DriverRepo();
+        $this->fileRepo = new FileRepo();
 
     }
 
     public function index()
     {
 
-        $data = [];
+        $data = [
+            'title' => 'Documents',
+            'documents' => $this->fileRepo->getAll(),
+            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+        ];
 
         return $data;
     }
