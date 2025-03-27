@@ -24,6 +24,14 @@ return new class extends Migration
             $table->foreignId('user_id')->on('users')->nullable();
             $table->timestamps();
         });
+
+        // Add the tags table
+        Schema::create('file_tags', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('file_id')->on('files');
+            $table->string('name');
+        });
+
     }
 
     /**
@@ -32,5 +40,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('files');
+        Schema::dropIfExists('file_tags');
     }
 };
