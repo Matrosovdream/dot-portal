@@ -177,7 +177,7 @@ Route::group([
 
     // Documents
     Route::prefix('documents')->name('documents.')->group(function () {
-        Route::get('/', [DocumentsController::class, 'documents'])->name('index');
+        Route::get('/', [DocumentsController::class, 'index'])->name('index');
     });
 
 });
