@@ -9,8 +9,13 @@
 
     </div>
 
-    <form id="kt_account_profile_details_form" class="form" method="POST"
-        action="{{ route('dashboard.drivers.show.medicalcard.update', $driver['id']) }}" enctype="multipart/form-data">
+    <form 
+        id="kt_account_profile_details_form" 
+        class="form" 
+        method="POST"
+        action="{{ route('dashboard.drivers.show.medicalcard.update', $driver['id']) }}" 
+        enctype="multipart/form-data"
+        >
 
         @csrf
 
@@ -126,6 +131,26 @@
 
             </div>
 
+            <div class="row mb-6">
+
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">
+                    License document
+                </label>
+
+                <div class="col-lg-4 fv-row">
+                    @include('dashboard.includes.file.file-uploader-default', [
+                        'input_name' => 'license_file',
+                        'value' => '',
+                        'accept' => 'image/*,application/pdf',
+                        'multiple' => false,
+                        'required' => false,
+                        'label' => 'Upload file',
+                        'note' => 'Upload 1 image or PDF',
+                        'description' => '',
+                    ])
+                </div>
+
+            </div>
 
         </div>
 
@@ -138,3 +163,4 @@
     </form>
 
 </div>
+
