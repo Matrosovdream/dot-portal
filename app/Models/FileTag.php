@@ -10,6 +10,8 @@ class FileTag extends Model
     protected $table = 'file_tags';
     
     protected $fillable = ['file_id', 'name'];
+
+    public $timestamps = false;
     
     public function file()
     {

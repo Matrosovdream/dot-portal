@@ -45,7 +45,8 @@ class FileStorage {
                         'filename' => $filename,
                         'disk' => $disk,
                         'visibility' => '',
-                        'user_id' => $data['user_id'] ?? auth('')->user()->id
+                        'user_id' => $data['user_id'] ?? auth('')->user()->id,
+                        'tags' => isset($data['tags']) ? $data['tags'] : []
                     ]
                 );
 
@@ -83,6 +84,16 @@ class FileStorage {
         $file->visibility = $data['visibility'];
         $file->user_id = $data['user_id'];
         $file->save();
+
+        // Add tags
+        if( !empty($data['tags']) ) {
+
+            $tags = array_map(fn($tag) => ['name' => $tag], $data['tags']);
+            foreach( $tags as $tag ) {
+                $file->tags()->create( $tag );
+            }
+
+        }
 
         return [
             'id' => $file->id,

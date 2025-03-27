@@ -148,14 +148,17 @@ class DriverUserActions {
         $driver = $this->driverRepo->getByID($driver_id);
 
         // Driver document from request
+        $tags = ['driver license'];
+
         $file = $this->fileStorage->uploadFile(
             'license_file', 
             'drivers/' . $driver_id . '/license',
             'local',
+            ['tags' => $tags]
         );
         if( $file ) {
 
-            // Add document, in our case license
+            // Add document, in our case license            
             $this->driverRepo->addDocument(
                 $driver_id, 
                 $file['file'], 
@@ -224,12 +227,17 @@ class DriverUserActions {
         $driver = $this->driverRepo->getByID($driver_id);
 
         // Driver document from request
+        $tags = ['medical card'];
+
         $file = $this->fileStorage->uploadFile(
             'medical_card', 
             'drivers/' . $driver_id . '/medical_card',
             'local',
+            ['tags' => $tags]
         );
         if( $file ) {
+
+            
 
             // Add document, in our case license
             $this->driverRepo->addDocument(
