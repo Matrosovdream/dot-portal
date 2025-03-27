@@ -37,7 +37,8 @@ class FileStorage {
 
             // Save to the database by Repo
             if( $filePath ) {
-                $this->saveRepo( 
+
+                $fileServer = $this->saveRepo( 
                     $file,
                     [
                         'filepath' => $filePath,
@@ -47,11 +48,17 @@ class FileStorage {
                         'user_id' => $data['user_id'] ?? auth('')->user()->id
                     ]
                 );
+
+                return [
+                    'file' => $fileServer,
+                    'error' => null
+                ];
+
             }
 
         } else {
             return [
-                'file_id' => null,
+                'file' => null,
                 'error' => 'File not found'
             ];
         }
@@ -77,7 +84,11 @@ class FileStorage {
         $file->user_id = $data['user_id'];
         $file->save();
 
-        return $file->id;
+        return [
+            'id' => $file->id,
+            'title' => $data['filename'],
+            'extension' => $extension,
+        ];
 
     }
 
