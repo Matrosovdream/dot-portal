@@ -16,6 +16,7 @@ use App\Http\Controllers\Dashboard\SubscriptionUserController;
 use App\Http\Controllers\Dashboard\ServiceGroupsController;
 use App\Http\Controllers\Dashboard\RequestUserController;
 use App\Http\Controllers\Dashboard\RequestAdminController;
+use App\Http\Controllers\Dashboard\DashboarDocumentsController;
 
 Route::group([
     'prefix' => 'dashboard',
@@ -173,4 +174,10 @@ Route::group([
         // Store request
         Route::post('{group}/{service}/store', [RequestUserController::class, 'storeRequest'])->name('store.request');
     });
+
+    // Documents
+    Route::prefix('documents')->name('documents.')->group(function () {
+        Route::get('/', [DashboarDocumentsController::class, 'documents'])->name('index');
+    });
+
 });

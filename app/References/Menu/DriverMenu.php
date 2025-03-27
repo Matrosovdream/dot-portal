@@ -31,6 +31,19 @@ class DriverMenu implements InterfaceMenu {
                 ),
             ),
             array(
+                'title' => 'Documents',
+                'url' => '',
+                'icon' => 'ki-notification',
+                'roles' => ['user', 'manager', 'admin'],
+                'childs' => array(
+                    array(
+                        'title' => 'All documents',
+                        'url' => route('dashboard.documents.index'),
+                        'roles' => ['user', 'manager', 'admin'],
+                    ),
+                ),
+            ),
+            array(
                 'title' => 'My cabinet',
                 'url' => '',
                 'icon' => 'ki-user',
