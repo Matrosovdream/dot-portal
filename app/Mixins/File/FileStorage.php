@@ -2,38 +2,82 @@
 
 namespace App\Mixins\File;
 
+use App\Models\File;
+
 class FileStorage {
 
-    public function uploadFile( $request_file, $data = [] ) {
+    private $base_path = 'uploads/';
+    private $base_disk = 'local';
 
-        $path = 'uploads/travellers/';
-        $disk = 'local';
+    public $disks = [
+        'local' => 'local',
+        'public' => 'public',
+    ];
 
+    public function uploadFile( $request_file, $path, $disk='local', $data = [] ) {
+
+        // Important variables
+        $filepath = $this->base_path . $path;
+        $disk = $disk ?? $this->base_disk;
+
+        // Retrieve the file from the request
         $file = request()->file($request_file);
-        $filename = $file->getClientOriginalName();
-        $filesize = $file->getSize();
-        $type = $file->getMimeType();
-        $extension = $file->getClientOriginalExtension();
 
-        // We set an origin filename to the file
-        $filePath = request()->file($request_file)->storeAs($path, $filename, $disk);
+        // Save the file if exists
+        if( $file ) {
+
+            $filename = $data['filename'] ?? $file->getClientOriginalName();
+
+            // Save to the disk
+            $filePath = $file->storeAs(
+                $filepath,
+                $filename, 
+                ['disk' => $disk]
+            );
+
+            // Save to the database by Repo
+            if( $filePath ) {
+                $this->saveRepo( 
+                    $file,
+                    [
+                        'filepath' => $filePath,
+                        'filename' => $filename,
+                        'disk' => $disk,
+                        'visibility' => '',
+                        'user_id' => $data['user_id'] ?? auth('')->user()->id
+                    ]
+                );
+            }
+
+        } else {
+            return [
+                'file_id' => null,
+                'error' => 'File not found'
+            ];
+        }
 
     }
 
-    protected function insertDB( $data ) {
+    protected function saveRepo( $file, $data=[] ) {
+
+        $filesize = $file->getSize();
+        $type = $file->getMimeType();
+        $extension = $file->getClientOriginalExtension();
         
         // Insert into the database
         $file = new File();
-        $file->filename = $filename;
-        $file->path = $filePath;
+        $file->filename = $data['filename'];
+        $file->path = $data['filepath'];
         $file->type = $type;
         $file->size = $filesize;
         $file->extension = $extension;
         $file->description = '';
-        $file->disk = $disk;
-        $file->visibility = 'private';
-        $file->user_id = auth('')->user()->id;
+        $file->disk = $data['disk'];
+        $file->visibility = $data['visibility'];
+        $file->user_id = $data['user_id'];
         $file->save();
+
+        return $file->id;
 
     }
 

@@ -10,6 +10,7 @@ use App\Repositories\References\RefDriverTypeRepo;
 use App\Repositories\References\RefCountryStateRepo;
 use App\Repositories\References\RefDriverLicenseTypeRepo;
 use App\Repositories\References\RefDriverLicenseEndrsRepo;
+use App\Mixins\File\FileStorage;
 
 
 class DriverUserActions {
@@ -22,6 +23,7 @@ class DriverUserActions {
     private $refStateRepo;
     private $refDriverLicenseTypeRepo;
     private $refDriverLicenseEndrsRepo;
+    protected $fileStorage;
 
     public function __construct()
     {
@@ -35,6 +37,8 @@ class DriverUserActions {
         $this->refStateRepo = new RefCountryStateRepo();
         $this->refDriverLicenseTypeRepo = new RefDriverLicenseTypeRepo();
         $this->refDriverLicenseEndrsRepo = new RefDriverLicenseEndrsRepo();
+
+        $this->fileStorage = new FileStorage();
 
     }
 
@@ -142,6 +146,18 @@ class DriverUserActions {
     public function updateLicense($driver_id, $request)
     {
         $driver = $this->driverRepo->getByID($driver_id);
+
+        // Driver document from request
+        $file = request()->file('license_file');
+
+        $this->fileStorage->uploadFile(
+            'license_file', 
+            'drivers/' . $driver_id . '/license',
+            'public',
+        );
+
+
+        dd($file);
 
         // If isset license
         if ( $driver['license'] ) {
