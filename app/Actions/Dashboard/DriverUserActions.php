@@ -148,16 +148,21 @@ class DriverUserActions {
         $driver = $this->driverRepo->getByID($driver_id);
 
         // Driver document from request
-        $file = request()->file('license_file');
-
-        $this->fileStorage->uploadFile(
+        $file = $this->fileStorage->uploadFile(
             'license_file', 
             'drivers/' . $driver_id . '/license',
             'public',
         );
+        if( $file ) {
 
+            // Add document, in our case license
+            $this->driverRepo->addDocument(
+                $driver_id, 
+                $file['file'], 
+                'license'
+            );
 
-        dd($file);
+        }
 
         // If isset license
         if ( $driver['license'] ) {

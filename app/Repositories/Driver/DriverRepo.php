@@ -61,6 +61,20 @@ class DriverRepo extends AbstractRepo
         return $this->mapItems($items);
     }
 
+    public function addDocument($driver_id, $file, $type)
+    {
+        $driver = $this->getByID($driver_id);
+
+        $data = [
+            'type' => $type,
+            'title' => $file['title'],
+            'file_id' => $file['id'],
+            'extension' => $file['extension'],
+        ];
+
+        return $driver['Model']->documents()->create( $data );
+    }
+
 
     public function beforeCreate($data)
     {
@@ -97,7 +111,7 @@ class DriverRepo extends AbstractRepo
         $res = [
             'user' => $this->userRepo->mapItem( $item['user']->first() ),
             'history' => $this->historyRepo->mapItem( $item['history']->first() ),
-            'documents' => $this->documentRepo->mapItems( $item['documents']->all() ),
+            'documents' => $this->documentRepo->mapItems( $item['documents'] ),
             'address' => $this->addressRepo->mapItem( $item['address'] ),
             'license' => $this->licenseRepo->mapItem( $item['license'] ),
             'medicalCard' => $this->medicalCardRepo->mapItem( $item['medicalCard'] ),
