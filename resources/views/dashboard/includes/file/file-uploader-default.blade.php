@@ -1,10 +1,10 @@
 <div class="fv-row mb-2">
-    <div class="dropzone" id="kt_ecommerce_add_product_media">
+    <div class="dropzone" id="kt_ecommerce_add_{{ $inputName }}">
 
         <input 
             type="file" 
-            id="product_media_input" 
-            name="product_media" 
+            id="{{ $inputName }}_input" 
+            name="{{ $inputName }}" 
             hidden 
             accept="{{ $accept  }}"
             >
@@ -33,8 +33,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const dropzone = document.getElementById('kt_ecommerce_add_product_media');
-    const fileInput = document.getElementById('product_media_input');
+    const dropzone = document.getElementById('kt_ecommerce_add_{{ $inputName }}');
+    const fileInput = document.getElementById('{{ $inputName }}_input');
 
     // Click dropzone to trigger file input
     dropzone.addEventListener('click', function () {
@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Create preview container
         const previewContainer = document.createElement('div');
-        previewContainer.className = 'file-preview mt-2';
+        previewContainer.className = 'file-preview mt-10';
 
         // Show preview (image or file name)
         if (file.type.startsWith('image/')) {
