@@ -13,7 +13,7 @@
         id="kt_account_profile_details_form" 
         class="form" 
         method="POST"
-        action="{{ route('dashboard.drivers.show.medicalcard.update', $driver['id']) }}" 
+        action="{{ route('dashboard.drivers.show.license.update', $driver['id']) }}" 
         enctype="multipart/form-data"
         >
 
