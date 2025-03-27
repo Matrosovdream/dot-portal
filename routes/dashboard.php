@@ -16,7 +16,7 @@ use App\Http\Controllers\Dashboard\SubscriptionUserController;
 use App\Http\Controllers\Dashboard\ServiceGroupsController;
 use App\Http\Controllers\Dashboard\RequestUserController;
 use App\Http\Controllers\Dashboard\RequestAdminController;
-use App\Http\Controllers\Dashboard\DashboarDocumentsController;
+use App\Http\Controllers\Dashboard\DocumentsController;
 
 Route::group([
     'prefix' => 'dashboard',
@@ -177,7 +177,7 @@ Route::group([
 
     // Documents
     Route::prefix('documents')->name('documents.')->group(function () {
-        Route::get('/', [DashboarDocumentsController::class, 'documents'])->name('index');
+        Route::get('/', [DocumentsController::class, 'documents'])->name('index');
     });
 
 });
