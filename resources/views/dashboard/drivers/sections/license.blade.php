@@ -139,7 +139,7 @@
 
                 <div class="col-lg-4 fv-row">
                     @include('dashboard.includes.file.file-uploader-default', [
-                        'input_name' => 'license_file',
+                        'inputName' => 'license_file',
                         'value' => '',
                         'accept' => 'image/*,application/pdf',
                         'multiple' => false,
