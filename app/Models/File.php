@@ -18,7 +18,8 @@ class File extends Model
         'extension',
         'description',
         'disk',
-        'visibility'
+        'visibility',
+        'user_id'
     ];
 
     public function user()

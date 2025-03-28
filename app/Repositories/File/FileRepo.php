@@ -24,6 +24,18 @@ class FileRepo extends AbstractRepo
 
     }
 
+    public function addTags($file_id, $tags)
+    {
+
+        $file = $this->model->find($file_id);
+
+        if( !$file ) { return false; }
+
+        foreach( $tags as $tag ) {
+            $file->tags()->create( $tag );
+        }
+    }
+
     public function mapItem($item)
     {
         if (empty($item)) {
@@ -36,6 +48,7 @@ class FileRepo extends AbstractRepo
 
         return [
             'id' => $item->id,
+            'title' => $item->filename,
             'filename' => $item->filename,
             'path' => $item->path,
             'type' => $item->type,
