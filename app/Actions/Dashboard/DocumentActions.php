@@ -2,6 +2,7 @@
 
 namespace App\Actions\Dashboard;
 
+use Illuminate\Http\Request;
 use App\Repositories\File\FileRepo;
 use App\Helpers\adminSettingsHelper;
 
@@ -20,9 +21,15 @@ class DocumentActions {
     public function index()
     {
 
+        $filter = [];
+        $filter['user_id'] = auth()->user()->id;
+        if( request()->has('q') ) {
+            $filter['filename'] = '%' . request()->input('q') . '%';
+        }
+
         $data = [
             'title' => 'Documents',
-            'documents' => $this->fileRepo->getAll(['user_id' => auth()->user()->id], 30),
+            'documents' => $this->fileRepo->getAll($filter, 30),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
