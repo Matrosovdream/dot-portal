@@ -28,4 +28,19 @@ class FileTagRepo extends AbstractRepo
         ];
     }
 
+    public function groupTags($tags)
+    {
+
+        $grouped = [];
+        foreach ($tags as $tag) {
+            $grouped[] = $tag['name'];
+        }
+
+        if( count($grouped) == 0 ) {
+            return null;
+        }
+
+        return implode(', ', $grouped);
+    }
+
 }

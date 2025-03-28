@@ -30,6 +30,10 @@ class FileRepo extends AbstractRepo
             return null;
         }
 
+        // Tags
+        $tags = $this->fileTagRepo->mapItems($item->tags);
+        $tagGrouped = $this->fileTagRepo->groupTags($tags['items']);
+
         return [
             'id' => $item->id,
             'filename' => $item->filename,
@@ -41,7 +45,8 @@ class FileRepo extends AbstractRepo
             'disk' => $item->disk,
             'visibility' => $item->visibility,
             'user' => $this->userRepo->mapItem($item->user),
-            'tags' => $this->fileTagRepo->mapItems($item->tags),
+            'tags' => $tags,
+            'tagGrouped' => $tagGrouped,
             'Model' => $item
         ];
     }
