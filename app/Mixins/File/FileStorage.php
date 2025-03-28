@@ -74,7 +74,7 @@ class FileStorage {
         
         // Insert into the database
         $file = new File();
-        $file->filename = $data['filename'];
+        $file->filename = trim( pathinfo($data['filename'], PATHINFO_FILENAME) );
         $file->path = $data['filepath'];
         $file->type = $type;
         $file->size = $filesize;
