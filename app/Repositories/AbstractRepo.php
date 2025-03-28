@@ -3,7 +3,8 @@ namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
 
-abstract class AbstractRepo {
+abstract class AbstractRepo
+{
 
     protected $model;
     protected $fields = [];
@@ -18,7 +19,7 @@ abstract class AbstractRepo {
         return $this->mapItem($item);
     }
 
-    public function getBySlug( $slug )
+    public function getBySlug($slug)
     {
 
         $item = $this->model
@@ -42,9 +43,23 @@ abstract class AbstractRepo {
 
     public function getAll($filter = [], $paginate = 10)
     {
-        $items = $this->model->where($filter)->paginate($paginate);
+        // Iterate over the filter array
+        foreach ($filter as $key => $value) {
+            if (is_string($value) && strpos($value, '%') !== false) {
+                // If the value contains % signs, treat it as a LIKE query
+                $this->model = $this->model->where($key, 'like', $value);
+            } else {
+                // Otherwise apply the regular equality check
+                $this->model = $this->model->where($key, $value);
+            }
+        }
+
+        // Apply pagination
+        $items = $this->model->paginate($paginate);
+
         return $this->mapItems($items);
     }
+
 
     public function create($data)
     {
@@ -67,7 +82,7 @@ abstract class AbstractRepo {
         $item->update($data);
         return $this->mapItem($item);
     }
-    
+
 
     public function delete($id)
     {
@@ -78,9 +93,11 @@ abstract class AbstractRepo {
     public function mapItems($items)
     {
 
-        if( empty($items) ) { return null; }
+        if (empty($items)) {
+            return null;
+        }
 
-        if( $items instanceof Collection ) { 
+        if ($items instanceof Collection) {
 
             $itemsMapped = $items->transform(function ($item) {
                 return $this->mapItem($item);
@@ -104,7 +121,9 @@ abstract class AbstractRepo {
     public function mapItem($item)
     {
 
-        if( empty($item) ) { return null; }
+        if (empty($item)) {
+            return null;
+        }
 
         $res = [
             'id' => $item->id,
