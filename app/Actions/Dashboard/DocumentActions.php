@@ -22,7 +22,7 @@ class DocumentActions {
 
         $data = [
             'title' => 'Documents',
-            'documents' => $this->fileRepo->getAll(),
+            'documents' => $this->fileRepo->getAll(['user_id' => auth()->user()->id], 30),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
