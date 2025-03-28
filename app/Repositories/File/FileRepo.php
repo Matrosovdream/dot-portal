@@ -48,8 +48,10 @@ class FileRepo extends AbstractRepo
             'user' => $this->userRepo->mapItem($item->user),
             'tags' => $tags,
             'tagGrouped' => $tagGrouped,
+            'downloadUrl' => route('file.download', $item->id),
             'Model' => $item
         ];
+
     }
 
     public function formatBytes($bytes, $precision = 2)
