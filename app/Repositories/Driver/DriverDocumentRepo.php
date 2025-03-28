@@ -22,6 +22,24 @@ class DriverDocumentRepo extends AbstractRepo
         $this->model = new DriverDocument();
     }
 
+    public function mapItems($items)
+    {
+        $res = [];
+        foreach($items as $item) {
+            $res[] = $this->mapItem($item);
+        }
+
+        // Group by type field
+        $groupType = collect($res)->groupBy('type')->toArray();
+
+        return [
+            'items' => $res,
+            'groupType' => $groupType,
+            'Model' => $items
+        ];
+
+    }
+
     public function mapItem($item)
     {
 
