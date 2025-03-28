@@ -29,6 +29,4 @@ class DocumentActions {
         return $data;
     }
 
- 
-
 }

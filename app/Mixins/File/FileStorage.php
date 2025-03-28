@@ -3,16 +3,24 @@
 namespace App\Mixins\File;
 
 use App\Models\File;
+use App\Repositories\File\FileRepo;
 
 class FileStorage {
 
     private $base_path = 'uploads/';
     private $base_disk = 'local';
 
+    private $fileRepo;
+
     public $disks = [
         'local' => 'local',
         'public' => 'public',
     ];
+
+    public function __construct()
+    {
+        $this->fileRepo = new FileRepo();
+    }
 
     public function uploadFile( $request_file, $path, $disk='local', $data = [] ) {
 
@@ -68,41 +76,30 @@ class FileStorage {
 
     protected function saveRepo( $file, $data=[] ) {
 
-        $filesize = $file->getSize();
-        $type = $file->getMimeType();
-        $extension = $file->getClientOriginalExtension();
-        
-        // Insert into the database
-        $file = new File();
-        $file->filename = trim( pathinfo($data['filename'], PATHINFO_FILENAME) );
-        $file->path = $data['filepath'];
-        $file->type = $type;
-        $file->size = $filesize;
-        $file->extension = $extension;
-        $file->description = '';
-        $file->disk = $data['disk'];
-        $file->visibility = $data['visibility'];
-        $file->user_id = $data['user_id'];
-        $file->save();
+        // Save to the database by Repo
+        $fields = [
+            'filename' => trim( pathinfo($data['filename'], PATHINFO_FILENAME) ),
+            'path' => $data['filepath'],
+            'type' => $file->getMimeType(),
+            'size' => $file->getSize(),
+            'extension' => $file->getClientOriginalExtension(),
+            'description' => '',
+            'disk' => $data['disk'],
+            'visibility' => $data['visibility'],
+            'user_id' => $data['user_id']
+        ];
+        $fileNew = $this->fileRepo->create( $fields );
 
         // Add tags
         if( !empty($data['tags']) ) {
 
             $tags = array_map(fn($tag) => ['name' => $tag], $data['tags']);
-            foreach( $tags as $tag ) {
-                $file->tags()->create( $tag );
-            }
+            $this->fileRepo->addTags( $fileNew['id'], $tags );
 
         }
 
-        return [
-            'id' => $file->id,
-            'title' => $data['filename'],
-            'extension' => $extension,
-        ];
+        return $fileNew;
 
     }
-
-
 
 }
