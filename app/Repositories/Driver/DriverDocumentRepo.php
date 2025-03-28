@@ -3,6 +3,7 @@ namespace App\Repositories\Driver;
 
 use App\Repositories\AbstractRepo;
 use App\Models\DriverDocument;
+use App\Repositories\File\FileRepo;
 
 
 class DriverDocumentRepo extends AbstractRepo
@@ -10,16 +11,20 @@ class DriverDocumentRepo extends AbstractRepo
 
     protected $model;
 
+    protected $fileRepo;
+
     protected $fields = [
         'name' => [ 'type' => 'string', 'required' => true ],
         'user_id' => [ 'type' => 'integer', 'required' => true ],
     ];
 
-    protected $withRelations = [];
+    protected $withRelations = ['file'];
 
     public function __construct()
     {
         $this->model = new DriverDocument();
+
+        $this->fileRepo = new FileRepo();
     }
 
     public function mapItems($items)
@@ -51,7 +56,7 @@ class DriverDocumentRepo extends AbstractRepo
             'id' => $item->id,
             'type' => $item->type,
             'title' => $item->title,
-            'file_id' => $item->file_id,
+            'file' => $this->fileRepo->mapItem($item->file),
             'extension' => $item->extension,
             'Model' => $item
         ];
