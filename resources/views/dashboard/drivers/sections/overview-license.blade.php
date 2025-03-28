@@ -56,5 +56,26 @@
             </div>
         </div>
 
+        <div class="row mb-7">
+            <label class="col-lg-4 fw-semibold text-muted">Uploaded document</label>
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">
+
+                    @php
+                    $file = $driver['documents']['groupType']['license'][0] ?? null;
+                    @endphp
+
+                    @if( $file )
+                        <a href="{{ $file['file']['downloadUrl'] }}">
+                            {{ $file['title'] }}
+                        </a>
+                    @else
+                        -
+                    @endif
+                    
+                </span>
+            </div>
+        </div>
+
     </div>
 </div>

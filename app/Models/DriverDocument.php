@@ -21,5 +21,10 @@ class DriverDocument extends Model
     {
         return $this->belongsTo(Driver::class);
     }
+
+    public function file()
+    {
+        return $this->belongsTo(File::class);
+    }
     
 }
