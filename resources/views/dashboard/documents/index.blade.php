@@ -32,12 +32,12 @@
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
                     <thead>
                         <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="min-w-200px">Name</th>
-                            <th class="min-w-200px">Tags</th>
-                            <th class="min-w-200px">Extension</th>
-                            <th class="min-w-200px">Size</th>
-                            <th class="min-w-200px text-center">Added</th>
-                            <th class="min-w-200px">Download</th>
+                            <th>Name</th>
+                            <th>Tags</th>
+                            <th class="text-center">Extension</th>
+                            <th>Size</th>
+                            <th class="text-center">Added</th>
+                            <th class="text-center">Download</th>
                         </tr>
                     </thead>
                     <tbody class="fw-semibold text-gray-600">
@@ -46,28 +46,27 @@
 
                             <tr>
                                 <td>
-                                    {{ $document['name'] }}
+                                    <a href="{{ $document['downloadUrl'] }}">
+                                        {{ $document['filename'] }}
+                                    </a>
                                 </td>
                                 <td>
-                                    {{ implode( ', ', $document['tags'] ) }}
+                                    {{ $document['tagGrouped'] }}
                                 </td>
-                                <td>
+                                <td class="text-center">
                                     {{ $document['extension'] }}
                                 </td>
                                 <td>
-                                    {{ $document['size'] }}
+                                    {{ $document['sizeFormatted'] }}
                                 </td>
                                 <td class="text-center pe-0">
                                     {{ $document['Model']->created_at->format('d/m/Y') }}
                                 </td>
-                                <td>
-                                    <a 
-                                        href="{{ route('dashboard.documents.download', $document['Model']->id) }}" 
-                                        class="btn btn-sm btn-primary">
-                                        Download
+                                <td class="text-center">
+                                    <a href="{{ $document['downloadUrl'] }}" class="fs-6">
+                                        <i class="fas fa-download"></i>
                                     </a>
                                 </td>
-                                
                             </tr>
 
                         @endforeach
