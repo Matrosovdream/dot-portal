@@ -138,16 +138,16 @@
                 </label>
 
                 <div class="col-lg-4 fv-row">
-                    @include('dashboard.includes.file.file-uploader-default', [
-                        'inputName' => 'license_file',
-                        'value' => '',
-                        'accept' => 'image/*,application/pdf',
-                        'multiple' => false,
-                        'required' => false,
-                        'label' => 'Upload file',
-                        'note' => 'Upload 1 image or PDF',
-                        'description' => '',
-                    ])
+                    <x-file-uploader 
+                        :inputName="'license_file'"
+                        :value="''"
+                        :accept="'image/*,application/pdf'"
+                        :multiple="false"
+                        :required="false"
+                        :label="'Upload file'"
+                        :note="'Upload 1 image or PDF'"
+                        :description="''"
+                    />
                 </div>
 
             </div>

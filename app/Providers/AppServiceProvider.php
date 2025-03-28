@@ -2,7 +2,8 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
-
+use Illuminate\Support\Facades\Blade;
+use App\View\Components\Dashboard\Forms\FileUploader;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -20,7 +21,8 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
 
-
+        // Register the package components
+        Blade::component('file-uploader', FileUploader::class);
 
     }
 }
