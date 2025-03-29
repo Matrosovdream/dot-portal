@@ -48,6 +48,9 @@ class DatabaseSeeder extends Seeder
             // Drivers
             DriverSeeder::class,
 
+            // Vehicles
+            VehicleSeeder::class,
+
             // Subscriptions
             SubscriptionSeeder::class,
             
