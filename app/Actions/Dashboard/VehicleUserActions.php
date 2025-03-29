@@ -30,23 +30,23 @@ class VehicleUserActions {
         return $data;
     }
 
-    public function show($driver_id)
+    public function show($vehicle_id)
     {
-        $driver = $this->vehicleRepo->getByID($driver_id);
+        $vehicle = $this->vehicleRepo->getByID($vehicle_id);
 
         $data = [
-            'title' => 'Driver details',
-            'driver' => $driver,
-            'references' => $this->getReferences(),
+            'title' => 'Vehicle details',
+            'vehicle' => $vehicle,
+            'references' => $this->vehicleRepo->getReferences(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
         return $data;
     }
 
-    public function update($driver_id, $request)
+    public function update($vehicle_id, $request)
     {
-        $data = $this->vehicleRepo->update($driver_id, $request);
+        $data = $this->vehicleRepo->update($vehicle_id, $request);
 
         return $data;
     }
@@ -54,8 +54,8 @@ class VehicleUserActions {
     public function create()
     {
         $data = [
-            'title' => 'Create driver',
-            'references' => $this->getReferences(),
+            'title' => 'Create vehicle',
+            'references' => $this->vehicleRepo->getReferences(),
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
@@ -72,22 +72,11 @@ class VehicleUserActions {
         return $data;
     }
 
-    public function destroy($driver_id)
+    public function destroy($vehicle_id)
     {
-        $data = $this->vehicleRepo->delete($driver_id);
+        $data = $this->vehicleRepo->delete($vehicle_id);
 
         return $data;
-    }
-
-    public function getReferences()
-    {
-        $references = [
-            'driverType' => $this->refDriverTypeRepo->getAll([], $paginate=100),
-            'state' => $this->refStateRepo->getAll([], $paginate=100),
-            'licenseEndrs' => $this->refDriverLicenseEndrsRepo->getAll([], $paginate=100),
-        ];
-
-        return $references;
     }
 
 }

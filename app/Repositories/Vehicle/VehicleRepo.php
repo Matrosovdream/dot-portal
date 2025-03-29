@@ -30,6 +30,17 @@ class VehicleRepo extends AbstractRepo
         $this->refVehicleOwnershipTypeRepo = new RefVehicleOwnershipTypeRepo();
     }
 
+    public function getReferences()
+    {
+        $references = [
+            'unitType' => $this->refVehicleUnitTypeRepo->getAll([], $paginate=1000),
+            'ownershipType' => $this->refVehicleOwnershipTypeRepo->getAll([], $paginate=1000),
+            'driver' => $this->driverRepo->getAll([], $paginate=1000),
+        ];
+
+        return $references;
+    }
+
     public function mapItem($item)
     {
 
