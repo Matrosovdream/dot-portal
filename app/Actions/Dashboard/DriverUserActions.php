@@ -1,7 +1,6 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Helpers\adminSettingsHelper;
 use App\Repositories\Driver\DriverRepo;
 use App\Repositories\Driver\DriverLicenseRepo;
 use App\Repositories\Driver\DriverAddressRepo;
@@ -53,8 +52,7 @@ class DriverUserActions {
 
         $data = [
             'title' => 'My drivers',
-            'drivers' => $drivers,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'drivers' => $drivers
         ];
 
         return $data;
@@ -67,8 +65,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver details',
             'driver' => $driver,
-            'references' => $this->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->getReferences()
         ];
 
         return $data;
@@ -85,8 +82,7 @@ class DriverUserActions {
     {
         $data = [
             'title' => 'Create driver',
-            'references' => $this->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->getReferences()
         ];
 
         //dd($data);
@@ -116,8 +112,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver profile',
             'driver' => $driver,
-            'references' => $this->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->getReferences()
         ];
 
         return $data;
@@ -136,8 +131,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver license',
             'driver' => $driver,
-            'references' => $this->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->getReferences()
         ];
 
         return $data;
@@ -185,8 +179,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver address',
             'driver' => $driver,
-            'references' => $this->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->getReferences()
         ];
 
         return $data;
@@ -214,8 +207,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver medical card',
             'driver' => $driver,
-            'references' => $this->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->getReferences()
         ];
 
         return $data;
@@ -266,8 +258,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver logs',
             'driver' => $driver,
-            'references' => $this->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->getReferences()
         ];
 
         return $data;

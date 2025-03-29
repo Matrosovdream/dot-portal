@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\SiteSettings;
 use Illuminate\Http\Request;
-use App\Helpers\adminSettingsHelper;
+
 
 class DashboardSettingsController extends Controller
 {
@@ -15,7 +15,6 @@ class DashboardSettingsController extends Controller
         $data = [
             'title' => 'Settings',
             'page' => 'settings',
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
             'settings' => SiteSettings::getSettings()
         ];
 

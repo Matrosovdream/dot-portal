@@ -2,7 +2,6 @@
 namespace App\Actions\Dashboard;
 
 use App\Models\Service;
-use App\Helpers\adminSettingsHelper;
 
 class HomeUserActions {
 
@@ -15,8 +14,7 @@ class HomeUserActions {
     {
         $data = [
             'title' => 'Services list',
-            'services' => Service::paginate(10),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'services' => Service::paginate(10)
         ];
 
         return $data;

@@ -1,7 +1,6 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Helpers\adminSettingsHelper;
 use App\Repositories\Service\ServiceRepo;
 use App\Repositories\References\RefServiceGroupRepo;
 use App\Repositories\References\RefFormFieldRepo;
@@ -30,8 +29,7 @@ class ServiceAdminActions {
 
         $data = [
             'title' => 'Services',
-            'services' => $services,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'services' => $services
         ];
 
         return $data;
@@ -45,10 +43,9 @@ class ServiceAdminActions {
             'title' => 'Service details',
             'service' => $service,
             'references' => $this->getReferences(),
-            'formFieldsRef' => $this->refFormFieldRepo->getAll([], $paginate = 10000),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'formFieldsRef' => $this->refFormFieldRepo->getAll([], $paginate = 10000)
         ];
-        //dd($data);
+
         return $data;
     }
 
@@ -63,8 +60,7 @@ class ServiceAdminActions {
     {
         $data = [
             'title' => 'Create driver',
-            'references' => $this->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->getReferences()
         ];
 
         return $data;

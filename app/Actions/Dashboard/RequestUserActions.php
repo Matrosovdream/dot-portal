@@ -3,7 +3,6 @@ namespace App\Actions\Dashboard;
 
 use Illuminate\Http\Request;
 
-use App\Helpers\adminSettingsHelper;
 use App\Repositories\References\RefServiceGroupRepo;
 use App\Repositories\Service\ServiceRepo;
 use App\Repositories\Request\RequestRepo;
@@ -31,8 +30,7 @@ class RequestUserActions {
         return [
             'title' => 'Services of ' . $groupslug,
             'group' => $group,
-            'services' => $services,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'services' => $services
         ];
 
     }
@@ -48,13 +46,10 @@ class RequestUserActions {
         // Service
         $service = $this->serviceRepo->getBySlug($serviceslug);
 
-        //dd($service);
-
         return [
             'title' => 'Services of ' . $groupslug,
             'group' => $group,
-            'service' => $service,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'service' => $service
         ];
     }
 
@@ -66,8 +61,7 @@ class RequestUserActions {
     public function create()
     {
         $data = [
-            'title' => 'Create new group',
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'title' => 'Create new group'
         ];
 
         return $data;
@@ -105,8 +99,7 @@ class RequestUserActions {
 
         return [
             'title' => 'My requests',
-            'requests' => $requests,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'requests' => $requests
         ];
     }
 
@@ -116,8 +109,7 @@ class RequestUserActions {
 
         return [
             'title' => 'Request details #' . $service_id,
-            'request' => $request,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'request' => $request
         ];
     }
 

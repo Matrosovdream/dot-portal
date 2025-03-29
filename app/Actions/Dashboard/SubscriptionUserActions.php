@@ -1,7 +1,6 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Helpers\adminSettingsHelper;
 use App\Repositories\User\UserRepo;
 use App\Repositories\User\UserSubscriptionRepo;
 use App\Repositories\User\UserPaymentHistoryRepo;
@@ -28,11 +27,8 @@ class SubscriptionUserActions {
             'title' => 'My subscription',
             'user' => $this->userRepo->getByID( $user_id ),
             'subscription' => $this->userSubRepo->getByUserID( $user_id ),
-            'paymentHistory' => $this->userPaymentHistoryRepo->getAll( ['user_id' => $user_id], 100 ),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'paymentHistory' => $this->userPaymentHistoryRepo->getAll( ['user_id' => $user_id], 100 )
         ];
-
-        //dd($data);
 
         return $data;
     }

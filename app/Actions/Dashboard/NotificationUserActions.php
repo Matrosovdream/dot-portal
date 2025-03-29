@@ -1,7 +1,6 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Helpers\adminSettingsHelper;
 use App\Repositories\Notification\NotificationRepo;
 
 class NotificationUserActions {
@@ -22,13 +21,10 @@ class NotificationUserActions {
             $filter, 
             $paginate = 10 
         );
-
-        //dd($notifications);
-
+        
         $data = [
             'title' => 'Notifications',
-            'notifications' => $notifications,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'notifications' => $notifications
         ];
 
         return $data;
