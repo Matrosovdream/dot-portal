@@ -8,6 +8,8 @@ class RefVehicleUnitType extends Model
 {
     
     protected $table = 'ref_vehicle_unit_type';
+
+    public $timestamps = false;
     
     protected $fillable = [
         'name',
