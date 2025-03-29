@@ -4,6 +4,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use App\View\Components\Dashboard\Forms\FileUploader;
+use App\View\Components\Dashboard\Layout\SidebarMenu;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -23,6 +24,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Register the package components
         Blade::component('file-uploader', FileUploader::class);
+        Blade::component('sidebar-menu', SidebarMenu::class);
 
     }
 }
