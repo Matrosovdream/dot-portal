@@ -19,12 +19,11 @@ class VehicleUserActions {
     public function index()
     {
 
-        // Get drivers by user
-        $drivers = $this->vehicleRepo->getAll( [], $paginate = 10 );
+        $vehicles = $this->vehicleRepo->getAll( [], $paginate = 10 );
 
         $data = [
-            'title' => 'My drivers',
-            'drivers' => $drivers,
+            'title' => 'My vehicles',
+            'vehicles' => $vehicles,
             'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 

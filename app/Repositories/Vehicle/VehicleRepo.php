@@ -40,7 +40,7 @@ class VehicleRepo extends AbstractRepo
             'unitType' => $this->refVehicleUnitTypeRepo->mapItem( $item->unitType ),
             'number' => $item->number,
             'vin' => $item->vin,
-            'ownershipType' => $item->refVehicleOwnershipTypeRepo->mapItem( $item->ownershipType ),
+            'ownershipType' => $this->refVehicleOwnershipTypeRepo->mapItem( $item->ownershipType ),
             'driver' => $this->driverRepo->mapItem( $item->driver ),
             'regExpireDate' => $item->reg_expire_date,
             'inspectionExpireDate' => $item->inspection_expire_date,
