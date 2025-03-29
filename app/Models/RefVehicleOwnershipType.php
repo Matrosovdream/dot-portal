@@ -8,6 +8,8 @@ class RefVehicleOwnershipType extends Model
 {
     
     protected $table = 'ref_vehicle_ownership_type';
+
+    public $timestamps = false;
     
     protected $fillable = [
         'name',
