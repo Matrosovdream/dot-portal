@@ -1,7 +1,6 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Helpers\adminSettingsHelper;
 use App\Repositories\Notification\NotificationRepo;
 
 class NotificationAdminActions {
@@ -29,8 +28,7 @@ class NotificationAdminActions {
 
         $data = [
             'title' => 'Notification Manager',
-            'notifications' => $notifications,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'notifications' => $notifications
         ];
 
         return $data;
@@ -39,8 +37,7 @@ class NotificationAdminActions {
     public function create()
     {
         $data = [
-            'title' => 'Create Notification',
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'title' => 'Create Notification'
         ];
 
         return $data;
@@ -60,8 +57,7 @@ class NotificationAdminActions {
 
         $data = [
             'title' => 'Notification Details',
-            'notification' => $notification,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'notification' => $notification
         ];
 
         return $data;

@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Role;
 use App\Models\User;
-use App\Helpers\adminSettingsHelper;
 use Illuminate\Http\Request;
 
 class AdminRequestController extends Controller
@@ -15,8 +14,7 @@ class AdminRequestController extends Controller
 
         $data = [
             'title' => 'Users',
-            'users' => User::paginate(10),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'users' => User::paginate(10)
         ];
 
         return view('dashboard.users.index', $data);
@@ -29,8 +27,7 @@ class AdminRequestController extends Controller
         $data = [
             'title' => 'User details',
             'user' => $user,
-            'roles' => Role::all(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'roles' => Role::all()
         ];
 
         return view('dashboard.users.show', $data);
@@ -78,8 +75,7 @@ class AdminRequestController extends Controller
 
         $data = [
             'title' => 'Create user',
-            'roles' => Role::all(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'roles' => Role::all()
         ];
 
         return view('dashboard.users.create', $data);

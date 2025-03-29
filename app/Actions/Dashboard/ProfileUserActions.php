@@ -1,7 +1,6 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Helpers\adminSettingsHelper;
 use App\Repositories\User\UserRepo;
 use App\Repositories\User\UserAddressRepo;
 use App\Repositories\User\UserCompanyRepo;
@@ -36,8 +35,7 @@ class ProfileUserActions {
         $data = [
             'title' => 'Profile details',
             'user' => $user,
-            'references' => $this->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->getReferences()
         ];
 
         return $data;
@@ -79,7 +77,7 @@ class ProfileUserActions {
 
     public function companyUpdate($request)
     {
-//dd($request);
+
         $user = $this->userRepo->getByID( auth()->user()->id );
         if( !$user['company'] ) {
             // Set user ID

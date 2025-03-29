@@ -1,7 +1,6 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Helpers\adminSettingsHelper;
 use App\Repositories\References\RefFormFieldRepo;
 
 class ServiceFieldActions {
@@ -23,8 +22,7 @@ class ServiceFieldActions {
 
         $data = [
             'title' => 'Service Fields',
-            'fields' => $fields,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'fields' => $fields
         ];
 
         return $data;
@@ -36,8 +34,7 @@ class ServiceFieldActions {
 
         $data = [
             'title' => 'Service details',
-            'field' => $field,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'field' => $field
         ];
 
         return $data;
@@ -54,7 +51,6 @@ class ServiceFieldActions {
     {
         $data = [
             'title' => 'Create driver',
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
         ];
 
         return $data;

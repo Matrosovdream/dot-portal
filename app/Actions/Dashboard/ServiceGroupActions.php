@@ -1,7 +1,6 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Helpers\adminSettingsHelper;
 use App\Repositories\References\RefServiceGroupRepo;
 
 class ServiceGroupActions {
@@ -23,8 +22,7 @@ class ServiceGroupActions {
 
         $data = [
             'title' => 'Service groups',
-            'groups' => $groups,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'groups' => $groups
         ];
 
         return $data;
@@ -36,8 +34,7 @@ class ServiceGroupActions {
 
         $data = [
             'title' => 'Service group details',
-            'group' => $group,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'group' => $group
         ];
 
         return $data;
@@ -53,8 +50,7 @@ class ServiceGroupActions {
     public function create()
     {
         $data = [
-            'title' => 'Create new group',
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'title' => 'Create new group'
         ];
 
         return $data;

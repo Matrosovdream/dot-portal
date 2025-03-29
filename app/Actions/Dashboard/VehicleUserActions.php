@@ -1,9 +1,7 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Helpers\adminSettingsHelper;
 use App\Repositories\Vehicle\VehicleRepo;
-
 
 class VehicleUserActions {
 
@@ -23,8 +21,7 @@ class VehicleUserActions {
 
         $data = [
             'title' => 'My vehicles',
-            'vehicles' => $vehicles,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'vehicles' => $vehicles
         ];
 
         return $data;
@@ -37,8 +34,7 @@ class VehicleUserActions {
         $data = [
             'title' => 'Vehicle details',
             'vehicle' => $vehicle,
-            'references' => $this->vehicleRepo->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->vehicleRepo->getReferences()
         ];
 
         return $data;
@@ -55,8 +51,7 @@ class VehicleUserActions {
     {
         $data = [
             'title' => 'Create vehicle',
-            'references' => $this->vehicleRepo->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->vehicleRepo->getReferences()
         ];
 
         //dd($data);

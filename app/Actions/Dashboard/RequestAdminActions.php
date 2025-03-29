@@ -1,9 +1,7 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use Illuminate\Http\Request;
 
-use App\Helpers\adminSettingsHelper;
 use App\Repositories\References\RefServiceGroupRepo;
 use App\Repositories\Service\ServiceRepo;
 use App\Repositories\Request\RequestRepo;
@@ -33,8 +31,7 @@ class RequestAdminActions {
 
         return [
             'title' => 'All requests',
-            'requests' => $requests,
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'requests' => $requests
         ];
     }
 
@@ -45,8 +42,7 @@ class RequestAdminActions {
         return [
             'title' => 'Request details #' . $service_id,
             'request' => $request,
-            'references' => $this->getReferences(),
-            'sidebarMenu' => adminSettingsHelper::getSidebarMenu(),
+            'references' => $this->getReferences()
         ];
     }
 
