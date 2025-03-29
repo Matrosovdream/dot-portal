@@ -33,6 +33,20 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // Vehicle unit type
+        Schema::create('ref_vehicle_unit_type', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('code');
+        });
+
+        // Vehicle ownership type
+        Schema::create('ref_vehicle_ownership_type', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('code');
+        });
+
     }
 
     /**
@@ -41,5 +55,8 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('vehicles');
+        Schema::dropIfExists('vehicle_documents');
+        Schema::dropIfExists('ref_vehicle_unit_type');
+        Schema::dropIfExists('ref_vehicle_ownership_type');
     }
 };
