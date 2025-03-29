@@ -17,16 +17,17 @@ use App\Http\Controllers\Dashboard\ServiceGroupsController;
 use App\Http\Controllers\Dashboard\RequestUserController;
 use App\Http\Controllers\Dashboard\RequestAdminController;
 use App\Http\Controllers\Dashboard\DocumentsController;
+use App\Http\Controllers\Dashboard\VehicleUserController;
 
 Route::group([
     'prefix' => 'dashboard',
-    'as'       => 'dashboard.',
+    'as' => 'dashboard.',
     'middleware' => ['auth']
 ], function () {
 
     // Home dashboard
     Route::get('/', [HomeController::class, 'index'])->name('home');
-    
+
     // Notifications
     Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
 
@@ -178,6 +179,16 @@ Route::group([
     // Documents
     Route::prefix('documents')->name('documents.')->group(function () {
         Route::get('/', [DocumentsController::class, 'index'])->name('index');
+    });
+
+    // Vehicles
+    Route::prefix('vehicles')->name('vehicles.')->group(function () {
+        Route::get('/', [VehicleUserController::class, 'index'])->name('index');
+        Route::get('create', [VehicleUserController::class, 'create'])->name('create');
+        Route::post('/', [VehicleUserController::class, 'store'])->name('store');
+        Route::get('{vehicle_id}', [VehicleUserController::class, 'show'])->name('show');
+        Route::post('{vehicle_id}', [VehicleUserController::class, 'update'])->name('update');
+        Route::delete('{vehicle_id}', [VehicleUserController::class, 'destroy'])->name('destroy');
     });
 
 });
