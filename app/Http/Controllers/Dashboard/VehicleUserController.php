@@ -3,32 +3,31 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Actions\Dashboard\DriverUserActions;
+use App\Actions\Dashboard\VehicleUserActions;
 
 class VehicleUserController extends Controller
 {
 
-    private $driverUserActions;
+    private $vehicleUserActions;
 
-    public function __construct(DriverUserActions $driverUserActions)
+    public function __construct(VehicleUserActions $vehicleUserActions)
     {
-        $this->driverUserActions = $driverUserActions;
+        $this->vehicleUserActions = $vehicleUserActions;
     }
 
     public function index()
     {
-        //dd($this->driverUserActions->index());
         return view(
-            'dashboard.drivers.index', 
-            $this->driverUserActions->index()
+            'dashboard.vehicles.index', 
+            $this->vehicleUserActions->index()
         );
     }
 
     public function show( $driver_id )
     {
         return view(
-            'dashboard.drivers.show', 
-            $this->driverUserActions->show($driver_id)
+            'dashboard.vehicles.show', 
+            $this->vehicleUserActions->show($driver_id)
         );
     }
 
@@ -39,15 +38,15 @@ class VehicleUserController extends Controller
             'name' => 'required',
         ]);
 
-        $data = $this->driverUserActions->update($driver_id, $validated);
-        return redirect()->route('dashboard.drivers.index');
+        $data = $this->vehicleUserActions->update($driver_id, $validated);
+        return redirect()->route('dashboard.vehicles.index');
     }
 
     public function create()
     {
         return view(
-            'dashboard.drivers.create', 
-            $this->driverUserActions->create()
+            'dashboard.vehicles.create', 
+            $this->vehicleUserActions->create()
         );
     }
 
@@ -66,15 +65,15 @@ class VehicleUserController extends Controller
             'driver_type_id' => 'required',
         ]);
 
-        $data = $this->driverUserActions->store($validated);
-        return redirect()->route('dashboard.drivers.index');
+        $data = $this->vehicleUserActions->store($validated);
+        return redirect()->route('dashboard.vehicles.index');
     }
 
     public function destroy($service)
     {
-        $data = $this->driverUserActions->destroy($service);
+        $data = $this->vehicleUserActions->destroy($service);
         
-        return redirect()->route('dashboard.drivers.index');
+        return redirect()->route('dashboard.vehicles.index');
     }
 
 }
