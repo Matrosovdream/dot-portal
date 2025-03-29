@@ -37,7 +37,7 @@ class CompanyMenu implements InterfaceMenu {
                 'roles' => ['user', 'manager', 'admin'],
                 'childs' => array(
                     array(
-                        'title' => 'All',
+                        'title' => 'All drivers',
                         'url' => route('dashboard.drivers.index'),
                         'roles' => ['user', 'manager', 'admin'],
                     ),
@@ -57,6 +57,24 @@ class CompanyMenu implements InterfaceMenu {
                     array(
                         'title' => 'All documents',
                         'url' => route('dashboard.documents.index'),
+                        'roles' => ['user', 'manager', 'admin'],
+                    ),
+                ),
+            ),
+            array(
+                'title' => 'Vehicles',
+                'url' => '',
+                'icon' => 'ki-notification',
+                'roles' => ['user', 'manager', 'admin'],
+                'childs' => array(
+                    array(
+                        'title' => 'All vehicles',
+                        'url' => route('dashboard.vehicles.index'),
+                        'roles' => ['user', 'manager', 'admin'],
+                    ),
+                    array(
+                        'title' => 'New vehicle',
+                        'url' => route('dashboard.vehicles.create'),
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                 ),
