@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             ReferenceFormFieldsSeeder::class,
             ReferenceServiceGroupSeeder::class,
             RefVehicleUnitTypeSeeder::class,
+            RefVehicleOwnershipTypeSeeder::class,
 
             // Services
             ServiceSeeder::class,
