@@ -31,6 +31,19 @@ class CompanyMenu implements InterfaceMenu {
                 ),
             ),
             array(
+                'title' => 'Documents',
+                'url' => '',
+                'icon' => 'ki-notification',
+                'roles' => ['user', 'manager', 'admin'],
+                'childs' => array(
+                    array(
+                        'title' => 'All documents',
+                        'url' => route('dashboard.documents.index'),
+                        'roles' => ['user', 'manager', 'admin'],
+                    ),
+                ),
+            ),
+            array(
                 'title' => 'Drivers',
                 'url' => '',
                 'icon' => 'ki-notification',
@@ -44,19 +57,6 @@ class CompanyMenu implements InterfaceMenu {
                     array(
                         'title' => 'New driver',
                         'url' => route('dashboard.drivers.create'),
-                        'roles' => ['user', 'manager', 'admin'],
-                    ),
-                ),
-            ),
-            array(
-                'title' => 'Documents',
-                'url' => '',
-                'icon' => 'ki-notification',
-                'roles' => ['user', 'manager', 'admin'],
-                'childs' => array(
-                    array(
-                        'title' => 'All documents',
-                        'url' => route('dashboard.documents.index'),
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                 ),
@@ -80,6 +80,13 @@ class CompanyMenu implements InterfaceMenu {
                 ),
             ),
             array(
+                'title' => 'Service request',
+                'url' => '',
+                'icon' => 'ki-request',
+                'roles' => ['user'],
+                'childs' => $this->getUserRequestGroups(),
+            ),
+            array(
                 'title' => 'My cabinet',
                 'url' => '',
                 'icon' => 'ki-user',
@@ -96,13 +103,6 @@ class CompanyMenu implements InterfaceMenu {
                         'roles' => ['user'],
                     ),
                 ),
-            ),
-            array(
-                'title' => 'Service request',
-                'url' => '',
-                'icon' => 'ki-request',
-                'roles' => ['user'],
-                'childs' => $this->getUserRequestGroups(),
             ),
         );
 
