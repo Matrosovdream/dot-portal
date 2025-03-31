@@ -18,6 +18,8 @@ Route::middleware('auth')->group(function () {
 
 // Files
 Route::get('file/{file}', [FileController::class, 'download'])->name('file.download');
+Route::get('file/show/{file_id}', [FileController::class, 'show'])->name('file.show');
+
 
 // Authorization routes
 require __DIR__.'/auth.php';

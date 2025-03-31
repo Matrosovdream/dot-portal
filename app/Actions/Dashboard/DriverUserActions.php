@@ -94,6 +94,22 @@ class DriverUserActions {
     {
 
         $data = $this->driverRepo->create($request);
+        $driver_id = $data['id'];
+
+        // Driver document from request
+        $file = $this->fileStorage->uploadFile(
+            'profile_photo', 
+            'drivers/' . $driver_id . '/profile',
+            'local',
+            ['tags' => ['profile photo']]
+        );
+
+        if( $file ) {
+            $this->driverRepo->update(
+                $driver_id, 
+                ['profile_photo_id' => $file['file']['id']]
+            );
+        }
 
         return $data;
     }

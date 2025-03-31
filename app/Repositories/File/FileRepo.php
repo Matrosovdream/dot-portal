@@ -46,6 +46,8 @@ class FileRepo extends AbstractRepo
         $tags = $this->fileTagRepo->mapItems($item->tags);
         $tagGrouped = $this->fileTagRepo->groupTags($tags['items']);
 
+        $path = route('file.show', $item->id);
+
         return [
             'id' => $item->id,
             'title' => $item->filename,
@@ -62,6 +64,7 @@ class FileRepo extends AbstractRepo
             'tags' => $tags,
             'tagGrouped' => $tagGrouped,
             'downloadUrl' => route('file.download', $item->id),
+            'showUrl' => route('file.show', $item->id),
             'Model' => $item
         ];
 
