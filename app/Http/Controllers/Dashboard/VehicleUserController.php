@@ -31,6 +31,14 @@ class VehicleUserController extends Controller
         );
     }
 
+    public function profile($driver_id)
+    {
+        return view(
+            'dashboard.vehicles.show', 
+            $this->vehicleUserActions->profile($driver_id)
+        );
+    }
+
     public function update($driver_id, Request $request)
     {
 
