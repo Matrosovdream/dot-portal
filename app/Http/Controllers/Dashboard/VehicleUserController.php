@@ -39,6 +39,23 @@ class VehicleUserController extends Controller
         );
     }
 
+    public function updateProfile($driver_id, Request $request)
+    {
+
+        $validated = $request->validate([
+            'number' => 'required',
+            'vin' => 'required',
+            'unit_type_id' => 'required',
+            'ownership_type_id' => 'required',
+            'driver_id' => 'nullable',
+            'reg_expire_date' => 'nullable',
+            'inspection_expire_date' => 'nullable',
+        ]);
+
+        $data = $this->vehicleUserActions->update($driver_id, $validated);
+        return redirect()->route('dashboard.vehicles.show.profile', $driver_id);
+    }
+
     public function update($driver_id, Request $request)
     {
 
