@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Response;
 
 class FileController extends Controller
 {
@@ -28,5 +29,32 @@ class FileController extends Controller
 
     }
 
+    public function show($file_id)
+    {
+
+        $file = File::find($file_id);
+
+        if( !$file ) {
+            abort(404);
+        }
+
+        $path = $file->path;
+        $storeDisk = $file->disk;
+        
+        $disk = Storage::disk( $storeDisk );
+
+        if (!$disk->exists($path)) {
+            abort(404);
+        }
+
+        $mime = $disk->mimeType($path);
+        $file = $disk->get($path);
+
+        return Response::make($file, 200, [
+            'Content-Type' => $mime,
+            'Content-Disposition' => 'inline; filename="' . basename($path) . '"'
+        ]);
+
+    }
 
 }
