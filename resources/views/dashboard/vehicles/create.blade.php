@@ -29,59 +29,6 @@
 
                 <div class="card-body border-top p-9">
 
-                    @php /*
-                    <div class="row mb-6">
-
-                        <label class="col-lg-4 col-form-label fw-semibold fs-6">Photo</label>
-
-                        <div class="col-lg-8">
-
-                            <div class="image-input image-input-outline" data-kt-image-input="true"
-                                style="background-image: url('assets/media/svg/avatars/blank.svg')">
-  
-                                <div class="image-input-wrapper w-125px h-125px"
-                                    style="background-image: url(assets/media/avatars/300-1.jpg)"></div>
-
-                                <label
-                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                    data-kt-image-input-action="change" data-bs-toggle="tooltip" title="Change photo">
-                                    <i class="ki-duotone ki-pencil fs-7">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-
-                                    <input type="file" name="photo" accept=".png, .jpg, .jpeg" />
-                                    <input type="hidden" name="photo_remove" />
-
-                                </label>
-
-                                <span
-                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                    data-kt-image-input-action="cancel" data-bs-toggle="tooltip" title="Cancel photo">
-                                    <i class="ki-duotone ki-cross fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </span>
-
-                                <span
-                                    class="btn btn-icon btn-circle btn-active-color-primary w-25px h-25px bg-body shadow"
-                                    data-kt-image-input-action="remove" data-bs-toggle="tooltip" title="Remove photo">
-                                    <i class="ki-duotone ki-cross fs-2">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                    </i>
-                                </span>
-
-                            </div>
-
-                            <div class="form-text">Allowed file types: png, jpg, jpeg.</div>
-
-                        </div>
-
-                    </div>
-                    */ @endphp
-
                     <div class="row mb-6">
 
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">Number</label>

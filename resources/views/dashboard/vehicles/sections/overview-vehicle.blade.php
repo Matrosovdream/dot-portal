@@ -5,61 +5,75 @@
             <h3 class="fw-bold m-0">Profile Details</h3>
         </div>
 
-        <a href="{{ route('dashboard.drivers.show.profile', $driver['id']) }}" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
+        <a href="{{ route('dashboard.drivers.show.profile', $vehicle['id']) }}" class="btn btn-sm btn-primary align-self-center">Edit Profile</a>
 
     </div>
 
     <div class="card-body p-9">
 
         <div class="row mb-7">
-            <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
+            <label class="col-lg-4 fw-semibold text-muted">Number</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['firstname'] }} {{ $driver['lastname'] }}
+                    {{ $vehicle['number'] }}
                 </span>
             </div>
         </div>
 
         <div class="row mb-7">
-            <label class="col-lg-4 fw-semibold text-muted">Phone</label>
+            <label class="col-lg-4 fw-semibold text-muted">Vin</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['phone'] ?? '-' }}
+                    {{ $vehicle['vin'] }}
                 </span>
             </div>
         </div>
 
         <div class="row mb-7">
-            <label class="col-lg-4 fw-semibold text-muted">Email</label>
+            <label class="col-lg-4 fw-semibold text-muted">Unit Type</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['email'] ?? '-' }}
+                    {{ $vehicle['unitType']['name'] }}
                 </span>
             </div>
         </div>
 
         <div class="row mb-7">
-            <label class="col-lg-4 fw-semibold text-muted">DOB</label>
+            <label class="col-lg-4 fw-semibold text-muted">Ownership Type</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['dob'] ?? '-' }}
+                    {{ $vehicle['ownershipType']['name'] }}
                 </span>
             </div>
         </div>
 
         <div class="row mb-7">
-            <label class="col-lg-4 fw-semibold text-muted">SSN</label>
+            <label class="col-lg-4 fw-semibold text-muted">Driver</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['ssn'] ?? '-' }}
+                    {{ implode( ', ', [$vehicle['driver']['firstname'], $vehicle['driver']['lastname']] ) }}
+                    ( {{ $vehicle['driver']['email'] }} )
                 </span>
             </div>
         </div>
 
+        <div class="row mb-7">
+            <label class="col-lg-4 fw-semibold text-muted">Registration expire date</label>
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">
+                    {{ $vehicle['regExpireDate'] }}
+                </span>
+            </div>
+        </div>
 
-        
-
-
+        <div class="row mb-7">
+            <label class="col-lg-4 fw-semibold text-muted">Inspection expire date</label>
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">
+                    {{ $vehicle['inspectionExpireDate'] }}
+                </span>
+            </div>
+        </div>
 
         <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
 

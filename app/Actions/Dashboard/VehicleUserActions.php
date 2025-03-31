@@ -37,6 +37,23 @@ class VehicleUserActions {
             'references' => $this->vehicleRepo->getReferences()
         ];
 
+        if( request()->has('log') ) {
+            dd($vehicle);
+        }
+
+        return $data;
+    }
+
+    public function profile( $vehicle_id )
+    {
+        $vehicle = $this->vehicleRepo->getByID($vehicle_id);
+
+        $data = [
+            'title' => 'Vehicle profile',
+            'vehicle' => $vehicle,
+            'references' => $this->vehicleRepo->getReferences()
+        ];
+
         return $data;
     }
 

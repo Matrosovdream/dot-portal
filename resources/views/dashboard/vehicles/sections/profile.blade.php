@@ -10,39 +10,53 @@
     </div>
 
     <form id="kt_account_profile_details_form" class="form" method="POST"
-        action="{{ route('dashboard.drivers.show.profile.update', $driver['id']) }}" enctype="multipart/form-data">
-
+        action="{{ route('dashboard.vehicles.show.profile.update', $vehicle['id']) }}" enctype="multipart/form-data">
         @csrf
 
-        @if($errors->any())
-
-            <div class="alert alert-danger p-9">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-
-        @endif
+        @include('dashboard.includes.errors.default')
 
         <div class="card-body border-top p-9">
 
             <div class="row mb-6">
 
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Number</label>
+
+                <div class="col-lg-4 fv-row">
+                    <input type="text" name="number" class="form-control form-control-lg form-control-solid"
+                        placeholder="Number" value="{{ $vehicle['number'] }}" />
+                </div>
+
+            </div>
+
+            <div class="row mb-6">
+
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Vin</label>
+
+                <div class="col-lg-4 fv-row">
+                    <input type="text" name="vin" class="form-control form-control-lg form-control-solid"
+                        placeholder="Vin" value="{{ $vehicle['vin'] }}" />
+                </div>
+
+            </div>
+
+            <div class="row mb-6">
+
                 <label class="col-lg-4 col-form-label fw-semibold fs-6">
-                    <span class="required">Driver type</span>
+                    <span class="required">Unit type</span>
                 </label>
 
                 <div class="col-lg-4 fv-row">
-                    <select name="driver_type_id" aria-label="Select a Driver type" data-control="select2"
-                        data-placeholder="Select a Driver type"
+                    <select name="unit_type_id" aria-label="Select a Unit type" data-control="select2"
+                        data-placeholder="Select a Unit type"
                         class="form-select form-select-solid form-select-lg fw-semibold">
-                        <option value="">Select a Driver type</option>
+                        <option value="">Select a Unit type</option>
 
-                        @foreach($references['driverType']['items'] as $item)
-                            <option value="{{ $item['id'] }}" {{ $item['id'] == $driver['driver_type_id'] ? 'selected' : '' }}>
-                                {{ $item['title'] }}
+                        @foreach($references['unitType']['items'] as $item)
+                            <option 
+                                value="{{ $item['id'] }}"
+                                {{ $item['id'] == $vehicle['unitType']['id'] ? 'selected' : '' }}
+                                >
+                                {{ $item['name'] }}
                             </option>
                         @endforeach
                     </select>
@@ -52,94 +66,74 @@
 
             <div class="row mb-6">
 
-                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Full Name</label>
-
-                <div class="col-lg-8">
-                    <div class="row">
-
-                        <div class="col-lg-6 fv-row">
-                            <input type="text" name="firstname"
-                                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                                placeholder="First name" value="{{ $driver['firstname'] }}" />
-                        </div>
-
-                        <div class="col-lg-6 fv-row">
-                            <input type="text" name="middlename" class="form-control form-control-lg form-control-solid"
-                                placeholder="Middle name" value="{{ $driver['middlename'] }}" />
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-6">
-
-                <label class="col-lg-4 col-form-label fw-semibold fs-6"></label>
-
-                <div class="col-lg-8">
-                    <div class="row">
-
-                        <div class="col-lg-6 fv-row">
-                            <input type="text" name="lastname"
-                                class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                                placeholder="Last name" value="{{ $driver['lastname'] }}" />
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="row mb-6">
-
-                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Phone</label>
+                <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                    <span class="required">Ownership type</span>
+                </label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="text" name="phone" class="form-control form-control-lg form-control-solid"
-                        placeholder="Phone" value="{{ $driver['phone'] }}" />
+                    <select name="ownership_type_id" aria-label="Select aOwnership type" data-control="select2"
+                        data-placeholder="Select a Ownership type"
+                        class="form-select form-select-solid form-select-lg fw-semibold">
+                        <option value="">Select a Ownership type</option>
+
+                        @foreach($references['ownershipType']['items'] as $item)
+                            <option 
+                                value="{{ $item['id'] }}" 
+                                {{ $item['id'] == $vehicle['ownershipType']['id'] ? 'selected' : '' }}
+                                >
+                                {{ $item['name'] }}
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
             </div>
 
             <div class="row mb-6">
 
-                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Email</label>
+                <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                    <span>Driver</span>
+                </label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="text" name="email" class="form-control form-control-lg form-control-solid"
-                        placeholder="Email" value="{{ $driver['email'] }}" />
+                    <select name="driver_id" aria-label="Select driver" data-control="select2"
+                        data-placeholder="Select driver"
+                        class="form-select form-select-solid form-select-lg fw-semibold">
+                        <option value="">Select driver</option>
+
+                        @foreach($references['driver']['items'] as $item)
+                            <option 
+                                value="{{ $item['id'] }}" 
+                                {{ $item['id'] == $vehicle['driver']['id'] ? 'selected' : '' }}
+                                >
+                                {{ implode(' ', [$item['firstname'], $item['lastname']]) }}
+                                ({{ $item['email'] }})
+                            </option>
+                        @endforeach
+                    </select>
                 </div>
 
             </div>
 
             <div class="row mb-6">
 
-                <label class="col-lg-4 col-form-label required fw-semibold fs-6">DOB</label>
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Registration expire date</label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="date" name="dob" class="form-control form-control-lg form-control-solid"
-                        value="{{ $driver['dob'] }}" />
+                    <input type="date" name="reg_expire_date" class="form-control form-control-lg form-control-solid"
+                        value="{{ $vehicle['regExpireDate'] }}" />
                 </div>
 
             </div>
 
             <div class="row mb-6">
 
-                <label class="col-lg-4 col-form-label required fw-semibold fs-6">SSN</label>
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Inspection expire date</label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="text" name="ssn" class="form-control form-control-lg form-control-solid"
-                        placeholder="SSN" value="{{ $driver['ssn'] }}" />
-                </div>
-
-            </div>
-
-            <div class="row mb-6">
-
-                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Hire date</label>
-
-                <div class="col-lg-4 fv-row">
-                    <input type="date" name="hire_date" class="form-control form-control-lg form-control-solid"
-                        value="{{ $driver['hire_date'] }}" />
+                    <input type="date" name="inspection_expire_date"
+                        class="form-control form-control-lg form-control-solid"
+                        value="{{ $vehicle['inspectionExpireDate'] }}" />
                 </div>
 
             </div>
