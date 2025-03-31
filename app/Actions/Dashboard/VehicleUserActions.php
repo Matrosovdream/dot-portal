@@ -57,6 +57,12 @@ class VehicleUserActions {
         return $data;
     }
 
+    public function updateProfile($vehicle_id, $request)
+    {
+        $data = $this->vehicleRepo->update($vehicle_id, $request);
+        return $data;
+    }
+
     public function update($vehicle_id, $request)
     {
         $data = $this->vehicleRepo->update($vehicle_id, $request);
