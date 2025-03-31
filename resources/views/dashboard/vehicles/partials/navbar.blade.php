@@ -3,35 +3,15 @@
     $sections = [
         'overview' => [
             'title' => 'Overview',
-            'url' => route('dashboard.drivers.show', $driver['id']),
+            'url' => route('dashboard.vehicles.show', $vehicle['id']),
         ],
         'general' => [
-            'title' => 'Profile information',
-            'url' => route('dashboard.drivers.show.profile', $driver['id']),
+            'title' => 'Vehicle information',
+            'url' => route('dashboard.vehicles.show.profile', $vehicle['id']),
         ],
-        'license' => [
-            'title' => 'Driver license',
-            'url' => route('dashboard.drivers.show.license', $driver['id']),
-        ],
-        'address' => [
-            'title' => 'Address',
-            'url' => route('dashboard.drivers.show.address', $driver['id']),
-        ],
-        'medical' => [
-            'title' => 'Medical card',
-            'url' => route('dashboard.drivers.show.medicalcard', $driver['id']),
-        ],
-        /*'mvr' => [
-            'title' => 'MVR',
-            'url' => 'account/security.html',
-        ],
-        'clearing' => [
-            'title' => 'Clearing house',
-            'url' => 'account/activity.html',
-        ],*/
         'logs' => [
             'title' => 'Logs',
-            'url' => route('dashboard.drivers.show.logs', $driver['id']),
+            'url' => route('dashboard.vehicles.show.logs', $vehicle['id']),
         ],
     ];
 
@@ -42,7 +22,7 @@
 
     <div class="me-7 mb-4">
         <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-            <img src="{{ asset('assets/admin/media/avatars/300-2.png') }}" alt="image" />
+            <img src="g') }}" alt="image" />
             <div
                 class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
             </div>
@@ -56,7 +36,7 @@
 
                 <div class="d-flex align-items-center mb-2">
                     <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">
-                        {{ $driver['firstname'] ?? '' }} {{ $driver['lastname'] ?? '' }}
+                        Vehicle Vin#{{ $vehicle['vin'] ?? '' }}
                     </a>
                     <a href="#">
                         <i class="ki-duotone ki-verify fs-1 text-primary">
@@ -66,6 +46,7 @@
                     </a>
                 </div>
 
+                @php /*
                 <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
                     <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
                         <i class="ki-duotone ki-profile-circle fs-4 me-1">
@@ -80,16 +61,17 @@
                             <span class="path1"></span>
                             <span class="path2"></span>
                         </i>
-                        {{ $driver['address']['city'] ?? '' }}, {{ $driver['address']['zip'] ?? '' }}
+                        {{ $vehicle['address']['city'] ?? '' }}, {{ $vehicle['address']['zip'] ?? '' }}
                     </a>
                     <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary mb-2">
                         <i class="ki-duotone ki-sms fs-4 me-1">
                             <span class="path1"></span>
                             <span class="path2"></span>
                         </i>
-                        {{ $driver['email'] ?? '' }}
+                        {{ $vehicle['email'] ?? '' }}
                     </a>
                 </div>
+                */ @endphp
 
             </div>
 

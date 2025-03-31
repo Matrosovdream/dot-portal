@@ -189,6 +189,14 @@ Route::group([
         Route::get('{vehicle_id}', [VehicleUserController::class, 'show'])->name('show');
         Route::post('{vehicle_id}', [VehicleUserController::class, 'update'])->name('update');
         Route::delete('{vehicle_id}', [VehicleUserController::class, 'destroy'])->name('destroy');
+
+        Route::prefix('{vehicle_id}')->name('show.')->group(function () {
+            Route::get('profile', [VehicleUserController::class, 'profile'])->name('profile');
+            Route::post('profile', [VehicleUserController::class, 'updateProfile'])->name('profile.update');
+            Route::get('logs', [VehicleUserController::class, 'logs'])->name('logs');
+        });
+
+
     });
 
 });
