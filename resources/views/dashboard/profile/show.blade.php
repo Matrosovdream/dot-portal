@@ -32,7 +32,7 @@
 
     @endif
 
-    @if(request()->routeIs('dashboard.profile.company'))
+    @if(request()->routeIs('dashboard.profile.company.edit'))
 
         <div id="kt_account_settings_profile_details" class="collapse show">
 
