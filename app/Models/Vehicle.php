@@ -17,6 +17,7 @@ class Vehicle extends Model
         'driver_id',
         'reg_expire_date',
         'inspection_expire_date',
+        'profile_photo_id',
     ];
     
     public function driver()
@@ -37,6 +38,11 @@ class Vehicle extends Model
     public function documents()
     {
         return $this->hasMany(VehicleDocument::class);
+    }
+
+    public function profilePhoto()
+    {
+        return $this->belongsTo(File::class, 'profile_photo_id');
     }
 
 }

@@ -22,6 +22,7 @@ class Driver extends Model
         'hire_date',
         'driver_type_id',
         'user_id',
+        'profile_photo_id',
     ];
     
     public function user()
@@ -54,10 +55,14 @@ class Driver extends Model
         return $this->hasOne(DriverMedicalCard::class);
     }
 
-    // Driver type
     public function driverType()
     {
         return $this->belongsTo(RefDriverType::class, 'driver_type_id');
+    }
+
+    public function profilePhoto()
+    {
+        return $this->belongsTo(File::class, 'profile_photo_id');
     }
 
 }

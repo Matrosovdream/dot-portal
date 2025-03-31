@@ -9,6 +9,7 @@ use App\Repositories\Driver\DriverAddressRepo;
 use App\Repositories\Driver\DriverLicenseRepo;
 use App\Repositories\Driver\DriverMedicalCardRepo;
 use App\Repositories\User\UserRepo;
+use App\Repositories\File\FileRepo;
 
 class DriverRepo extends AbstractRepo
 {
@@ -19,6 +20,7 @@ class DriverRepo extends AbstractRepo
     protected $addressRepo;
     protected $licenseRepo;
     protected $medicalCardRepo;
+    protected $fileRepo;
 
     protected $fields = [
         'name' => [ 'type' => 'string', 'required' => true ],
@@ -32,12 +34,15 @@ class DriverRepo extends AbstractRepo
         'address',
         'license',
         'medicalCard',
+        'profilePhoto'
     ];
 
     public function __construct()
     {
         // Model
         $this->model = new Driver();
+
+        $this->fileRepo = new FileRepo();
 
         // Relations repositories
         $this->historyRepo = new DriverHistoryRepo();
@@ -46,6 +51,7 @@ class DriverRepo extends AbstractRepo
         $this->addressRepo = new DriverAddressRepo();
         $this->licenseRepo = new DriverLicenseRepo();
         $this->medicalCardRepo = new DriverMedicalCardRepo();
+        
     }
 
     public function getUserDrivers($user_id, $paginate = 10)
@@ -118,6 +124,7 @@ class DriverRepo extends AbstractRepo
             'address' => $this->addressRepo->mapItem( $item['address'] ),
             'license' => $this->licenseRepo->mapItem( $item['license'] ),
             'medicalCard' => $this->medicalCardRepo->mapItem( $item['medicalCard'] ),
+            'profilePhoto' => $this->fileRepo->mapItem( $item['profilePhoto'] )
         ];
 
         return $res;
