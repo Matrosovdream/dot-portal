@@ -92,7 +92,7 @@ class DashboardProfileController {
 
         $data = $this->userProfileActions->companyUpdate($validated);
         
-        return redirect()->route('dashboard.profile.company');
+        return redirect()->route('dashboard.profile.company.edit');
     }
 
 }

@@ -1,7 +1,7 @@
 <div class="card mb-5 mb-xl-10">
 
     <form id="kt_account_profile_details_form" class="form" method="POST"
-        action="{{ route('dashboard.company.update') }}" enctype="multipart/form-data">
+        action="{{ route('dashboard.profile.company.update') }}" enctype="multipart/form-data">
         @csrf
 
         <div class="card-header border-0 cursor-pointer" role="button" data-bs-toggle="collapse"
@@ -241,8 +241,9 @@
         </div>
 
         <div class="card-footer d-flex justify-content-end py-6 px-9">
-            <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">Save
-                Changes</button>
+            <button type="submit" class="btn btn-primary" id="kt_account_profile_details_submit">
+                Save Changes
+            </button>
         </div>
 
     </form>

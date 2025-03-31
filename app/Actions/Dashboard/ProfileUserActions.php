@@ -109,7 +109,6 @@ class ProfileUserActions {
 
         }
 
-        return redirect()->route('dashboard.profile.company');
     }
 
     private function updateCompanyAddress( $companyId, $data, $address_id = null ) {
