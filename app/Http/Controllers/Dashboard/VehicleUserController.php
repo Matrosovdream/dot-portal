@@ -54,15 +54,13 @@ class VehicleUserController extends Controller
     {
 
         $validated = $request->validate([
-            'firstname' => 'required',
-            'middlename' => 'nullable',
-            'lastname' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'dob' => 'nullable|date',
-            'ssn' => 'nullable',
-            'hire_date' => 'nullable|date',
-            'driver_type_id' => 'required',
+            'number' => 'required',
+            'vin' => 'required',
+            'unit_type_id' => 'required',
+            'ownership_type_id' => 'required',
+            'driver_id' => 'nullable',
+            'reg_expire_date' => 'nullable',
+            'inspection_expire_date' => 'nullable',
         ]);
 
         $data = $this->vehicleUserActions->store($validated);

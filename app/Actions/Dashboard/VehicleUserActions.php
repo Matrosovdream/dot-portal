@@ -61,17 +61,12 @@ class VehicleUserActions {
 
     public function store($request)
     {
-
-        $data = $this->vehicleRepo->create($request);
-
-        return $data;
+        return $this->vehicleRepo->create($request);
     }
 
     public function destroy($vehicle_id)
     {
-        $data = $this->vehicleRepo->delete($vehicle_id);
-
-        return $data;
+        return $this->vehicleRepo->delete($vehicle_id);
     }
 
 }

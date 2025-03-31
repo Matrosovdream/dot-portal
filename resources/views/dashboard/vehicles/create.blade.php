@@ -23,20 +23,9 @@
                 action="{{ route('dashboard.vehicles.store') }}"
                 enctype="multipart/form-data"
                 >
-
                 @csrf
 
-                @if( $errors->any() )
-
-                    <div class="alert alert-danger p-9">
-                        <ul>
-                            @foreach( $errors->all() as $error )
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-
-                @endif
+                @include('dashboard.includes.errors.default')
 
                 <div class="card-body border-top p-9">
 
