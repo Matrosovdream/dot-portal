@@ -6,6 +6,7 @@ use App\Models\Vehicle;
 use App\Repositories\References\RefVehicleUnitTypeRepo;
 use App\Repositories\References\RefVehicleOwnershipTypeRepo;
 use App\Repositories\Driver\DriverRepo;
+use App\Repositories\File\FileRepo;
 
 
 class VehicleRepo extends AbstractRepo
@@ -13,11 +14,12 @@ class VehicleRepo extends AbstractRepo
 
     protected $model;
 
-    protected $fields = [];
+    protected $fields = ['profilePhoto'];
 
     protected $refVehicleUnitTypeRepo;
     protected $refVehicleOwnershipTypeRepo;
     protected $driverRepo;
+    protected $fileRepo;
 
     public function __construct()
     {
@@ -25,9 +27,12 @@ class VehicleRepo extends AbstractRepo
 
         $this->driverRepo = new DriverRepo();
 
+        $this->fileRepo = new FileRepo();
+
         // References
         $this->refVehicleUnitTypeRepo = new RefVehicleUnitTypeRepo();
         $this->refVehicleOwnershipTypeRepo = new RefVehicleOwnershipTypeRepo();
+
     }
 
     public function getReferences()
@@ -55,6 +60,7 @@ class VehicleRepo extends AbstractRepo
             'driver' => $this->driverRepo->mapItem( $item->driver ),
             'regExpireDate' => $item->reg_expire_date,
             'inspectionExpireDate' => $item->inspection_expire_date,
+            'profilePhoto' => $this->fileRepo->mapItem( $item['profilePhoto'] ),
             'Model' => $item
         ];
         return $res;

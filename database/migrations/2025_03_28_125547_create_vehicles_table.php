@@ -20,6 +20,7 @@ return new class extends Migration
             $table->foreignId('driver_id')->on('drivers');
             $table->date('reg_expire_date')->nullable();
             $table->date('inspection_expire_date')->nullable();
+            $table->integer('profile_photo_id')->nullable();
             $table->timestamps();
         });
 
