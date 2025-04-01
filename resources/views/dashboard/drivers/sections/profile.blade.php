@@ -11,22 +11,25 @@
 
     <form id="kt_account_profile_details_form" class="form" method="POST"
         action="{{ route('dashboard.drivers.show.profile.update', $driver['id']) }}" enctype="multipart/form-data">
-
         @csrf
 
-        @if($errors->any())
-
-            <div class="alert alert-danger p-9">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-
-        @endif
+        @include('dashboard.includes.errors.default')
 
         <div class="card-body border-top p-9">
+
+            <div class="row mb-6">
+
+                <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                    Profile photo
+                </label>
+
+                <div class="col-lg-4 fv-row">
+                    <x-file-uploader :inputName="'profile_photo'" :value="''" :accept="'image/*'"
+                        :multiple="false" :required="false" :label="'Upload file'" :note="'Upload 1 image'"
+                        :description="''" />
+                </div>
+
+            </div>
 
             <div class="row mb-6">
 
