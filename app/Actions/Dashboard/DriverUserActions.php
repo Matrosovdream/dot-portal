@@ -94,22 +94,9 @@ class DriverUserActions {
     {
 
         $data = $this->driverRepo->create($request);
-        $driver_id = $data['id'];
 
-        // Driver document from request
-        $file = $this->fileStorage->uploadFile(
-            'profile_photo', 
-            'drivers/' . $driver_id . '/profile',
-            'local',
-            ['tags' => ['profile photo']]
-        );
-
-        if( $file ) {
-            $this->driverRepo->update(
-                $driver_id, 
-                ['profile_photo_id' => $file['file']['id']]
-            );
-        }
+        // Save profile photo from request
+        $this->saveProfilePhoto($driver_id = $data['id']);
 
         return $data;
     }
@@ -137,6 +124,10 @@ class DriverUserActions {
     public function updateProfile($driver_id, $request)
     {
         $data = $this->driverRepo->update($driver_id, $request);
+
+        // Save profile photo from request
+        $this->saveProfilePhoto($driver_id);
+
         return $data;
     }
 
@@ -245,8 +236,6 @@ class DriverUserActions {
         );
         if( $file ) {
 
-            
-
             // Add document, in our case license
             $this->driverRepo->addDocument(
                 $driver_id, 
@@ -278,6 +267,25 @@ class DriverUserActions {
         ];
 
         return $data;
+    }
+
+    public function saveProfilePhoto($driver_id)
+    {
+        // Driver document from request
+        $file = $this->fileStorage->uploadFile(
+            'profile_photo', 
+            'drivers/' . $driver_id . '/profile',
+            'local',
+            ['tags' => ['profile photo']]
+        );
+
+        if( $file ) {
+            $this->driverRepo->update(
+                $driver_id, 
+                ['profile_photo_id' => $file['file']['id']]
+            );
+        }
+
     }
 
     public function getReferences()
