@@ -67,6 +67,19 @@ class DriverRepo extends AbstractRepo
         return $this->mapItems($items);
     }
 
+    public function getCompanyStats($company_id)
+    {
+
+        $itemsCount = $this->model
+            ->where('company_id', $company_id)
+            ->count();
+
+        return [
+            'total' => $itemsCount
+        ];
+
+    }
+
     public function addDocument($driver_id, $file, $type)
     {
 
