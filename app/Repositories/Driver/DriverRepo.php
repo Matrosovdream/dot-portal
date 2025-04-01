@@ -119,6 +119,7 @@ class DriverRepo extends AbstractRepo
 
         $res = [
             'user' => $this->userRepo->mapItem( $item['user']->first() ),
+            'userCompany' => $this->userRepo->mapItem( $item['userCompany']->first() ),
             'history' => $this->historyRepo->mapItem( $item['history']->first() ),
             'documents' => $this->documentRepo->mapItems( $item['documents'] ),
             'address' => $this->addressRepo->mapItem( $item['address'] ),

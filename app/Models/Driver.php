@@ -22,12 +22,18 @@ class Driver extends Model
         'hire_date',
         'driver_type_id',
         'user_id',
+        'company_id',
         'profile_photo_id',
     ];
     
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function userCompany()
+    {
+        return $this->belongsTo(User::class, 'company_id');
     }
 
     public function history()

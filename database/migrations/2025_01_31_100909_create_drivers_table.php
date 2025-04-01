@@ -24,6 +24,7 @@ return new class extends Migration
             $table->date('hire_date')->nullable();
             $table->foreignId('driver_type_id')->on('ref_driver_type');
             $table->foreignId('user_id')->on('users');
+            $table->foreignId('company_id')->on('companies');
             $table->integer('profile_photo_id')->nullable();
             $table->timestamps();
         });
