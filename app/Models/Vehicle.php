@@ -14,10 +14,11 @@ class Vehicle extends Model
         'number',
         'vin',
         'ownership_type_id',
-        'driver_id',
         'reg_expire_date',
         'inspection_expire_date',
         'profile_photo_id',
+        'driver_id',
+        'company_id',
     ];
     
     public function driver()
@@ -43,6 +44,11 @@ class Vehicle extends Model
     public function profilePhoto()
     {
         return $this->belongsTo(File::class, 'profile_photo_id');
+    }
+
+    public function company()
+    {
+        return $this->belongsTo(User::class, 'company_id');
     }
 
 }
