@@ -89,6 +89,8 @@ class DriverRepo extends AbstractRepo
     {
         // Add current user ID
         $data['user_id'] = auth()->user()->id;
+        $data['company_id'] = auth()->user()->id;
+
         return $data;
     }
 

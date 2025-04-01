@@ -27,6 +27,7 @@ class DriverSeeder extends Seeder
                 "hire_date" => "2021-01-01",
                 "driver_type_id" => 1,
                 "user_id" => 3,
+                "company_id" => 3,
             ],
             "address" => [
                 "address1" => "123 Main St",
@@ -61,6 +62,7 @@ class DriverSeeder extends Seeder
                 "hire_date" => "2024-01-01",
                 "driver_type_id" => 1,
                 "user_id" => 3,
+                'company_id' => 3,
             ],
             "address" => [
                 "address1" => "123 Main St",
