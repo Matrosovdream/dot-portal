@@ -43,7 +43,7 @@
         <div class="table-responsive">
 
             @if( count($documents['items']) == 0 )
-                <div class="text-center">
+                <div class="text-center mt-10">
                     <h4>No documents found</h4>
                 </div>
             @else
