@@ -31,6 +31,20 @@
 
                     <div class="row mb-6">
 
+                        <label class="col-lg-4 col-form-label fw-semibold fs-6">
+                            Profile photo
+                        </label>
+
+                        <div class="col-lg-4 fv-row">
+                            <x-file-uploader :inputName="'profile_photo'" :value="''" :accept="'image/*'"
+                                :multiple="false" :required="false" :label="'Upload file'" :note="'Upload 1 image'"
+                                :description="''" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-6">
+
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">Number</label>
 
                         <div class="col-lg-4 fv-row">
