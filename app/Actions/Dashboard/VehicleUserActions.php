@@ -40,10 +40,6 @@ class VehicleUserActions {
             'references' => $this->vehicleRepo->getReferences()
         ];
 
-        if( request()->has('log') ) {
-            dd($vehicle);
-        }
-
         return $data;
     }
 
@@ -62,17 +58,15 @@ class VehicleUserActions {
 
     public function updateProfile($vehicle_id, $request)
     {
-        $data = $this->vehicleRepo->update($vehicle_id, $request);
-
-        // Save profile photo from request
-        $this->saveProfilePhoto($vehicle_id);
-
-        return $data;
+        return [];
     }
 
     public function update($vehicle_id, $request)
     {
         $data = $this->vehicleRepo->update($vehicle_id, $request);
+
+        // Save profile photo from request
+        $this->saveProfilePhoto($vehicle_id);
 
         return $data;
     }
