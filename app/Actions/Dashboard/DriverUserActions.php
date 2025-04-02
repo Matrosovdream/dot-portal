@@ -95,8 +95,10 @@ class DriverUserActions {
 
         $data = $this->driverRepo->create($request);
 
-        // Save profile photo from request
-        $this->saveProfilePhoto($driver_id = $data['id']);
+        if( !isset($data['error']) ) {
+            // Save profile photo from request
+            $this->saveProfilePhoto($driver_id = $data['id']);
+        }
 
         return $data;
     }
@@ -279,7 +281,8 @@ class DriverUserActions {
             ['tags' => ['profile photo']]
         );
 
-        if( $file ) {
+        if( $file['file'] ) {
+
             $this->driverRepo->update(
                 $driver_id, 
                 ['profile_photo_id' => $file['file']['id']]
