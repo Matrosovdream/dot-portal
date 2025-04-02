@@ -160,6 +160,10 @@ class DriverRepo extends AbstractRepo
 
         $res = array_merge($res, $this->mapRelations($item));
 
+        $res['firstname'] = $res['user']['firstname'];
+        $res['lastname'] = $res['user']['lastname'];
+        $res['email'] = $res['user']['email'];
+
         return $res;
     }
 
