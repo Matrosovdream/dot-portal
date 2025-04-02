@@ -67,7 +67,13 @@ class DriverController extends Controller
         ]);
 
         $data = $this->driverUserActions->store($validated);
-        return redirect()->route('dashboard.drivers.index');
+
+        if( !isset($data['error']) ) {
+            return redirect()->route('dashboard.drivers.index');
+        } else {
+            return redirect()->back()->withError($data['message']);
+        }
+
     }
 
     public function destroy($service)
