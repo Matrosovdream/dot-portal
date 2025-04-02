@@ -14,8 +14,8 @@ return new class extends Migration
 
         Schema::create('drivers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->on('users');
-            $table->foreignId('company_id')->on('companies');
+            $table->foreignId('user_id')->on('users')->nullable();
+            $table->foreignId('company_id')->on('users')->nullable();
             $table->integer('profile_photo_id')->nullable();
             /*$table->string('firstname');
             $table->string('middlename')->nullable();
