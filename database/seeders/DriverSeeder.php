@@ -5,12 +5,18 @@ namespace Database\Seeders;
 //use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Driver;
+use App\Repositories\Driver\DriverRepo;
 
 class DriverSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
+    
+    protected $driverRepo;
+
+    public function __construct()
+    {
+        $this->driverRepo = new DriverRepo();
+    }
+
     public function run(): void
     {
 
@@ -26,7 +32,6 @@ class DriverSeeder extends Seeder
                 "ssn" => "123456789",
                 "hire_date" => "2021-01-01",
                 "driver_type_id" => 1,
-                "user_id" => 3,
                 "company_id" => 3,
             ],
             "address" => [
@@ -61,7 +66,6 @@ class DriverSeeder extends Seeder
                 "ssn" => "888899922",
                 "hire_date" => "2024-01-01",
                 "driver_type_id" => 1,
-                "user_id" => 3,
                 'company_id' => 3,
             ],
             "address" => [
@@ -88,17 +92,18 @@ class DriverSeeder extends Seeder
 
         // Add driver
         foreach ($drivers as $driverSet) {
+
             // Create driver
-            $driver = Driver::create($driverSet['main']);
+            $driver = $this->driverRepo->create($driverSet['main']);
 
             // Create license
-            $driver->address()->create($driverSet['address']);
+            $driver['Model']->address()->create($driverSet['address']);
 
             // Create license
-            $driver->license()->create($driverSet['license']);
+            $driver['Model']->license()->create($driverSet['license']);
 
             // Create medical card
-            $driver->medicalCard()->create($driverSet['medical']);
+            $driver['Model']->medicalCard()->create($driverSet['medical']);
 
         }
 

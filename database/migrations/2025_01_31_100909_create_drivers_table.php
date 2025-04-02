@@ -17,11 +17,6 @@ return new class extends Migration
             $table->foreignId('user_id')->on('users')->nullable();
             $table->foreignId('company_id')->on('users')->nullable();
             $table->integer('profile_photo_id')->nullable();
-            /*$table->string('firstname');
-            $table->string('middlename')->nullable();
-            $table->string('lastname');
-            $table->string('phone')->nullable();
-            $table->string('email')->nullable();*/
             $table->date('dob')->nullable();
             $table->string('ssn')->nullable();
             $table->date('hire_date')->nullable();
