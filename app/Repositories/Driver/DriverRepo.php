@@ -54,6 +54,47 @@ class DriverRepo extends AbstractRepo
         
     }
 
+    public function beforeCreate($data)
+    {
+        if( empty($data['company_id']) ) {
+            $data['company_id'] = auth()->user()->id;
+        }
+
+        return $data;
+    }
+
+    public function create($data)
+    {
+
+        // If user exists by email
+        $user = $this->userRepo->getByEmail($data['email']);
+
+        if( $user ) {
+            return [
+                'error' => true,
+                'message' => 'User with this email already exists'
+            ];
+        } else {
+
+            // Create user
+            $user = $this->userRepo->create([
+                'firstname' => $data['firstname'],
+                'lastname' => $data['lastname'],
+                'email' => $data['email'],
+                'phone' => $data['phone'],
+                'is_active' => 1
+            ]);
+            $data['user_id'] = $user['id'];
+
+            unset($data['firstname'], $data['lastname'], $data['middlename'], $data['email'], $data['phone']);
+
+        }
+
+        // Call parent method create()
+        return parent::create($data);
+
+    }
+
     public function getUserDrivers($user_id, $paginate = 10)
     {
         $items = $this->model
@@ -95,16 +136,6 @@ class DriverRepo extends AbstractRepo
         ];
 
         return $driver['Model']->documents()->create( $data );
-    }
-
-
-    public function beforeCreate($data)
-    {
-        // Add current user ID
-        $data['user_id'] = auth()->user()->id;
-        $data['company_id'] = auth()->user()->id;
-
-        return $data;
     }
 
     public function mapItem($item)
