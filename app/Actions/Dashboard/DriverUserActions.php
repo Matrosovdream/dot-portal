@@ -10,6 +10,7 @@ use App\Repositories\References\RefCountryStateRepo;
 use App\Repositories\References\RefDriverLicenseTypeRepo;
 use App\Repositories\References\RefDriverLicenseEndrsRepo;
 use App\Mixins\File\FileStorage;
+use App\Repositories\User\UserRepo;
 
 
 class DriverUserActions {
@@ -22,6 +23,7 @@ class DriverUserActions {
     private $refStateRepo;
     private $refDriverLicenseTypeRepo;
     private $refDriverLicenseEndrsRepo;
+    private $userRepo;
     protected $fileStorage;
 
     public function __construct()
@@ -38,6 +40,7 @@ class DriverUserActions {
         $this->refDriverLicenseEndrsRepo = new RefDriverLicenseEndrsRepo();
 
         $this->fileStorage = new FileStorage();
+        $this->userRepo = new UserRepo();
 
     }
 
@@ -125,10 +128,32 @@ class DriverUserActions {
 
     public function updateProfile($driver_id, $request)
     {
-        $data = $this->driverRepo->update($driver_id, $request);
 
-        // Save profile photo from request
-        $this->saveProfilePhoto($driver_id);
+        $data = [];
+        $driver = $this->driverRepo->getByID($driver_id);
+
+        // Update general data
+        if( $request['action'] == 'update_general' ) {
+            $data = $this->driverRepo->update($driver_id, $request);
+
+            // Save profile photo from request
+            $this->saveProfilePhoto($driver_id);
+        }
+
+        // Update user
+        if( $request['action'] == 'update_user' ) {
+            $user = $this->userRepo->update($driver['user']['id'], $request);
+        }
+
+        // Update password
+        if( $request['action'] == 'update_password' ) {
+
+            if( !empty($request['new_password']) ) {
+                $dataSet = ['password' => bcrypt($request['new_password'])];   
+                $user = $this->userRepo->update($driver['user']['id'], $dataSet);
+            }
+            
+        }
 
         return $data;
     }
