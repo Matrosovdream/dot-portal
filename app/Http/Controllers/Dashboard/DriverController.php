@@ -95,15 +95,17 @@ class DriverController extends Controller
     {
 
         $validated = $request->validate([
-            'firstname' => 'required',
+            'firstname' => 'nullable',
             'middlename' => 'nullable',
-            'lastname' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
+            'lastname' => 'nullable',
+            'phone' => 'nullable',
+            'email' => 'nullable',
             'dob' => 'nullable|date',
             'ssn' => 'nullable',
             'hire_date' => 'nullable|date',
-            'driver_type_id' => 'required',
+            'driver_type_id' => 'nullable',
+            'new_password' => 'nullable',
+            'action' => 'nullable',
         ]);
 
         $data = $this->driverUserActions->updateProfile($driver_id, $validated);
