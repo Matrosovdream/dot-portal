@@ -29,6 +29,11 @@ class UserRepo extends AbstractRepo
         $this->userPaymentCardRepo = new UserPaymentCardRepo();
     }
 
+    public function getByEmail($email)
+    {
+        return $this->model->where('email', $email)->first();
+    }
+
     public function mapItem($item)
     {
 
