@@ -15,7 +15,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Full Name</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['firstname'] }} {{ $driver['lastname'] }}
+                    {{ $driver['user']['firstname'] ?? '' }} {{ $driver['user']['lastname'] ?? '' }}
                 </span>
             </div>
         </div>
@@ -24,7 +24,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Phone</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['phone'] ?? '-' }}
+                    {{ $driver['user']['phone'] ?? '-' }}
                 </span>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Email</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['email'] ?? '-' }}
+                    {{ $driver['user']['email'] ?? '-' }}
                 </span>
             </div>
         </div>

@@ -63,12 +63,12 @@
                         <div class="col-lg-6 fv-row">
                             <input type="text" name="firstname"
                                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                                placeholder="First name" value="{{ $driver['firstname'] }}" />
+                                placeholder="First name" value="{{ $driver['user']['firstname'] ?? '' }}" />
                         </div>
 
                         <div class="col-lg-6 fv-row">
                             <input type="text" name="middlename" class="form-control form-control-lg form-control-solid"
-                                placeholder="Middle name" value="{{ $driver['middlename'] }}" />
+                                placeholder="Middle name" value="{{ $driver['user']['middlename'] ?? '' }}" />
                         </div>
 
                     </div>
@@ -85,7 +85,7 @@
                         <div class="col-lg-6 fv-row">
                             <input type="text" name="lastname"
                                 class="form-control form-control-lg form-control-solid mb-3 mb-lg-0"
-                                placeholder="Last name" value="{{ $driver['lastname'] }}" />
+                                placeholder="Last name" value="{{ $driver['user']['lastname'] ?? '' }}" />
                         </div>
 
                     </div>
@@ -98,7 +98,7 @@
 
                 <div class="col-lg-4 fv-row">
                     <input type="text" name="phone" class="form-control form-control-lg form-control-solid"
-                        placeholder="Phone" value="{{ $driver['phone'] }}" />
+                        placeholder="Phone" value="{{ $driver['user']['phone'] ?? '' }}" />
                 </div>
 
             </div>
@@ -109,7 +109,7 @@
 
                 <div class="col-lg-4 fv-row">
                     <input type="text" name="email" class="form-control form-control-lg form-control-solid"
-                        placeholder="Email" value="{{ $driver['email'] }}" />
+                        placeholder="Email" value="{{ $driver['user']['email'] ?? '' }}" />
                 </div>
 
             </div>
