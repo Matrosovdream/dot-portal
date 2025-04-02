@@ -49,7 +49,8 @@
                                 <a href="{{ route('dashboard.drivers.show', $driver['id']) }}"
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
-                                    {{ $driver['firstname'] }} {{ $driver['lastname'] }}
+                                    {{ $driver['user']['firstname'] ?? '' }} 
+                                    {{ $driver['user']['lastname'] ?? '' }}
                                 </a>
                             </td>
                             <td class="text-center">
