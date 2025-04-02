@@ -86,6 +86,9 @@ class DriverRepo extends AbstractRepo
             ]);
             $data['user_id'] = $user['id'];
 
+            // Set user role
+            $user['Model']->setRole('driver');
+
             unset($data['firstname'], $data['lastname'], $data['middlename'], $data['email'], $data['phone']);
 
         }
@@ -140,6 +143,11 @@ class DriverRepo extends AbstractRepo
 
     public function mapItem($item)
     {
+
+        if (empty($item)) {
+            return null;
+        }
+
         $res = [
             'id' => $item->id,
             'dob' => $item->dob,
