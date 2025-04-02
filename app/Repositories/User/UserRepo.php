@@ -1,11 +1,14 @@
 <?php
 namespace App\Repositories\User;
 
+use Illuminate\Support\Str;
 use App\Repositories\AbstractRepo;
 use App\Repositories\User\UserAddressRepo;
 use App\Repositories\User\UserCompanyRepo;
 use App\Repositories\User\UserPaymentCardRepo;
 use App\Models\User;
+
+
 
 class UserRepo extends AbstractRepo
 {
@@ -27,6 +30,16 @@ class UserRepo extends AbstractRepo
         $this->userAdressRepo = new UserAddressRepo();
         $this->userCompanyRepo = new UserCompanyRepo();
         $this->userPaymentCardRepo = new UserPaymentCardRepo();
+    }
+
+    // Set password random beforeCreate
+    public function beforeCreate($data)
+    {
+
+        if( empty($data['password']) ) {
+            $data['password'] = $this->generatePassword();
+        }
+        return $data;
     }
 
     public function getByEmail($email)
@@ -56,6 +69,12 @@ class UserRepo extends AbstractRepo
         ];
 
         return $res;
+    }
+
+    protected function generatePassword()
+    {
+        $password = Str::random(8) . rand(1000, 9999) . '!@#';
+        return bcrypt($password);
     }
 
 }
