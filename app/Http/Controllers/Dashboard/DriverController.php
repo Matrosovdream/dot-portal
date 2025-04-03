@@ -60,6 +60,7 @@ class DriverController extends Controller
             'lastname' => 'required',
             'phone' => 'required',
             'email' => 'required',
+            'password' => 'nullable',
             'dob' => 'nullable|date',
             'ssn' => 'nullable',
             'hire_date' => 'nullable|date',
