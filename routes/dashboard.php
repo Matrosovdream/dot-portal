@@ -160,8 +160,6 @@ Route::group([
             Route::get('company', [ProfileCompanyController::class, 'companyEdit'])->name('company.edit');
             Route::post('company', [ProfileCompanyController::class, 'companyUpdate'])->name('company.update');
         
-            
-        
         });
     });
 
