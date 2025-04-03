@@ -5,7 +5,7 @@ use App\Http\Controllers\Dashboard\HomeController;
 use App\Http\Controllers\Dashboard\DashboardUsersController;
 use App\Http\Controllers\Dashboard\DashboardSettingsController;
 use App\Http\Controllers\Dashboard\DashboardGatewaysController;
-use App\Http\Controllers\Dashboard\DashboardProfileController;
+use App\Http\Controllers\Dashboard\ProfileCompanyController;
 use App\Http\Controllers\Dashboard\ServiceAdminController;
 use App\Http\Controllers\Dashboard\ServiceFieldsController;
 use App\Http\Controllers\Dashboard\AdminRequestController;
@@ -147,16 +147,21 @@ Route::group([
             Route::post('/', [SubscriptionUserController::class, 'update'])->name('update');
         });
 
-        // Profile
+        // Profile routes
         Route::prefix('profile')->name('profile.')->group(function () {
-            Route::get('/', [DashboardProfileController::class, 'profilePreview'])->name('show');
-            Route::post('/', [DashboardProfileController::class, 'updateProfile'])->name('update');
-            Route::post('password', [DashboardProfileController::class, 'updatePassword'])->name('password.update');
-            Route::get('edit', [DashboardProfileController::class, 'profileEdit'])->name('edit');
-            Route::post('edit', [DashboardProfileController::class, 'profileUpdate'])->name('update');
-            Route::post('address', [DashboardProfileController::class, 'profileAddressUpdate'])->name('address.update');
-            Route::get('company', [DashboardProfileController::class, 'companyEdit'])->name('company.edit');
-            Route::post('company', [DashboardProfileController::class, 'companyUpdate'])->name('company.update');
+
+            // Company profile routes
+            Route::get('/', [ProfileCompanyController::class, 'profilePreview'])->name('show');
+            Route::post('/', [ProfileCompanyController::class, 'updateProfile'])->name('update');
+            Route::post('password', [ProfileCompanyController::class, 'updatePassword'])->name('password.update');
+            Route::get('edit', [ProfileCompanyController::class, 'profileEdit'])->name('edit');
+            Route::post('edit', [ProfileCompanyController::class, 'profileUpdate'])->name('update');
+            Route::post('address', [ProfileCompanyController::class, 'profileAddressUpdate'])->name('address.update');
+            Route::get('company', [ProfileCompanyController::class, 'companyEdit'])->name('company.edit');
+            Route::post('company', [ProfileCompanyController::class, 'companyUpdate'])->name('company.update');
+        
+            
+        
         });
     });
 

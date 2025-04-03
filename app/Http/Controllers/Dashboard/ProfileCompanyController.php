@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Actions\Dashboard\ProfileUserActions;
 
 
-class DashboardProfileController {
+class ProfileCompanyController {
 
     private $userProfileActions;
 
