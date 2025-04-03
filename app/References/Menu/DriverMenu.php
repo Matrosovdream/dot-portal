@@ -26,6 +26,7 @@ class DriverMenu implements InterfaceMenu {
                     array(
                         'title' => 'Active',
                         'url' => route('dashboard.notifications'),
+                        'route' => 'dashboard.notifications',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                 ),
@@ -39,6 +40,7 @@ class DriverMenu implements InterfaceMenu {
                     array(
                         'title' => 'All documents',
                         'url' => route('dashboard.documents.index'),
+                        'route' => 'dashboard.documents.index',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                 ),
@@ -52,6 +54,7 @@ class DriverMenu implements InterfaceMenu {
                     array(
                         'title' => 'Settings',
                         'url' => route('dashboard.profile.show'),
+                        'route' => 'dashboard.profile.show',
                         'roles' => ['user'],
                     ),
                 ),

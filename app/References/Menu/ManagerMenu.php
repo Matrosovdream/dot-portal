@@ -24,6 +24,7 @@ class ManagerMenu implements InterfaceMenu {
                     array(
                         'title' => 'All',
                         'url' => route('dashboard.notifications-manage.index'),
+                        'route' => 'dashboard.notifications-manage.index',
                         'roles' => ['admin', 'manager'],
                     ),
                 ),
@@ -37,6 +38,7 @@ class ManagerMenu implements InterfaceMenu {
                     array(
                         'title' => 'Services list',
                         'url' => route('dashboard.services.index'),
+                        'route' => 'dashboard.services.index',
                         'roles' => ['admin', 'manager'],
                     ),
                 ),
@@ -50,6 +52,7 @@ class ManagerMenu implements InterfaceMenu {
                     array(
                         'title' => 'All',
                         'url' => route('dashboard.requestmanage.index'),
+                        'route' => 'dashboard.requestmanage.index',
                         'roles' => ['admin', 'manager'],
                     ),
                 ),
