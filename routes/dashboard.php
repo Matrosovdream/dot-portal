@@ -140,7 +140,7 @@ Route::group([
     });
 
     // User routes
-    Route::middleware('isUser')->group(function () {
+    Route::middleware(['hasRole:driver,company'])->group(function () {
 
         // Subscription
         Route::prefix('subscription')->name('subscription.')->group(function () {
