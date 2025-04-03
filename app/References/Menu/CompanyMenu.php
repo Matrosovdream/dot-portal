@@ -26,6 +26,7 @@ class CompanyMenu implements InterfaceMenu {
                     array(
                         'title' => 'Active',
                         'url' => route('dashboard.notifications'),
+                        'route' => 'dashboard.notifications',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                 ),
@@ -39,6 +40,7 @@ class CompanyMenu implements InterfaceMenu {
                     array(
                         'title' => 'All documents',
                         'url' => route('dashboard.documents.index'),
+                        'route' => 'dashboard.documents.index',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                 ),
@@ -52,11 +54,13 @@ class CompanyMenu implements InterfaceMenu {
                     array(
                         'title' => 'All drivers',
                         'url' => route('dashboard.drivers.index'),
+                        'route' => 'dashboard.drivers.index',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                     array(
                         'title' => 'New driver',
                         'url' => route('dashboard.drivers.create'),
+                        'route' => 'dashboard.drivers.create',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                 ),
@@ -70,11 +74,13 @@ class CompanyMenu implements InterfaceMenu {
                     array(
                         'title' => 'All vehicles',
                         'url' => route('dashboard.vehicles.index'),
+                        'route' => 'dashboard.vehicles.index',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                     array(
                         'title' => 'New vehicle',
                         'url' => route('dashboard.vehicles.create'),
+                        'route' => 'dashboard.vehicles.create',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                 ),
@@ -95,11 +101,13 @@ class CompanyMenu implements InterfaceMenu {
                     array(
                         'title' => 'Settings',
                         'url' => route('dashboard.profile.show'),
+                        'route' => 'dashboard.profile.show',
                         'roles' => ['user'],
                     ),
                     array(
                         'title' => 'Subscription',
                         'url' => route('dashboard.subscription.index'),
+                        'route' => 'dashboard.subscription.index',
                         'roles' => ['user'],
                     ),
                 ),
@@ -115,6 +123,7 @@ class CompanyMenu implements InterfaceMenu {
         $urls[] = array(
             'title' => 'My requests',
             'url' => route('dashboard.servicerequest.history.index'),
+            'route' => 'dashboard.servicerequest.history.index',
             'roles' => ['user'],
         );
 
@@ -123,6 +132,7 @@ class CompanyMenu implements InterfaceMenu {
             $urls[] = array(
                 'title' => $group['name'],
                 'url' => route('dashboard.servicerequest.group', ['group' => $group['slug']]),
+                'route' => 'dashboard.servicerequest.group',
                 'roles' => ['user'],
             );
         }
