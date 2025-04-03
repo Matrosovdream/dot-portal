@@ -116,7 +116,10 @@
 
                         <div class="col-lg-4 fv-row">
                             <input type="text" name="email" class="form-control form-control-lg form-control-solid"
-                                placeholder="Email" value="{{ old('email') }}" />
+                                placeholder="Email" 
+                                value="{{ old('email') }}"
+                                autocomplete="off"
+                                />
                         </div>
 
                     </div>
@@ -127,8 +130,11 @@
 
                         <div class="col-lg-4 fv-row">
                             <input type="password" name="password"
-                                class="form-control form-control-lg form-control-solid" placeholder="Password"
-                                value="" />
+                                class="form-control form-control-lg form-control-solid" 
+                                placeholder="Password"
+                                value=""
+                                autocomplete="off"
+                                />
                         </div>
 
                     </div>
