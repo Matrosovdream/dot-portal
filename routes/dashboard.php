@@ -141,6 +141,7 @@ Route::group([
 
     // User routes
     Route::middleware('isUser')->group(function () {
+
         // Subscription
         Route::prefix('subscription')->name('subscription.')->group(function () {
             Route::get('/', [SubscriptionUserController::class, 'index'])->name('index');
