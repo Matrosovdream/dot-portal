@@ -24,6 +24,7 @@ class AdminMenu implements InterfaceMenu {
                     array(
                         'title' => 'All',
                         'url' => route('dashboard.notifications-manage.index'),
+                        'route' => 'dashboard.notifications-manage.index',
                         'roles' => ['admin', 'manager'],
                     ),
                 ),
@@ -37,16 +38,19 @@ class AdminMenu implements InterfaceMenu {
                     array(
                         'title' => 'Services list',
                         'url' => route('dashboard.services.index'),
+                        'route' => 'dashboard.services.index',
                         'roles' => ['admin', 'manager'],
                     ),
                     array(
                         'title' => 'Service fields',
                         'url' => route('dashboard.servicefields.index'),
+                        'route' => 'dashboard.servicefields.index',
                         'roles' => ['admin'],
                     ),
                     array(
                         'title' => 'Service groups',
                         'url' => route('dashboard.servicegroups.index'),
+                        'route' => 'dashboard.servicegroups.index',
                         'roles' => ['admin'],
                     ),
 
@@ -61,6 +65,7 @@ class AdminMenu implements InterfaceMenu {
                     array(
                         'title' => 'All',
                         'url' => route('dashboard.requestmanage.index'),
+                        'route' => 'dashboard.requestmanage.index',
                         'roles' => ['admin', 'manager'],
                     ),
                 ),
@@ -74,11 +79,13 @@ class AdminMenu implements InterfaceMenu {
                     array(
                         'title' => 'General',
                         'url' => route('dashboard.settings.index'),
+                        'route' => 'dashboard.settings.index',
                         'roles' => ['admin'],
                     ),
                     array(
                         'title' => 'Users',
                         'url' => route('dashboard.users.index'),
+                        'route' => 'dashboard.users.index',
                         'roles' => ['admin'],
                     ),
                 ),
