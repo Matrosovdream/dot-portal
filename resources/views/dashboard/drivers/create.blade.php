@@ -32,8 +32,7 @@
 
                         <div class="col-lg-4 fv-row">
                             <x-file-uploader :inputName="'profile_photo'" :value="''" :accept="'image/*'"
-                                :multiple="false" :required="false" :label="'Upload file'" :note="'Upload 1 image'"
-                                :description="''" />
+                                   :multiple="false" :required="false" :label="'Upload file'" :note="'Upload 1 image'" :description="''" />
                         </div>
 
                     </div>
@@ -118,6 +117,18 @@
                         <div class="col-lg-4 fv-row">
                             <input type="text" name="email" class="form-control form-control-lg form-control-solid"
                                 placeholder="Email" value="{{ old('email') }}" />
+                        </div>
+
+                    </div>
+
+                    <div class="row mb-6">
+
+                        <label class="col-lg-4 col-form-label required fw-semibold fs-6">Password</label>
+
+                        <div class="col-lg-4 fv-row">
+                            <input type="password" name="password"
+                                class="form-control form-control-lg form-control-solid" placeholder="Password"
+                                value="" />
                         </div>
 
                     </div>
