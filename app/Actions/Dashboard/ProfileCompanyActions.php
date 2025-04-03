@@ -8,7 +8,7 @@ use App\Repositories\User\UserCompanyAddressRepo;
 use App\Repositories\References\RefCountryStateRepo;
 
 
-class ProfileUserActions {
+class ProfileCompanyActions {
 
     private $userRepo;
     private $userAddressRepo;

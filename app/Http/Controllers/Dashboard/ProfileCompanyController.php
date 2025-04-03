@@ -3,23 +3,23 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Actions\Dashboard\ProfileUserActions;
+use App\Actions\Dashboard\ProfileCompanyActions;
 
 
 class ProfileCompanyController {
 
-    private $userProfileActions;
+    private $profileCompanyActions;
 
     public function __construct()
     {
-        $this->userProfileActions = new ProfileUserActions();
+        $this->profileCompanyActions = new ProfileCompanyActions();
     }
 
     public function profilePreview()
     {
         return view(
             'dashboard.profile.show', 
-            $this->userProfileActions->profilePreview()
+            $this->profileCompanyActions->profilePreview()
             );
     }
 
@@ -27,7 +27,7 @@ class ProfileCompanyController {
     {
         return view(
             'dashboard.profile.show', 
-            $this->userProfileActions->profileEdit()
+            $this->profileCompanyActions->profileEdit()
             );
     }
 
@@ -41,7 +41,7 @@ class ProfileCompanyController {
             'birthday' => 'nullable'
         ]);
 
-        $data = $this->userProfileActions->profileUpdate($validated);
+        $data = $this->profileCompanyActions->profileUpdate($validated);
         
         return redirect()->route('dashboard.profile.edit');
     }
@@ -57,7 +57,7 @@ class ProfileCompanyController {
             'zip' => 'nullable',
         ]);
 
-        $data = $this->userProfileActions->profileAddressUpdate($validated);
+        $data = $this->profileCompanyActions->profileAddressUpdate($validated);
         
         return redirect()->route('dashboard.profile.edit');
     }
@@ -66,7 +66,7 @@ class ProfileCompanyController {
     {
         return view(
             'dashboard.profile.show', 
-            $this->userProfileActions->companyEdit()
+            $this->profileCompanyActions->companyEdit()
             );
     }
 
@@ -90,7 +90,7 @@ class ProfileCompanyController {
             'mailing.zip' => 'nullable',
         ]);
 
-        $data = $this->userProfileActions->companyUpdate($validated);
+        $data = $this->profileCompanyActions->companyUpdate($validated);
         
         return redirect()->route('dashboard.profile.company.edit');
     }
