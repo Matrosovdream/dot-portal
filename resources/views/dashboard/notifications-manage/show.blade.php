@@ -58,6 +58,8 @@
 
                             <div class="row row-cols-1 row-cols-md-2">
 
+                                @include('dashboard.includes.errors.default')
+
                                 <div class="col">
                                     <div class="fv-row mb-7">
 
