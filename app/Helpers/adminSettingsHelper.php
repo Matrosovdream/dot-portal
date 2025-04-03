@@ -25,7 +25,7 @@ class adminSettingsHelper {
         foreach ($menu as $key => $item) {
             if (isset($item['childs'])) {
                 foreach ($item['childs'] as $key2 => $item2) {
-                    if( request()->url() == $item2['url'] ) {
+                    if( request()->routeIs( $item2['route'] ) ) {
                         $menu[$key]['active'] = true;
                         $menu[$key]['childs'][$key2]['active'] = true;
                     } else {
