@@ -14,21 +14,9 @@
 
         </div>
 
-
-
-        @if($errors->any())
-
-            <div class="alert alert-danger p-9">
-                <ul>
-                    @foreach($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-
-        @endif
-
         <div class="card-body border-top p-9">
+
+            @include('dashboard.includes.errors.default')
 
             <div class="row mb-6">
 

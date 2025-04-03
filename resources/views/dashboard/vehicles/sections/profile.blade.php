@@ -12,10 +12,10 @@
     <form id="kt_account_profile_details_form" class="form" method="POST"
         action="{{ route('dashboard.vehicles.show.profile.update', $vehicle['id']) }}" enctype="multipart/form-data">
         @csrf
-
-        @include('dashboard.includes.errors.default')
-
+        
         <div class="card-body border-top p-9">
+
+            include('dashboard.includes.errors.default')
 
             <div class="row mb-6">
 
