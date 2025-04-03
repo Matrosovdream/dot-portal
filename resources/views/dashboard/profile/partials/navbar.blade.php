@@ -15,6 +15,10 @@
         ],
     ];
 
+    if( request()->user()->isDriver() ) {
+        unset($sections['company']);
+    }
+
 @endphp
 
 
