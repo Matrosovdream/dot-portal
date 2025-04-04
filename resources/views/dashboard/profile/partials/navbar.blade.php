@@ -15,11 +15,11 @@
         ],
         'driver_license' => [
             'title' => 'Driver license',
-            'url' => route('dashboard.profile.driver-license.edit'),
+            'url' => route('dashboard.profile.driverlicense.edit'),
         ],
         'medical_card' => [
-            'title' => 'Driver license',
-            'url' => route('dashboard.profile.medical-card.edit'),
+            'title' => 'Medical card',
+            'url' => route('dashboard.profile.medicalcard.edit'),
         ],
     ];
 
@@ -27,7 +27,7 @@
         unset($sections['company']);
     }
 
-    if( request()->user()->isCompany() ) {
+    if( request()->user()->isUser() ) {
         unset($sections['driver_license']);
         unset($sections['medical_card']);
     }
