@@ -16,7 +16,9 @@
 
             @include('dashboard.profile.sections.overview-profile')
 
-            @include('dashboard.profile.sections.overview-company', ['company' => $user['company']])
+            @if( request()->user()->isUser() )
+                @include('dashboard.profile.sections.overview-company', ['company' => $user['company']])
+            @endif
 
         </div>
 
@@ -32,7 +34,10 @@
 
     @endif
 
-    @if(request()->routeIs('dashboard.profile.company.edit'))
+    @if( 
+        request()->routeIs('dashboard.profile.company.edit') &&
+        request()->user()->hasRole('company')
+        )
 
         <div id="kt_account_settings_profile_details" class="collapse show">
 
