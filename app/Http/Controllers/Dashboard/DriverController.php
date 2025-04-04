@@ -132,7 +132,7 @@ class DriverController extends Controller
         ]);
 
         $data = $this->driverUserActions->updateLicense($driver_id, $validated);
-        return redirect()->route('dashboard.drivers.show.license', $driver_id);
+        return redirect()->back()->with('success', 'License updated successfully');
     }
 
     public function medicalCard($driver_id)
@@ -154,7 +154,7 @@ class DriverController extends Controller
         ]);
 
         $data = $this->driverUserActions->updateMedicalCard($driver_id, $validated);
-        return redirect()->route('dashboard.drivers.show.medicalcard', $driver_id);
+        return redirect()->back()->with('success', 'License updated successfully');
     }
 
     public function address($driver_id)
