@@ -135,6 +135,7 @@ class DriverRepo extends AbstractRepo
 
     }
 
+
     public function addDocument($driver_id, $file, $type)
     {
 
@@ -151,6 +152,26 @@ class DriverRepo extends AbstractRepo
 
         return $driver['Model']->documents()->create( $data );
     }
+
+    public function removeDocument($driver_id, $type)
+    {
+
+        $driver = $this->getByID($driver_id);
+
+        $issetDocuments = $driver['documents']['groupType'][ $type ] ?? null;
+        if( !$issetDocuments ) { return null; }
+
+        foreach ($issetDocuments as $document) {
+
+            // Remove from document repo
+            $this->documentRepo->delete($document['id']);
+
+            // Remove from file repo
+            $this->fileRepo->delete($document['file']['id']);
+        }
+
+    }
+
 
     public function mapItem($item)
     {
