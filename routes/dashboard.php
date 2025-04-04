@@ -160,6 +160,13 @@ Route::group([
             Route::post('address', [ProfileCompanyController::class, 'profileAddressUpdate'])->name('address.update');
             Route::get('company', [ProfileCompanyController::class, 'companyEdit'])->name('company.edit');
             Route::post('company', [ProfileCompanyController::class, 'companyUpdate'])->name('company.update');
+
+            // Driver routes
+            Route::get('/driverlicense', [ProfileCompanyController::class, 'driverLicense'])->name('driverlicense.edit');
+            Route::post('/driverlicense', [ProfileCompanyController::class, 'updateDriverLicense'])->name('driverlicense.update');
+            Route::get('/medicalcard', [ProfileCompanyController::class, 'medicalCard'])->name('medicalcard.edit');
+            Route::post('/medicalcard', [ProfileCompanyController::class, 'updateMedicalCard'])->name('medicalcard.update');
+
         
         });
     });
