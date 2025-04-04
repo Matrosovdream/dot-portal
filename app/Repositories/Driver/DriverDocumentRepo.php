@@ -45,6 +45,12 @@ class DriverDocumentRepo extends AbstractRepo
 
     }
 
+    public function delete($id)
+    {
+        $item = $this->model->find($id);
+        $item->delete();
+    }
+
     public function mapItem($item)
     {
 

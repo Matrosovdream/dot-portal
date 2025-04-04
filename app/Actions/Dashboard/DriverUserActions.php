@@ -184,7 +184,11 @@ class DriverUserActions {
             'local',
             ['tags' => $tags]
         );
-        if( $file ) {
+
+        if( isset($file['file']['id']) ) {
+
+            // Remove old document
+            $this->driverRepo->removeDocument($driver_id, $type='license');
 
             // Add document, in our case license            
             $this->driverRepo->addDocument(
@@ -262,6 +266,9 @@ class DriverUserActions {
             ['tags' => $tags]
         );
         if( $file ) {
+
+            // Remove old document
+            $this->driverRepo->removeDocument($driver_id, $type='medical_card');
 
             // Add document, in our case license
             $this->driverRepo->addDocument(
