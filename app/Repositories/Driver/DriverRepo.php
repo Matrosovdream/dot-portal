@@ -99,6 +99,16 @@ class DriverRepo extends AbstractRepo
 
     }
 
+    public function getByUserID($user_id)
+    {
+        $item = $this->model
+            ->with($this->withRelations)
+            ->where('user_id', $user_id)
+            ->first();
+
+        return $this->mapItem($item);
+    }
+
     public function getUserDrivers($user_id, $paginate = 10)
     {
         $items = $this->model
