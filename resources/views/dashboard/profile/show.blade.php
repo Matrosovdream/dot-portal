@@ -60,4 +60,17 @@
 
     @endif
 
+    @if( 
+        request()->routeIs('dashboard.profile.medicalcard.edit') &&
+        request()->user()->isDriver()
+        )
+
+        <div id="kt_account_settings_profile_details" class="collapse show">
+
+            @include('dashboard.profile.sections.medical-card')
+
+        </div>
+
+    @endif
+
 @endsection

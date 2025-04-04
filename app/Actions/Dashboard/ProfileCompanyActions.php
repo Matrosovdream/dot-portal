@@ -142,7 +142,6 @@ class ProfileCompanyActions {
         $data['driver'] = $this->driverRepo->getByUserID( auth()->user()->id );
         $data['title'] = 'Edit driver license';
 
-        //dd($data['driver']);
         return $data;
     }
 
@@ -164,6 +163,8 @@ class ProfileCompanyActions {
     public function medicalCard()
     {
         $data = $this->profilePreview();
+
+        $data['driver'] = $this->driverRepo->getByUserID( auth()->user()->id );
         $data['title'] = 'Edit medical card';
         return $data;
     }
