@@ -95,4 +95,47 @@ class ProfileCompanyController {
         return redirect()->route('dashboard.profile.company.edit');
     }
 
+    // Driver license
+    public function driverLicense()
+    {
+        return view(
+            'dashboard.profile.show', 
+            $this->profileCompanyActions->driverLicense()
+            );
+    }
+
+    public function updateDriverLicense(Request $request)
+    {
+        $validated = $request->validate([
+            'license_number' => 'nullable',
+            'state_id' => 'nullable',
+            'expiration_date' => 'nullable',
+            'file' => 'nullable|mimes:jpg,jpeg,png,pdf|max:2048'
+        ]);
+
+        $data = $this->profileCompanyActions->updateDriverLicense($validated);
+        
+        return redirect()->route('dashboard.profile.driver-license.edit');
+    }
+
+    public function medicalCard()
+    {
+        return view(
+            'dashboard.profile.show', 
+            $this->profileCompanyActions->medicalCard()
+            );
+    }
+
+    public function updateMedicalCard(Request $request)
+    {
+        $validated = $request->validate([
+            'expiration_date' => 'nullable',
+            'file' => 'nullable|mimes:jpg,jpeg,png,pdf|max:2048'
+        ]);
+
+        $data = $this->profileCompanyActions->updateMedicalCard($validated);
+        
+        return redirect()->route('dashboard.profile.medical-card.edit');
+    }
+
 }

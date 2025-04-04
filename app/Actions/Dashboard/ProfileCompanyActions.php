@@ -122,6 +122,49 @@ class ProfileCompanyActions {
 
     }
 
+    public function driverLicense()
+    {
+        $data = $this->profilePreview();
+        $data['title'] = 'Edit driver license';
+        return $data;
+    }
+
+    public function updateDriverLicense($request)
+    {
+        $user = $this->userRepo->getByID( auth()->user()->id );
+        if( !$user['driver_license'] ) {
+            // Set user ID
+            $request['user_id'] = auth()->user()->id;
+
+            $this->userCompanyRepo->create( $request);
+        } else {
+            $this->userCompanyRepo->update( $user['driver_license']['id'], $request);
+        }
+
+        return redirect()->route('dashboard.profile.driver-license.edit');
+    }
+
+    public function medicalCard()
+    {
+        $data = $this->profilePreview();
+        $data['title'] = 'Edit medical card';
+        return $data;
+    }
+
+    public function updateMedicalCard($request)
+    {
+        $user = $this->userRepo->getByID( auth()->user()->id );
+        if( !$user['medical_card'] ) {
+            // Set user ID
+            $request['user_id'] = auth()->user()->id;
+
+            $this->userCompanyRepo->create( $request);
+        } else {
+            $this->userCompanyRepo->update( $user['medical_card']['id'], $request);
+        }
+
+        return redirect()->route('dashboard.profile.medical-card.edit');
+    }
 
     public function getReferences()
     {
