@@ -6,6 +6,10 @@ use App\Repositories\User\UserAddressRepo;
 use App\Repositories\User\UserCompanyRepo;
 use App\Repositories\User\UserCompanyAddressRepo;
 use App\Repositories\References\RefCountryStateRepo;
+use App\Repositories\Driver\DriverRepo;
+use App\Repositories\References\RefDriverLicenseTypeRepo;
+use App\Repositories\References\RefDriverLicenseEndrsRepo;
+use App\Repositories\References\RefDriverTypeRepo;
 
 
 class ProfileCompanyActions {
@@ -14,7 +18,11 @@ class ProfileCompanyActions {
     private $userAddressRepo;
     private $userCompanyRepo;
     private $userCompanyAddressRepo;
+    private $driverRepo;
     private $refStateRepo;
+    private $refDriverTypeRepo;
+    private $refDriverLicenseTypeRepo;
+    private $refDriverLicenseEndrsRepo;
 
     public function __construct()
     {
@@ -22,9 +30,13 @@ class ProfileCompanyActions {
         $this->userAddressRepo = new UserAddressRepo();
         $this->userCompanyRepo = new UserCompanyRepo();
         $this->userCompanyAddressRepo = new UserCompanyAddressRepo();
+        $this->driverRepo = new DriverRepo();
 
         // References
         $this->refStateRepo = new RefCountryStateRepo();
+        $this->refDriverTypeRepo = new RefDriverTypeRepo();
+        $this->refDriverLicenseTypeRepo = new RefDriverLicenseTypeRepo();
+        $this->refDriverLicenseEndrsRepo = new RefDriverLicenseEndrsRepo();
 
     }
 
@@ -124,8 +136,13 @@ class ProfileCompanyActions {
 
     public function driverLicense()
     {
+
         $data = $this->profilePreview();
+
+        $data['driver'] = $this->driverRepo->getByUserID( auth()->user()->id );
         $data['title'] = 'Edit driver license';
+
+        //dd($data['driver']);
         return $data;
     }
 
@@ -169,7 +186,9 @@ class ProfileCompanyActions {
     public function getReferences()
     {
         $references = [
+            'driverType' => $this->refDriverTypeRepo->getAll([], $paginate=100),
             'state' => $this->refStateRepo->getAll([], $paginate=100),
+            'licenseEndrs' => $this->refDriverLicenseEndrsRepo->getAll([], $paginate=100),
         ];
 
         return $references;
