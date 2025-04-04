@@ -106,11 +106,19 @@ class ProfileCompanyController {
 
     public function updateDriverLicense(Request $request)
     {
+
         $validated = $request->validate([
-            'license_number' => 'nullable',
-            'state_id' => 'nullable',
-            'expiration_date' => 'nullable',
-            'file' => 'nullable|mimes:jpg,jpeg,png,pdf|max:2048'
+            'firstname' => 'nullable',
+            'middlename' => 'nullable',
+            'lastname' => 'nullable',
+            'phone' => 'nullable',
+            'email' => 'nullable',
+            'dob' => 'nullable|date',
+            'ssn' => 'nullable',
+            'hire_date' => 'nullable|date',
+            'driver_type_id' => 'nullable',
+            'new_password' => 'nullable',
+            'action' => 'nullable',
         ]);
 
         $data = $this->profileCompanyActions->updateDriverLicense($validated);
