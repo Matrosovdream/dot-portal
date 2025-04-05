@@ -25,6 +25,15 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('vehicle_mvr', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('vehicle_id')->on('vehicles');
+            $table->string('mvr_number')->nullable();
+            $table->date('mvr_date')->nullable();
+            $table->foreignId('file_id')->on('files');
+            $table->timestamps();
+        });
+
         Schema::create('vehicle_documents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('vehicle_id')->on('vehicles');
@@ -57,6 +66,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('vehicles');
+        Schema::dropIfExists('vehicle_mvr');
         Schema::dropIfExists('vehicle_documents');
         Schema::dropIfExists('ref_vehicle_unit_type');
         Schema::dropIfExists('ref_vehicle_ownership_type');
