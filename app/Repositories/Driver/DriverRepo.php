@@ -82,7 +82,7 @@ class DriverRepo extends AbstractRepo
                 'lastname' => $data['lastname'],
                 'email' => $data['email'],
                 'phone' => $data['phone'],
-                'password' => $data['password'],
+                'password' => $data['password'] ?? '',
                 'is_active' => 1
             ]);
             $data['user_id'] = $user['id'];
