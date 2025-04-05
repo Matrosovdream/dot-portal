@@ -85,6 +85,7 @@ class VehicleUserActions {
 
     public function store($request)
     {
+        $request['company_id'] = auth()->user()->id;
         $data = $this->vehicleRepo->create($request);
 
         // Save profile photo from request
