@@ -187,14 +187,12 @@ class DriverUserActions {
 
         if( isset($file['file']['id']) ) {
 
-            // Remove old document
-            $this->driverRepo->removeDocument($driver_id, $type='license');
-
             // Add document, in our case license            
             $this->driverRepo->addDocument(
                 $driver_id, 
                 $file['file'], 
-                'license'
+                'license',
+                $removeOld = true
             );
 
         }
@@ -267,14 +265,12 @@ class DriverUserActions {
         );
         if( $file ) {
 
-            // Remove old document
-            $this->driverRepo->removeDocument($driver_id, $type='medical_card');
-
             // Add document, in our case license
             $this->driverRepo->addDocument(
                 $driver_id, 
                 $file['file'], 
-                'medical_card'
+                'medical_card',
+                $removeOld = true
             );
 
         }

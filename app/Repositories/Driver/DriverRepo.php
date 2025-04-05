@@ -136,7 +136,7 @@ class DriverRepo extends AbstractRepo
     }
 
 
-    public function addDocument($driver_id, $file, $type)
+    public function addDocument($driver_id, $file, $type, $removeOld = false)
     {
 
         if( !$file ) { return null; }
@@ -149,6 +149,11 @@ class DriverRepo extends AbstractRepo
             'file_id' => $file['id'],
             'extension' => $file['extension'],
         ];
+
+        // Remove old document
+        if( $removeOld ) {
+            $this->removeDocument($driver_id, $type);
+        }
 
         return $driver['Model']->documents()->create( $data );
     }
