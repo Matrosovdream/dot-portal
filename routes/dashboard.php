@@ -204,6 +204,8 @@ Route::group([
         Route::prefix('{vehicle_id}')->name('show.')->group(function () {
             Route::get('profile', [VehicleUserController::class, 'profile'])->name('profile');
             Route::post('profile', [VehicleUserController::class, 'updateProfile'])->name('profile.update');
+            Route::get('mvr', [VehicleUserController::class, 'mvr'])->name('mvr');
+            Route::post('mvr', [VehicleUserController::class, 'updateMvr'])->name('mvr.update');
             Route::get('logs', [VehicleUserController::class, 'logs'])->name('logs');
         });
 
