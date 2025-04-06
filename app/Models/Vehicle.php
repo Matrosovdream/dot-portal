@@ -51,4 +51,9 @@ class Vehicle extends Model
         return $this->belongsTo(User::class, 'company_id');
     }
 
+    public function mvr()
+    {
+        return $this->hasOne(VehicleMvr::class);
+    }
+
 }
