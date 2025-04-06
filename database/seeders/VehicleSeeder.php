@@ -25,6 +25,10 @@ class VehicleSeeder extends Seeder
                 'company_id' => 1,
                 'reg_expire_date' => '2022-01-01',
                 'inspection_expire_date' => '2022-01-01',
+                'mvr' => [
+                    'mvr_number' => 'MVR123456',
+                    'mvr_date' => '2022-01-01',
+                ],
             ],
             [
                 'unit_type_id' => 2,
@@ -35,15 +39,32 @@ class VehicleSeeder extends Seeder
                 'company_id' => 1,
                 'reg_expire_date' => '2022-01-01',
                 'inspection_expire_date' => '2022-01-01',
+                'mvr' => [
+                    'mvr_number' => 'MVR654321',
+                    'mvr_date' => '2022-01-01',
+                ],
             ],
         ];
 
         // Update or create by number
-        foreach ($vehicles as $vehicle) {
-            Vehicle::updateOrCreate(
-                ['number' => $vehicle['number']],
-                $vehicle
+        foreach ($vehicles as $vehicleSet) {
+
+            $mvr = $vehicleSet['mvr'] ?? null;
+            unset($vehicleSet['mvr']);
+
+            $vehicle = Vehicle::updateOrCreate(
+                ['number' => $vehicleSet['number']],
+                $vehicleSet
             );
+
+            // Create or update MVR
+            if (isset($mvr)) {
+                $vehicle->mvr()->updateOrCreate(
+                    ['vehicle_id' => $vehicle->id],
+                    $mvr
+                );
+            }
+
         }
 
     }
