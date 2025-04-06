@@ -71,6 +71,36 @@ class VehicleUserActions {
         return $data;
     }
 
+    public function mvr($driver_id) {
+
+        $vehicle = $this->vehicleRepo->getByID($driver_id);
+
+        $data = [
+            'title' => 'Vehicle MVR',
+            'vehicle' => $vehicle,
+            'references' => $this->vehicleRepo->getReferences()
+        ];
+
+        return $data;
+
+    }
+
+    public function mvrUpdate($vehicle_id, $request) {
+
+        $data = $this->vehicleRepo->update($vehicle_id, $request);
+
+        // if isset mvr file
+        if( isset($data['mvr']) ) {
+            $this->vehicleRepo->update( $data['mvr']['id'], $request );
+        } else {
+            $request['vehicle_id'] = $vehicle_id;
+            $this->vehicleRepo->create( $request );
+        }
+
+        return $data;
+
+    }
+
     public function create()
     {
         $data = [

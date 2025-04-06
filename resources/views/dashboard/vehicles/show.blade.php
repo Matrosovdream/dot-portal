@@ -13,9 +13,11 @@
     @if( request()->routeIs('dashboard.vehicles.show') )
 
         <div id="kt_account_settings_profile_details" class="collapse show">
-
             @include('dashboard.vehicles.sections.overview-vehicle')
+        </div>
 
+        <div id="kt_account_settings_profile_details" class="collapse show">
+            @include('dashboard.vehicles.sections.overview-mvr')
         </div>
 
     @endif
@@ -24,6 +26,14 @@
 
         <div id="kt_account_settings_profile_details" class="collapse show">
             @include('dashboard.vehicles.sections.profile')
+        </div>
+
+    @endif
+
+    @if( request()->routeIs('dashboard.vehicles.show.mvr') )
+
+        <div id="kt_account_settings_profile_details" class="collapse show">
+            @include('dashboard.vehicles.sections.mvr')
         </div>
 
     @endif

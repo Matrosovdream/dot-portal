@@ -53,7 +53,7 @@ class VehicleUserController extends Controller
         ]);
 
         $data = $this->vehicleUserActions->update($driver_id, $validated);
-        return redirect()->route('dashboard.vehicles.show.profile', $driver_id);
+        return redirect()->back()->with('success', 'Vehicle updated successfully');
     }
 
     public function update($driver_id, Request $request)
@@ -65,6 +65,24 @@ class VehicleUserController extends Controller
 
         $data = $this->vehicleUserActions->update($driver_id, $validated);
         return redirect()->route('dashboard.vehicles.index');
+    }
+
+    public function mvr($driver_id)
+    {
+        return view(
+            'dashboard.vehicles.show', 
+            $this->vehicleUserActions->mvr($driver_id)
+        );
+    }
+
+    public function UpdateMvr($driver_id, Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required',
+        ]);
+
+        $data = $this->vehicleUserActions->updateMvr($driver_id, $validated);
+        return redirect()->back()->with('success', 'Vehicle updated successfully');
     }
 
     public function create()

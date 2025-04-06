@@ -9,6 +9,10 @@
             'title' => 'Vehicle information',
             'url' => route('dashboard.vehicles.show.profile', $vehicle['id']),
         ],
+        'mvr' => [
+            'title' => 'MVR',
+            'url' => route('dashboard.vehicles.show.mvr', $vehicle['id']),
+        ],
         'logs' => [
             'title' => 'Logs',
             'url' => route('dashboard.vehicles.show.logs', $vehicle['id']),
