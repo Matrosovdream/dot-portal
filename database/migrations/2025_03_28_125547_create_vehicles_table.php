@@ -30,7 +30,7 @@ return new class extends Migration
             $table->foreignId('vehicle_id')->on('vehicles');
             $table->string('mvr_number')->nullable();
             $table->date('mvr_date')->nullable();
-            $table->foreignId('file_id')->on('files');
+            $table->foreignId('file_id')->on('files')->nullable();
             $table->timestamps();
         });
 
