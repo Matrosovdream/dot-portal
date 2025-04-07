@@ -75,10 +75,11 @@ class VehicleUserController extends Controller
         );
     }
 
-    public function UpdateMvr($driver_id, Request $request)
+    public function updateMvr($driver_id, Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required',
+            'mvr_number' => 'required',
+            'mvr_date' => 'required|date',
         ]);
 
         $data = $this->vehicleUserActions->updateMvr($driver_id, $validated);
