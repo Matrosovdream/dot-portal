@@ -349,7 +349,7 @@ class DriverUserActions {
     public function getReferences()
     {
         $references = [
-            'driverType' => $this->refDriverTypeRepo->getAll([], $paginate=100),
+            'driverType' => $this->refDriverLicenseTypeRepo->getAll([], $paginate=100),
             'state' => $this->refStateRepo->getAll([], $paginate=100),
             'licenseEndrs' => $this->refDriverLicenseEndrsRepo->getAll([], $paginate=100),
         ];
