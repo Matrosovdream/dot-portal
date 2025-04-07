@@ -71,4 +71,9 @@ class Driver extends Model
         return $this->belongsTo(File::class, 'profile_photo_id');
     }
 
+    public function drugTest()
+    {
+        return $this->hasOne(DriverDrugTest::class);
+    }
+
 }
