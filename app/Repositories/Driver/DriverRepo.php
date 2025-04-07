@@ -8,8 +8,10 @@ use App\Repositories\Driver\DriverDocumentRepo;
 use App\Repositories\Driver\DriverAddressRepo;
 use App\Repositories\Driver\DriverLicenseRepo;
 use App\Repositories\Driver\DriverMedicalCardRepo;
+use App\Repositories\Driver\DriverDrugTestRepo;
 use App\Repositories\User\UserRepo;
 use App\Repositories\File\FileRepo;
+
 
 class DriverRepo extends AbstractRepo
 {
@@ -21,11 +23,9 @@ class DriverRepo extends AbstractRepo
     protected $licenseRepo;
     protected $medicalCardRepo;
     protected $fileRepo;
+    protected $drugTestRepo;
 
-    protected $fields = [
-        'name' => [ 'type' => 'string', 'required' => true ],
-        'user_id' => [ 'type' => 'integer', 'required' => true ],
-    ];
+    protected $fields = [];
 
     protected $withRelations = [
         'user',
@@ -34,7 +34,8 @@ class DriverRepo extends AbstractRepo
         'address',
         'license',
         'medicalCard',
-        'profilePhoto'
+        'profilePhoto',
+        'drugTest',
     ];
 
     public function __construct()
@@ -51,6 +52,7 @@ class DriverRepo extends AbstractRepo
         $this->addressRepo = new DriverAddressRepo();
         $this->licenseRepo = new DriverLicenseRepo();
         $this->medicalCardRepo = new DriverMedicalCardRepo();
+        $this->drugTestRepo = new DriverDrugTestRepo();
         
     }
 
@@ -215,6 +217,7 @@ class DriverRepo extends AbstractRepo
             'address' => $this->addressRepo->mapItem( $item['address'] ),
             'license' => $this->licenseRepo->mapItem( $item['license'] ),
             'medicalCard' => $this->medicalCardRepo->mapItem( $item['medicalCard'] ),
+            'drugTest' => $this->drugTestRepo->mapItem( $item['drugTest'] ),
             'profilePhoto' => $this->fileRepo->mapItem( $item['profilePhoto'] )
         ];
 
