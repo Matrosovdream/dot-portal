@@ -286,6 +286,33 @@ class DriverUserActions {
         return $data;
     }
 
+    public function drugtest($driver_id)
+    {
+        $driver = $this->driverRepo->getByID($driver_id);
+
+        $data = [
+            'title' => 'Driver drug test',
+            'driver' => $driver,
+            'references' => $this->getReferences()
+        ];
+
+        return $data;
+    }
+
+    public function updateDrugtest($driver_id, $request)
+    {
+        $driver = $this->driverRepo->getByID($driver_id);
+
+        return $this->driverRepo->updateDrugtest(
+            $driver_id, 
+            $request,
+            $files = [
+                'drugtest_file'
+            ]
+        );
+        
+    }
+
     public function logs($driver_id)
     {
         $driver = $this->driverRepo->getByID($driver_id);

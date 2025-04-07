@@ -180,6 +180,27 @@ class DriverController extends Controller
         return redirect()->route('dashboard.drivers.show.address', $driver_id);
     }
 
+    public function drugtest($driver_id)
+    {
+        return view(
+            'dashboard.drivers.show', 
+            $this->driverUserActions->drugtest($driver_id)
+        );
+    }
+
+    public function updateDrugtest($driver_id, Request $request)
+    {
+
+        $validated = $request->validate([
+            'test_type' => 'nullable',
+            'test_date' => 'nullable',
+            'result' => 'nullable'
+        ]);
+
+        $data = $this->driverUserActions->updateDrugtest($driver_id, $validated);
+        return redirect()->back()->with('success', 'License updated successfully');
+    }
+
     public function logs($driver_id)
     {
         return view(
