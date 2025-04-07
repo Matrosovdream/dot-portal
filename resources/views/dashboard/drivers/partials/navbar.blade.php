@@ -31,6 +31,14 @@
         ],
     ];
 
+    if (
+        isset($driver['license']['driverType']) &&
+        $driver['license']['driverType']['slug'] != 'cdl_a'
+        ) {
+        $licenseType = $driver['license']['driverType']['slug'];
+        unset($sections['drugtest']);
+    }
+
 @endphp
 
 
