@@ -21,14 +21,10 @@
             'title' => 'Medical card',
             'url' => route('dashboard.drivers.show.medicalcard', $driver['id']),
         ],
-        /*'mvr' => [
-            'title' => 'MVR',
-            'url' => 'account/security.html',
+        'drugtest' => [
+            'title' => 'Drug test',
+            'url' => route('dashboard.drivers.show.drugtest', $driver['id']),
         ],
-        'clearing' => [
-            'title' => 'Clearing house',
-            'url' => 'account/activity.html',
-        ],*/
         'logs' => [
             'title' => 'Logs',
             'url' => route('dashboard.drivers.show.logs', $driver['id']),
