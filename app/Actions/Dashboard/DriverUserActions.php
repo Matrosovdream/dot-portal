@@ -307,7 +307,7 @@ class DriverUserActions {
             $driver_id, 
             $request,
             $files = [
-                'drugtest_file'
+                'drugtest_file' => 'drugtest_file'
             ]
         );
         

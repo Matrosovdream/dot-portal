@@ -11,6 +11,7 @@ use App\Repositories\Driver\DriverMedicalCardRepo;
 use App\Repositories\Driver\DriverDrugTestRepo;
 use App\Repositories\User\UserRepo;
 use App\Repositories\File\FileRepo;
+use App\Mixins\File\FileStorage;
 
 
 class DriverRepo extends AbstractRepo
@@ -24,6 +25,7 @@ class DriverRepo extends AbstractRepo
     protected $medicalCardRepo;
     protected $fileRepo;
     protected $drugTestRepo;
+    protected $fileStorage;
 
     protected $fields = [];
 
@@ -44,6 +46,7 @@ class DriverRepo extends AbstractRepo
         $this->model = new Driver();
 
         $this->fileRepo = new FileRepo();
+        $this->fileStorage = new FileStorage;
 
         // Relations repositories
         $this->historyRepo = new DriverHistoryRepo();
@@ -179,6 +182,41 @@ class DriverRepo extends AbstractRepo
 
     }
 
+    public function updateDrugtest($driver_id, $request, $files=[])
+    {
+
+        $driver = $this->getByID($driver_id);
+
+        if( isset($vehicle['drugTest']) ) {
+            $this->drugTestRepo->update( $driver['drugTest']['id'], $request );
+        } else {
+            $request['driver_id'] = $driver_id;
+            $this->drugTestRepo->create( $request );
+        }
+
+        $vehicle = $this->getByID($driver_id);
+
+        // Upload files
+        if( isset($files['drugtest_file']) ) {
+            
+            $tags = ['Driver drug test', 'Driver #' . $driver_id];
+
+            $file = $this->fileStorage->uploadFile(
+                $files['drugtest_file'], 
+                'drivers/' . $driver_id . '/drugtest',
+                'local',
+                ['tags' => $tags]
+            );
+
+            if( isset($file['file']['id']) ) {
+                $this->drugTestRepo->update( $vehicle['drugTest']['id'], ['file_id' => $file['file']['id']]);
+            }
+
+        }
+
+        return $vehicle['drugTest'];
+
+    }
 
     public function mapItem($item)
     {
