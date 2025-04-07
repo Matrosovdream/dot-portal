@@ -104,7 +104,7 @@ class DriverController extends Controller
             'dob' => 'nullable|date',
             'ssn' => 'nullable',
             'hire_date' => 'nullable|date',
-            'driver_type_id' => 'nullable',
+            'type_id' => 'nullable',
             'new_password' => 'nullable',
             'action' => 'nullable',
         ]);
@@ -128,6 +128,7 @@ class DriverController extends Controller
             'endorsement_id' => 'nullable',
             'license_number' => 'nullable',
             'expiration_date' => 'nullable',
+            'type_id' => 'nullable',
             'state_id' => 'nullable',
         ]);
 
