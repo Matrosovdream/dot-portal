@@ -68,6 +68,17 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // Drug test
+        Schema::create('driver_drug_test', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('driver_id')->on('drivers');
+            $table->string('test_type')->nullable();
+            $table->date('test_date')->nullable();
+            $table->string('result')->nullable();
+            $table->integer('file_id')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('driver_meta', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_id')->on('services');
