@@ -50,6 +50,8 @@ Route::group([
             Route::post('address', [DriverController::class, 'updateAddress'])->name('address.update');
             Route::get('medical-card', [DriverController::class, 'medicalCard'])->name('medicalcard');
             Route::post('medical-card', [DriverController::class, 'updateMedicalCard'])->name('medicalcard.update');
+            Route::get('drugtest', [DriverController::class, 'drugtest'])->name('drugtest');
+            Route::post('drugtest', [DriverController::class, 'updateDrugtest'])->name('drugtest.update');
             Route::get('logs', [DriverController::class, 'logs'])->name('logs');
         });
     });
@@ -166,7 +168,6 @@ Route::group([
             Route::post('/driverlicense', [ProfileCompanyController::class, 'updateDriverLicense'])->name('driverlicense.update');
             Route::get('/medicalcard', [ProfileCompanyController::class, 'medicalCard'])->name('medicalcard.edit');
             Route::post('/medicalcard', [ProfileCompanyController::class, 'updateMedicalCard'])->name('medicalcard.update');
-
         
         });
     });
