@@ -85,19 +85,15 @@ class VehicleUserActions {
 
     }
 
-    public function mvrUpdate($vehicle_id, $request) {
+    public function updateMvr($vehicle_id, $request) {
 
-        $data = $this->vehicleRepo->update($vehicle_id, $request);
-
-        // if isset mvr file
-        if( isset($data['mvr']) ) {
-            $this->vehicleRepo->update( $data['mvr']['id'], $request );
-        } else {
-            $request['vehicle_id'] = $vehicle_id;
-            $this->vehicleRepo->create( $request );
-        }
-
-        return $data;
+        return $this->vehicleRepo->updateMvr(
+            $vehicle_id, 
+            $request,
+            $files = [
+                'mvr' => "mvr_document"
+            ]
+        );
 
     }
 

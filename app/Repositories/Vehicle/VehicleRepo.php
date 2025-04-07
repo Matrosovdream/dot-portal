@@ -9,6 +9,7 @@ use App\Repositories\Driver\DriverRepo;
 use App\Repositories\File\FileRepo;
 use App\Repositories\User\UserRepo;
 use App\Repositories\Vehicle\VehicleMvrRepo;
+use App\Mixins\File\FileStorage;
 
 
 class VehicleRepo extends AbstractRepo
@@ -24,6 +25,7 @@ class VehicleRepo extends AbstractRepo
     protected $userRepo;
     protected $fileRepo;
     protected $mvrRepo;
+    protected $fileStorage;
 
     public function __construct()
     {
@@ -38,6 +40,8 @@ class VehicleRepo extends AbstractRepo
         // References
         $this->refVehicleUnitTypeRepo = new RefVehicleUnitTypeRepo();
         $this->refVehicleOwnershipTypeRepo = new RefVehicleOwnershipTypeRepo();
+
+        $this->fileStorage = new FileStorage();
 
     }
 
@@ -61,6 +65,42 @@ class VehicleRepo extends AbstractRepo
         return [
             'total' => $itemsCount
         ];
+    }
+
+    public function updateMvr($vehicle_id, $request, $files=[])
+    {
+
+        $vehicle = $this->getByID($vehicle_id);
+
+        if( isset($vehicle['mvr']) ) {
+            $this->mvrRepo->update( $vehicle['mvr']['id'], $request );
+        } else {
+            $request['vehicle_id'] = $vehicle_id;
+            $this->mvrRepo->create( $request );
+        }
+
+        $vehicle = $this->getByID($vehicle_id);
+
+        // Upload files
+        if( isset($files['mvr']) ) {
+            
+            $tags = ['Vehicle MVR', 'Vehicle MVR #' . $vehicle_id];
+
+            $file = $this->fileStorage->uploadFile(
+                $files['mvr'], 
+                'vehicles/' . $vehicle_id . '/mvr',
+                'local',
+                ['tags' => $tags]
+            );
+
+            if( isset($file['file']['id']) ) {
+                $this->mvrRepo->update( $vehicle['mvr']['id'], ['file_id' => $file['file']['id']]);
+            }
+
+        }
+
+        return $vehicle['mvr'];
+
     }
 
     public function mapItem($item)

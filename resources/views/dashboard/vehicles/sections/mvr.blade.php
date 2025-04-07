@@ -10,7 +10,7 @@
     </div>
 
     <form id="kt_account_profile_details_form" class="form" method="POST"
-        action="{{ route('dashboard.vehicles.show.profile.update', $vehicle['id']) }}" enctype="multipart/form-data">
+        action="{{ route('dashboard.vehicles.show.mvr.update', $vehicle['id']) }}" enctype="multipart/form-data">
         @csrf
         
         <div class="card-body border-top p-9">
