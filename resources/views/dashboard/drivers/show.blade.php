@@ -64,7 +64,9 @@
 
     @endif
 
-    @if( request()->routeIs('dashboard.drivers.show.drugtest') )
+    @if( 
+        request()->routeIs('dashboard.drivers.show.drugtest')
+        )
 
         <div id="kt_account_settings_profile_details" class="collapse show">
             @include('dashboard.drivers.sections.drugtest')
