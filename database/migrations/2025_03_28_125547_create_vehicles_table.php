@@ -58,6 +58,12 @@ return new class extends Migration
             $table->string('code');
         });
 
+        Schema::create('vehicle_insurance_link', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('vehicle_id')->on('vehicles');
+            $table->foreignId('insurance_id')->on('insurances_vehicle');
+        });
+
     }
 
     /**
@@ -70,5 +76,6 @@ return new class extends Migration
         Schema::dropIfExists('vehicle_documents');
         Schema::dropIfExists('ref_vehicle_unit_type');
         Schema::dropIfExists('ref_vehicle_ownership_type');
+        Schema::dropIfExists('vehicle_insurance_link');
     }
 };
