@@ -219,11 +219,11 @@ Route::group([
         Route::get('/', [InsuranceVehicleController::class, 'index'])->name('index');
         Route::get('create', [InsuranceVehicleController::class, 'create'])->name('create');
         Route::post('/', [InsuranceVehicleController::class, 'store'])->name('store');
-        Route::get('{vehicle_id}', [InsuranceVehicleController::class, 'show'])->name('show');
-        Route::post('{vehicle_id}', [InsuranceVehicleController::class, 'update'])->name('update');
-        Route::delete('{vehicle_id}', [InsuranceVehicleController::class, 'destroy'])->name('destroy');
+        Route::get('{insurance_id}', [InsuranceVehicleController::class, 'show'])->name('show');
+        Route::post('{insurance_id}', [InsuranceVehicleController::class, 'update'])->name('update');
+        Route::delete('{insurance_id}', [InsuranceVehicleController::class, 'destroy'])->name('destroy');
 
-        Route::prefix('{vehicle_id}')->name('show.')->group(function () {
+        Route::prefix('{insurance_id}')->name('show.')->group(function () {
             Route::get('profile', [InsuranceVehicleController::class, 'profile'])->name('profile');
             Route::post('profile', [InsuranceVehicleController::class, 'updateProfile'])->name('profile.update');
         });

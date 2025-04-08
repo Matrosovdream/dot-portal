@@ -45,14 +45,29 @@ class InsuranceVehicleController extends Controller
 
     public function show($id)
     {
-        $insurance = $this->insuranceActions->edit($id);
-        return view('dashboard.insurance.edit', compact('insurance'));
+        $data = $this->insuranceActions->show($id);
+        return view('dashboard.insurance.show', $data);
+    }
+
+    public function profile($id)
+    {
+        $data = $this->insuranceActions->show($id);
+        return view('dashboard.insurance.show', $data);
     }
 
     public function update(Request $request, $id)
     {
-        $this->insuranceActions->update($request, $id);
-        return redirect()->route('dashboard.insurance.index')->with('success', 'Insurance updated successfully.');
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'number' => 'required|string|max:255',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+            //'vehicle_ids' => 'nullable|array',
+        ]);
+
+        $this->insuranceActions->update($validated, $id);
+        return redirect()->back()->with('success', 'Insurance updated successfully.');
     }
 
     public function destroy($id)

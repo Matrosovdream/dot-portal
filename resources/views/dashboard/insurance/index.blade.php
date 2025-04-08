@@ -46,6 +46,16 @@
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                     data-kt-ecommerce-product-filter="product_name">
                                     {{ $insurance['name'] ?? '' }} / {{ $insurance['number'] ?? '' }}
+                                    
+                                    @if( !empty($insurance['file']) ) 
+                                        <a href="#" class="btn btn-primary btn-sm flex-shrink-0 me-3"
+                                            data-bs-toggle="modal" data-bs-target="#kt_modal_filepreview_{{ $insurance['file']['id'] }}">
+                                            Preview
+                                        </a>
+                                        @include('dashboard.modals.layout.file-preview', [
+                                            'file_id' => $insurance['file']['id'],
+                                        ])
+                                    @endif
                                 </a>
                             </td>
                             <td>

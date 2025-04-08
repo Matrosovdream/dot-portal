@@ -47,7 +47,26 @@ class InsuranceVehicleRepo extends AbstractRepo
 
     }
 
-    private function uploadDocument( $insurance_id, $filename, $tags = [] ) {
+    public function update( $insurance_id, $data, $files = [] ) {
+
+        $insurance = parent::update($insurance_id, $data);
+
+        // Upload files
+        if( isset($files['document']) ) {
+            
+            $this->uploadDocument(
+                $insurance_id,
+                $files['document'],
+                ['insurance', 'document']
+            );
+
+        }
+
+        return $insurance;
+
+    }
+
+    public function uploadDocument( $insurance_id, $filename, $tags = [] ) {
 
         $file = $this->fileStorage->uploadFile(
             $filename, 
