@@ -52,9 +52,11 @@ class InsuranceVehicleActions {
         $insurance = $this->insuranceRepo->create($request);
 
         // Attach vehicles to insurance
+        /*
         if( !empty( $request['vehicle_ids'] ) ) {
             $this->insuranceRepo->updateVehicles($insurance['id'], $request['vehicle_ids']);
         }
+        */
 
     }
 
