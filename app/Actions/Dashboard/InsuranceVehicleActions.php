@@ -22,7 +22,13 @@ class InsuranceVehicleActions {
 
     public function index()
     {
-        return $this->insurenceRepo->getAll();
+        $items = $this->insurenceRepo->getAll();
+
+        return [
+            'title' => 'Insurance Vehicles',
+            'items' => $items,
+        ];
+        
     }
 
     public function store(Request $request)
