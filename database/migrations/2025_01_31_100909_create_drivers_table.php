@@ -133,6 +133,7 @@ return new class extends Migration
         Schema::dropIfExists('driver_license');
         Schema::dropIfExists('driver_address');
         Schema::dropIfExists('driver_medical_card');
+        Schema::dropIfExists('driver_drug_test');
         Schema::dropIfExists('driver_meta');
         Schema::dropIfExists('driver_history');
         Schema::dropIfExists('ref_driver_type');
