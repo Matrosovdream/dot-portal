@@ -4,10 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class InsuranceDriver extends Model
+class InsuranceVehicle extends Model
 {
     
-    protected $table = 'insurances_driver';
+    protected $table = 'insurances_vehicle';
 
     protected $fillable = [
         'name',
