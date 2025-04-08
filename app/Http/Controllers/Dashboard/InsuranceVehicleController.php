@@ -2,6 +2,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Actions\Dashboard\InsuranceVehicleActions;
 
 
@@ -18,17 +19,27 @@ class InsuranceVehicleController extends Controller
     public function index()
     {
         $insurances = $this->insuranceActions->index();
-        return view('dashboard.insurance.index', compact('insurances'));
+        return view('dashboard.insurance.index', $insurances);
     }
 
     public function create()
     {
-        return view('dashboard.insurance.create');
+        $data = $this->insuranceActions->create();
+        return view('dashboard.insurance.create', $data);
     }
 
     public function store(Request $request)
     {
-        $this->insuranceActions->store($request);
+
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'number' => 'required|string|max:255',
+            'vehicle_ids' => 'nullable|array',
+            'start_date' => 'nullable|date',
+            'end_date' => 'nullable|date',
+        ]);
+
+        $this->insuranceActions->store($validated);
         return redirect()->route('dashboard.insurance.index')->with('success', 'Insurance created successfully.');
     }
 
