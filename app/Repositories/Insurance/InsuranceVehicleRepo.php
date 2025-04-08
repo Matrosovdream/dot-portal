@@ -24,6 +24,14 @@ class InsuranceVehicleRepo extends AbstractRepo
         $this->userRepo = new UserRepo;
     }
 
+    public function updateVehicles($insuranceId, $vehicleIds)
+    {
+        $insurance = $this->model->find($insuranceId);
+        if ($insurance) {
+            $insurance->vehicles()->sync($vehicleIds);
+        }
+    }
+
     public function mapItem($item)
     {
 
