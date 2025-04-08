@@ -91,6 +91,7 @@
 
                     </div>
 
+                    @php /*
                     <div class="row mb-6">
 
                         <label class="col-lg-4 col-form-label fw-semibold fs-6">
@@ -114,6 +115,7 @@
                         </div>
 
                     </div>
+                    */ @endphp
 
                 </div>
 

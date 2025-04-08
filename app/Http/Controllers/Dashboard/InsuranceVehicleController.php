@@ -34,9 +34,9 @@ class InsuranceVehicleController extends Controller
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'number' => 'required|string|max:255',
-            'vehicle_ids' => 'nullable|array',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
+            //'vehicle_ids' => 'nullable|array',
         ]);
 
         $this->insuranceActions->store($validated);
