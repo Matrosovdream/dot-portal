@@ -65,6 +65,9 @@ class VehicleSeeder extends Seeder
                 );
             }
 
+            // Set insurance
+            $vehicle->insurance()->sync([1]);
+
         }
 
     }

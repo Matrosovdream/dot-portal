@@ -56,4 +56,9 @@ class Vehicle extends Model
         return $this->hasOne(VehicleMvr::class);
     }
 
+    public function insurance()
+    {
+        return $this->belongsToMany(VehicleInsuranceLink::class, 'vehicle_insurance_link', 'vehicle_id', 'insurance_id');
+    }
+
 }
