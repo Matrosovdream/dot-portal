@@ -1,65 +1,20 @@
 @php
 
-    $sections = [
-        'overview' => [
-            'title' => 'Overview',
-            'url' => route('dashboard.drivers.show', $driver['id']),
-        ],
-        'general' => [
-            'title' => 'Profile information',
-            'url' => route('dashboard.drivers.show.profile', $driver['id']),
-        ],
-        'license' => [
-            'title' => 'Driver license',
-            'url' => route('dashboard.drivers.show.license', $driver['id']),
-        ],
-        'address' => [
-            'title' => 'Address',
-            'url' => route('dashboard.drivers.show.address', $driver['id']),
-        ],
-        'medical' => [
-            'title' => 'Medical card',
-            'url' => route('dashboard.drivers.show.medicalcard', $driver['id']),
-        ],
-        'drugtest' => [
-            'title' => 'Drug test',
-            'url' => route('dashboard.drivers.show.drugtest', $driver['id']),
-        ],
-        'logs' => [
-            'title' => 'Logs',
-            'url' => route('dashboard.drivers.show.logs', $driver['id']),
-        ],
-    ];
-
-    if (
-        isset($driver['license']['driverType']) &&
-        $driver['license']['driverType']['slug'] != 'cdl_a'
-        ) {
-        $licenseType = $driver['license']['driverType']['slug'];
-        unset($sections['drugtest']);
-    }
+$sections = [
+    'overview' => [
+        'title' => 'Overview',
+        'url' => route('dashboard.insurance-vehicles.show', $insurance['id']),
+    ],
+    'general' => [
+        'title' => 'General information',
+        'url' => route('dashboard.insurance-vehicles.show.profile', $insurance['id']),
+    ],
+];
 
 @endphp
 
 
 <div class="d-flex flex-wrap flex-sm-nowrap">
-
-    <div class="me-7 mb-4">
-        <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative">
-
-            @if( isset( $driver['profilePhoto']['showUrl'] ) )
-                <img src="{{ $driver['profilePhoto']['showUrl'] }}" alt="image" />
-            @else
-                <img src="{{ asset('assets/admin/media/avatars/300-2.png') }}" alt="image" />
-            @endif
-
-
-
-            <div
-                class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px">
-            </div>
-        </div>
-    </div>
 
     <div class="flex-grow-1">
 
@@ -68,38 +23,13 @@
 
                 <div class="d-flex align-items-center mb-2">
                     <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">
-                        {{ $driver['firstname'] ?? '' }} {{ $driver['lastname'] ?? '' }}
+                        {{ $insurance['name'] ?? '' }} / {{ $insurance['number'] ?? '' }}
                     </a>
                     <a href="#">
                         <i class="ki-duotone ki-verify fs-1 text-primary">
                             <span class="path1"></span>
                             <span class="path2"></span>
                         </i>
-                    </a>
-                </div>
-
-                <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
-                    <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
-                        <i class="ki-duotone ki-profile-circle fs-4 me-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                        </i>
-                        Driver
-                    </a>
-                    <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary me-5 mb-2">
-                        <i class="ki-duotone ki-geolocation fs-4 me-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                        {{ $driver['address']['city'] ?? '' }}, {{ $driver['address']['zip'] ?? '' }}
-                    </a>
-                    <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary mb-2">
-                        <i class="ki-duotone ki-sms fs-4 me-1">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                        {{ $driver['email'] ?? '' }}
                     </a>
                 </div>
 

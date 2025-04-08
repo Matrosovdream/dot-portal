@@ -56,14 +56,31 @@ class InsuranceVehicleActions {
 
     }
 
-    public function edit($id)
+    public function show($id)
     {
-        return $this->insuranceRepo->getById($id);
+        return [
+            'title' => 'Insurance Vehicle',
+            'insurance' => $this->insuranceRepo->getById($id),
+            'references' => $this->getReferences(),
+        ];
     }
 
-    public function update(Request $request, $id)
+    public function profile($id)
     {
-        $this->insuranceRepo->update($request, $id);
+        return [
+            'title' => 'Insurance Vehicle General',
+            'insurance' => $this->insuranceRepo->getById($id),
+            'references' => $this->getReferences(),
+        ];
+    }
+
+    public function update($request, $id)
+    {
+        $insurance = $this->insuranceRepo->update(
+            $id,
+            $request,
+            ['document' => 'document']
+        );
     }
 
     public function destroy($id)
