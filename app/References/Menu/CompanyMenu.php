@@ -86,6 +86,26 @@ class CompanyMenu implements InterfaceMenu {
                 ),
             ),
             array(
+                'title' => 'Insurance vehicles',
+                'url' => '',
+                'icon' => 'ki-notification',
+                'roles' => ['user', 'manager', 'admin'],
+                'childs' => array(
+                    array(
+                        'title' => 'All insurances',
+                        'url' => route('dashboard.insurance-vehicles.index'),
+                        'route' => 'dashboard.insurance-vehicles.index',
+                        'roles' => ['user', 'manager', 'admin'],
+                    ),
+                    array(
+                        'title' => 'New insurance',
+                        'url' => route('dashboard.insurance-vehicles.create'),
+                        'route' => 'dashboard.insurance-vehicles.create',
+                        'roles' => ['user', 'manager', 'admin'],
+                    ),
+                ),
+            ),
+            array(
                 'title' => 'Service request',
                 'url' => '',
                 'icon' => 'ki-request',
