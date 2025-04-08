@@ -49,14 +49,10 @@ class InsuranceVehicleActions {
         // Set current company as user ID
         $request['company_id'] = auth()->user()->id;
 
-        $insurance = $this->insuranceRepo->create($request);
-
-        // Attach vehicles to insurance
-        /*
-        if( !empty( $request['vehicle_ids'] ) ) {
-            $this->insuranceRepo->updateVehicles($insurance['id'], $request['vehicle_ids']);
-        }
-        */
+        $insurance = $this->insuranceRepo->create(
+            $request,
+            ['document' => 'document']
+        );
 
     }
 

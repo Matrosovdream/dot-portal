@@ -40,7 +40,7 @@ class InsuranceVehicleController extends Controller
         ]);
 
         $this->insuranceActions->store($validated);
-        return redirect()->route('dashboard.insurance.index')->with('success', 'Insurance created successfully.');
+        return redirect()->route('dashboard.insurance-vehicles.index')->with('success', 'Insurance created successfully.');
     }
 
     public function show($id)
