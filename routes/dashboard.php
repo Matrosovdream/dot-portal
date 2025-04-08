@@ -18,6 +18,7 @@ use App\Http\Controllers\Dashboard\RequestUserController;
 use App\Http\Controllers\Dashboard\RequestAdminController;
 use App\Http\Controllers\Dashboard\DocumentsController;
 use App\Http\Controllers\Dashboard\VehicleUserController;
+use App\Http\Controllers\Dashboard\InsuranceVehicleController;
 
 Route::group([
     'prefix' => 'dashboard',
@@ -211,6 +212,21 @@ Route::group([
         });
 
 
+    });
+
+    // Insurance vehicles
+    Route::prefix('insurance-vehicles')->name('insurance-vehicles.')->group(function () {
+        Route::get('/', [InsuranceVehicleController::class, 'index'])->name('index');
+        Route::get('create', [InsuranceVehicleController::class, 'create'])->name('create');
+        Route::post('/', [InsuranceVehicleController::class, 'store'])->name('store');
+        Route::get('{vehicle_id}', [InsuranceVehicleController::class, 'show'])->name('show');
+        Route::post('{vehicle_id}', [InsuranceVehicleController::class, 'update'])->name('update');
+        Route::delete('{vehicle_id}', [InsuranceVehicleController::class, 'destroy'])->name('destroy');
+
+        Route::prefix('{vehicle_id}')->name('show.')->group(function () {
+            Route::get('profile', [InsuranceVehicleController::class, 'profile'])->name('profile');
+            Route::post('profile', [InsuranceVehicleController::class, 'updateProfile'])->name('profile.update');
+        });
     });
 
 });
