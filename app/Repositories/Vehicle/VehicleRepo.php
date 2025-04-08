@@ -10,6 +10,7 @@ use App\Repositories\File\FileRepo;
 use App\Repositories\User\UserRepo;
 use App\Repositories\Vehicle\VehicleMvrRepo;
 use App\Mixins\File\FileStorage;
+use App\Repositories\Insurance\InsuranceVehicleRepo;
 
 
 class VehicleRepo extends AbstractRepo
@@ -26,6 +27,7 @@ class VehicleRepo extends AbstractRepo
     protected $fileRepo;
     protected $mvrRepo;
     protected $fileStorage;
+    protected $insuranceRepo;
 
     public function __construct()
     {
@@ -40,6 +42,7 @@ class VehicleRepo extends AbstractRepo
         // References
         $this->refVehicleUnitTypeRepo = new RefVehicleUnitTypeRepo();
         $this->refVehicleOwnershipTypeRepo = new RefVehicleOwnershipTypeRepo();
+        $this->insuranceRepo = new InsuranceVehicleRepo();
 
         $this->fileStorage = new FileStorage();
 
@@ -51,6 +54,7 @@ class VehicleRepo extends AbstractRepo
             'unitType' => $this->refVehicleUnitTypeRepo->getAll([], $paginate=1000),
             'ownershipType' => $this->refVehicleOwnershipTypeRepo->getAll([], $paginate=1000),
             'driver' => $this->driverRepo->getAll([], $paginate=1000),
+            'insurance' => $this->insuranceRepo->getAll(['company_id' => auth()->user()->id], $paginate=1000),
         ];
 
         return $references;
