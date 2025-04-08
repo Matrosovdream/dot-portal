@@ -5,6 +5,7 @@ use App\Repositories\AbstractRepo;
 use App\Models\InsuranceVehicle;
 use App\Repositories\File\FileRepo;
 use App\Repositories\User\UserRepo;
+use App\Mixins\File\FileStorage;
 
 
 class InsuranceVehicleRepo extends AbstractRepo
@@ -15,6 +16,7 @@ class InsuranceVehicleRepo extends AbstractRepo
     protected $fields = ['file', 'company'];
     protected $fileRepo;
     protected $userRepo;
+    protected $fileStorage;
 
     public function __construct()
     {
@@ -22,14 +24,47 @@ class InsuranceVehicleRepo extends AbstractRepo
 
         $this->fileRepo = new FileRepo();
         $this->userRepo = new UserRepo;
+
+        $this->fileStorage = new FileStorage();
     }
 
-    public function updateVehicles($insuranceId, $vehicleIds)
-    {
-        $insurance = $this->model->find($insuranceId);
-        if ($insurance) {
-            $insurance->vehicles()->sync($vehicleIds);
+    public function create( $data, $files = [] ) {
+
+        $insurance = $this->model->create($data);
+
+        // Upload files
+        if( isset($files['document']) ) {
+            
+            $this->uploadDocument(
+                $insurance['id'],
+                $files['document'],
+                ['insurance', 'document']
+            );
+
         }
+
+        return $insurance;
+
+    }
+
+    private function uploadDocument( $insurance_id, $filename, $tags = [] ) {
+
+        $file = $this->fileStorage->uploadFile(
+            $filename, 
+            'insurance/' . $insurance_id,
+            'local',
+            ['tags' => $tags]
+        );
+
+        if( isset($file['file']['id']) ) {
+            $this->update(
+                $insurance_id,
+                [
+                    'file_id' => $file['file']['id'],
+                ]
+            );
+        }
+
     }
 
     public function mapItem($item)
