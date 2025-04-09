@@ -11,6 +11,7 @@ use App\Repositories\User\UserRepo;
 use App\Repositories\Vehicle\VehicleMvrRepo;
 use App\Mixins\File\FileStorage;
 use App\Repositories\Insurance\InsuranceVehicleRepo;
+use App\Repositories\Vehicle\VehicleInspectionRepo;
 
 
 class VehicleRepo extends AbstractRepo
@@ -28,6 +29,7 @@ class VehicleRepo extends AbstractRepo
     protected $mvrRepo;
     protected $fileStorage;
     protected $insuranceRepo;
+    protected $inspectionRepo;
 
     public function __construct()
     {
@@ -38,6 +40,7 @@ class VehicleRepo extends AbstractRepo
 
         $this->fileRepo = new FileRepo();
         $this->mvrRepo = new VehicleMvrRepo();
+        $this->inspectionRepo = new VehicleInspectionRepo();
 
         // References
         $this->refVehicleUnitTypeRepo = new RefVehicleUnitTypeRepo();
@@ -124,6 +127,7 @@ class VehicleRepo extends AbstractRepo
             'inspectionExpireDate' => $item->inspection_expire_date,
             'profilePhoto' => $this->fileRepo->mapItem( $item['profilePhoto'] ),
             'mvr' => $this->mvrRepo->mapItem( $item->mvr ),
+            'inspections' => $this->inspectionRepo->mapItems( $item->inspections ),
             'Model' => $item
         ];
         return $res;
