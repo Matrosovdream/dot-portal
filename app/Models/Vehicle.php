@@ -66,4 +66,9 @@ class Vehicle extends Model
         return $this->hasMany(VehicleInspection::class);
     }
 
+    public function driverHistory()
+    {
+        return $this->hasMany(VehicleDriverHistory::class);
+    }
+
 }
