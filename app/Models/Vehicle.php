@@ -61,4 +61,9 @@ class Vehicle extends Model
         return $this->belongsToMany(VehicleInsuranceLink::class, 'vehicle_insurance_link', 'vehicle_id', 'insurance_id');
     }
 
+    public function inspections()
+    {
+        return $this->hasMany(VehicleInspection::class);
+    }
+
 }
