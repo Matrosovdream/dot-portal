@@ -44,7 +44,7 @@ class UserSubscriptionRepo extends AbstractRepo
             'end_date' => $item->end_date,
             'status' => $item->status,
             'isActive' => $item->isActive(),
-            'payments' => $this->subscriptionPaymentRepo->mapItems( $item->payments->all() ),
+            //'payments' => $this->subscriptionPaymentRepo->mapItems( $item->payments->all() ),
             'Model' => $item
         ];
 

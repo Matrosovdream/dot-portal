@@ -18,4 +18,9 @@ class Subscription extends Model
         'duration_period',
     ];
 
+    public function points()
+    {
+        return $this->hasMany(SubscriptionPoint::class, 'subscription_id');
+    }
+
 }

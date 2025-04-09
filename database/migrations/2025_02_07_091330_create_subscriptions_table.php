@@ -16,11 +16,22 @@ return new class extends Migration
             $table->string('name')->nullable();
             $table->float('price')->default(0);
             $table->float('discount')->default(0);
-            $table->integer('duration')->default(0);
-            $table->string('duration_type')->default('days');
-            $table->string('duration_period')->nullable();
+            $table->string('duration')->nullable();
+            $table->text('short_description')->nullable();
+            $table->text('description')->nullable();
+            $table->integer('drivers_amount')->nullable();
             $table->timestamps();
         }); 
+
+        // Subscription points
+        Schema::create('subscription_points', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('subscription_id')->on('subscriptions');
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->boolean('included')->default(1);
+            $table->timestamps();
+        });
 
     }
 
@@ -30,5 +41,6 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('subscriptions');
+        Schema::dropIfExists('subscription_points');
     }
 };
