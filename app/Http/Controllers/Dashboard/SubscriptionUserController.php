@@ -23,18 +23,15 @@ class SubscriptionUserController extends Controller
         );
     }
 
-    public function update($service_id, Request $request)
+    public function update(Request $request)
     {
 
-        $request->validate([
-            'name' => 'required',
-            'description' => 'required',
-            'price' => 'required',
+        $validated = $request->validate([
+            'plan' => 'required',
         ]);
-
-        $data = $this->serviceAdminActions->update($service_id, $request);
+        $this->serviceAdminActions->update($validated);
         
-        return redirect()->route('dashboard.subscription.index');
+        return redirect()->back()->with('success', 'Subscription updated successfully.');
     }
 
     public function store(Request $request)
