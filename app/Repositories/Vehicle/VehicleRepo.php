@@ -19,7 +19,7 @@ class VehicleRepo extends AbstractRepo
 
     protected $model;
 
-    protected $fields = ['profilePhoto'];
+    protected $fields = ['profilePhoto', 'unitType', 'ownershipType', 'driver', 'company', 'mvr', 'inspections'];
 
     protected $refVehicleUnitTypeRepo;
     protected $refVehicleOwnershipTypeRepo;
@@ -30,6 +30,7 @@ class VehicleRepo extends AbstractRepo
     protected $fileStorage;
     protected $insuranceRepo;
     protected $inspectionRepo;
+    protected $driverHistoryRepo;
 
     public function __construct()
     {
@@ -41,6 +42,7 @@ class VehicleRepo extends AbstractRepo
         $this->fileRepo = new FileRepo();
         $this->mvrRepo = new VehicleMvrRepo();
         $this->inspectionRepo = new VehicleInspectionRepo();
+        $this->driverHistoryRepo = new VehicleDriverHistoryRepo();
 
         // References
         $this->refVehicleUnitTypeRepo = new RefVehicleUnitTypeRepo();
@@ -128,8 +130,10 @@ class VehicleRepo extends AbstractRepo
             'profilePhoto' => $this->fileRepo->mapItem( $item['profilePhoto'] ),
             'mvr' => $this->mvrRepo->mapItem( $item->mvr ),
             'inspections' => $this->inspectionRepo->mapItems( $item->inspections ),
+            'driverHistory' => $this->driverHistoryRepo->mapItems( $item->driverHistory ),
             'Model' => $item
         ];
+
         return $res;
     }
 
