@@ -1,6 +1,7 @@
 <?php
 namespace App\Actions\Dashboard;
 
+use App\Repositories\Subscription\SubscriptionRepo;
 use App\Repositories\User\UserRepo;
 use App\Repositories\User\UserSubscriptionRepo;
 use App\Repositories\User\UserPaymentHistoryRepo;
@@ -9,12 +10,14 @@ class SubscriptionUserActions {
 
     private $userRepo;
     private $userSubRepo;
+    private $subRepo;
     private $userPaymentHistoryRepo;
 
     public function __construct()
     {
         $this->userRepo = new UserRepo();
         $this->userSubRepo = new UserSubscriptionRepo();
+        $this->subRepo = new SubscriptionRepo();
         $this->userPaymentHistoryRepo = new UserPaymentHistoryRepo();
     }
 
@@ -27,9 +30,10 @@ class SubscriptionUserActions {
             'title' => 'My subscription',
             'user' => $this->userRepo->getByID( $user_id ),
             'subscription' => $this->userSubRepo->getByUserID( $user_id ),
+            'allSubscriptions' => $this->subRepo->getAll( [], 100 ),
             'paymentHistory' => $this->userPaymentHistoryRepo->getAll( ['user_id' => $user_id], 100 )
         ];
-
+//dd($data);
         // Calculate percent used drivers
         $data['subscription']['driversUsedPercent'] = round( $data['subscription']['driversUsed'] / $data['subscription']['subscription']['drivers_amount'] * 100, 2 );
 
