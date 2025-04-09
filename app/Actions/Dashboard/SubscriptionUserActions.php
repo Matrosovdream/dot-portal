@@ -30,6 +30,9 @@ class SubscriptionUserActions {
             'paymentHistory' => $this->userPaymentHistoryRepo->getAll( ['user_id' => $user_id], 100 )
         ];
 
+        // Calculate percent used drivers
+        $data['subscription']['driversUsedPercent'] = round( $data['subscription']['driversUsed'] / $data['subscription']['subscription']['drivers_amount'] * 100, 2 );
+
         return $data;
     }
 
