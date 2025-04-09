@@ -14,8 +14,9 @@ class Subscription extends Model
         'price',
         'discount',
         'duration',
-        'duration_type',
-        'duration_period',
+        'short_description',
+        'description',
+        'drivers_amount',
     ];
 
     public function points()
