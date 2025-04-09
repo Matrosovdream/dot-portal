@@ -218,6 +218,13 @@ class DriverRepo extends AbstractRepo
 
     }
 
+    public function countDriversByCompany($company_id)
+    {
+        return $this->model
+            ->where('company_id', $company_id)
+            ->count();
+    }
+
     public function mapItem($item)
     {
 
