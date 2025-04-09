@@ -15,6 +15,7 @@ class UserPaymentCard extends Model
         'card_holder_name',
         'expiry_date',
         'payment_method_id',
+        'primary',
     ];
     
     public function user()

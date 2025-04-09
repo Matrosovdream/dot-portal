@@ -111,6 +111,7 @@ return new class extends Migration
             $table->string('card_holder_name')->nullable();
             $table->string('expiry_date')->nullable();
             $table->foreignId('payment_method_id')->on('payment_gateways')->nullable();
+            $table->boolean('primary')->default(false);
             $table->timestamps();
         });
 

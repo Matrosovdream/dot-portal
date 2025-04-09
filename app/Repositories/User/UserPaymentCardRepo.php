@@ -37,6 +37,7 @@ class UserPaymentCardRepo extends AbstractRepo
             'cardholder_name' => $item->card_holder_name,
             'expiry_date' => $item->expiry_date,
             'payment_method_id' => $item->payment_method_id,
+            'primary' => $item->primary,
             'Model' => $item
         ];
 
