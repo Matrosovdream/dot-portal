@@ -3,6 +3,7 @@ namespace App\Repositories\Subscription;
 
 use App\Repositories\AbstractRepo;
 use App\Models\Subscription;
+use App\Repositories\Subscription\SubscriptionPointRepo;
 
 
 class SubscriptionRepo extends AbstractRepo
@@ -10,11 +11,15 @@ class SubscriptionRepo extends AbstractRepo
 
     protected $model;
 
-    protected $fields = [];
+    protected $fields = ['points'];
+
+    protected $pointsRepo;
 
     public function __construct()
     {
         $this->model = new Subscription();
+
+        $this->pointsRepo = new SubscriptionPointRepo();
     }
 
     public function mapItem($item)
@@ -28,10 +33,13 @@ class SubscriptionRepo extends AbstractRepo
             'price' => $item->price,
             'discount' => $item->discount,
             'duration' => $item->duration,
-            'duration_type' => $item->duration_type,
-            'duration_period' => $item->duration_period,
+            'short_description' => $item->short_description,
+            'description' => $item->description,
+            'drivers_amount' => $item->drivers_amount,
+            'points' => $this->pointsRepo->mapItems($item->points),
             'Model' => $item
         ];
+
         return $res;
     }
 
