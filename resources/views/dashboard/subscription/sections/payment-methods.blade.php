@@ -37,7 +37,9 @@
 
                                 <div class="d-flex align-items-center fs-4 fw-bold mb-5">
                                     {{ $card['cardholder_name'] }}
-                                    <span class="badge badge-light-success fs-7 ms-2">Primary</span>
+                                    @if( $card['primary'] )
+                                        <span class="badge badge-light-success fs-7 ms-2">Primary</span>
+                                    @endif
                                 </div>
 
                                 <div class="d-flex align-items-center">
