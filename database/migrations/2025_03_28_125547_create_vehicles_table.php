@@ -44,6 +44,16 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // Vehicle inspections
+        Schema::create('vehicle_inspections', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('vehicle_id')->on('vehicles');
+            $table->date('inspection_date')->nullable();
+            $table->string('inspection_number')->nullable();
+            $table->foreignId('file_id')->on('files')->nullable();
+            $table->timestamps();
+        });
+
         // Vehicle unit type
         Schema::create('ref_vehicle_unit_type', function (Blueprint $table) {
             $table->id();
@@ -74,6 +84,7 @@ return new class extends Migration
         Schema::dropIfExists('vehicles');
         Schema::dropIfExists('vehicle_mvr');
         Schema::dropIfExists('vehicle_documents');
+        Schema::dropIfExists('vehicle_inspections');
         Schema::dropIfExists('ref_vehicle_unit_type');
         Schema::dropIfExists('ref_vehicle_ownership_type');
         Schema::dropIfExists('vehicle_insurance_link');
