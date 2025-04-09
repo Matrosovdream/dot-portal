@@ -15,4 +15,7 @@
     <!-- Billing History -->
     @include('dashboard.subscription.sections.billing-history')
 
+    <!-- Subscription Modal -->
+    @include('dashboard.subscription.modals.upgrade-plan')
+
 @endsection
