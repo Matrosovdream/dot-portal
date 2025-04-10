@@ -73,6 +73,24 @@ class AuthnetGateway
         throw new \Exception($response->getMessages()->getMessage()[0]->getText());
     }
 
+    public function deletePaymentProfile(string $customerProfileId, string $paymentProfileId): bool
+    {
+        $request = new AnetAPI\DeleteCustomerPaymentProfileRequest();
+        $request->setMerchantAuthentication($this->merchantAuthentication);
+        $request->setCustomerProfileId($customerProfileId);
+        $request->setCustomerPaymentProfileId($paymentProfileId);
+
+        $controller = new AnetController\DeleteCustomerPaymentProfileController($request);
+        $response = $controller->executeWithApiResponse($this->environment);
+
+        if ($response && $response->getMessages()->getResultCode() === "Ok") {
+            return true;
+        }
+
+        throw new \Exception("Failed to delete payment profile: " . $response->getMessages()->getMessage()[0]->getText());
+    }
+
+
     public function chargeCustomerProfile(string $customerProfileId, string $paymentProfileId, float $amount): string
     {
         $profileToCharge = new AnetAPI\CustomerProfilePaymentType();
