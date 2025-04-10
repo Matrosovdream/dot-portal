@@ -119,7 +119,7 @@ class AuthnetGateway
         $profile->setCustomerPaymentProfileId($paymentProfileId);
 
         $subscription = new AnetAPI\ARBSubscriptionType();
-        $subscription->setName("Recurring Billing");
+        $subscription->setName("Laravel Subscription - " . uniqid());
         $subscription->setPaymentSchedule($schedule);
         $subscription->setAmount($amount);
         $subscription->setProfile($profile);
@@ -137,4 +137,36 @@ class AuthnetGateway
 
         throw new \Exception($response->getMessages()->getMessage()[0]->getText());
     }
+
+    protected function findCustomerProfileByEmail(string $email)
+    {
+        $request = new AnetAPI\GetCustomerProfileIdsRequest();
+        $request->setMerchantAuthentication($this->merchantAuthentication);
+
+        $controller = new AnetController\GetCustomerProfileIdsController($request);
+        $response = $controller->executeWithApiResponse($this->environment);
+
+        if ($response && $response->getMessages()->getResultCode() === "Ok") {
+            foreach ($response->getIds() as $id) {
+                $profileRequest = new AnetAPI\GetCustomerProfileRequest();
+                $profileRequest->setMerchantAuthentication($this->merchantAuthentication);
+                $profileRequest->setCustomerProfileId($id);
+
+                $profileController = new AnetController\GetCustomerProfileController($profileRequest);
+                $profileResponse = $profileController->executeWithApiResponse($this->environment);
+
+                if (
+                    $profileResponse &&
+                    $profileResponse->getMessages()->getResultCode() === "Ok" &&
+                    strtolower($profileResponse->getProfile()->getEmail()) === strtolower($email)
+                ) {
+                    return $profileResponse->getProfile();
+                }
+            }
+        }
+
+        return null;
+    }
+
+
 }
