@@ -90,31 +90,30 @@ class SubscriptionUserActions {
             'expiry' => '2026-12',
             'cvv' => '123',
         ];
+        $email = 'user2@example.com';
     
-        try {
-            $profile = $this->authnet->createCustomerPaymentProfile($card, 'user@example.com');
-    
-            // Charge the card once
-            $transactionId = $this->authnet->chargeCustomerProfile(
-                $profile['customerProfileId'],
-                $profile['paymentProfileId'],
-                49.99
-            );
-    
-            // Subscribe user
-            $subscriptionId = $this->authnet->createSubscription(
-                $profile['customerProfileId'],
-                $profile['paymentProfileId'],
-                9.99
-            );
-    
-            return response()->json([
-                'transaction_id' => $transactionId,
-                'subscription_id' => $subscriptionId
-            ]);
-        } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 422);
-        }
+
+        $profile = $this->authnet->createCustomerPaymentProfile($card, $email);
+        dd($profile);
+        // Charge the card once
+        /*$transactionId = $this->authnet->chargeCustomerProfile(
+            $profile['customerProfileId'],
+            $profile['paymentProfileId'],
+            49.99
+        );
+
+        // Subscribe user
+        $subscriptionId = $this->authnet->createSubscription(
+            $profile['customerProfileId'],
+            $profile['paymentProfileId'],
+            9.99
+        );
+
+        return response()->json([
+            'transaction_id' => $transactionId,
+            'subscription_id' => $subscriptionId
+        ]);
+        */ 
 
     }
 
