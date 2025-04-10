@@ -62,4 +62,22 @@ class SubscriptionUserActions {
 
     }
 
+    public function storeCard( $request ) {
+dd($request);
+        $user_id = auth()->user()->id;
+
+        $this->userCardRepo->create([
+            'user_id' => $user_id,
+            'card_name' => $request['card_name'],
+            'card_number' => $request['card_number'],
+            'expiration_date' => $request['expiration_date'],
+            'cvv' => $request['cvv'],
+        ]);
+
+    }
+
+
+
+
+
 }
