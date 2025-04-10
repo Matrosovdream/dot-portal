@@ -40,5 +40,10 @@ return [
         'endpoint' => env('MAILGUN_ENDPOINT', 'api.mailgun.net'),
         'scheme' => 'https',
     ],
+    'authorize_net' => [
+        'api_login_id' => env('ANET_API_LOGIN_ID'),
+        'transaction_key' => env('ANET_TRANSACTION_KEY'),
+        'sandbox' => env('AUTHORIZE_NET_SANDBOX', true) ?? true,
+    ],
 
 ];
