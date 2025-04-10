@@ -138,6 +138,23 @@ class AuthnetGateway
         throw new \Exception($response->getMessages()->getMessage()[0]->getText());
     }
 
+    public function cancelSubscription(string $subscriptionId): bool
+    {
+        $request = new AnetAPI\ARBCancelSubscriptionRequest();
+        $request->setMerchantAuthentication($this->merchantAuthentication);
+        $request->setSubscriptionId($subscriptionId);
+
+        $controller = new AnetController\ARBCancelSubscriptionController($request);
+        $response = $controller->executeWithApiResponse($this->environment);
+
+        if ($response && $response->getMessages()->getResultCode() === "Ok") {
+            return true;
+        }
+
+        throw new \Exception("Failed to cancel subscription: " . $response->getMessages()->getMessage()[0]->getText());
+    }
+
+
     protected function findCustomerProfileByEmail(string $email)
     {
         $request = new AnetAPI\GetCustomerProfileIdsRequest();
