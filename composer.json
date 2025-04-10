@@ -8,6 +8,7 @@
         "php": "^8.2",
         "academe/omnipay-authorizenetapi": " ~3.0",
         "astrotomic/laravel-translatable": "^11.15",
+        "authorizenet/authorizenet": "^2.0",
         "laravel/framework": "^11.9",
         "laravel/tinker": "^2.9",
         "league/omnipay": "^3.2",

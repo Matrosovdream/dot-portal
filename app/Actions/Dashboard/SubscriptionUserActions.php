@@ -63,7 +63,7 @@ class SubscriptionUserActions {
     }
 
     public function storeCard( $request ) {
-dd($request);
+
         $user_id = auth()->user()->id;
 
         $this->userCardRepo->create([
@@ -75,9 +75,5 @@ dd($request);
         ]);
 
     }
-
-
-
-
 
 }
