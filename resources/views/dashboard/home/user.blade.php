@@ -120,6 +120,36 @@
                 </div>
             </div>
 
+            <div class="col-sm-6 col-xl-2 mb-xl-10">
+                <div class="card h-lg-100">
+
+                    <div class="card-body d-flex justify-content-between align-items-start flex-column">
+
+                        <div class="m-0">
+                            <img src="assets/media/svg/brand-logos/instagram-2-1.svg" class="w-35px" alt="">
+                        </div>
+
+                        <div class="d-flex flex-column my-7">
+                            <span class="fw-semibold fs-3x text-gray-800 lh-1 ls-n2">
+                                {{ $stats['insurances']['total'] ?? 0 }}
+                            </span>
+                            <div class="m-0">
+                                <span class="fw-semibold fs-6 text-gray-500">
+                                    Insurances
+                                </span>
+                            </div>
+                        </div>
+
+                        <span class="badge badge-light-success fs-base">
+                            <i class="ki-duotone ki-arrow-up fs-5 text-success ms-n1">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>0%</span>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
 
         <div class="row gx-5 gx-xl-10">
