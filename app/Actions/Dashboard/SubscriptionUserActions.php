@@ -89,26 +89,27 @@ class SubscriptionUserActions {
             'number' => '4111111111111111',
             'expiry' => '2026-12',
             'cvv' => '123',
-            'first_name' => 'John',
-            'last_name' => 'Doe',
-            'address' => '123 Main St',
-            'city' => 'San Francisco',
-            'state' => 'CA',
-            'zip' => '94105',
-            'country' => 'USA',
+            'first_name' => '',
+            'last_name' => '',
+            'address' => '',
+            'city' => '',
+            'state' => '',
+            'zip' => '',
+            'country' => '',
         ];
-        $email = 'user15@example.com';
+        $email = 'user22@example.com';
     
 
         $profile = $this->authnet->createCustomerPaymentProfile($card, $email);
+        dd($profile);
         
         // Charge the card once
-        /*$transactionId = $this->authnet->chargeCustomerProfile(
+        $transactionId = $this->authnet->chargeCustomerProfile(
             $profile['customerProfileId'],
             $profile['paymentProfileId'],
             49.99
-        );*/
-
+        );
+        
 
         // Subscribe user
         $subscriptionId = $this->authnet->createSubscription(
@@ -117,7 +118,7 @@ class SubscriptionUserActions {
             9.99
         );
 
-        dd($subscriptionId);
+        
 
     }
 
