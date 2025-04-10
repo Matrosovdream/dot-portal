@@ -33,6 +33,7 @@ class HomeUserActions {
         $stats = [
             'drivers' => $this->driverRepo->getCompanyStats( auth()->user()->id ),
             'vehicles' => $this->vehicleRepo->getCompanyStats( auth()->user()->id ),
+            'insurances' => ['total' => 5]
         ];
 //dd($stats);
         return $stats;
