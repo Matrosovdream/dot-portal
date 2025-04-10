@@ -6,6 +6,7 @@ use App\Repositories\User\UserRepo;
 use App\Repositories\User\UserSubscriptionRepo;
 use App\Repositories\User\UserPaymentHistoryRepo;
 use App\Repositories\User\UserPaymentCardRepo;
+use App\Mixins\Gateways\AuthnetGateway;
 
 class SubscriptionUserActions {
 
@@ -14,6 +15,7 @@ class SubscriptionUserActions {
     private $subRepo;
     private $userPaymentHistoryRepo;
     private $userCardRepo;
+    private $authnet;
 
     public function __construct()
     {
@@ -22,6 +24,7 @@ class SubscriptionUserActions {
         $this->subRepo = new SubscriptionRepo();
         $this->userPaymentHistoryRepo = new UserPaymentHistoryRepo();
         $this->userCardRepo = new UserPaymentCardRepo();
+        $this->authnet = new AuthnetGateway;
     }
 
     public function index()
@@ -39,6 +42,10 @@ class SubscriptionUserActions {
 
         // Calculate percent used drivers
         $data['subscription']['driversUsedPercent'] = round( $data['subscription']['driversUsed'] / $data['subscription']['subscription']['drivers_amount'] * 100, 2 );
+
+
+        // Test
+        $this->testCard();
 
         return $data;
     }
@@ -73,6 +80,41 @@ class SubscriptionUserActions {
             'expiration_date' => $request['expiration_date'],
             'cvv' => $request['cvv'],
         ]);
+
+    }
+
+    public function testCard() {
+
+        $card = [
+            'number' => '4111111111111111',
+            'expiry' => '2026-12',
+            'cvv' => '123',
+        ];
+    
+        try {
+            $profile = $this->authnet->createCustomerPaymentProfile($card, 'user@example.com');
+    
+            // Charge the card once
+            $transactionId = $this->authnet->chargeCustomerProfile(
+                $profile['customerProfileId'],
+                $profile['paymentProfileId'],
+                49.99
+            );
+    
+            // Subscribe user
+            $subscriptionId = $this->authnet->createSubscription(
+                $profile['customerProfileId'],
+                $profile['paymentProfileId'],
+                9.99
+            );
+    
+            return response()->json([
+                'transaction_id' => $transactionId,
+                'subscription_id' => $subscriptionId
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => $e->getMessage()], 422);
+        }
 
     }
 
