@@ -86,6 +86,17 @@ class InsuranceVehicleRepo extends AbstractRepo
 
     }
 
+    public function getCompanyStats($company_id)
+    {
+        $itemsCount = $this->model
+            ->where('company_id', $company_id)
+            ->count();
+
+        return [
+            'total' => $itemsCount
+        ];
+    }
+
     public function mapItem($item)
     {
 

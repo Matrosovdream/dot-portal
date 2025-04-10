@@ -4,16 +4,19 @@ namespace App\Actions\Dashboard;
 use App\Models\Service;
 use App\Repositories\Driver\DriverRepo;
 use App\Repositories\Vehicle\VehicleRepo;
+use App\Repositories\Insurance\InsuranceVehicleRepo;
 
 class HomeUserActions {
 
     private $driverRepo;
     private $vehicleRepo;
+    private $insuranceRepo;
 
     public function __construct()
     {
         $this->driverRepo = new DriverRepo;
         $this->vehicleRepo = new VehicleRepo;
+        $this->insuranceRepo = new InsuranceVehicleRepo;
 
     }
 
@@ -33,7 +36,7 @@ class HomeUserActions {
         $stats = [
             'drivers' => $this->driverRepo->getCompanyStats( auth()->user()->id ),
             'vehicles' => $this->vehicleRepo->getCompanyStats( auth()->user()->id ),
-            'insurances' => ['total' => 5]
+            'insurances' => $this->insuranceRepo->getCompanyStats( auth()->user()->id ),
         ];
 //dd($stats);
         return $stats;
