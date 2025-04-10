@@ -59,12 +59,19 @@
                             </div>
 
                             <div class="d-flex align-items-center py-2">
-                                <button class="btn btn-sm btn-light btn-active-light-primary me-3"
-                                    data-kt-billing-action="card-delete">
-                                    <span class="indicator-label">Delete</span>
-                                    <span class="indicator-progress">Please wait...
-                                        <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-                                </button>
+
+                                <form method="POST" action="{{ route('dashboard.subscription.cards.destroy', $card['id']) }}">
+                                    @csrf
+
+                                    <button class="btn btn-sm btn-light btn-active-light-primary me-3"
+                                        data-kt-billing-action="card-delete">
+                                        <span class="indicator-label">Delete</span>
+                                        <span class="indicator-progress">Please wait...
+                                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                    </button>
+
+                                </form>
+
                                 <button class="btn btn-sm btn-light btn-active-light-primary" data-bs-toggle="modal"
                                     data-bs-target="#kt_modal_new_card">Edit</button>
                             </div>

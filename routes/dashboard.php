@@ -149,6 +149,13 @@ Route::group([
         Route::prefix('subscription')->name('subscription.')->group(function () {
             Route::get('/', [SubscriptionUserController::class, 'index'])->name('index');
             Route::post('/', [SubscriptionUserController::class, 'update'])->name('update');
+
+            // Cards
+            //Route::get('cards', [SubscriptionUserController::class, 'cards'])->name('cards');
+            Route::post('cards', [SubscriptionUserController::class, 'storeCard'])->name('cards.store');
+            Route::post('cards/{card_id}/delete', [SubscriptionUserController::class, 'destroyCard'])->name('cards.destroy');
+            Route::get('cards/{card_id}', [SubscriptionUserController::class, 'showCard'])->name('cards.show');
+            Route::post('cards/{card_id}', [SubscriptionUserController::class, 'updateCard'])->name('cards.update');
         });
 
         // Profile routes
