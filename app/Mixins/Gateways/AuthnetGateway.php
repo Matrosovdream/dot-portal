@@ -6,6 +6,9 @@ namespace App\Mixins\Gateways;
 use net\authorize\api\contract\v1 as AnetAPI;
 use net\authorize\api\controller as AnetController;
 use net\authorize\api\constants\ANetEnvironment;
+use net\authorize\api\contract\v1\PaymentProfileType;
+use net\authorize\api\contract\v1\CustomerProfilePaymentType;
+use net\authorize\api\contract\v1\CustomerProfileIdType;
 
 class AuthnetGateway
 {
@@ -63,7 +66,9 @@ class AuthnetGateway
     {
         $profileToCharge = new AnetAPI\CustomerProfilePaymentType();
         $profileToCharge->setCustomerProfileId($customerProfileId);
-        $paymentProfile = new AnetAPI\PaymentProfile();
+
+        // FIXED: Use PaymentProfileType, not PaymentProfile
+        $paymentProfile = new AnetAPI\PaymentProfileType();
         $paymentProfile->setPaymentProfileId($paymentProfileId);
         $profileToCharge->setPaymentProfile($paymentProfile);
 
@@ -85,6 +90,7 @@ class AuthnetGateway
 
         throw new \Exception($response->getMessages()->getMessage()[0]->getText());
     }
+
 
     public function createSubscription(string $customerProfileId, string $paymentProfileId, float $amount): string
     {
