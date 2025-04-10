@@ -36,9 +36,20 @@ class AuthnetGateway
         $payment = new AnetAPI\PaymentType();
         $payment->setCreditCard($creditCard);
 
+        // Add billing info (important!)
+        $billTo = new AnetAPI\CustomerAddressType();
+        $billTo->setFirstName($cardData['first_name'] ?? 'Test');
+        $billTo->setLastName($cardData['last_name'] ?? 'User');
+        $billTo->setAddress($cardData['address'] ?? '123 Test Street');
+        $billTo->setCity($cardData['city'] ?? 'Testville');
+        $billTo->setState($cardData['state'] ?? 'CA');
+        $billTo->setZip($cardData['zip'] ?? '12345');
+        $billTo->setCountry($cardData['country'] ?? 'USA');
+
         $paymentProfile = new AnetAPI\CustomerPaymentProfileType();
         $paymentProfile->setCustomerType('individual');
         $paymentProfile->setPayment($payment);
+        $paymentProfile->setBillTo($billTo);
 
         $profile = new AnetAPI\CustomerProfileType();
         $profile->setEmail($email);
