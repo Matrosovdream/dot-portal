@@ -55,4 +55,20 @@ class SubscriptionUserController extends Controller
 
     }
 
+    public function storeCard( Request $request ) {
+
+        $validated = $request->validate([
+            'card_name' => 'required',
+            'card_number' => 'required',
+            'card_expiry_month' => 'required',
+            'card_expiry_year' => 'required',
+            'card_cvv' => 'required',
+        ]);
+
+        $this->serviceAdminActions->storeCard($validated);
+
+        return redirect()->back()->with('success', 'Card added successfully.');
+
+    }
+
 }
