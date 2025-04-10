@@ -48,4 +48,11 @@ class SubscriptionUserController extends Controller
         return redirect()->route('dashboard.subscription.index');
     }
 
+    public function destroyCard( $card_id ) {
+
+        $this->serviceAdminActions->destroyCard($card_id);
+        return redirect()->back()->with('success', 'Card deleted successfully.');
+
+    }
+
 }

@@ -5,6 +5,7 @@ use App\Repositories\Subscription\SubscriptionRepo;
 use App\Repositories\User\UserRepo;
 use App\Repositories\User\UserSubscriptionRepo;
 use App\Repositories\User\UserPaymentHistoryRepo;
+use App\Repositories\User\UserPaymentCardRepo;
 
 class SubscriptionUserActions {
 
@@ -12,6 +13,7 @@ class SubscriptionUserActions {
     private $userSubRepo;
     private $subRepo;
     private $userPaymentHistoryRepo;
+    private $userCardRepo;
 
     public function __construct()
     {
@@ -19,6 +21,7 @@ class SubscriptionUserActions {
         $this->userSubRepo = new UserSubscriptionRepo();
         $this->subRepo = new SubscriptionRepo();
         $this->userPaymentHistoryRepo = new UserPaymentHistoryRepo();
+        $this->userCardRepo = new UserPaymentCardRepo();
     }
 
     public function index()
@@ -50,6 +53,12 @@ class SubscriptionUserActions {
             $userSubscription['id'], 
             ['subscription_id' => $request['plan']]
         );
+
+    }
+
+    public function destroyCard( $card_id ) {
+
+        return $this->userCardRepo->delete( $card_id );
 
     }
 
