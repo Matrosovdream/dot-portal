@@ -52,7 +52,7 @@ class AbstractValidation
 
     }
 
-    public function validateWithData( $fields = null ) {
+    public function validateWithData( $data, $fields ) {
 
         return $this->getValidationResult(
             $this->data, 
