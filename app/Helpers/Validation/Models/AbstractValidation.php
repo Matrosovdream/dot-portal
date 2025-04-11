@@ -52,6 +52,15 @@ class AbstractValidation
 
     }
 
+    public function validateWithData( $fields = null ) {
+
+        return $this->getValidationResult(
+            $this->data, 
+            $fields ?? []
+        );
+
+    }
+
     public function setData($data) {
         $this->data = $data;
         return $this; // To make calls chainable
