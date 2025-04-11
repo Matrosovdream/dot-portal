@@ -4,18 +4,22 @@
         'overview' => [
             'title' => 'Overview',
             'url' => route('dashboard.vehicles.show', $vehicle['id']),
+            'alert' => null,
         ],
         'general' => [
             'title' => 'Vehicle information',
             'url' => route('dashboard.vehicles.show.profile', $vehicle['id']),
+            'alert' => $validation['errors']['general'] ?? null,
         ],
         'mvr' => [
             'title' => 'MVR',
             'url' => route('dashboard.vehicles.show.mvr', $vehicle['id']),
+            'alert' => $validation['errors']['mvr'] ?? null,
         ],
         'logs' => [
             'title' => 'Logs',
             'url' => route('dashboard.vehicles.show.logs', $vehicle['id']),
+            'alert' => null,
         ],
     ];
 
@@ -207,6 +211,17 @@
                 href="{{ $section['url'] }}"
                 >
                 {{ $section['title'] }}
+
+                @if( $section['alert'] )
+                    
+                    <i class="ki-duotone ki-information fs-2x text-warning  me-4" style="margin-left: 5px;">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                    </i>
+
+                @endif
+
             </a>
         </li>
     @endforeach

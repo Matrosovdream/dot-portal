@@ -29,5 +29,16 @@
             </div>
         </div>
 
+        @if( isset( $validation['errors']['mvr'] ) )
+
+            @include('dashboard.includes.alerts.default', [
+                'title' => 'Important Notice',
+                'text' => 'Please make sure that your profile is fully completed',
+                'link' => '',
+                'link_url' => '',
+            ])
+
+        @endif
+
     </div>
 </div>
