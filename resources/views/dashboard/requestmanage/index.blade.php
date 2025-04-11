@@ -39,59 +39,67 @@
                     </thead>
                     <tbody class="fw-semibold text-gray-600">
 
-                        @foreach($requests['items'] as $request)
+                        @if(count($requests['items']) == 0)
+                            <div class="text-center mt-10">
+                                <h4>No documents found</h4>
+                            </div>
+                        @else
 
-                            <tr>
-                                <td>
-                                    <a href="{{ route('dashboard.servicerequest.history.show', $request['id']) }}"
-                                        class="text-gray-800 text-hover-primary fs-5 fw-bold"
-                                        data-kt-ecommerce-product-filter="product_name">
-                                        {{ $request['service']['name'] }}
-                                    </a>
-                                </td>
-                                <td class="pe-0">
-                                    <span class="text-gray-800 fw-bold d-block fs-6">
-                                        {{ $request['user']['firstname'] }} {{ $request['user']['lastname'] }}
-                                    </span>
-                                </td>
-                                <td class="text-center pe-0">
-                                    <span class="text-gray-800 fw-bold d-block fs-6">
-                                        {{ $request['status']['name'] }}
-                                    </span>
-                                </td>
-                                <td class="text-center">
-                                    <span class="text-gray-800 fw-bold d-block fs-6">
-                                        {{ $request['Model']->created_at->format('d/m/Y') }}
-                                    </span>
-                                </td>
-                                <td class="text-center">
-                                    <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
-                                        data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
-                                        <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
+                            @foreach($requests['items'] as $request)
 
-                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
-                                        data-kt-menu="true">
+                                <tr>
+                                    <td>
+                                        <a href="{{ route('dashboard.servicerequest.history.show', $request['id']) }}"
+                                            class="text-gray-800 text-hover-primary fs-5 fw-bold"
+                                            data-kt-ecommerce-product-filter="product_name">
+                                            {{ $request['service']['name'] }}
+                                        </a>
+                                    </td>
+                                    <td class="pe-0">
+                                        <span class="text-gray-800 fw-bold d-block fs-6">
+                                            {{ $request['user']['firstname'] }} {{ $request['user']['lastname'] }}
+                                        </span>
+                                    </td>
+                                    <td class="text-center pe-0">
+                                        <span class="text-gray-800 fw-bold d-block fs-6">
+                                            {{ $request['status']['name'] }}
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="text-gray-800 fw-bold d-block fs-6">
+                                            {{ $request['Model']->created_at->format('d/m/Y') }}
+                                        </span>
+                                    </td>
+                                    <td class="text-center">
+                                        <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
+                                            data-kt-menu-trigger="click" data-kt-menu-placement="bottom-end">Actions
+                                            <i class="ki-duotone ki-down fs-5 ms-1"></i></a>
 
-                                        <div class="menu-item px-3">
-                                            <a href="{{ route('dashboard.requestmanage.show', $request['id']) }}"
-                                                class="menu-link px-3">Edit</a>
+                                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold fs-7 w-125px py-4"
+                                            data-kt-menu="true">
+
+                                            <div class="menu-item px-3">
+                                                <a href="{{ route('dashboard.requestmanage.show', $request['id']) }}"
+                                                    class="menu-link px-3">Edit</a>
+                                            </div>
+
+                                            <div class="menu-item px-3">
+                                                <form action="{{ route('dashboard.requestmanage.destroy', $request['id']) }}"
+                                                    method="POST">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button class="menu-link px-3" type="submit">
+                                                        Delete
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </div>
+                                    </td>
+                                </tr>
 
-                                        <div class="menu-item px-3">
-                                            <form action="{{ route('dashboard.requestmanage.destroy', $request['id']) }}"
-                                                method="POST">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="menu-link px-3" type="submit">
-                                                    Delete
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
+                            @endforeach
 
-                        @endforeach
+                        @endif
 
                     </tbody>
                 </table>
