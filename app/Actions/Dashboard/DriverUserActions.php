@@ -11,6 +11,7 @@ use App\Repositories\References\RefDriverLicenseTypeRepo;
 use App\Repositories\References\RefDriverLicenseEndrsRepo;
 use App\Mixins\File\FileStorage;
 use App\Repositories\User\UserRepo;
+use App\Helpers\Validation\Models\DriverValidation;
 
 
 class DriverUserActions {
@@ -25,6 +26,7 @@ class DriverUserActions {
     private $refDriverLicenseEndrsRepo;
     private $userRepo;
     protected $fileStorage;
+    protected $driverValidation;
 
     public function __construct()
     {
@@ -41,6 +43,7 @@ class DriverUserActions {
 
         $this->fileStorage = new FileStorage();
         $this->userRepo = new UserRepo();
+        $this->driverValidation = new DriverValidation();
 
     }
 
@@ -65,9 +68,16 @@ class DriverUserActions {
     {
         $driver = $this->driverRepo->getByID($driver_id);
 
+
+        $validation = $this->driverValidation;
+        $validation->setData($driver);
+        $valids = $validation->validateAll();
+
+dd($valids);
         $data = [
             'title' => 'Driver details',
             'driver' => $driver,
+            'validation' => $this->driverValidation,
             'references' => $this->getReferences()
         ];
 
