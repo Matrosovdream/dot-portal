@@ -3,17 +3,22 @@ namespace App\Actions\Dashboard;
 
 use App\Repositories\Vehicle\VehicleRepo;
 use App\Mixins\File\FileStorage;
+use App\Helpers\Validation\Models\VehicleValidation;
 
 class VehicleUserActions {
 
     private $vehicleRepo;
     protected $fileStorage;
+    protected $vehicleValidation;
 
 
     public function __construct()
     {
         $this->vehicleRepo = new VehicleRepo();
         $this->fileStorage = new FileStorage();
+
+        // Validation
+        $this->vehicleValidation = new VehicleValidation();
 
     }
 
@@ -37,6 +42,7 @@ class VehicleUserActions {
         $data = [
             'title' => 'Vehicle details',
             'vehicle' => $vehicle,
+            'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
             'references' => $this->vehicleRepo->getReferences()
         ];
 
@@ -50,6 +56,7 @@ class VehicleUserActions {
         $data = [
             'title' => 'Vehicle profile',
             'vehicle' => $vehicle,
+            'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
             'references' => $this->vehicleRepo->getReferences()
         ];
 
@@ -78,6 +85,7 @@ class VehicleUserActions {
         $data = [
             'title' => 'Vehicle MVR',
             'vehicle' => $vehicle,
+            'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
             'references' => $this->vehicleRepo->getReferences()
         ];
 

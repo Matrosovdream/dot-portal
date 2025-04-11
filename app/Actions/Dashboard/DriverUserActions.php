@@ -68,16 +68,10 @@ class DriverUserActions {
     {
         $driver = $this->driverRepo->getByID($driver_id);
 
-        $valids = $this->driverValidation->setData($driver)->validateAll();
-
-        if( request()->has('ll') ) {
-            dd($valids, $driver);
-        }
-
         $data = [
             'title' => 'Driver details',
             'driver' => $driver,
-            'validation' => $this->driverValidation,
+            'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences()
         ];
 
