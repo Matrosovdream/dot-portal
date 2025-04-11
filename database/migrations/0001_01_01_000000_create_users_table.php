@@ -130,6 +130,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('user_meta', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->on('users');
+            $table->string('key');
+            $table->text('value')->nullable();
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -148,5 +156,6 @@ return new class extends Migration
         Schema::dropIfExists('user_subscription');
         Schema::dropIfExists('user_payment_cards');
         Schema::dropIfExists('user_payment_history');
+        Schema::dropIfExists('user_meta');
     }
 };
