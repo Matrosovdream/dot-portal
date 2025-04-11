@@ -6,6 +6,7 @@ use App\Repositories\AbstractRepo;
 use App\Repositories\User\UserAddressRepo;
 use App\Repositories\User\UserCompanyRepo;
 use App\Repositories\User\UserPaymentCardRepo;
+use App\Repositories\User\UserMetaRepo;
 use App\Models\User;
 
 
@@ -16,6 +17,7 @@ class UserRepo extends AbstractRepo
     private $userAdressRepo;
     private $userCompanyRepo;
     private $userPaymentCardRepo;
+    private $metaRepo;
 
     protected $model;
 
@@ -30,6 +32,7 @@ class UserRepo extends AbstractRepo
         $this->userAdressRepo = new UserAddressRepo();
         $this->userCompanyRepo = new UserCompanyRepo();
         $this->userPaymentCardRepo = new UserPaymentCardRepo();
+        $this->metaRepo = new UserMetaRepo();
     }
 
     // Set password random beforeCreate
@@ -65,6 +68,7 @@ class UserRepo extends AbstractRepo
             'address' => $this->userAdressRepo->mapItem( $item->address ),
             'company' => $this->userCompanyRepo->mapItem( $item->company ),
             'paymentCards' => $this->userPaymentCardRepo->mapItems( $item->paymentCards ),
+            'meta' => $this->metaRepo->mapItems( $item->meta ),
             'Model' => $item
         ];
 
