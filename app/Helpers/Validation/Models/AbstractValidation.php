@@ -33,6 +33,25 @@ class AbstractValidation
 
     }
 
+    public function checkSections( $sections ) {
+
+        $valid = true;
+        $errors = [];
+
+        foreach ($sections as $section => $result) {
+            if (!$result['valid']) {
+                $valid = false;
+                $errors[$section] = $result['errors'];
+            }
+        }
+
+        return [
+            'valid' => $valid,
+            'errors' => $errors,
+        ];
+
+    }
+
     public function setData($data) {
         $this->data = $data;
         return $this; // To make calls chainable

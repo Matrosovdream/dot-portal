@@ -70,7 +70,7 @@ class DriverUserActions {
 
         $valids = $this->driverValidation->setData($driver)->validateAll();
 
-dd($valids);
+dd($valids, $driver);
         $data = [
             'title' => 'Driver details',
             'driver' => $driver,
