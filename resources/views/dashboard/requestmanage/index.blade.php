@@ -27,23 +27,24 @@
 
         <div class="card-body pt-0">
             <div class="table-responsive">
-                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
-                    <thead>
-                        <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="min-w-200px">Service</th>
-                            <th class="min-w-200px">User</th>
-                            <th class="min-w-200px text-center">Status</th>
-                            <th class="min-w-200px text-center">Added</th>
-                            <th class="min-w-200px text-center">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody class="fw-semibold text-gray-600">
 
-                        @if(count($requests['items']) == 0)
-                            <div class="text-center mt-10">
-                                <h4>No documents found</h4>
-                            </div>
-                        @else
+                @if(count($requests['items']) == 0)
+                    <div class="text-center mt-10">
+                        <h4>No requests found</h4>
+                    </div>
+                @else
+
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
+                        <thead>
+                            <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                                <th class="min-w-200px">Service</th>
+                                <th class="min-w-200px">User</th>
+                                <th class="min-w-200px text-center">Status</th>
+                                <th class="min-w-200px text-center">Added</th>
+                                <th class="min-w-200px text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody class="fw-semibold text-gray-600">
 
                             @foreach($requests['items'] as $request)
 
@@ -99,10 +100,11 @@
 
                             @endforeach
 
-                        @endif
+                        </tbody>
+                    </table>
 
-                    </tbody>
-                </table>
+                @endif
+
             </div>
 
 
