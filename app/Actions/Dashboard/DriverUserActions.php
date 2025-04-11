@@ -68,10 +68,7 @@ class DriverUserActions {
     {
         $driver = $this->driverRepo->getByID($driver_id);
 
-
-        $validation = $this->driverValidation;
-        $validation->setData($driver);
-        $valids = $validation->validateAll();
+        $valids = $this->driverValidation->setData($driver)->validateAll();
 
 dd($valids);
         $data = [
