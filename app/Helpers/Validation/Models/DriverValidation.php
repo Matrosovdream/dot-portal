@@ -7,9 +7,11 @@ class DriverValidation extends AbstractValidation {
 
     public function validateAll() {
 
-        return [
+        $sections = [
             'general' => $this->validateGeneral(),
         ];
+
+        return $this->checkSections($sections);
 
     }
     public function validateGeneral() {
@@ -25,8 +27,8 @@ class DriverValidation extends AbstractValidation {
     public function getFields() {
 
         $general = [
-            'first_name' => ['title' => 'First Name', 'required' => true],
-            'last_name' => ['title' => 'Last Name', 'required' => true],
+            'firstname' => ['title' => 'First Name', 'required' => true],
+            'lastname' => ['title' => 'Last Name', 'required' => true],
             'dob' => ['title' => 'DOB', 'required' => true],
             'ssn' => ['title' => 'SSN', 'required' => true],
             'hire_date' => ['title' => 'Hire Date', 'required' => true],
