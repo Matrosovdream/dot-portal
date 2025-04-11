@@ -4,31 +4,38 @@
         'overview' => [
             'title' => 'Overview',
             'url' => route('dashboard.drivers.show', $driver['id']),
+            'alert' => null,
         ],
         'general' => [
             'title' => 'Profile information',
             'url' => route('dashboard.drivers.show.profile', $driver['id']),
+            'alert' => $validation['errors']['general'] ?? null,
         ],
         'license' => [
             'title' => 'Driver license',
             'url' => route('dashboard.drivers.show.license', $driver['id']),
+            'alert' => $validation['errors']['license'] ?? null,
         ],
         'address' => [
             'title' => 'Address',
             'url' => route('dashboard.drivers.show.address', $driver['id']),
+            'alert' => $validation['errors']['address'] ?? null,
         ],
         'medical' => [
             'title' => 'Medical card',
             'url' => route('dashboard.drivers.show.medicalcard', $driver['id']),
+            'alert' => $validation['errors']['medicalCard'] ?? null,
         ],
         'drugtest' => [
             'title' => 'Drug test',
             'url' => route('dashboard.drivers.show.drugtest', $driver['id']),
+            'alert' => $validation['errors']['drugTest'] ?? null,
         ],
-        'logs' => [
+        /*'logs' => [
             'title' => 'Logs',
             'url' => route('dashboard.drivers.show.logs', $driver['id']),
-        ],
+            'alert' => false,
+        ],*/
     ];
 
     if (
@@ -227,6 +234,17 @@
                 href="{{ $section['url'] }}"
                 >
                 {{ $section['title'] }}
+
+                @if( $section['alert'] )
+                
+                    <i class="ki-duotone ki-information fs-2x text-warning  me-4" style="margin-left: 5px;">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                    </i>
+
+                @endif
+
             </a>
         </li>
     @endforeach
