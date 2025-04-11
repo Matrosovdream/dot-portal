@@ -38,6 +38,12 @@
                 </thead>
                 <tbody class="fw-semibold text-gray-600">
 
+                    @if(count($insurances['items']) == 0)
+                        <div class="text-center mt-10">
+                            <h4>No documents found</h4>
+                        </div>
+                    @else
+
                     @foreach($insurances['items'] as $insurance)
 
                         <tr>
@@ -91,6 +97,8 @@
                         </tr>
 
                     @endforeach
+
+                    @endif
 
                 </tbody>
             </table>
