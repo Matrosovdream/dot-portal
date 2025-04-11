@@ -8,14 +8,58 @@ class DriverValidation extends AbstractValidation {
     public function validateAll() {
 
         $sections = [
-            'general' => $this->validateWithData( $this->getFields()['general'] ?? [] ),
-            'license' => $this->validateWithData( $this->getFields()['license'] ?? [] ),
-            'address' => $this->validateWithData( $this->getFields()['address'] ?? [] ),
-            'medicalCard' => $this->validateWithData( $this->getFields()['medicalCard'] ?? [] ),
-            'drugTest' => $this->validateWithData( $this->getFields()['drugTest'] ?? [] ),
+            'general' => $this->validateGeneral(),
+            'license' => $this->validateLicense(),
+            'address' => $this->validateAddress(),
+            'medicalCard' => $this->validateMedicalCard(),
+            'drugTest' => $this->validateDrugTest(),
         ];
 
         return $this->checkSections($sections);
+
+    }
+    public function validateGeneral() {
+
+        return $this->getValidationResult(
+            $this->data, 
+            $this->getFields()['general'] ?? []
+        );
+
+    }
+
+    public function validateLicense() {
+
+        return $this->getValidationResult(
+            $this->data, 
+            $this->getFields()['license'] ?? []
+        );
+
+    }
+
+    public function validateAddress() {
+
+        return $this->getValidationResult(
+            $this->data, 
+            $this->getFields()['address'] ?? []
+        );
+
+    }
+
+    public function validateMedicalCard() {
+
+        return $this->getValidationResult(
+            $this->data, 
+            $this->getFields()['medicalCard'] ?? []
+        );
+
+    }
+
+    public function validateDrugTest() {
+
+        return $this->getValidationResult(
+            $this->data, 
+            $this->getFields()['drugTest'] ?? []
+        );
 
     }
 
