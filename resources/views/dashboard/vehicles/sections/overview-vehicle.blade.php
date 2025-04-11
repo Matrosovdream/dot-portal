@@ -75,26 +75,16 @@
             </div>
         </div>
 
-        <div class="notice d-flex bg-light-warning rounded border-warning border border-dashed p-6">
+        @if( isset( $validation['errors']['general'] ) )
 
-            <i class="ki-duotone ki-information fs-2tx text-warning me-4">
-                <span class="path1"></span>
-                <span class="path2"></span>
-                <span class="path3"></span>
-            </i>
+            @include('dashboard.includes.alerts.default', [
+                'title' => 'Important Notice',
+                'text' => 'Please make sure that your profile is fully completed',
+                'link' => '',
+                'link_url' => '',
+            ])
 
-            <div class="d-flex flex-stack flex-grow-1">
-
-                <div class="fw-semibold">
-                    <h4 class="text-gray-900 fw-bold">We need your attention!</h4>
-                    <div class="fs-6 text-gray-700">Some information here!
-                        <a class="fw-bold" href="account/billing.html">Add something here</a>.
-                    </div>
-                </div>
-
-            </div>
-
-        </div>
+        @endif
 
     </div>
 </div>
