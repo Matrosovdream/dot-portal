@@ -20,6 +20,10 @@
             @include('dashboard.vehicles.sections.overview-mvr')
         </div>
 
+        <div id="kt_account_settings_profile_details" class="collapse show">
+            @include('dashboard.vehicles.sections.overview-insurance')
+        </div>
+
     @endif
 
     @if( request()->routeIs('dashboard.vehicles.show.profile') )
