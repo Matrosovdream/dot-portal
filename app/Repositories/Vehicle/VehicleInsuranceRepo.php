@@ -33,7 +33,6 @@ class VehicleInsuranceRepo extends AbstractRepo
             'insurance_id' => $item->insurance_id,
             'insurance' => $this->insuranceRepo->mapItem($item->insurance),
             'Model' => $item
-
         ];
         return $res;
     }
