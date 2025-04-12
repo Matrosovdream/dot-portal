@@ -38,4 +38,13 @@
 
     @endif
 
+    <!-- insurance -->
+    @if( request()->routeIs('dashboard.vehicles.show.insurance') )
+
+        <div id="kt_account_settings_profile_details" class="collapse show">
+            @include('dashboard.vehicles.sections.insurance')
+        </div>
+
+    @endif
+
 @endsection
