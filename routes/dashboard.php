@@ -215,6 +215,8 @@ Route::group([
             Route::post('profile', [VehicleUserController::class, 'updateProfile'])->name('profile.update');
             Route::get('mvr', [VehicleUserController::class, 'mvr'])->name('mvr');
             Route::post('mvr', [VehicleUserController::class, 'updateMvr'])->name('mvr.update');
+            Route::get('insurance', [VehicleUserController::class, 'insurance'])->name('insurance');
+            Route::post('insurance', [VehicleUserController::class, 'updateInsurance'])->name('insurance.update');
             Route::get('logs', [VehicleUserController::class, 'logs'])->name('logs');
         });
 

@@ -105,6 +105,28 @@ class VehicleUserActions {
 
     }
 
+    public function insurance($vehicle_id) {
+
+        $vehicle = $this->vehicleRepo->getByID($vehicle_id);
+
+        $data = [
+            'title' => 'Vehicle insurance',
+            'vehicle' => $vehicle,
+            'references' => $this->vehicleRepo->getReferences()
+        ];
+
+        return $data;
+    }
+
+    public function updateInsurance($vehicle_id, $request) {
+
+        return $this->vehicleRepo->setInsurance(
+            $vehicle_id, 
+            $request['insurance_id']
+        );
+
+    }
+
     public function create()
     {
         $data = [
