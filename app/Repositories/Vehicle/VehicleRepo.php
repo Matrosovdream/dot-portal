@@ -116,6 +116,20 @@ class VehicleRepo extends AbstractRepo
 
     }
 
+    public function setInsurance( $vehicle_id, $insurance_id ) {
+
+        $vehicle = $this->getByID($vehicle_id);
+
+        if( isset($vehicle['insurance']) ) {
+            $this->vehicleInsuranceRepo->update( $vehicle_id, ['insurance_id' => $insurance_id] );
+        } else {
+            $this->vehicleInsuranceRepo->create( ['vehicle_id' => $vehicle_id, 'insurance_id' => $insurance_id] );
+        }
+
+        return true;
+
+    }
+
     public function mapItem($item)
     {
 
