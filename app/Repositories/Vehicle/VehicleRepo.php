@@ -12,6 +12,8 @@ use App\Repositories\Vehicle\VehicleMvrRepo;
 use App\Mixins\File\FileStorage;
 use App\Repositories\Insurance\InsuranceVehicleRepo;
 use App\Repositories\Vehicle\VehicleInspectionRepo;
+use App\Repositories\Vehicle\VehicleInsuranceRepo;
+
 
 
 class VehicleRepo extends AbstractRepo
@@ -19,7 +21,7 @@ class VehicleRepo extends AbstractRepo
 
     protected $model;
 
-    protected $fields = ['profilePhoto', 'unitType', 'ownershipType', 'driver', 'company', 'mvr', 'inspections'];
+    protected $fields = ['profilePhoto', 'unitType', 'ownershipType', 'driver', 'company', 'mvr', 'inspections', 'insurance'];
 
     protected $refVehicleUnitTypeRepo;
     protected $refVehicleOwnershipTypeRepo;
@@ -31,6 +33,7 @@ class VehicleRepo extends AbstractRepo
     protected $insuranceRepo;
     protected $inspectionRepo;
     protected $driverHistoryRepo;
+    protected $vehicleInsuranceRepo;
 
     public function __construct()
     {
@@ -43,6 +46,7 @@ class VehicleRepo extends AbstractRepo
         $this->mvrRepo = new VehicleMvrRepo();
         $this->inspectionRepo = new VehicleInspectionRepo();
         $this->driverHistoryRepo = new VehicleDriverHistoryRepo();
+        $this->vehicleInsuranceRepo = new VehicleInsuranceRepo();
 
         // References
         $this->refVehicleUnitTypeRepo = new RefVehicleUnitTypeRepo();
@@ -117,6 +121,9 @@ class VehicleRepo extends AbstractRepo
 
         if( empty($item) ) return null;
 
+        // Insurance
+        $insurance_id = $item->insurance->first()->insurance_id ?? null;
+
         $res = [
             'id' => $item->id,
             'unitType' => $this->refVehicleUnitTypeRepo->mapItem( $item->unitType ),
@@ -131,6 +138,7 @@ class VehicleRepo extends AbstractRepo
             'mvr' => $this->mvrRepo->mapItem( $item->mvr ),
             'inspections' => $this->inspectionRepo->mapItems( $item->inspections ),
             'driverHistory' => $this->driverHistoryRepo->mapItems( $item->driverHistory ),
+            'insurance' => $this->insuranceRepo->getById($insurance_id),
             'Model' => $item
         ];
 
