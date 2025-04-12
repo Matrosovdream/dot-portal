@@ -24,7 +24,7 @@
                 </label>
 
                 <div class="col-lg-4 fv-row">
-                    <select name="unit_type_id" aria-label="Select an Insurance" data-control="select2"
+                    <select name="insurance_id" aria-label="Select an Insurance" data-control="select2"
                         data-placeholder="Select an Insurance"
                         class="form-select form-select-solid form-select-lg fw-semibold">
                         <option value="">Select an Insurance</option>

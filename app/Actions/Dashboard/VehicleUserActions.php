@@ -114,7 +114,7 @@ class VehicleUserActions {
             'vehicle' => $vehicle,
             'references' => $this->vehicleRepo->getReferences()
         ];
-//dd($data);
+
         return $data;
     }
 
