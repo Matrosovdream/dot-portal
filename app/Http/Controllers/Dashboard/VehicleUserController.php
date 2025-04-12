@@ -86,6 +86,24 @@ class VehicleUserController extends Controller
         return redirect()->back()->with('success', 'Vehicle updated successfully');
     }
 
+    public function insurance($driver_id)
+    {
+        return view(
+            'dashboard.vehicles.show', 
+            $this->vehicleUserActions->insurance($driver_id)
+        );
+    }
+
+    public function updateInsurance($driver_id, Request $request)
+    {
+        $validated = $request->validate([
+            'insurance_id' => 'required',
+        ]);
+
+        $data = $this->vehicleUserActions->updateInsurance($driver_id, $validated);
+        return redirect()->back()->with('success', 'Vehicle updated successfully');
+    }
+
     public function create()
     {
         return view(
