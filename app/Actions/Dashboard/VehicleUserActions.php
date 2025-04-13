@@ -127,6 +127,37 @@ class VehicleUserActions {
 
     }
 
+    public function inspections($vehicle_id) {
+
+        $vehicle = $this->vehicleRepo->getByID($vehicle_id);
+
+        $data = [
+            'title' => 'Vehicle inspections',
+            'vehicle' => $vehicle
+        ];
+
+        return $data;
+    }
+
+    public function storeInspection($vehicle_id, $request) {
+
+        return $this->vehicleRepo->addInspection(
+            $vehicle_id, 
+            $request
+        );
+
+    }
+
+    public function updateInspection($vehicle_id, $request) {
+
+        return $this->vehicleRepo->updateInspection(
+            $vehicle_id, 
+            $request['inspection_id'],
+            $request
+        );
+
+    }
+
     public function create()
     {
         $data = [

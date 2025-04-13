@@ -94,6 +94,36 @@ class VehicleUserController extends Controller
         );
     }
 
+    public function inspections($driver_id)
+    {
+        return view(
+            'dashboard.vehicles.show', 
+            $this->vehicleUserActions->inspections($driver_id)
+        );
+    }
+
+    public function storeInspection($driver_id, Request $request)
+    {
+        $validated = $request->validate([
+            'inspection_number' => 'required',
+            'inspection_date' => 'required|date',
+            'inspection_expire_date' => 'required|date',
+        ]);
+
+        $data = $this->vehicleUserActions->storeInspection($driver_id, $validated);
+        return redirect()->back()->with('success', 'Vehicle updated successfully');
+    }
+
+    public function updateInspection($driver_id, Request $request)
+    {
+        $validated = $request->validate([
+            'inspection_id' => 'required',
+        ]);
+
+        $data = $this->vehicleUserActions->updateInspection($driver_id, $validated);
+        return redirect()->back()->with('success', 'Vehicle updated successfully');
+    }
+
     public function updateInsurance($driver_id, Request $request)
     {
         $validated = $request->validate([
