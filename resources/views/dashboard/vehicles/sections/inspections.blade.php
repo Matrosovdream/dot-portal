@@ -7,8 +7,23 @@
             <h3 class="fw-bold m-0">Inspections</h3>
         </div>
 
-    </div>
+        <div class="card-body pt-0">
 
-    
+
+                <div class="mb-10 fv-row fv-plugins-icon-container">
+                    <label class="required form-label">{{ $field['title'] }}</label>
+                    <input type="text" name="fields[{{ $field['slug'] }}]" class="form-control mb-2" placeholder=""
+                        value="{{ $field['value'] }}">
+                    <div class="text-muted fs-7">
+
+                    </div>
+                    <div class="fv-plugins-message-container fv-plugins-message-container--enabled invalid-feedback">
+                    </div>
+                </div>
+
+
+        </div>
+
+    </div>
 
 </div>
