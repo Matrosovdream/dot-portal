@@ -51,4 +51,13 @@
 
     @endif
 
+    <!-- inspections -->
+    @if( request()->routeIs('dashboard.vehicles.show.inspections') )
+
+        <div id="kt_account_settings_profile_details" class="collapse show">
+            @include('dashboard.vehicles.sections.inspections')
+        </div>
+
+    @endif
+
 @endsection
