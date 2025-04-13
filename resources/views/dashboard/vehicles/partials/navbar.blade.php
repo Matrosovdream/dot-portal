@@ -21,11 +21,11 @@
             'url' => route('dashboard.vehicles.show.insurance', $vehicle['id']),
             'alert' => $validation['errors']['insurance'] ?? null,
         ],
-        'logs' => [
+        /*'logs' => [
             'title' => 'Logs',
             'url' => route('dashboard.vehicles.show.logs', $vehicle['id']),
             'alert' => null,
-        ],
+        ],*/
     ];
 
 @endphp
