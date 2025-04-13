@@ -151,7 +151,6 @@ class VehicleUserActions {
     public function updateInspection($vehicle_id, $request) {
 
         return $this->vehicleRepo->updateInspection(
-            $vehicle_id, 
             $request['inspection_id'],
             $request
         );
