@@ -130,6 +130,19 @@ class VehicleRepo extends AbstractRepo
 
     }
 
+    public function addInspection( $vehicle_id, $request ) {
+
+        $request['vehicle_id'] = $vehicle_id;
+        $this->inspectionRepo->create( $request );
+
+    }
+
+    public function updateInspection( $inspection_id, $request ) {
+
+        $this->inspectionRepo->update( $inspection_id, $request );
+
+    }
+
     public function mapItem($item)
     {
 
