@@ -211,12 +211,20 @@ Route::group([
         Route::delete('{vehicle_id}', [VehicleUserController::class, 'destroy'])->name('destroy');
 
         Route::prefix('{vehicle_id}')->name('show.')->group(function () {
+            // Profile
             Route::get('profile', [VehicleUserController::class, 'profile'])->name('profile');
             Route::post('profile', [VehicleUserController::class, 'updateProfile'])->name('profile.update');
+            // MVR
             Route::get('mvr', [VehicleUserController::class, 'mvr'])->name('mvr');
             Route::post('mvr', [VehicleUserController::class, 'updateMvr'])->name('mvr.update');
+            // Insurance
             Route::get('insurance', [VehicleUserController::class, 'insurance'])->name('insurance');
             Route::post('insurance', [VehicleUserController::class, 'updateInsurance'])->name('insurance.update');
+            // Inspections
+            Route::get('inspections', [VehicleUserController::class, 'inspections'])->name('inspections');
+            Route::post('inspections', [VehicleUserController::class, 'storeInspection'])->name('inspections.store');
+            Route::post('inspections/{inspection_id}', [VehicleUserController::class, 'updateInspection'])->name('inspections.update');
+            // Logs
             Route::get('logs', [VehicleUserController::class, 'logs'])->name('logs');
         });
 
