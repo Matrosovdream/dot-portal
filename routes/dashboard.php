@@ -224,7 +224,10 @@ Route::group([
             Route::get('inspections', [VehicleUserController::class, 'inspections'])->name('inspections');
             Route::post('inspections', [VehicleUserController::class, 'storeInspection'])->name('inspections.store');
             Route::post('inspections/{inspection_id}', [VehicleUserController::class, 'updateInspection'])->name('inspections.update');
+            Route::delete('inspections/{inspection_id}', [VehicleUserController::class, 'destroyInspection'])->name('inspections.destroy');
+
             // Logs
+
             Route::get('logs', [VehicleUserController::class, 'logs'])->name('logs');
         });
 

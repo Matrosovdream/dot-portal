@@ -130,7 +130,7 @@ class VehicleUserActions {
     public function inspections($vehicle_id) {
 
         $vehicle = $this->vehicleRepo->getByID($vehicle_id);
-
+//dd($vehicle);
         $data = [
             'title' => 'Vehicle inspections',
             'vehicle' => $vehicle
