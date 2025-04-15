@@ -19,7 +19,7 @@
 
                     <div class="form-group mt-5">
                         <button type="button" data-bs-toggle="modal"
-                            data-bs-target="#kt_modal_product_form_field_general" class="btn btn-sm btn-light-primary">
+                            data-bs-target="#kt_modal_driverhistory_new" class="btn btn-sm btn-light-primary">
                             <i class="ki-duotone ki-plus fs-2"></i>Add another driver record</button>
                     </div>
 

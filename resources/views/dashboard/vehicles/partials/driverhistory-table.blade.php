@@ -79,23 +79,24 @@
 
 @endif
 
-<!-- Create inspection modal -->
-@php /*
+<!-- Create record modal -->
 @include(
-    'dashboard.vehicles.modals.create-inspection',
+    'dashboard.vehicles.modals.create-driverhistory',
     [
         'vehicle' => $vehicle,
     ]
 )
 
-<!-- Update inspection modal -->
-@foreach($items as $item)
+<!-- Update record modal -->
+@php /*
+@foreach($history as $item)
     @include(
-        'dashboard.vehicles.modals.edit-inspection',
+        'dashboard.vehicles.modals.edit-driverhistory',
         [
             'vehicle' => $vehicle,
-            'inspection' => $item
+            'historyItem' => $item
         ]
     )
 @endforeach
 */ @endphp
+

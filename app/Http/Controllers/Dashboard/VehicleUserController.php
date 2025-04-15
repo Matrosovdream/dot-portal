@@ -154,7 +154,8 @@ class VehicleUserController extends Controller
     {
         $validated = $request->validate([
             'start_date' => 'required|date',
-            'end_date' => 'required|date'
+            'end_date' => 'required|date',
+            'driver_id' => 'required'
         ]);
 
         $data = $this->vehicleUserActions->storeDriverHistory($driver_id, $validated);
@@ -166,7 +167,8 @@ class VehicleUserController extends Controller
 
         $validated = $request->validate([
             'start_date' => 'required|date',
-            'end_date' => 'required|date'
+            'end_date' => 'required|date',
+            'driver_id' => 'required'
         ]);
 
         $data = $this->vehicleUserActions->updateDriverHistory($drh_id, $validated);
