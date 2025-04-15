@@ -48,6 +48,33 @@
 
                     </div>
 
+                    <div class="row mb-5">
+
+                        <div class="col-lg-4 fv-row">
+
+                            <label class="form-label required">
+                                Select driver
+                            </label>
+
+                            <select name="driver_id" aria-label="Select driver" data-control="select2"
+                                data-placeholder="Select driver"
+                                class="form-select form-select-solid form-select-lg fw-semibold">
+                                <option value="">Select driver</option>
+
+                                @foreach($references['driver']['items'] as $item)
+                                    <option 
+                                        value="{{ $item['id'] }}" 
+                                        {{ $item['id'] == $vehicle['driver']['id'] ? 'selected' : '' }}
+                                        >
+                                        {{ implode(' ', [$item['firstname'], $item['lastname']]) }}
+                                    </option>
+                                @endforeach
+                            </select>
+
+                        </div>
+
+                    </div> 
+
                     <div class="d-flex flex-stack">
 
                         <div></div>

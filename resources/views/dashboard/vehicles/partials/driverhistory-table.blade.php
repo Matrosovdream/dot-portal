@@ -38,7 +38,7 @@
 
                                 <div class="menu-item px-3">
                                     <a href="#" class="menu-link px-3" data-bs-toggle="modal"
-                                        data-bs-target="#kt_modal_product_form_field_{{ $item['id'] }}">
+                                        data-bs-target="#kt_modal_driverhistory_record_{{ $item['id'] }}">
                                         Edit
                                     </a>
 
@@ -88,15 +88,13 @@
 )
 
 <!-- Update record modal -->
-@php /*
 @foreach($history as $item)
     @include(
         'dashboard.vehicles.modals.edit-driverhistory',
         [
             'vehicle' => $vehicle,
-            'historyItem' => $item
+            'item' => $item
         ]
     )
 @endforeach
-*/ @endphp
 
