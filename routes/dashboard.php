@@ -235,7 +235,6 @@ Route::group([
             Route::get('logs', [VehicleUserController::class, 'logs'])->name('logs');
         });
 
-
     });
 
     // Insurance vehicles
