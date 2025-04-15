@@ -142,6 +142,44 @@ class VehicleUserController extends Controller
         return redirect()->back()->with('success', 'Vehicle updated successfully');
     }
 
+    public function driverHistory($driver_id)
+    {
+        return view(
+            'dashboard.vehicles.show', 
+            $this->vehicleUserActions->driverHistory($driver_id)
+        );
+    }
+
+    public function storeDriverHistory($driver_id, Request $request)
+    {
+        $validated = $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date'
+        ]);
+
+        $data = $this->vehicleUserActions->storeDriverHistory($driver_id, $validated);
+        return redirect()->back();
+    }
+
+    public function updateDriverHistory($vehicle_id, $drh_id, Request $request)
+    {
+
+        $validated = $request->validate([
+            'start_date' => 'required|date',
+            'end_date' => 'required|date'
+        ]);
+
+        $data = $this->vehicleUserActions->updateDriverHistory($drh_id, $validated);
+        return redirect()->back();
+    }
+
+    public function destroyDriverHistory($vehicle_id, $drh_id)
+    {
+        $data = $this->vehicleUserActions->destroyDriverHistory($drh_id);
+        
+        return redirect()->back();
+    }
+
     public function create()
     {
         return view(
@@ -149,7 +187,6 @@ class VehicleUserController extends Controller
             $this->vehicleUserActions->create()
         );
     }
-
     public function store(Request $request)
     {
 
