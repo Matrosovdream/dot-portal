@@ -28,7 +28,7 @@
                             <label class="form-label required">Inspection date</label>
                             <input 
                                 type="date" 
-                                name="classes" 
+                                name="inspection_date" 
                                 class="form-control form-control-solid mb-2"
                                 value="{{ $inspection['inspection_date'] }}"
                                 />

@@ -113,13 +113,15 @@ class VehicleUserController extends Controller
         return redirect()->back()->with('success', 'Vehicle updated successfully');
     }
 
-    public function updateInspection($driver_id, Request $request)
+    public function updateInspection($vehicle_id, $inspection_id, Request $request)
     {
+
         $validated = $request->validate([
-            'inspection_id' => 'required',
+            'inspection_number' => 'required',
+            'inspection_date' => 'required|date',
         ]);
 
-        $data = $this->vehicleUserActions->updateInspection($driver_id, $validated);
+        $data = $this->vehicleUserActions->updateInspection($inspection_id, $validated);
         return redirect()->back()->with('success', 'Vehicle updated successfully');
     }
 

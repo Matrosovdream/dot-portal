@@ -148,10 +148,10 @@ class VehicleUserActions {
 
     }
 
-    public function updateInspection($vehicle_id, $request) {
+    public function updateInspection($inspection_id, $request) {
 
         return $this->vehicleRepo->updateInspection(
-            $request['inspection_id'],
+            $inspection_id,
             $request
         );
 
