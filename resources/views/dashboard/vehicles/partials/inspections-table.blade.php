@@ -88,7 +88,6 @@
 )
 
 <!-- Update inspection modal -->
-@php /*
 @foreach($inspections as $item)
     @include(
         'dashboard.vehicles.modals.edit-inspection',
@@ -98,4 +97,3 @@
         ]
     )
 @endforeach
-*/ @endphp
