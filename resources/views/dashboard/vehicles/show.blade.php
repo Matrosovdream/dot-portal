@@ -60,4 +60,13 @@
 
     @endif
 
+    <!-- Driver history -->
+    @if( request()->routeIs('dashboard.vehicles.show.driverhistory') )
+
+        <div id="kt_account_settings_profile_details" class="collapse show">
+            @include('dashboard.vehicles.sections.driverhistory')
+        </div>
+
+    @endif
+
 @endsection
