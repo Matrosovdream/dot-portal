@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-dialog-centered mw-900px">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Create new field</h2>
+                <h2>Add new inspection</h2>
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <i class="ki-duotone ki-cross fs-1">
                         <span class="path1"></span>
@@ -13,66 +13,46 @@
             </div>
 
             <div class="modal-body py-lg-10 px-lg-10">
-                <form method="POST"
-                    action="{{ route('dashboard.services.fields.store', ['service' => $service['id']]) }}">
+                <form 
+                    method="POST"
+                    action="{{ route('dashboard.vehicles.show.inspections.store', ['vehicle_id' => $vehicle['id']]) }}"
+                    enctype="multipart/form-data"
+                    >
                     @csrf
 
-                    <input type="hidden" name="required" value="0" />
-                    <input type="hidden" name="entity" value="general" />
+                    @include('dashboard.includes.errors.default')
 
                     <div class="row mb-5">
 
                         <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                            <label class="required form-label">Field</label>
-                            <select name="field_id" class="form-select form-select-solid">
-                                <option>Select field</option>
-                                @foreach($formFields as $field)
-                                    <option value="{{ $field['id'] }}">{{ $field['title'] }}</option>
-                                @endforeach
-                            </select>
+                            <label class="form-label required">Inspection date</label>
+                            <input type="date" name="classes" class="form-control form-control-solid mb-2" />
                         </div>
 
                         <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                            <label class="form-label">Required</label>
-                            <select name="required" class="form-select form-select-solid mb-2">
-                                <option value="0">No</option>
-                                <option value="1">Yes</option>
-                            </select>
+                            <label class="form-label required">Inspection number</label>
+                            <input type="text" name="inspection_number" class="form-control form-control-solid mb-2" />
                         </div>
 
                     </div>
 
-                    <div class="row mb-5">
+                    <div class="row1 mb-6">
 
-                        <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                            <label class="form-label">Default value</label>
-                            <input type="text" name="default_value" class="form-control form-control-solid"
-                                value="{{ old('default_value') }}" />
-                        </div>
+                        <label class="col-lg-6 col-form-label fw-semibold fs-6">
+                            Document
+                        </label>
 
-                        <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                            <div class="fv-row fv-plugins-icon-container">
-                                <label class="form-label">Placeholder</label>
-                                <input type="text" name="placeholder" class="form-control form-control-solid"
-                                    value="{{ old('placeholder') }}" />
-                            </div>
-                        </div>
-
-                    </div>
-
-                    <div class="row mb-5">
-
-                        <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                            <label class="form-label">Classes</label>
-                            <input type="text" name="classes" class="form-control form-control-solid mb-2" />
-                        </div>
-
-                        <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                            <div class="mb-10 w-50 fv-row fv-plugins-icon-container">
-                                <label class="form-label">Order</label>
-                                <input type="number" name="order" value="1"
-                                    class="form-control form-control-solid mb-2" />
-                            </div>
+                        <div class="col-lg-6 fv-row">
+                            <x-file-uploader 
+                                :inputName="'document'"
+                                :value="''"
+                                :accept="'image/*,application/pdf'"
+                                :multiple="false"
+                                :required="false"
+                                :label="'Upload file'"
+                                :note="'Upload 1 image or PDF'"
+                                :description="''"
+                            />
                         </div>
 
                     </div>
