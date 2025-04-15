@@ -184,11 +184,15 @@ class VehicleUserActions
     public function driverHistory($vehicle_id)
     {
 
-        $vehicle = $this->vehicleRepo->getByID($vehicle_id);
+        $history = $this->driverHistoryRepo->getAll(
+            ['vehicle_id' => $vehicle_id],
+            $paged = 1000
+        );
 
         $data = [
             'title' => 'Driver history',
-            'vehicle' => $vehicle
+            'vehicle' => $this->vehicleRepo->getById( $vehicle_id ),
+            'history' => $history
         ];
 
         return $data;
@@ -197,8 +201,9 @@ class VehicleUserActions
     public function storeDriverHistory($vehicle_id, $request)
     {
 
-        return $this->vehicleRepo->addDriverHistory(
-            $vehicle_id,
+        $request['vehicle_id'] = $vehicle_id;
+
+        return $this->driverHistoryRepo->create(
             $request
         );
 
@@ -206,7 +211,7 @@ class VehicleUserActions
 
     public function updateDriverHistory($drh_id, $request)
     {
-        return $this->vehicleRepo->updateDriverHistory(
+        return $this->driverHistoryRepo->update(
             $drh_id,
             $request
         );
