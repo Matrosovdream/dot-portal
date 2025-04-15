@@ -26,6 +26,19 @@
 
                         <td class="pe-0">
 
+                            @if( $inspection['file'] )
+
+                                <a href="#" class="btn btn-primary btn-sm flex-shrink-0 me-3"
+                                    data-bs-toggle="modal" data-bs-target="#kt_modal_filepreview_{{ $inspection['file']['id'] }}">
+                                    Preview
+                                </a>
+
+                                @include('dashboard.modals.layout.file-preview', [
+                                        'file_id' => $inspection['file']['id']
+                                    ])
+
+                            @endif
+
                         </td>
 
                         <td class="text-center">
