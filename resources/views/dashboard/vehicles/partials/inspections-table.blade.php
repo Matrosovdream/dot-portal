@@ -25,7 +25,7 @@
                         </td>
 
                         <td class="pe-0">
-                            
+
                         </td>
 
                         <td class="text-center">
@@ -76,5 +76,24 @@
     <div class="text-center mt-10">
         <h4>No inspections found</h4>
     </div>
-    
+
 @endif
+
+<!-- Create inspection modal -->
+@include(
+    'dashboard.vehicles.modals.create-inspection',
+    [
+        'vehicle' => $vehicle,
+    ]
+)
+
+<!-- Update inspection modal -->
+@foreach($inspections as $item)
+    @include(
+        'dashboard.services.modals.edit-form-field',
+        [
+            'vehicle' => $vehicle,
+            'inspection' => $item
+        ]
+    )
+@endforeach
