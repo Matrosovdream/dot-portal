@@ -107,7 +107,6 @@ class VehicleUserController extends Controller
         $validated = $request->validate([
             'inspection_number' => 'required',
             'inspection_date' => 'required|date',
-            'inspection_expire_date' => 'required|date',
         ]);
 
         $data = $this->vehicleUserActions->storeInspection($driver_id, $validated);
