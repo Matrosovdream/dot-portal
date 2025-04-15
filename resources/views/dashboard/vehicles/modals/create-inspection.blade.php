@@ -26,12 +26,22 @@
 
                         <div class="col-lg-6 fv-row fv-plugins-icon-container">
                             <label class="form-label required">Inspection date</label>
-                            <input type="date" name="classes" class="form-control form-control-solid mb-2" />
+                            <input 
+                                type="date" 
+                                name="inspection_date" 
+                                class="form-control form-control-solid mb-2" 
+                                value="{{ old('inspection_date') }}"
+                                />
                         </div>
 
                         <div class="col-lg-6 fv-row fv-plugins-icon-container">
                             <label class="form-label required">Inspection number</label>
-                            <input type="text" name="inspection_number" class="form-control form-control-solid mb-2" />
+                            <input 
+                                type="text" 
+                                name="inspection_number" 
+                                class="form-control form-control-solid mb-2" 
+                                value="{{ old('inspection_number') }}"
+                                />
                         </div>
 
                     </div>
