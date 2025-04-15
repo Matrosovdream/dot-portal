@@ -4,11 +4,13 @@ namespace App\Actions\Dashboard;
 use App\Repositories\Vehicle\VehicleRepo;
 use App\Mixins\File\FileStorage;
 use App\Helpers\Validation\Models\VehicleValidation;
+use App\Repositories\Vehicle\VehicleInspectionRepo;
 
 class VehicleUserActions {
 
     private $vehicleRepo;
     protected $fileStorage;
+    protected $inspectionRepo;
     protected $vehicleValidation;
 
 
@@ -16,6 +18,7 @@ class VehicleUserActions {
     {
         $this->vehicleRepo = new VehicleRepo();
         $this->fileStorage = new FileStorage();
+        $this->inspectionRepo = new VehicleInspectionRepo();
 
         // Validation
         $this->vehicleValidation = new VehicleValidation();
@@ -156,6 +159,12 @@ class VehicleUserActions {
             $request,
             ['document' => 'document']
         );
+
+    }
+
+    public function destroyInspection($inspection_id) {
+
+        $this->inspectionRepo->delete($inspection_id);
 
     }
 

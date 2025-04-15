@@ -125,6 +125,13 @@ class VehicleUserController extends Controller
         return redirect()->back()->with('success', 'Vehicle updated successfully');
     }
 
+    public function destroyInspection($vehicle_id, $inspection_id)
+    {
+        $data = $this->vehicleUserActions->destroyInspection($inspection_id);
+        
+        return redirect()->back()->with('success', 'Vehicle updated successfully');
+    }
+
     public function updateInsurance($driver_id, Request $request)
     {
         $validated = $request->validate([
