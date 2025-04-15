@@ -130,16 +130,55 @@ class VehicleRepo extends AbstractRepo
 
     }
 
-    public function addInspection( $vehicle_id, $request ) {
+    public function addInspection( $vehicle_id, $request, $files=[] ) {
 
         $request['vehicle_id'] = $vehicle_id;
-        $this->inspectionRepo->create( $request );
+        $inspection = $this->inspectionRepo->create( $request );
+
+        // Upload files
+        if( isset($files['document']) ) {
+            
+            $tags = ['Vehicle inspection', 'Vehicle inspection #' . $vehicle_id];
+
+            $file = $this->fileStorage->uploadFile(
+                $files['document'], 
+                'vehicles/' . $vehicle_id . '/inspections/' . $inspection['id'],
+                'local',
+                ['tags' => $tags]
+            );
+
+            if( isset($file['file']['id']) ) {
+                $this->inspectionRepo->update( $inspection['id'], ['file_id' => $file['file']['id']]);
+            }
+
+        }
 
     }
 
-    public function updateInspection( $inspection_id, $request ) {
+    public function updateInspection( $inspection_id, $request, $files=[] ) {
+
+        $inspection = $this->inspectionRepo->getByID($inspection_id);
+        $vehicle_id = $inspection['vehicle_id'];
 
         $this->inspectionRepo->update( $inspection_id, $request );
+
+        // Upload files
+        if( isset($files['document']) ) {
+            
+            $tags = ['Vehicle inspection', 'Vehicle inspection #' . $vehicle_id];
+
+            $file = $this->fileStorage->uploadFile(
+                $files['document'], 
+                'vehicles/' . $vehicle_id . '/inspections/' . $inspection['id'],
+                'local',
+                ['tags' => $tags]
+            );
+
+            if( isset($file['file']['id']) ) {
+                $this->inspectionRepo->update( $inspection['id'], ['file_id' => $file['file']['id']]);
+            }
+
+        }
 
     }
 
