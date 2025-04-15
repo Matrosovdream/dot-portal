@@ -1,9 +1,9 @@
 <div class="fv-row mb-2">
-    <div class="dropzone" id="kt_ecommerce_add_{{ $inputName }}">
+    <div class="dropzone" id="kt_ecommerce_add_{{ $inputId }}">
 
         <input 
             type="file" 
-            id="{{ $inputName }}_input" 
+            id="{{ $inputId }}_file" 
             name="{{ $inputName }}" 
             hidden 
             accept="{{ $accept  }}"
@@ -33,8 +33,8 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-    const dropzone = document.getElementById('kt_ecommerce_add_{{ $inputName }}');
-    const fileInput = document.getElementById('{{ $inputName }}_input');
+    const dropzone = document.getElementById('kt_ecommerce_add_{{ $inputId }}');
+    const fileInput = document.getElementById('{{ $inputId }}_file');
 
     // Click dropzone to trigger file input
     dropzone.addEventListener('click', function () {

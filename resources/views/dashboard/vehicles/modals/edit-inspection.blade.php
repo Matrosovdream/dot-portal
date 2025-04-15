@@ -55,6 +55,7 @@
                         <div class="col-lg-6 fv-row">
                             <x-file-uploader 
                                 :inputName="'document'"
+                                :inputId="'document_' . $inspection['id']"
                                 :value="''"
                                 :accept="'image/*,application/pdf'"
                                 :multiple="false"
