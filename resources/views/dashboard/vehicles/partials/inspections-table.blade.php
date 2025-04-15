@@ -88,12 +88,14 @@
 )
 
 <!-- Update inspection modal -->
+@php /*
 @foreach($inspections as $item)
     @include(
-        'dashboard.services.modals.edit-form-field',
+        'dashboard.vehicles.modals.edit-inspection',
         [
             'vehicle' => $vehicle,
             'inspection' => $item
         ]
     )
 @endforeach
+*/ @endphp
