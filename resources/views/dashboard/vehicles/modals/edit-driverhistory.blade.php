@@ -1,9 +1,9 @@
-<div class="modal fade" id="kt_modal_product_form_field_{{ $inspection['id'] }}" tabindex="-1" aria-hidden="true"
+<div class="modal fade" id="kt_modal_driverhistory_record_{{ $item['id'] }}" tabindex="-1" aria-hidden="true"
     style="display: none;">
     <div class="modal-dialog modal-dialog-centered mw-900px">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>Edit inspection #{{  $inspection['id'] }}</h2>
+                <h2>Edit driver history record #{{ $item['id'] }}</h2>
                 <div class="btn btn-sm btn-icon btn-active-color-primary" data-bs-dismiss="modal">
                     <i class="ki-duotone ki-cross fs-1">
                         <span class="path1"></span>
@@ -15,58 +15,64 @@
             <div class="modal-body py-lg-10 px-lg-10">
                 <form 
                     method="POST"
-                    action="{{ route('dashboard.vehicles.show.inspections.update', ['vehicle_id' => $vehicle['id'], 'inspection_id' => $inspection['id']]) }}"
+                    action="{{ route('dashboard.vehicles.show.driverhistory.update', ['vehicle_id' => $vehicle['id'], 'drh_id' => $item['id']]) }}"
                     enctype="multipart/form-data"
                     >
                     @csrf
-
+                    
                     @include('dashboard.includes.errors.default')
 
                     <div class="row mb-5">
 
                         <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                            <label class="form-label required">Inspection date</label>
+                            <label class="form-label required">Start date</label>
                             <input 
                                 type="date" 
-                                name="inspection_date" 
-                                class="form-control form-control-solid mb-2"
-                                value="{{ $inspection['inspection_date'] }}"
+                                name="start_date" 
+                                class="form-control form-control-solid mb-2" 
+                                value="{{ $item['start_date'] }}"
                                 />
                         </div>
 
                         <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                            <label class="form-label required">Inspection number</label>
+                            <label class="form-label required">End date</label>
                             <input 
-                                type="text" 
-                                name="inspection_number" 
+                                type="date" 
+                                name="end_date" 
                                 class="form-control form-control-solid mb-2" 
-                                value="{{ $inspection['inspection_number'] }}"
+                                value="{{ $item['end_date'] }}"
                                 />
                         </div>
 
                     </div>
 
-                    <div class="row1 mb-6">
+                    <div class="row mb-5">
 
-                        <label class="col-lg-6 col-form-label fw-semibold fs-6">
-                            Document
-                        </label>
+                        <div class="col-lg-4 fv-row">
 
-                        <div class="col-lg-6 fv-row">
-                            <x-file-uploader 
-                                :inputName="'document'"
-                                :inputId="'document_' . $inspection['id']"
-                                :value="''"
-                                :accept="'image/*,application/pdf'"
-                                :multiple="false"
-                                :required="false"
-                                :label="'Upload file'"
-                                :note="'Upload 1 image or PDF'"
-                                :description="''"
-                            />
+                            <label class="form-label required">
+                                Select driver
+                            </label>
+
+                            <select name="driver_id" aria-label="Select driver" data-control="select2"
+                                data-placeholder="Select driver"
+                                class="form-select form-select-solid form-select-lg fw-semibold">
+                                <option value="">Select driver</option>
+
+                                @foreach($references['driver']['items'] as $driver)
+                                    <option 
+                                        value="{{ $driver['id'] }}" 
+                                        {{ $driver['id'] == $item['driver_id'] ? 'selected' : '' }}
+                                        >
+                                        {{ implode(' ', [$driver['firstname'], $driver['lastname']]) }}
+                                        
+                                    </option>
+                                @endforeach
+                            </select>
+
                         </div>
 
-                    </div>
+                    </div> 
 
                     <div class="d-flex flex-stack">
 
@@ -86,7 +92,6 @@
                 </form>
 
             </div>
-
         </div>
 
     </div>

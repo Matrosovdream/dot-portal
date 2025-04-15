@@ -192,7 +192,8 @@ class VehicleUserActions
         $data = [
             'title' => 'Driver history',
             'vehicle' => $this->vehicleRepo->getById( $vehicle_id ),
-            'history' => $history
+            'history' => $history,
+            'references' => $this->vehicleRepo->getReferences()
         ];
 
         return $data;
