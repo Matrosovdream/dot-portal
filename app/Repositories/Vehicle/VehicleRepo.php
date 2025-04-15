@@ -138,20 +138,15 @@ class VehicleRepo extends AbstractRepo
         // Upload files
         if( isset($files['document']) ) {
             
-            $tags = ['Vehicle inspection', 'Vehicle inspection #' . $vehicle_id];
-
-            $file = $this->fileStorage->uploadFile(
-                $files['document'], 
-                'vehicles/' . $vehicle_id . '/inspections/' . $inspection['id'],
-                'local',
-                ['tags' => $tags]
+            $this->uploadInspectionFile(
+                $vehicle_id, 
+                $inspection['id'],
+                $files['document']
             );
 
-            if( isset($file['file']['id']) ) {
-                $this->inspectionRepo->update( $inspection['id'], ['file_id' => $file['file']['id']]);
-            }
-
         }
+
+        return true;
 
     }
 
@@ -165,20 +160,30 @@ class VehicleRepo extends AbstractRepo
         // Upload files
         if( isset($files['document']) ) {
             
-            $tags = ['Vehicle inspection', 'Vehicle inspection #' . $vehicle_id];
-
-            $file = $this->fileStorage->uploadFile(
-                $files['document'], 
-                'vehicles/' . $vehicle_id . '/inspections/' . $inspection['id'],
-                'local',
-                ['tags' => $tags]
+            $this->uploadInspectionFile(
+                $vehicle_id, 
+                $inspection_id,
+                $files['document']
             );
 
-            if( isset($file['file']['id']) ) {
-                $this->inspectionRepo->update( $inspection['id'], ['file_id' => $file['file']['id']]);
-            }
-
         }
+
+        return true;
+
+    }
+
+    protected function uploadInspectionFile( $vehicle_id, $inspection_id, $file ) {
+
+        $tags = ['Vehicle inspection', 'Vehicle inspection #' . $vehicle_id];
+
+        $file = $this->fileStorage->uploadFile(
+            $file, 
+            'vehicles/' . $vehicle_id . '/inspections/' . $inspection_id,
+            'local',
+            ['tags' => $tags]
+        );
+
+        return $file;
 
     }
 
