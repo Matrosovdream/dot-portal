@@ -130,7 +130,7 @@ class VehicleUserActions {
     public function inspections($vehicle_id) {
 
         $vehicle = $this->vehicleRepo->getByID($vehicle_id);
-//dd($vehicle);
+
         $data = [
             'title' => 'Vehicle inspections',
             'vehicle' => $vehicle
@@ -143,7 +143,8 @@ class VehicleUserActions {
 
         return $this->vehicleRepo->addInspection(
             $vehicle_id, 
-            $request
+            $request,
+            ['document' => 'document']
         );
 
     }
@@ -152,7 +153,8 @@ class VehicleUserActions {
 
         return $this->vehicleRepo->updateInspection(
             $inspection_id,
-            $request
+            $request,
+            ['document' => 'document']
         );
 
     }
