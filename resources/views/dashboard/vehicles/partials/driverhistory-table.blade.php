@@ -17,7 +17,7 @@
                     <tr>
 
                         <td class="pe-0">
-                            {{ $item['driver']['firstname'] }} {{ $item['driver']['lastname'] }}
+                            {{ $item['driver']['user']['firstname'] }} {{ $item['driver']['user']['lastname'] }}
                         </td>
 
                         <td class="pe-0">
