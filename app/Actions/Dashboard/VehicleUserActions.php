@@ -265,7 +265,7 @@ class VehicleUserActions
             ['tags' => ['profile photo']]
         );
 
-        if ($file) {
+        if ( isset($file['file']['id'])) {
             $this->vehicleRepo->update(
                 $vehicle_id,
                 ['profile_photo_id' => $file['file']['id']]
