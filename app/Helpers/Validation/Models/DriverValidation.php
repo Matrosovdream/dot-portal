@@ -49,7 +49,7 @@ class DriverValidation extends AbstractValidation {
 
         return $this->getValidationResult(
             $this->data['medicalCard'] ?? [], 
-            $this->getFields()['medicalCard'] ?? []
+            $this->getFields()['medical_card'] ?? []
         );
 
     }
@@ -58,7 +58,7 @@ class DriverValidation extends AbstractValidation {
 
         return $this->getValidationResult(
             $this->data['drugTest'] ?? [], 
-            $this->getFields()['drugTest'] ?? []
+            $this->getFields()['drug_test'] ?? []
         );
 
     }
