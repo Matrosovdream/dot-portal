@@ -15,6 +15,10 @@ class DriverValidation extends AbstractValidation {
             'drugTest' => $this->validateDrugTest(),
         ];
 
+        if( request()->has('lg') ) {
+            //dd( $sections);
+        }
+
         return $this->checkSections($sections);
 
     }
@@ -30,7 +34,7 @@ class DriverValidation extends AbstractValidation {
     public function validateLicense() {
 
         return $this->getValidationResult(
-            $this->data, 
+            $this->data['license'] ?? [], 
             $this->getFields()['license'] ?? []
         );
 
@@ -83,7 +87,7 @@ class DriverValidation extends AbstractValidation {
             'license_number' => ['title' => 'License Number', 'required' => true],
             'expiration_date' => ['title' => 'License Expiration Date', 'required' => true],
             'state_id' => ['title' => 'License State', 'required' => true],
-            'document_id' => ['title' => 'License Document', 'required' => true],
+            //'document_id' => ['title' => 'License Document', 'required' => true],
         ];
 
         // Address
