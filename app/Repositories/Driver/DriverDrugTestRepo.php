@@ -37,6 +37,7 @@ class DriverDrugTestRepo extends AbstractRepo
             'test_type' => $item->test_type,
             'test_date' => $item->test_date,
             'result' => $item->result,
+            'file_id' => $item->file_id,
             'file' => $this->fileRepo->mapItem($item->file),
             'Model' => $item
         ];
