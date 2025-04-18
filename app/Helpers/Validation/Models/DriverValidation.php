@@ -106,7 +106,7 @@ class DriverValidation extends AbstractValidation {
         // Drug test
         $drug_test = [
             'test_date' => ['title' => 'Test Date', 'required' => true],
-            'document_id' => ['title' => 'Drug Test Document', 'required' => true],
+            'file_id' => ['title' => 'Drug Test Document', 'required' => true],
         ];
 
         return [
