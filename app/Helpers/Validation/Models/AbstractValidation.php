@@ -55,6 +55,26 @@ class AbstractValidation
 
     }
 
+    // Func calc completion percent go through all sections and calculate the percent of completion
+    public function calcPercent( $sections=[] ) {
+
+        if (empty($sections)) {
+            return 0;
+        }
+
+        $totalSections = count($sections);
+        $completedSections = 0;
+
+        foreach ($sections as $section => $result) {
+            if ($result['valid']) {
+                $completedSections++;
+            }
+        }
+
+        return round( ($completedSections / $totalSections) * 100 );
+
+    }
+
     public function validateWithData( $data, $fields ) {
 
         return $this->getValidationResult(
