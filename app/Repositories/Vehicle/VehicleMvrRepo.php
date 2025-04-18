@@ -32,6 +32,7 @@ class VehicleMvrRepo extends AbstractRepo
             'vehicle_id' => $item->vehicle_id,
             'mvr_number' => $item->mvr_number,
             'mvr_date' => $item->mvr_date,
+            'file_id' => $item->file_id,
             'file' => $this->fileRepo->mapItem($item->file),
             'Model' => $item
 
