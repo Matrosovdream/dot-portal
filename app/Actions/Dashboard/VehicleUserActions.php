@@ -53,10 +53,6 @@ class VehicleUserActions
             'references' => $this->vehicleRepo->getReferences()
         ];
 
-        if( request()->has('lg') ) {
-            dd($data['validation'], $data['vehicle']);
-        }
-
         return $data;
     }
 
@@ -126,6 +122,7 @@ class VehicleUserActions
         $data = [
             'title' => 'Vehicle insurance',
             'vehicle' => $vehicle,
+            'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
             'references' => $this->vehicleRepo->getReferences()
         ];
 
@@ -149,6 +146,7 @@ class VehicleUserActions
 
         $data = [
             'title' => 'Vehicle inspections',
+            'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
             'vehicle' => $vehicle
         ];
 
@@ -193,9 +191,12 @@ class VehicleUserActions
             $paged = 1000
         );
 
+        $vehicle = $this->vehicleRepo->getByID($vehicle_id);
+
         $data = [
             'title' => 'Driver history',
-            'vehicle' => $this->vehicleRepo->getById( $vehicle_id ),
+            'vehicle' => $vehicle,
+            'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
             'history' => $history,
             'references' => $this->vehicleRepo->getReferences()
         ];
