@@ -24,7 +24,10 @@ class AbstractValidation
         $errors = [];
 
         foreach ($fields as $key => $field) {
-            if ($field['required'] && empty($data[$key])) {
+            if ( 
+                $field['required'] && 
+                ( empty($data[$key]) || $data[$key] === null )
+                ) {
                 $errors[$key] = $field;
             }
         }
