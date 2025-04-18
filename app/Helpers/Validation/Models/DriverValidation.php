@@ -15,13 +15,12 @@ class DriverValidation extends AbstractValidation {
             'drugTest' => $this->validateDrugTest(),
         ];
 
-        $data = [
-            'valid' => $this->checkSections($sections)['valid'],
-            'percent' => $this->calcPercent($sections),
-            'sections' => $this->checkSections($sections),
-        ];
-        return $data;
-
+        return array_merge(
+            $this->checkSections($sections),
+            [
+                'percent' => $this->calcPercent($sections),
+            ]
+        );
     }
     public function validateGeneral() {
 
