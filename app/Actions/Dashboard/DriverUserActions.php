@@ -124,6 +124,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver profile',
             'driver' => $driver,
+            'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences()
         ];
 
@@ -169,6 +170,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver license',
             'driver' => $driver,
+            'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences()
         ];
 
@@ -219,6 +221,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver address',
             'driver' => $driver,
+            'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences()
         ];
 
@@ -247,6 +250,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver medical card',
             'driver' => $driver,
+            'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences()
         ];
 
@@ -297,6 +301,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Driver drug test',
             'driver' => $driver,
+            'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences()
         ];
 
