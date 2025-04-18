@@ -32,6 +32,7 @@ class VehicleInspectionRepo extends AbstractRepo
             'vehicle_id' => $item->vehicle_id,
             'inspection_date' => $item->inspection_date,
             'inspection_number' => $item->inspection_number,
+            'file_id' => $item->file_id,
             'file' => $this->fileRepo->mapItem($item->file),
             'Model' => $item,
         ];

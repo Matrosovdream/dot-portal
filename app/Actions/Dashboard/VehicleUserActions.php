@@ -53,6 +53,10 @@ class VehicleUserActions
             'references' => $this->vehicleRepo->getReferences()
         ];
 
+        if( request()->has('lg') ) {
+            dd($data['validation'], $data['vehicle']);
+        }
+
         return $data;
     }
 

@@ -197,13 +197,18 @@ class VehicleRepo extends AbstractRepo
 
         $res = [
             'id' => $item->id,
+            'unit_type_id' => $item->unit_type_id,
             'unitType' => $this->refVehicleUnitTypeRepo->mapItem( $item->unitType ),
             'number' => $item->number,
             'vin' => $item->vin,
+            'ownership_type_id' => $item->ownership_type_id,
             'ownershipType' => $this->refVehicleOwnershipTypeRepo->mapItem( $item->ownershipType ),
+            'driver_id' => $item->driver_id,
             'driver' => $this->driverRepo->mapItem( $item->driver ),
             'company' => $this->userRepo->mapItem( $item->company ),
+            'reg_expire_date' => $item->reg_expire_date,
             'regExpireDate' => $item->reg_expire_date,
+            'inspection_expire_date' => $item->inspection_expire_date,
             'inspectionExpireDate' => $item->inspection_expire_date,
             'profilePhoto' => $this->fileRepo->mapItem( $item['profilePhoto'] ),
             'mvr' => $this->mvrRepo->mapItem( $item->mvr ),
