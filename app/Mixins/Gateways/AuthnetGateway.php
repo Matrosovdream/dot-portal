@@ -173,7 +173,7 @@ class AuthnetGateway
     }
 
 
-    protected function findCustomerProfileByEmail(string $email)
+    public function findCustomerProfileByEmail(string $email)
     {
         $request = new AnetAPI\GetCustomerProfileIdsRequest();
         $request->setMerchantAuthentication($this->merchantAuthentication);
