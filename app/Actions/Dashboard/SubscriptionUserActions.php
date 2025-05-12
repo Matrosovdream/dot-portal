@@ -90,8 +90,17 @@ class SubscriptionUserActions {
 
     public function testCard() {
 
+        /*
+        Test cards
+        4111111111111111 - Visa
+        5500000000000004 - MasterCard
+        340000000000009 - American Express
+        6011000000000004 - Discover
+        3000000000000009 - Diners Club
+        */
+
         $card = [
-            'number' => '4111111111111111',
+            'number' => '340000000000009',
             'expiry' => '2026-12',
             'cvv' => '123',
             'first_name' => '',
@@ -102,7 +111,7 @@ class SubscriptionUserActions {
             'zip' => '',
             'country' => '',
         ];
-        $email = 'user22@example.com';
+        $email = 'user24@example.com';
     
 
         $profile = $this->authnet->createCustomerPaymentProfile($card, $email);
