@@ -45,7 +45,9 @@ class SubscriptionUserActions {
 
 
         // Test
-        //$this->testCard();
+        if( request('test') ) {
+            $this->testCard();
+        }
 
         return $data;
     }
