@@ -113,13 +113,7 @@ class SubscriptionUserActions {
         ];
         $email = 'user24@example.com';
 
-        $profile = $this->authnet->findCustomerProfileByEmail( $email );
-
-        // Check if exists
-        if( !$profile ) {
-            $profile = $this->authnet->createCustomerPaymentProfile($card, $email);
-        }
-
+        $profile = $this->authnet->createCustomerPaymentProfile($card, $email);
         dd($profile);
         
         // Charge the card once
