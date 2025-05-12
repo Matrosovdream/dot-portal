@@ -73,12 +73,15 @@ class SubscriptionUserActions {
 
         $user_id = auth()->user()->id;
 
+        // Split the expiration date into month and year
+        $expireDate = $request['card_expiry_month'] . '/' . $request['card_expiry_year'];
+
         $this->userCardRepo->create([
             'user_id' => $user_id,
-            'card_name' => $request['card_name'],
+            'card_holder_name' => $request['card_name'],
             'card_number' => $request['card_number'],
-            'expiration_date' => $request['expiration_date'],
-            'cvv' => $request['cvv'],
+            'expiry_date' => $expireDate,
+            'cvv' => $request['card_cvv'],
         ]);
 
     }
