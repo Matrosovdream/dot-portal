@@ -105,6 +105,7 @@ class DriverController extends Controller
             'ssn' => 'nullable',
             'hire_date' => 'nullable|date',
             'type_id' => 'nullable',
+            'driver_type_id' => 'nullable',
             'new_password' => 'nullable',
             'action' => 'nullable',
         ]);
