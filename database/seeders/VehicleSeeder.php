@@ -66,7 +66,10 @@ class VehicleSeeder extends Seeder
             }
 
             // Set insurance
-            $vehicle->insurance()->sync([1]);
+            $vehicle->insurance()->delete();
+            $vehicle->insurance()->create([
+                'insurance_id' => 1,
+            ]);
 
         }
 
