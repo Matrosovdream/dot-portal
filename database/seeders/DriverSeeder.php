@@ -96,6 +96,10 @@ class DriverSeeder extends Seeder
             // Create driver
             $driver = $this->driverRepo->create($driverSet['main']);
 
+            if( $driver['error'] ) {
+                continue;
+            }
+
             // Create license
             $driver['Model']->address()->create($driverSet['address']);
 
