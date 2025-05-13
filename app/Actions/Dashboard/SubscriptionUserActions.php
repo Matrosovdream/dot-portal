@@ -100,7 +100,8 @@ class SubscriptionUserActions {
         3000000000000009 - Diners Club
         */
 
-        $card = [
+        $email = 'user25@example.com';
+        $cardData = [
             'number' => '340000000000009',
             'expiry' => '2026-12',
             'cvv' => '123',
@@ -111,20 +112,28 @@ class SubscriptionUserActions {
             'state' => '',
             'zip' => '',
             'country' => '',
+            'email' => $email,
         ];
-        $email = 'user25@example.com';
 
-        $profile = $this->authnet->createCustomerPaymentProfile($card, $email);
+        $profileId = $this->authnet->createCustomerProfile($email);
+        $paymentProfileId = $this->authnet->createCustomerPaymentProfile($profileId, $cardData);
+
+        $profile = [
+            'customerProfileId' => $profileId,
+            'paymentProfileId' => $paymentProfileId,
+        ];
+
         dd($profile);
         
         // Charge the card once
+        /*
         $transactionId = $this->authnet->chargeCustomerProfile(
             $profile['customerProfileId'],
             $profile['paymentProfileId'],
             49.99
         );
+        */
         
-
         // Subscribe user
         $subscriptionId = $this->authnet->createSubscription(
             $profile['customerProfileId'],
@@ -132,7 +141,7 @@ class SubscriptionUserActions {
             9.99
         );
 
-        
+        dd($subscriptionId);
 
     }
 

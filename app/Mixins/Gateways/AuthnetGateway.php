@@ -26,7 +26,29 @@ class AuthnetGateway
             : ANetEnvironment::PRODUCTION;
     }
 
-    public function createCustomerPaymentProfile(array $cardData, string $email): array
+    public function createCustomerProfile(string $email): string
+    {
+        $profile = new AnetAPI\CustomerProfileType();
+        $profile->setEmail($email);
+        $profile->setDescription("Profile for {$email}");
+        $profile->setMerchantCustomerId(uniqid());
+
+        $request = new AnetAPI\CreateCustomerProfileRequest();
+        $request->setMerchantAuthentication($this->merchantAuthentication);
+        $request->setProfile($profile);
+        //$request->setValidationMode("testMode");
+
+        $controller = new AnetController\CreateCustomerProfileController($request);
+        $response = $controller->executeWithApiResponse($this->environment);
+
+        if ($response && $response->getMessages()->getResultCode() === "Ok") {
+            return $response->getCustomerProfileId();
+        }
+
+        throw new \Exception($response->getMessages()->getMessage()[0]->getText());
+    }
+
+    public function createCustomerPaymentProfile(string $customerProfileId, array $cardData): string
     {
         $creditCard = new AnetAPI\CreditCardType();
         $creditCard->setCardNumber($cardData['number']);
@@ -36,38 +58,32 @@ class AuthnetGateway
         $payment = new AnetAPI\PaymentType();
         $payment->setCreditCard($creditCard);
 
-        // Add billing info (important!)
         $billTo = new AnetAPI\CustomerAddressType();
-        $billTo->setFirstName($cardData['first_name'] ?? 'Test');
-        $billTo->setLastName($cardData['last_name'] ?? 'User');
-        $billTo->setAddress($cardData['address'] ?? '123 Test Street');
-        $billTo->setCity($cardData['city'] ?? 'Testville');
-        $billTo->setState($cardData['state'] ?? 'CA');
-        $billTo->setZip($cardData['zip'] ?? '12345');
-        $billTo->setCountry($cardData['country'] ?? 'USA');
+        $billTo->setFirstName($cardData['first_name']);
+        $billTo->setLastName($cardData['last_name']);
+        $billTo->setAddress($cardData['address']);
+        $billTo->setCity($cardData['city']);
+        $billTo->setState($cardData['state']);
+        $billTo->setZip($cardData['zip']);
+        $billTo->setCountry($cardData['country']);
+        $billTo->setEmail($cardData['email']);
 
         $paymentProfile = new AnetAPI\CustomerPaymentProfileType();
         $paymentProfile->setCustomerType('individual');
         $paymentProfile->setPayment($payment);
         $paymentProfile->setBillTo($billTo);
 
-        $profile = new AnetAPI\CustomerProfileType();
-        $profile->setEmail($email);
-        $profile->setPaymentProfiles([$paymentProfile]);
-
-        $request = new AnetAPI\CreateCustomerProfileRequest();
+        $request = new AnetAPI\CreateCustomerPaymentProfileRequest();
         $request->setMerchantAuthentication($this->merchantAuthentication);
-        $request->setProfile($profile);
+        $request->setCustomerProfileId($customerProfileId);
+        $request->setPaymentProfile($paymentProfile);
         $request->setValidationMode("testMode");
 
-        $controller = new AnetController\CreateCustomerProfileController($request);
+        $controller = new AnetController\CreateCustomerPaymentProfileController($request);
         $response = $controller->executeWithApiResponse($this->environment);
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
-            return [
-                'customerProfileId' => $response->getCustomerProfileId(),
-                'paymentProfileId' => $response->getCustomerPaymentProfileIdList()[0],
-            ];
+            return $response->getCustomerPaymentProfileId();
         }
 
         throw new \Exception($response->getMessages()->getMessage()[0]->getText());
@@ -123,6 +139,27 @@ class AuthnetGateway
 
     public function createSubscription(string $customerProfileId, string $paymentProfileId, float $amount): string
     {
+        // STEP 1: Get payment profile (to extract billing info)
+        $getRequest = new AnetAPI\GetCustomerPaymentProfileRequest();
+        $getRequest->setMerchantAuthentication($this->merchantAuthentication);
+        $getRequest->setCustomerProfileId($customerProfileId);
+        $getRequest->setCustomerPaymentProfileId($paymentProfileId);
+
+        $getController = new AnetController\GetCustomerPaymentProfileController($getRequest);
+        $getResponse = $getController->executeWithApiResponse($this->environment);
+
+        if (
+            !$getResponse ||
+            $getResponse->getMessages()->getResultCode() !== "Ok"
+        ) {
+            throw new \Exception("Unable to fetch payment profile: " . $getResponse->getMessages()->getMessage()[0]->getText());
+        }
+
+        $billTo = $getResponse->getPaymentProfile()->getBillTo();
+
+        dd($billTo);
+
+        // STEP 2: Set subscription interval & schedule
         $interval = new AnetAPI\PaymentScheduleType\IntervalAType();
         $interval->setLength(1);
         $interval->setUnit("months");
@@ -132,15 +169,18 @@ class AuthnetGateway
         $schedule->setStartDate(new \DateTime(date('Y-m-d')));
         $schedule->setTotalOccurrences("9999");
 
+        // STEP 3: Profile Info
         $profile = new AnetAPI\CustomerProfileIdType();
         $profile->setCustomerProfileId($customerProfileId);
         $profile->setCustomerPaymentProfileId($paymentProfileId);
 
+        // STEP 4: Create subscription
         $subscription = new AnetAPI\ARBSubscriptionType();
         $subscription->setName("Laravel Subscription - " . uniqid());
         $subscription->setPaymentSchedule($schedule);
         $subscription->setAmount($amount);
         $subscription->setProfile($profile);
+        $subscription->setBillTo($billTo); // ✅ Critical line
 
         $request = new AnetAPI\ARBCreateSubscriptionRequest();
         $request->setMerchantAuthentication($this->merchantAuthentication);
@@ -155,6 +195,7 @@ class AuthnetGateway
 
         throw new \Exception($response->getMessages()->getMessage()[0]->getText());
     }
+
 
     public function cancelSubscription(string $subscriptionId): bool
     {
