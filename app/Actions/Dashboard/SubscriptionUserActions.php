@@ -84,6 +84,7 @@ class SubscriptionUserActions {
             'card_number' => $request['card_number'],
             'expiry_date' => $expireDate,
             'cvv' => $request['card_cvv'],
+            'payment_method_id' => 1, // Authorize.net by default
         ]);
 
     }
@@ -111,7 +112,7 @@ class SubscriptionUserActions {
             'zip' => '',
             'country' => '',
         ];
-        $email = 'user24@example.com';
+        $email = 'user25@example.com';
 
         $profile = $this->authnet->createCustomerPaymentProfile($card, $email);
         dd($profile);
