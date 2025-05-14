@@ -80,7 +80,7 @@ class SubscriptionUserActions {
         // Split the expiration date into month and year
         $expireDate = $request['card_expiry_month'] . '/' . $request['card_expiry_year'];
 
-        $this->userCardRepo->create([
+        $card = $this->userCardRepo->create([
             'user_id' => $user_id,
             'card_holder_name' => $request['card_name'],
             'card_number' => $request['card_number'],

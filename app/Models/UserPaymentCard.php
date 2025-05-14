@@ -2,10 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Metaable;
 use Illuminate\Database\Eloquent\Model;
 
 class UserPaymentCard extends Model
 {
+
+    use Metaable;
     
     protected $table = 'user_payment_cards';
     
@@ -21,6 +24,11 @@ class UserPaymentCard extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function meta()
+    {
+        return $this->hasMany(UserPaymentCardMeta::class, 'card_id');
     }
 
 }
