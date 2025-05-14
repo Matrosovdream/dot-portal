@@ -115,6 +115,14 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        Schema::create('user_payment_card_meta', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('card_id')->on('user_payment_cards');
+            $table->string('key');
+            $table->text('value')->nullable();
+            $table->timestamps();
+        });
+
         // User Payment history including single and subscription payments
         Schema::create('user_payment_history', function (Blueprint $table) {
             $table->id();
@@ -155,6 +163,7 @@ return new class extends Migration
         Schema::dropIfExists('user_address');
         Schema::dropIfExists('user_subscription');
         Schema::dropIfExists('user_payment_cards');
+        Schema::dropIfExists('user_payment_card_meta');
         Schema::dropIfExists('user_payment_history');
         Schema::dropIfExists('user_meta');
     }
