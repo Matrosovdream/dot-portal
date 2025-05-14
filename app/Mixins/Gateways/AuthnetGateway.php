@@ -51,22 +51,22 @@ class AuthnetGateway
     public function createCustomerPaymentProfile(string $customerProfileId, array $cardData): string
     {
         $creditCard = new AnetAPI\CreditCardType();
-        $creditCard->setCardNumber($cardData['number']);
-        $creditCard->setExpirationDate($cardData['expiry']); // YYYY-MM
+        $creditCard->setCardNumber( $this->prepareCardNumber($cardData['number']) );
+        $creditCard->setExpirationDate( $this->prepareCardExpiry($cardData['expiry']) );
         $creditCard->setCardCode($cardData['cvv']);
 
         $payment = new AnetAPI\PaymentType();
         $payment->setCreditCard($creditCard);
 
         $billTo = new AnetAPI\CustomerAddressType();
-        $billTo->setFirstName($cardData['first_name']);
-        $billTo->setLastName($cardData['last_name']);
-        $billTo->setAddress($cardData['address']);
-        $billTo->setCity($cardData['city']);
-        $billTo->setState($cardData['state']);
-        $billTo->setZip($cardData['zip']);
-        $billTo->setCountry($cardData['country']);
-        $billTo->setEmail($cardData['email']);
+        $billTo->setFirstName($cardData['first_name'] ?? '');
+        $billTo->setLastName($cardData['last_name'] ?? '');
+        $billTo->setAddress($cardData['address'] ?? '');
+        $billTo->setCity($cardData['city'] ?? '');
+        $billTo->setState($cardData['state'] ?? '');
+        $billTo->setZip($cardData['zip'] ?? '');
+        $billTo->setCountry($cardData['country'] ?? 'US');
+        $billTo->setEmail($cardData['email'] ?? '');
 
         $paymentProfile = new AnetAPI\CustomerPaymentProfileType();
         $paymentProfile->setCustomerType('individual');
@@ -87,6 +87,26 @@ class AuthnetGateway
         }
 
         throw new \Exception($response->getMessages()->getMessage()[0]->getText());
+    }
+
+    private function prepareCardExpiry(string $expiry): string
+    {
+        // Split into month and year
+        $parts = explode('-', $expiry);
+
+        // Make month 2 digits if the month is a single digit
+        if (strlen($parts[1]) === 1) {
+            $parts[1] = '0' . $parts[1];
+        }
+
+        return $parts[0] . '-' . $parts[1];
+
+    }
+
+    private function prepareCardNumber(string $cardNumber): string
+    {
+        // Remove any non-digit characters
+        return preg_replace('/\D/', '', $cardNumber);
     }
 
     public function deletePaymentProfile(string $customerProfileId, string $paymentProfileId): bool
