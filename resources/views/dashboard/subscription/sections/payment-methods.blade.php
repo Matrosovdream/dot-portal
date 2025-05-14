@@ -72,8 +72,10 @@
 
                                 </form>
 
+                                <!--
                                 <button class="btn btn-sm btn-light btn-active-light-primary" data-bs-toggle="modal"
                                     data-bs-target="#kt_modal_new_card">Edit</button>
+                                -->
                             </div>
 
                         </div>
