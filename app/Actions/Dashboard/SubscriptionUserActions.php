@@ -55,6 +55,8 @@ class SubscriptionUserActions {
     public function update($request)
     {
 
+        return true;
+
         $user_id = auth()->user()->id;
         $userSubscription = $this->userSubRepo->getByUserID( $user_id );
 
