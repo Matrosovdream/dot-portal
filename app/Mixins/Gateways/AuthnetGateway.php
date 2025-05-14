@@ -26,7 +26,7 @@ class AuthnetGateway
             : ANetEnvironment::PRODUCTION;
     }
 
-    public function createCustomerProfile(string $email): string
+    public function createCustomerProfile(string $email): array
     {
         $profile = new AnetAPI\CustomerProfileType();
         $profile->setEmail($email);
@@ -42,10 +42,13 @@ class AuthnetGateway
         $response = $controller->executeWithApiResponse($this->environment);
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
-            return $response->getCustomerProfileId();
+            return [
+                "profileId" => $response->getCustomerProfileId(),
+            ]; 
+        } else {
+            return $this->prepareResponseError($response);
         }
 
-        throw new \Exception($response->getMessages()->getMessage()[0]->getText());
     }
 
     public function createCustomerPaymentProfile(string $customerProfileId, array $cardData): array
@@ -94,7 +97,7 @@ class AuthnetGateway
     }
 
 
-    public function deletePaymentProfile(string $customerProfileId, string $paymentProfileId): bool
+    public function deletePaymentProfile(string $customerProfileId, string $paymentProfileId): array
     {
         $request = new AnetAPI\DeleteCustomerPaymentProfileRequest();
         $request->setMerchantAuthentication($this->merchantAuthentication);
@@ -105,14 +108,16 @@ class AuthnetGateway
         $response = $controller->executeWithApiResponse($this->environment);
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
-            return true;
+            return [
+                'success' => true
+            ];
+        } else {
+            return $this->prepareResponseError($response);
         }
-
-        throw new \Exception("Failed to delete payment profile: " . $response->getMessages()->getMessage()[0]->getText());
     }
 
 
-    public function chargeCustomerProfile(string $customerProfileId, string $paymentProfileId, float $amount): string
+    public function chargeCustomerProfile(string $customerProfileId, string $paymentProfileId, float $amount): array
     {
         $profileToCharge = new AnetAPI\CustomerProfilePaymentType();
         $profileToCharge->setCustomerProfileId($customerProfileId);
@@ -135,14 +140,16 @@ class AuthnetGateway
         $response = $controller->executeWithApiResponse($this->environment);
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
-            return $response->getTransactionResponse()->getTransId();
+            return [
+                'transactionId' => $response->getTransactionResponse()->getTransId()
+            ];
+        } else {
+            return $this->prepareResponseError($response);
         }
 
-        throw new \Exception($response->getMessages()->getMessage()[0]->getText());
     }
 
-
-    public function createSubscription(string $customerProfileId, string $paymentProfileId, float $amount): string
+    public function createSubscription(string $customerProfileId, string $paymentProfileId, float $amount): array
     {
         // STEP 1: Get payment profile (to extract billing info)
         $getRequest = new AnetAPI\GetCustomerPaymentProfileRequest();
@@ -195,14 +202,16 @@ class AuthnetGateway
         $response = $controller->executeWithApiResponse($this->environment);
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
-            return $response->getSubscriptionId();
+            return [
+                'subscriptionId' => $response->getSubscriptionId(),
+            ];
+        } else {
+            return $this->prepareResponseError($response);
         }
-
-        throw new \Exception($response->getMessages()->getMessage()[0]->getText());
     }
 
 
-    public function cancelSubscription(string $subscriptionId): bool
+    public function cancelSubscription(string $subscriptionId): array
     {
         $request = new AnetAPI\ARBCancelSubscriptionRequest();
         $request->setMerchantAuthentication($this->merchantAuthentication);
@@ -212,10 +221,13 @@ class AuthnetGateway
         $response = $controller->executeWithApiResponse($this->environment);
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
-            return true;
+            return [
+                'success' => true,
+            ];
+        } else {
+            return $this->prepareResponseError($response);
         }
 
-        throw new \Exception("Failed to cancel subscription: " . $response->getMessages()->getMessage()[0]->getText());
     }
 
 
