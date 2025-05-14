@@ -57,6 +57,7 @@ class SubscriptionUserActions {
 
         return true;
 
+        /*
         $user_id = auth()->user()->id;
         $userSubscription = $this->userSubRepo->getByUserID( $user_id );
 
@@ -64,6 +65,7 @@ class SubscriptionUserActions {
             $userSubscription['id'], 
             ['subscription_id' => $request['plan']]
         );
+        */
 
     }
 
@@ -75,19 +77,68 @@ class SubscriptionUserActions {
 
     public function storeCard( $request ) {
 
-        $user_id = auth()->user()->id;
-
-        // Split the expiration date into month and year
-        $expireDate = $request['card_expiry_month'] . '/' . $request['card_expiry_year'];
-
-        $card = $this->userCardRepo->create([
-            'user_id' => $user_id,
-            'card_holder_name' => $request['card_name'],
-            'card_number' => $request['card_number'],
-            'expiry_date' => $expireDate,
+        // Step 1: Create a customer profile and payment profile
+        $paymentProfile = $this->createAuthnetProfile([
+            'number' => $request['card_number'],
+            'expiry' => $request['card_expiry_year'] . '-' . $request['card_expiry_month'],
             'cvv' => $request['card_cvv'],
-            'payment_method_id' => 1, // Authorize.net by default
+            'first_name' => $request['card_name'],
+            'email' => auth()->user()->email,
         ]);
+
+        // Step 2: Create record in the database
+        if( 
+            isset( $paymentProfile['customerProfileId'] ) ||
+            isset( $paymentProfile['paymentProfileId'] )
+            ) {
+
+                // Split the expiration date into month and year
+                $expireDate = $request['card_expiry_month'] . '/' . $request['card_expiry_year'];
+
+                $card = $this->userCardRepo->create([
+                    'user_id' => auth()->user()->id,
+                    'card_holder_name' => $request['card_name'],
+                    'card_number' => $request['card_number'],
+                    'expiry_date' => $expireDate,
+                    'cvv' => $request['card_cvv'],
+                    'payment_method_id' => 1, // Authorize.net by default
+                ]);
+
+                // Set meta data
+                $card['Model']->setMeta('authnet_profile_id', $paymentProfile['customerProfileId']);
+                $card['Model']->setMeta('authnet_payment_profile_id', $paymentProfile['paymentProfileId']);
+
+        } else {
+            return false;
+        }
+
+    }
+
+    public function createAuthnetProfile( array $cardData ) {
+
+        /*
+        $cardData = [
+            'number' => '4111111111111111',
+            'expiry' => '2026-12',
+            'cvv' => '123',
+            'first_name' => '',
+            'last_name' => '',
+            'address' => '',
+            'city' => '',
+            'state' => '',
+            'zip' => '',
+            'country' => '',
+            'email' => $email,
+        ];
+        */
+
+        $profileId = $this->authnet->createCustomerProfile( $cardData['email'] );
+        $paymentProfileId = $this->authnet->createCustomerPaymentProfile($profileId, $cardData);
+
+        return $profile = [
+            'customerProfileId' => $profileId,
+            'paymentProfileId' => $paymentProfileId,
+        ];
 
     }
 
@@ -117,13 +168,7 @@ class SubscriptionUserActions {
             'email' => $email,
         ];
 
-        $profileId = $this->authnet->createCustomerProfile($email);
-        $paymentProfileId = $this->authnet->createCustomerPaymentProfile($profileId, $cardData);
-
-        $profile = [
-            'customerProfileId' => $profileId,
-            'paymentProfileId' => $paymentProfileId,
-        ];
+        $profile = $this->createAuthnetProfile($cardData);        
 
         dd($profile);
         
