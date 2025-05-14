@@ -132,15 +132,30 @@ class SubscriptionUserActions {
         ];
         */
 
-        $profileId = $this->authnet->createCustomerProfile( $cardData['email'] );
-        $paymentProfileId = $this->authnet->createCustomerPaymentProfile($profileId, $cardData);
+        // Create customer profile
+        $customerProfile = $this->authnet->createCustomerProfile( $cardData['email'] );
 
-        dd($profileId, $paymentProfileId);
+        // Create payment profile
+        if( $customerProfile ) {
+            $paymentProfile = $this->authnet->createCustomerPaymentProfile(
+                $customerProfile['profileId'], 
+                $cardData
+            );
+        }
 
-        return $profile = [
-            'customerProfileId' => $profileId,
-            'paymentProfileId' => $paymentProfileId,
-        ];
+        if( 
+            isset( $customerProfile['profileId'] ) &&
+            isset( $paymentProfile['profileId'] )
+            ) {
+
+                return $profile = [
+                    'customerProfileId' => $customerProfile['profileId'],
+                    'paymentProfileId' => $paymentProfile['profileId'],
+                ];
+
+        } else {
+            return false;
+        }
 
     }
 
