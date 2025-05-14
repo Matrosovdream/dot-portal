@@ -85,38 +85,14 @@ class AuthnetGateway
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
             return[
-                'error' => false,
                 'profileId' => $response->getCustomerPaymentProfileId()
             ];
         } else {
-            return [
-                'error' => true,
-                'code' => $response->getMessages()->getMessage()[0]->getCode(),
-                'message' => $response->getMessages()->getMessage()[0]->getText(),
-            ];
+            return $this->prepareResponseError($response);
         }
 
     }
 
-    private function prepareCardExpiry(string $expiry): string
-    {
-        // Split into month and year
-        $parts = explode('-', $expiry);
-
-        // Make month 2 digits if the month is a single digit
-        if (strlen($parts[1]) === 1) {
-            $parts[1] = '0' . $parts[1];
-        }
-
-        return $parts[0] . '-' . $parts[1];
-
-    }
-
-    private function prepareCardNumber(string $cardNumber): string
-    {
-        // Remove any non-digit characters
-        return preg_replace('/\D/', '', $cardNumber);
-    }
 
     public function deletePaymentProfile(string $customerProfileId, string $paymentProfileId): bool
     {
@@ -273,5 +249,33 @@ class AuthnetGateway
         return null;
     }
 
+    private function prepareResponseError( object $response ): array
+    {
+        return [
+            'error' => true,
+            'code' => $response->getMessages()->getMessage()[0]->getCode(),
+            'message' => $response->getMessages()->getMessage()[0]->getText(),
+        ];
+    } 
+
+    private function prepareCardExpiry(string $expiry): string
+    {
+        // Split into month and year
+        $parts = explode('-', $expiry);
+
+        // Make month 2 digits if the month is a single digit
+        if (strlen($parts[1]) === 1) {
+            $parts[1] = '0' . $parts[1];
+        }
+
+        return $parts[0] . '-' . $parts[1];
+
+    }
+
+    private function prepareCardNumber(string $cardNumber): string
+    {
+        // Remove any non-digit characters
+        return preg_replace('/\D/', '', $cardNumber);
+    }
 
 }
