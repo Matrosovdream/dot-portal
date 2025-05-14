@@ -96,7 +96,7 @@ class DriverSeeder extends Seeder
             // Create driver
             $driver = $this->driverRepo->create($driverSet['main']);
 
-            if( $driver['error'] ) {
+            if( isset($driver['error']) ) {
                 continue;
             }
 
