@@ -48,8 +48,9 @@ class AuthnetGateway
         throw new \Exception($response->getMessages()->getMessage()[0]->getText());
     }
 
-    public function createCustomerPaymentProfile(string $customerProfileId, array $cardData): string
+    public function createCustomerPaymentProfile(string $customerProfileId, array $cardData): array
     {
+
         $creditCard = new AnetAPI\CreditCardType();
         $creditCard->setCardNumber( $this->prepareCardNumber($cardData['number']) );
         $creditCard->setExpirationDate( $this->prepareCardExpiry($cardData['expiry']) );
@@ -83,10 +84,18 @@ class AuthnetGateway
         $response = $controller->executeWithApiResponse($this->environment);
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
-            return $response->getCustomerPaymentProfileId();
+            return[
+                'error' => false,
+                'profileId' => $response->getCustomerPaymentProfileId()
+            ];
+        } else {
+            return [
+                'error' => true,
+                'code' => $response->getMessages()->getMessage()[0]->getCode(),
+                'message' => $response->getMessages()->getMessage()[0]->getText(),
+            ];
         }
 
-        throw new \Exception($response->getMessages()->getMessage()[0]->getText());
     }
 
     private function prepareCardExpiry(string $expiry): string

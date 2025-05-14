@@ -135,6 +135,8 @@ class SubscriptionUserActions {
         $profileId = $this->authnet->createCustomerProfile( $cardData['email'] );
         $paymentProfileId = $this->authnet->createCustomerPaymentProfile($profileId, $cardData);
 
+        dd($profileId, $paymentProfileId);
+
         return $profile = [
             'customerProfileId' => $profileId,
             'paymentProfileId' => $paymentProfileId,
