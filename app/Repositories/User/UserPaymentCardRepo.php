@@ -3,7 +3,7 @@ namespace App\Repositories\User;
 
 use App\Repositories\AbstractRepo;
 use App\Models\UserPaymentCard;
-use App\Repositories\References\RefCountryStateRepo;
+use App\Repositories\User\UserPaymentCardMetaRepo;
 
 
 
@@ -11,6 +11,7 @@ class UserPaymentCardRepo extends AbstractRepo
 {
 
     protected $countryStateRepo;
+    protected $cardMetaRepo;
 
     protected $model;
 
@@ -21,6 +22,18 @@ class UserPaymentCardRepo extends AbstractRepo
     public function __construct()
     {
         $this->model = new UserPaymentCard();
+
+        $this->cardMetaRepo = new UserPaymentCardMetaRepo();
+    }
+
+    public function getPrimaryCard($user_id)
+    {
+        $raw = $this->model
+            ->where('user_id', $user_id)
+            ->where('primary', 1)
+            ->first();
+
+        return $this->mapItem($raw);
     }
 
     public function mapItem($item)
@@ -38,6 +51,7 @@ class UserPaymentCardRepo extends AbstractRepo
             'expiry_date' => $item->expiry_date,
             'payment_method_id' => $item->payment_method_id,
             'primary' => $item->primary,
+            'Meta' => $this->cardMetaRepo->mapItems($item->meta),
             'Model' => $item
         ];
 
