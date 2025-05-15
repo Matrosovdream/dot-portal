@@ -64,7 +64,7 @@ class AuthnetGateway
 
         $billTo = new AnetAPI\CustomerAddressType();
         $billTo->setFirstName($cardData['first_name'] ?? '');
-        $billTo->setLastName($cardData['last_name'] ?? 'Test');
+        $billTo->setLastName($cardData['last_name'] ?? '');
         $billTo->setAddress($cardData['address'] ?? '');
         $billTo->setCity($cardData['city'] ?? '');
         $billTo->setState($cardData['state'] ?? '');
