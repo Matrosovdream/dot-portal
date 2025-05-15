@@ -58,6 +58,11 @@ class SubscriptionUserActions {
         $user_id = auth()->user()->id;
         $userSubscription = $this->userSubRepo->getByUserID( $user_id );
 
+        // Get user primary card
+        $primaryCard = $this->userCardRepo->getPrimaryCard( $user_id );
+        dd($primaryCard);
+
+        // Update subscription in database
         $sub = $this->userSubRepo->update( 
             $userSubscription['id'], 
             ['subscription_id' => $request['plan']]
