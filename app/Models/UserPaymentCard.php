@@ -24,18 +24,21 @@ class UserPaymentCard extends Model
     protected static function booted()
     {
         
-        // Remove meta
+        // Remove meta on deletion
         static::deleting(function ($card) {
             $card->meta()->delete();
         });
 
-        // Auto set primary if it's the first card for this user
+        // On create: set primary if first, and strip card number to last 4 digits
         static::creating(function ($card) {
+            // Auto-set primary if it's the first card for user
             $hasOtherCards = self::where('user_id', $card->user_id)->exists();
-
             if (!$hasOtherCards) {
                 $card->primary = true;
             }
+
+            // Store only last 4 digits of card number
+            $card->card_number = substr(preg_replace('/\D/', '', $card->card_number), -4);
         });
 
     }
