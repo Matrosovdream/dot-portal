@@ -103,6 +103,15 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // User subscription meta
+        Schema::create('user_subscription_meta', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('subscription_id')->on('user_subscription');
+            $table->string('key');
+            $table->text('value')->nullable();
+            $table->timestamps();
+        });
+
         // User Payment cards
         Schema::create('user_payment_cards', function (Blueprint $table) {
             $table->id();
@@ -162,6 +171,7 @@ return new class extends Migration
         Schema::dropIfExists('user_company_address');
         Schema::dropIfExists('user_address');
         Schema::dropIfExists('user_subscription');
+        Schema::dropIfExists('user_subscription_meta');
         Schema::dropIfExists('user_payment_cards');
         Schema::dropIfExists('user_payment_card_meta');
         Schema::dropIfExists('user_payment_history');
