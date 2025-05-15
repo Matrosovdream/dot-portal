@@ -82,7 +82,10 @@ class SubscriptionUserActions {
         $customProfileRes = $this->authnet->deleteCustomerProfile($authnet_profile_id);
 
         // Delete record from database
-        if( isset($customProfileRes['success']) ) {
+        if( 
+            isset($customProfileRes['success']) ||
+            $customProfileRes['code'] == 'E00040' // Profile not found or already deleted
+            ) {
             $this->userCardRepo->delete( $card_id );
         } else {
             return false;
