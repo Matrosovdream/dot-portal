@@ -148,7 +148,8 @@ Route::group([
         // Subscription
         Route::prefix('subscription')->name('subscription.')->group(function () {
             Route::get('/', [SubscriptionUserController::class, 'index'])->name('index');
-            Route::post('/', [SubscriptionUserController::class, 'update'])->name('update');
+            Route::post('/', [SubscriptionUserController::class, 'updateSubscription'])->name('update');
+            Route::post('cancel', [SubscriptionUserController::class, 'cancelSubscription'])->name('cancel');
 
             // Cards
             //Route::get('cards', [SubscriptionUserController::class, 'cards'])->name('cards');

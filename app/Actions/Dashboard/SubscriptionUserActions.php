@@ -52,7 +52,7 @@ class SubscriptionUserActions {
         return $data;
     }
 
-    public function update($request)
+    public function updateSubscription($request)
     {
 
         $user_id = auth()->user()->id;
@@ -70,6 +70,16 @@ class SubscriptionUserActions {
 
         // Set Authnet subscription ID
         $sub['Model']->setMeta('authnet_sub_id', '1234567890');
+
+    }
+
+    public function cancelSubscription($request)
+    {
+
+        $user_id = auth()->user()->id;
+        $userSubscription = $this->userSubRepo->getByUserID( $user_id );
+
+        dd($userSubscription);
 
     }
 
@@ -219,7 +229,7 @@ class SubscriptionUserActions {
 
     }
 
-    public function cancelSubscription( $subscriptionId ) {
+    public function cancelSubscriptionTest( $subscriptionId ) {
 
        // 1. Cancel the subscription 
         $this->authnet->cancelSubscription($subscriptionId);

@@ -23,15 +23,21 @@ class SubscriptionUserController extends Controller
         );
     }
 
-    public function update(Request $request)
+    public function updateSubscription(Request $request)
     {
 
         $validated = $request->validate([
             'plan' => 'required',
         ]);
-        $this->serviceAdminActions->update($validated);
+        $this->serviceAdminActions->updateSubscription($validated);
         
         return redirect()->back()->with('success', 'Subscription updated successfully.');
+    }
+
+    public function cancelSubscription(Request $request)
+    {
+        $this->serviceAdminActions->cancelSubscription($request);
+        return redirect()->back()->with('success', 'Subscription cancelled successfully.');
     }
 
     public function store(Request $request)

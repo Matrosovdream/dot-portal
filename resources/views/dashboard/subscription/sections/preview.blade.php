@@ -81,8 +81,21 @@
                 </div>
 
                 <div class="d-flex justify-content-end pb-0 px-0">
+
+                    <form action="{{ route('dashboard.subscription.cancel') }}" method="POST">
+                        @csrf
+                    
+                        <input type="submit" class="btn btn-light btn-active-light-primary me-2"
+                            id="kt_account_billing_cancel_subscription_btn" value="Cancel Subscription">
+                    </form>
+
+
+                    <!--
                     <a href="#" class="btn btn-light btn-active-light-primary me-2"
-                        id="kt_account_billing_cancel_subscription_btn">Cancel Subscription</a>
+                        id="kt_account_billing_cancel_subscription_btn">
+                        Cancel Subscription
+                    </a>
+                    -->
                     <button class="btn btn-primary" data-bs-toggle="modal"
                         data-bs-target="#kt_modal_upgrade_plan">Upgrade Plan</button>
                 </div>
