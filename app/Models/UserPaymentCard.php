@@ -29,7 +29,14 @@ class UserPaymentCard extends Model
             $card->meta()->delete();
         });
 
-    
+        // Auto set primary if it's the first card for this user
+        static::creating(function ($card) {
+            $hasOtherCards = self::where('user_id', $card->user_id)->exists();
+
+            if (!$hasOtherCards) {
+                $card->primary = true;
+            }
+        });
 
     }
     
