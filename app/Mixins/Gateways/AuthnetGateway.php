@@ -64,7 +64,7 @@ class AuthnetGateway
 
         $billTo = new AnetAPI\CustomerAddressType();
         $billTo->setFirstName($cardData['first_name'] ?? '');
-        $billTo->setLastName($cardData['last_name'] ?? '');
+        $billTo->setLastName($cardData['last_name'] ?? 'Test');
         $billTo->setAddress($cardData['address'] ?? '');
         $billTo->setCity($cardData['city'] ?? '');
         $billTo->setState($cardData['state'] ?? '');
@@ -167,9 +167,7 @@ class AuthnetGateway
             throw new \Exception("Unable to fetch payment profile: " . $getResponse->getMessages()->getMessage()[0]->getText());
         }
 
-        $billTo = $getResponse->getPaymentProfile()->getBillTo();
-
-        dd($billTo);
+        //dd($billTo);
 
         // STEP 2: Set subscription interval & schedule
         $interval = new AnetAPI\PaymentScheduleType\IntervalAType();
@@ -192,7 +190,7 @@ class AuthnetGateway
         $subscription->setPaymentSchedule($schedule);
         $subscription->setAmount($amount);
         $subscription->setProfile($profile);
-        $subscription->setBillTo($billTo); // ✅ Critical line
+        //$subscription->setBillTo($billTo); // ✅ Critical line
 
         $request = new AnetAPI\ARBCreateSubscriptionRequest();
         $request->setMerchantAuthentication($this->merchantAuthentication);

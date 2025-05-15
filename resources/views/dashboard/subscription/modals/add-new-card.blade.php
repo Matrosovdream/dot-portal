@@ -34,9 +34,23 @@
                         </label>
 
                         <input type="text" class="form-control form-control-solid" placeholder="Max Doe" name="card_name"
-                        value="Stan Matrosov"
+                        value="Max Doe"
                         />
                     </div>
+
+                    <!-- New First and Last Name block -->
+                    <div class="row mb-7 fv-row">
+                        <div class="col-md-6">
+                            <label class="required fs-6 fw-semibold form-label mb-2">First Name</label>
+                            <input type="text" class="form-control form-control-solid" placeholder="First Name" name="first_name" value="Max" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="required fs-6 fw-semibold form-label mb-2">Last Name</label>
+                            <input type="text" class="form-control form-control-solid" placeholder="Last Name" name="last_name" value="Doe" />
+                        </div>
+                    </div>
+
 
                     <div class="d-flex flex-column mb-7 fv-row">
 
