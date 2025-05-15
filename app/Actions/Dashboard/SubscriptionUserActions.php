@@ -71,7 +71,22 @@ class SubscriptionUserActions {
 
     public function destroyCard( $card_id ) {
 
-        return $this->userCardRepo->delete( $card_id );
+        $card = $this->userCardRepo->getByID( $card_id );
+        if( !$card ) { return false; }
+
+        // Get meta
+        $authnet_profile_id = $card['Model']->getMeta('authnet_profile_id');
+        $authnet_payment_profile_id = $card['Model']->getMeta('authnet_payment_profile_id');
+
+        // Delete customer profile and all payment profiles
+        $customProfileRes = $this->authnet->deleteCustomerProfile($authnet_profile_id);
+
+        // Delete record from database
+        if( isset($customProfileRes['success']) ) {
+            $this->userCardRepo->delete( $card_id );
+        } else {
+            return false;
+        }
 
     }
 
