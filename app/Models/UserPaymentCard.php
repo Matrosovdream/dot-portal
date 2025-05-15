@@ -20,6 +20,18 @@ class UserPaymentCard extends Model
         'payment_method_id',
         'primary',
     ];
+
+    protected static function booted()
+    {
+        
+        // Remove meta
+        static::deleting(function ($card) {
+            $card->meta()->delete();
+        });
+
+    
+
+    }
     
     public function user()
     {
