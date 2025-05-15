@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
+use App\Traits\Metaable;
 use Illuminate\Database\Eloquent\Model;
 
 class UserSubscription extends Model
 {
-    
+
+    use Metaable;
     protected $table = 'user_subscription';
 
     protected $fillable = [
@@ -32,6 +34,11 @@ class UserSubscription extends Model
     public function payments()
     {
         return $this->hasMany(UserSubscriptionPayment::class);
+    }
+
+    public function meta()
+    {
+        return $this->hasMany(UserSubscriptionMeta::class, 'subscription_id');
     }
 
     public function isActive()
