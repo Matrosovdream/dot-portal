@@ -82,7 +82,8 @@ class SubscriptionUserActions {
             'number' => $request['card_number'],
             'expiry' => $request['card_expiry_year'] . '-' . $request['card_expiry_month'],
             'cvv' => $request['card_cvv'],
-            'first_name' => $request['card_name'],
+            'first_name' => $request['first_name'],
+            'last_name' => $request['last_name'],
             'email' => auth()->user()->email,
         ]);
 
