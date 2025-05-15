@@ -55,17 +55,16 @@ class SubscriptionUserActions {
     public function update($request)
     {
 
-        return true;
-
-        /*
         $user_id = auth()->user()->id;
         $userSubscription = $this->userSubRepo->getByUserID( $user_id );
 
-        $this->userSubRepo->update( 
+        $sub = $this->userSubRepo->update( 
             $userSubscription['id'], 
             ['subscription_id' => $request['plan']]
         );
-        */
+
+        // Set Authnet subscription ID
+        $sub['Model']->setMeta('authnet_sub_id', '1234567890');
 
     }
 

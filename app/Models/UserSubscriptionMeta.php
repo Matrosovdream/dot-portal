@@ -9,6 +9,8 @@ class UserSubscriptionMeta extends Model
     
     protected $table = "user_subscription_meta";
 
+    public $timestamps = false;
+
     protected $fillable = [
         'subscription_id',
         'key',
