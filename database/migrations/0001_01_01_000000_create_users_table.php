@@ -109,7 +109,6 @@ return new class extends Migration
             $table->foreignId('subscription_id')->on('user_subscription');
             $table->string('key');
             $table->text('value')->nullable();
-            $table->timestamps();
         });
 
         // User Payment cards
