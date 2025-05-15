@@ -215,4 +215,16 @@ class SubscriptionUserActions {
 
     }
 
+    public function cancelSubscription( $subscriptionId ) {
+
+       // 1. Cancel the subscription 
+        $this->authnet->cancelSubscription($subscriptionId);
+
+        // Find Original transaction ID here
+
+        // 2. Refund partial amount
+        $this->authnet->refundTransaction($originalTransactionId, 5.00, '1234'); // last 4 digits of the card
+
+    }
+
 }

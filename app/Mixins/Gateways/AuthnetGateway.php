@@ -245,6 +245,37 @@ class AuthnetGateway
 
     }
 
+    public function refundTransaction(string $transactionId, float $amount, string $lastFourDigits): array
+    {
+        $creditCard = new AnetAPI\CreditCardType();
+        $creditCard->setCardNumber($lastFourDigits); // Only last 4 digits
+        $creditCard->setExpirationDate("XXXX"); // Dummy expiration for refund
+
+        $payment = new AnetAPI\PaymentType();
+        $payment->setCreditCard($creditCard);
+
+        $transactionRequest = new AnetAPI\TransactionRequestType();
+        $transactionRequest->setTransactionType("refundTransaction");
+        $transactionRequest->setAmount($amount);
+        $transactionRequest->setPayment($payment);
+        $transactionRequest->setRefTransId($transactionId);
+
+        $request = new AnetAPI\CreateTransactionRequest();
+        $request->setMerchantAuthentication($this->merchantAuthentication);
+        $request->setTransactionRequest($transactionRequest);
+
+        $controller = new AnetController\CreateTransactionController($request);
+        $response = $controller->executeWithApiResponse($this->environment);
+
+        if ($response && $response->getMessages()->getResultCode() === "Ok") {
+            return [
+                'refunded' => true,
+                'transactionId' => $response->getTransactionResponse()->getTransId()
+            ];
+        }
+
+        return $this->prepareResponseError($response);
+    }
 
     public function findCustomerProfileByEmail(string $email)
     {
