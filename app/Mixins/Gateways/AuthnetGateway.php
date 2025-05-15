@@ -96,6 +96,23 @@ class AuthnetGateway
 
     }
 
+    public function deleteCustomerProfile(string $customerProfileId): array
+    {
+        $request = new AnetAPI\DeleteCustomerProfileRequest();
+        $request->setMerchantAuthentication($this->merchantAuthentication);
+        $request->setCustomerProfileId($customerProfileId);
+
+        $controller = new AnetController\DeleteCustomerProfileController($request);
+        $response = $controller->executeWithApiResponse($this->environment);
+
+        if ($response && $response->getMessages()->getResultCode() === "Ok") {
+            return [
+                'success' => true,
+            ];
+        } else {
+            return $this->prepareResponseError($response);
+        }
+    }
 
     public function deletePaymentProfile(string $customerProfileId, string $paymentProfileId): array
     {
