@@ -60,6 +60,22 @@
 
                             <div class="d-flex align-items-center py-2">
 
+                                @if( !$card['primary'] )
+
+                                    <form method="POST" action="{{ route('dashboard.subscription.cards.makeprimary', $card['id']) }}">
+                                        @csrf
+
+                                        <button class="btn btn-sm btn-primary btn-active-light-primary me-3"
+                                            data-kt-billing-action="card-delete">
+                                            <span class="indicator-label">Make primary</span>
+                                            <span class="indicator-progress">Please wait...
+                                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
+                                        </button>
+
+                                    </form>
+
+                                @endif
+
                                 <form method="POST" action="{{ route('dashboard.subscription.cards.destroy', $card['id']) }}">
                                     @csrf
 
