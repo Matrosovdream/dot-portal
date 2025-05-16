@@ -96,7 +96,7 @@ class AuthnetGateway
 
     }
 
-    public function deleteCustomerProfile(string $customerProfileId): array
+    public function deleteCustomerProfile(int $customerProfileId): array
     {
         $request = new AnetAPI\DeleteCustomerProfileRequest();
         $request->setMerchantAuthentication($this->merchantAuthentication);
@@ -114,7 +114,7 @@ class AuthnetGateway
         }
     }
 
-    public function deletePaymentProfile(string $customerProfileId, string $paymentProfileId): array
+    public function deletePaymentProfile(int $customerProfileId, int $paymentProfileId): array
     {
         $request = new AnetAPI\DeleteCustomerPaymentProfileRequest();
         $request->setMerchantAuthentication($this->merchantAuthentication);
