@@ -61,6 +61,16 @@ class UserPaymentCardRepo extends AbstractRepo
 
     }
 
+    public function getUserPrimaryCard($user_id)
+    {
+        $raw = $this->model
+            ->where('user_id', $user_id)
+            ->where('primary', 1)
+            ->first();
+
+        return $this->mapItem($raw);
+    }
+
     public function mapItem($item)
     {
 
