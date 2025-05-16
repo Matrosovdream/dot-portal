@@ -36,6 +36,17 @@ class UserPaymentCardRepo extends AbstractRepo
         return $this->mapItem($raw);
     }
 
+    // Set all cards to not primary
+    public function makeUnprimaryByUser( $user_id ) {
+
+        $cards = $this->getAll(['user_id' => $user_id]);
+
+        foreach( $cards['items'] as $card ) {
+            $card['Model']->update( ['primary' => 0] );
+        }
+
+    }
+
     public function mapItem($item)
     {
 
