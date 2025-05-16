@@ -150,8 +150,10 @@ class SubscriptionUserActions {
                 $card['Model']->setMeta('authnet_profile_id', $paymentProfile['customerProfileId']);
                 $card['Model']->setMeta('authnet_payment_profile_id', $paymentProfile['paymentProfileId']);
 
+                return $card;
+
         } else {
-            return false;
+            return $paymentProfile;
         }
 
     }
@@ -207,7 +209,7 @@ class SubscriptionUserActions {
                 ];
 
         } else {
-            return false;
+            return $paymentProfile;
         }
 
     }

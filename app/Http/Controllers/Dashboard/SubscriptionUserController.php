@@ -73,9 +73,9 @@ class SubscriptionUserController extends Controller
             'last_name' => 'required',
         ]);
 
-        $this->serviceAdminActions->storeCard($validated);
+        $res = $this->serviceAdminActions->storeCard($validated);
 
-        return redirect()->back()->with('success', 'Card added successfully.');
+        return response()->json($res);
 
     }
 
