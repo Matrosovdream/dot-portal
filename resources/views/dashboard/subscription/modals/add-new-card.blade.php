@@ -181,3 +181,66 @@
         </div>
     </div>
 </div>
+
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.getElementById('kt_modal_new_card_form');
+        const submitBtn = document.getElementById('kt_modal_new_card_submit');
+        const modalBody = form.closest('.modal-body');
+        const indicatorLabel = submitBtn.querySelector('.indicator-label');
+        const originalText = indicatorLabel.textContent;
+    
+        form.addEventListener('submit', function (e) {
+            e.preventDefault();
+    
+            const formData = new FormData(form);
+    
+            // Update button state
+            submitBtn.disabled = true;
+            indicatorLabel.textContent = 'Processing...';
+            submitBtn.querySelector('.indicator-progress').classList.remove('d-none');
+    
+            // Clear existing errors
+            const oldError = modalBody.querySelector('.alert.alert-danger');
+            if (oldError) oldError.remove();
+    
+            fetch(form.action, {
+                method: 'POST',
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}',
+                    'Accept': 'application/json'
+                },
+                body: formData
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.success) {
+                    location.reload();
+                } else {
+                    showErrors(data.errors || { error: [data.message || 'Unknown error'] });
+                }
+            })
+            .catch(() => {
+                showErrors({ error: ['Something went wrong. Please try again.'] });
+            })
+            .finally(() => {
+                submitBtn.disabled = false;
+                indicatorLabel.textContent = originalText;
+                submitBtn.querySelector('.indicator-progress').classList.add('d-none');
+            });
+    
+            function showErrors(errors) {
+                let html = '<div class="alert alert-danger mb-5">';
+                for (const key in errors) {
+                    html += `<div>${errors[key][0]}</div>`;
+                }
+                html += '</div>';
+                modalBody.insertAdjacentHTML('afterbegin', html);
+            }
+        });
+    });
+    </script>
+    
+
