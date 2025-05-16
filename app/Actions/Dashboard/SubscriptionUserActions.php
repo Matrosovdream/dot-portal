@@ -118,8 +118,34 @@ class SubscriptionUserActions {
 
         $user_id = auth()->user()->id;
         $userSubscription = $this->userSubRepo->getByUserID( $user_id );
+        $subscriptionId = $userSubscription['Model']->getMeta('authnet_sub_id');
+        if( !$subscriptionId ) {
+            return false;
+        }
 
-        dd($userSubscription);
+        $subRes = $this->authnet->cancelSubscription($subscriptionId);
+        if( isset($subRes['success']) ) {
+
+            // Update subscription in database
+            $this->userSubRepo->update( 
+                $userSubscription['id'], 
+                ['subscription_id' => null, 'status' => 'disabled']
+            );
+
+            // Delete subscription ID from meta
+            $userSubscription['Model']->setMeta('authnet_sub_id', null);
+
+            return [
+                'success' => true,
+                'message' => 'Subscription cancelled successfully',
+            ];
+
+        } else {
+            return [
+                'success' => false,
+                'message' => $subRes['message'],
+            ];
+        }
 
     }
 
