@@ -88,10 +88,8 @@ class SubscriptionUserActions {
         $subscription = $this->authnet->createSubscription(
             $profile['customerProfileId'],
             $profile['paymentProfileId'],
-            9.99
+            $userSubscription['subscription']['price'],
         );
-
-        dd($subscription);
 
         if( isset($subscription['subscriptionId']) ) {
 

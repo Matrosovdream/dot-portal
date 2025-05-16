@@ -184,8 +184,6 @@ class AuthnetGateway
             throw new \Exception("Unable to fetch payment profile: " . $getResponse->getMessages()->getMessage()[0]->getText());
         }
 
-        //dd($billTo);
-
         // STEP 2: Set subscription interval & schedule
         $interval = new AnetAPI\PaymentScheduleType\IntervalAType();
         $interval->setLength(1);
