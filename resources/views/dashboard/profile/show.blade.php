@@ -36,7 +36,7 @@
 
     @if( 
         request()->routeIs('dashboard.profile.company.edit') &&
-        request()->user()->hasRole('company')
+        request()->user()->isCompany()
         )
 
         <div id="kt_account_settings_profile_details" class="collapse show">
