@@ -94,7 +94,7 @@ return new class extends Migration
         Schema::create('user_subscription', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->on('users');
-            $table->foreignId('subscription_id')->on('subscriptions');
+            $table->foreignId('subscription_id')->on('subscriptions')->nullable();
             $table->float('price')->default(0);
             $table->float('discount')->default(0);
             $table->timestamp('start_date')->nullable();
