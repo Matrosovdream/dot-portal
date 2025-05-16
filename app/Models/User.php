@@ -89,6 +89,12 @@ class User extends Authenticatable
         return $this->roles()->where('slug', 'company')->exists();
     }
 
+    // Chec if user is company
+    public function isCompany()
+    {
+        return $this->roles()->where('slug', 'company')->exists();
+    }
+
     // Check if user is driver
     public function isDriver()
     {
