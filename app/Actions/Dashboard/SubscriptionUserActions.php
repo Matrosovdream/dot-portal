@@ -8,6 +8,15 @@ use App\Repositories\User\UserPaymentHistoryRepo;
 use App\Repositories\User\UserPaymentCardRepo;
 use App\Mixins\Gateways\AuthnetGateway;
 
+/*
+        Test cards
+        4111111111111111 - Visa
+        5500000000000004 - MasterCard
+        340000000000009 - American Express
+        6011000000000004 - Discover
+        3000000000000009 - Diners Club
+        */
+
 class SubscriptionUserActions {
 
     private $userRepo;
@@ -59,7 +68,7 @@ class SubscriptionUserActions {
         $userSubscription = $this->userSubRepo->getByUserID( $user_id );
 
         // Get user primary card
-        $primaryCard = $this->userCardRepo->getPrimaryCard( $user_id );
+        $primaryCard = $this->userCardRepo->getUserPrimaryCard( $user_id );
         dd($primaryCard);
 
         // Update subscription in database
@@ -205,30 +214,24 @@ class SubscriptionUserActions {
 
     public function testCard() {
 
-        /*
-        Test cards
-        4111111111111111 - Visa
-        5500000000000004 - MasterCard
-        340000000000009 - American Express
-        6011000000000004 - Discover
-        3000000000000009 - Diners Club
-        */
+        $primaryCard = $this->userCardRepo->getPrimaryCard( auth()->user()->id );
+
+        if( !$primaryCard ) {
+            dd('No primary card found');
+        }
 
         $profile = [
-            'customerProfileId' => '930891578',
-            'paymentProfileId' => '930180591',
+            'customerProfileId' => $primaryCard['Meta']['authnet_profile_id'],
+            'paymentProfileId' => $primaryCard['Meta']['authnet_payment_profile_id'],
         ];
-
         
         // Charge the card once
-        /*
         $transaction = $this->authnet->chargeCustomerProfile(
             $profile['customerProfileId'],
             $profile['paymentProfileId'],
             49.99
         );
         dd($transaction);
-        */
         
         // Subscribe user
         $subscription = $this->authnet->createSubscription(
