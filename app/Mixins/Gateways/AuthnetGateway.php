@@ -326,16 +326,22 @@ class AuthnetGateway
         $response = $controller->executeWithApiResponse($this->environment);
 
         $results = [];
-        if ($response && $response->getMessages()->getResultCode() === "Ok") {
-            foreach ($response->getSubscriptionDetails() as $subscription) {
-                $results[] = [
-                    'id' => $subscription->getId(),
-                    'name' => $subscription->getName(),
-                    'status' => $subscription->getStatus(),
-                    'amount' => $subscription->getAmount(),
-                    'profileId' => $subscription->getCustomerProfileId(),
-                ];
-            }
+        if (
+            $response && $response->getMessages()->getResultCode() === "Ok" 
+            ) {
+                if( is_array( $response->getSubscriptionDetails() ) ) {
+                        
+                    foreach ($response->getSubscriptionDetails() as $subscription) {
+                        $results[] = [
+                            'id' => $subscription->getId(),
+                            'name' => $subscription->getName(),
+                            'status' => $subscription->getStatus(),
+                            'amount' => $subscription->getAmount(),
+                            'profileId' => $subscription->getCustomerProfileId(),
+                        ];
+                    }
+                    
+                }
         }
 
         return $results;
