@@ -58,6 +58,16 @@ class SubscriptionUserActions {
             $this->testCard();
         }
 
+        // See all subscriptions
+        if( request('all_subs') ) {
+            $this->allSubscriptions();
+        }
+
+        // Cancel all subscriptions
+        if( request('cancel_subs') ) {
+            $this->cancelSubscriptions();
+        }
+
         return $data;
     }
 
@@ -270,16 +280,28 @@ class SubscriptionUserActions {
 
     }
 
-    public function cancelSubscriptionTest( $subscriptionId ) {
+    public function allSubscriptions() {
 
-       // 1. Cancel the subscription 
+        $subscriptions = $this->authnet->getAllSubscriptions();
+        dd($subscriptions);
+
+    }
+
+    public function cancelSubscriptionTest() {
+
+        $subscriptions = $this->authnet->getAllSubscriptions();
+        dd($subscriptions);
+
+        // Get subscription ID
+        $subscriptionId = $subscriptions[0]['id'];
+
+        // Cancel the subscription
         $this->authnet->cancelSubscription($subscriptionId);
 
-        // Find Original transaction ID here
+    }
 
-        // 2. Refund partial amount
-        $this->authnet->refundTransaction($originalTransactionId, 5.00, '1234'); // last 4 digits of the card
-
+    public function cancelSubscriptions() {
+        $this->authnet->cancelAllSubscriptions();
     }
 
 }
