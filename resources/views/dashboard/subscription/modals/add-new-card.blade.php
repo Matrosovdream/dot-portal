@@ -183,7 +183,6 @@
 </div>
 
 
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const form = document.getElementById('kt_modal_new_card_form');
@@ -241,6 +240,6 @@
             }
         });
     });
-    </script>
+ </script>
     
 

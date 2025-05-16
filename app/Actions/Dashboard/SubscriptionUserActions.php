@@ -69,16 +69,39 @@ class SubscriptionUserActions {
 
         // Get user primary card
         $primaryCard = $this->userCardRepo->getUserPrimaryCard( $user_id );
-        dd($primaryCard);
+        $profile = [
+            'customerProfileId' => $primaryCard['Meta']['authnet_profile_id'],
+            'paymentProfileId' => $primaryCard['Meta']['authnet_payment_profile_id'],
+        ];
 
-        // Update subscription in database
-        $sub = $this->userSubRepo->update( 
-            $userSubscription['id'], 
-            ['subscription_id' => $request['plan']]
+        // Subscribe user
+        $subscription = $this->authnet->createSubscription(
+            $profile['customerProfileId'],
+            $profile['paymentProfileId'],
+            9.99
         );
 
-        // Set Authnet subscription ID
-        $sub['Model']->setMeta('authnet_sub_id', '1234567890');
+        dd($subscription);
+
+        if( isset($subscription['subscriptionId']) ) {
+
+            // Update subscription in database
+            $sub = $this->userSubRepo->update( 
+                $userSubscription['id'], 
+                ['subscription_id' => $request['plan']]
+            );
+
+            // Set Authnet subscription ID
+            $sub['Model']->setMeta('authnet_sub_id', $subscription['subscriptionId']);
+
+        } else {
+
+            return [
+                'success' => false,
+                'message' => $subscription['message'],
+            ];
+            
+        }
 
     }
 
@@ -98,8 +121,7 @@ class SubscriptionUserActions {
         if( !$card ) { return false; }
 
         // Get meta
-        $authnet_profile_id = $card['Model']->getMeta('authnet_profile_id');
-        $authnet_payment_profile_id = $card['Model']->getMeta('authnet_payment_profile_id');
+        $authnet_profile_id = $card['Meta']['authnet_profile_id'];
 
         // Delete customer profile and all payment profiles
         $customProfileRes = $this->authnet->deleteCustomerProfile($authnet_profile_id);
