@@ -157,6 +157,8 @@ Route::group([
             Route::post('cards/{card_id}/delete', [SubscriptionUserController::class, 'destroyCard'])->name('cards.destroy');
             Route::get('cards/{card_id}', [SubscriptionUserController::class, 'showCard'])->name('cards.show');
             Route::post('cards/{card_id}', [SubscriptionUserController::class, 'updateCard'])->name('cards.update');
+            // makeprimary
+            Route::post('cards/{card_id}', [SubscriptionUserController::class, 'makePrimaryCard'])->name('cards.makeprimary');
         });
 
         // Profile routes
