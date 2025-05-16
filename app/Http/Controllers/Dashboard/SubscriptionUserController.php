@@ -79,4 +79,11 @@ class SubscriptionUserController extends Controller
 
     }
 
+    public function makePrimaryCard( $card_id ) {
+
+        $this->serviceAdminActions->makePrimaryCard($card_id);
+        return redirect()->back()->with('success', 'Card set as primary successfully.');
+
+    }
+
 }
