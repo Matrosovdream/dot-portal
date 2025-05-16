@@ -149,16 +149,12 @@ class SubscriptionUserActions {
 
     public function makePrimaryCard( $card_id ) {
 
-        $user_id = auth()->user()->id;
+        // Check if card exists
         $card = $this->userCardRepo->getByID( $card_id );
-
         if( !$card ) { return false; }
 
-        // Get all cards for the user
-        $this->userCardRepo->makeUnprimaryByUser( $user_id );
-
-        // Set the selected card to primary
-        return $this->userCardRepo->update($card_id, ['primary' => 1]);
+        // Make card primary
+        $this->userCardRepo->makeCardPrimary( $card_id );
 
     }
 
