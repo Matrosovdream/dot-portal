@@ -147,6 +147,28 @@ class SubscriptionUserActions {
 
     }
 
+    public function makePrimaryCard( $card_id ) {
+
+        $user_id = auth()->user()->id;
+        $card = $this->userCardRepo->getByID( $card_id );
+
+        if( !$card ) { return false; }
+
+        // Get all cards for the user
+        $cards = $this->userCardRepo->getAll(['user_id' => $user_id]);
+
+        // Set all cards to not primary
+        foreach( $cards['items'] as $c ) {
+            if( $c['id'] != $card_id ) {
+                $this->userCardRepo->update($c['id'], ['primary' => 0]);
+            }
+        }
+
+        // Set the selected card to primary
+        return $this->userCardRepo->update($card_id, ['primary' => 1]);
+
+    }
+
     public function createAuthnetProfile( array $cardData ) {
 
         /*
