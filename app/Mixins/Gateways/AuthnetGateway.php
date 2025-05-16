@@ -307,6 +307,64 @@ class AuthnetGateway
         return null;
     }
 
+    public function getAllSubscriptions(int $limit = 1000): array
+    {
+        $request = new AnetAPI\ARBGetSubscriptionListRequest();
+        $request->setMerchantAuthentication($this->merchantAuthentication);
+
+        $request->setSearchType("subscriptionActive"); // or "subscriptionExpiringThisMonth", etc.
+        $request->setSorting(new AnetAPI\ARBGetSubscriptionListSortingType([
+            'orderBy' => 'id',
+            'orderDescending' => false,
+        ]));
+        $request->setPaging(new AnetAPI\PagingType([
+            'limit' => $limit,
+            'offset' => 1,
+        ]));
+
+        $controller = new AnetController\ARBGetSubscriptionListController($request);
+        $response = $controller->executeWithApiResponse($this->environment);
+
+        $results = [];
+        if ($response && $response->getMessages()->getResultCode() === "Ok") {
+            foreach ($response->getSubscriptionDetails() as $subscription) {
+                $results[] = [
+                    'id' => $subscription->getId(),
+                    'name' => $subscription->getName(),
+                    'status' => $subscription->getStatus(),
+                    'amount' => $subscription->getAmount(),
+                    'profileId' => $subscription->getCustomerProfileId(),
+                ];
+            }
+        }
+
+        return $results;
+    }
+
+    public function cancelAllSubscriptions(): array
+    {
+        $subscriptions = $this->getAllSubscriptions();
+        $results = [];
+
+        foreach ($subscriptions as $subscription) {
+            $request = new AnetAPI\ARBCancelSubscriptionRequest();
+            $request->setMerchantAuthentication($this->merchantAuthentication);
+            $request->setSubscriptionId($subscription['id']);
+
+            $controller = new AnetController\ARBCancelSubscriptionController($request);
+            $response = $controller->executeWithApiResponse($this->environment);
+
+            $results[] = [
+                'id' => $subscription['id'],
+                'success' => $response && $response->getMessages()->getResultCode() === "Ok",
+                'message' => $response->getMessages()->getMessage()[0]->getText() ?? 'Unknown',
+            ];
+        }
+
+        return $results;
+    }
+
+
     private function prepareResponseError( object $response ): array
     {
         return [
