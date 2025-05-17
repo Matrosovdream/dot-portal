@@ -51,8 +51,11 @@ class UserSubscriptionRepo extends AbstractRepo
             //'payments' => $this->subscriptionPaymentRepo->mapItems( $item->payments->all() ),
         ];
 
-        // Drivers remained
-        $res['driversRemained'] = $res['subscription']['drivers_amount'] - $res['driversUsed'];
+        if( $res['subscription'] ) {
+
+            // Drivers remained
+            $res['subscription']['driversUsedPercent'] = round( $res['driversUsed'] / $res['subscription']['drivers_amount'] * 100, 2 );
+        }
 
         $res['Model'] = $item;
 

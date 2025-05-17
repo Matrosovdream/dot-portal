@@ -41,17 +41,22 @@ class SubscriptionUserActions {
 
         $user_id = auth()->user()->id;
 
+        $subscription = $this->userSubRepo->getByUserID( $user_id );
+
         $data = [
             'title' => 'My subscription',
             'user' => $this->userRepo->getByID( $user_id ),
-            'subscription' => $this->userSubRepo->getByUserID( $user_id ),
+            'subscription' => $subscription,
             'allSubscriptions' => $this->subRepo->getAll( [], 100 ),
             'paymentHistory' => $this->userPaymentHistoryRepo->getAll( ['user_id' => $user_id], 100 )
         ];
 
-        // Calculate percent of used drivers
-        $data['subscription']['driversUsedPercent'] = round( $data['subscription']['driversUsed'] / $data['subscription']['subscription']['drivers_amount'] * 100, 2 );
+        if( $subscription['subscription'] ) {
 
+            // Calculate percent of used drivers
+            $data['subscription']['driversUsedPercent'] = round( $data['subscription']['driversUsed'] / $data['subscription']['subscription']['drivers_amount'] * 100, 2 );
+
+        }
 
         // Test
         if( request('test') ) {
