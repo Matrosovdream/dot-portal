@@ -52,9 +52,8 @@ class UserSubscriptionRepo extends AbstractRepo
         ];
 
         if( $res['subscription'] ) {
-
             // Drivers remained
-            $res['subscription']['driversUsedPercent'] = round( $res['driversUsed'] / $res['subscription']['drivers_amount'] * 100, 2 );
+            $res['driversRemained'] = $res['subscription']['drivers_amount'] - $res['driversUsed'];
         }
 
         $res['Model'] = $item;
