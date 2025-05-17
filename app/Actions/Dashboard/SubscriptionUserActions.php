@@ -80,7 +80,12 @@ class SubscriptionUserActions {
     {
 
         $user_id = auth()->user()->id;
-        $userSubscription = $this->userSubRepo->getByUserID( $user_id );
+
+        // Get subscription by request
+        $userSubscription = $this->subRepo->getByID( $request['plan'] );
+        if( !$userSubscription ) {
+            return false;
+        }
 
         // Get user primary card
         $primaryCard = $this->userCardRepo->getUserPrimaryCard( $user_id );
@@ -93,7 +98,7 @@ class SubscriptionUserActions {
         $subscription = $this->authnet->createSubscription(
             $profile['customerProfileId'],
             $profile['paymentProfileId'],
-            $userSubscription['subscription']['price'],
+            $userSubscription['price'],
         );
 
         if( isset($subscription['subscriptionId']) ) {
