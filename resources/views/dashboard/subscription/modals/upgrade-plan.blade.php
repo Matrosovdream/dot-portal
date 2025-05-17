@@ -43,7 +43,9 @@
 
                                         <label
                                             class="nav-link btn btn-outline btn-outline-dashed btn-color-dark d-flex flex-stack text-start p-6 mb-6
-                                            {{ $sub['id'] == $subscription['subscription']['id'] ? 'active btn-active btn-active-primary' : '' }}"
+                                            @if( $subscription['subscription'] )
+                                            {{ $sub['id'] == $subscription['subscription']['id'] ? 'active btn-active btn-active-primary' : '' }}
+                                            @endif
                                             "
                                             data-bs-toggle="tab" 
                                             data-bs-target="#kt_upgrade_plan_{{ $sub['id'] }}"
@@ -57,7 +59,9 @@
                                                         class="form-check-input" 
                                                         type="radio" 
                                                         name="plan" 
+                                                        @if( $subscription['subscription'] )
                                                         {{ $sub['id'] == $subscription['subscription']['id'] ? ' checked="checked"' : '' }}
+                                                        @endif
                                                         value="{{ $sub['id'] }}" 
                                                         />
                                                 </div>
@@ -95,7 +99,11 @@
                                     @foreach( $allSubscriptions['items'] as $sub )
 
                                         <div 
-                                            class="tab-pane fade {{ $sub['id'] == $subscription['subscription']['id'] ? 'show active' : '' }}" 
+                                            class="tab-pane fade 
+                                            @if( $subscription['subscription'] )
+                                            {{ $sub['id'] == $subscription['subscription']['id'] ? 'show active' : '' }}
+                                            @endif
+                                             " 
                                             id="kt_upgrade_plan_{{ $sub['id'] }}"
                                             >
 
