@@ -329,21 +329,9 @@ class SubscriptionUserActions {
 
     }
 
-    public function cancelSubscriptionTest() {
-
-        $subscriptions = $this->authnet->getAllSubscriptions();
-        dd($subscriptions);
-
-        // Get subscription ID
-        $subscriptionId = $subscriptions[0]['id'];
-
-        // Cancel the subscription
-        $this->authnet->cancelSubscription($subscriptionId);
-
-    }
-
     public function cancelSubscriptions() {
         $this->authnet->cancelAllSubscriptions();
+        dd('Cancelled all subscriptions');  
     }
 
 }
