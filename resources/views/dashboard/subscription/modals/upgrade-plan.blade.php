@@ -167,5 +167,33 @@
 </div>
 
 
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const planRadios = document.querySelectorAll('input[name="plan"]');
+        const upgradeBtn = document.getElementById('kt_modal_upgrade_plan_btn');
+
+        // Store the initially selected plan ID
+        let initialPlanId = null;
+        planRadios.forEach(radio => {
+            if (radio.checked) {
+                initialPlanId = radio.value;
+            }
+        });
+
+        // Disable upgrade button initially
+        upgradeBtn.disabled = true;
+
+        // Listen for changes
+        planRadios.forEach(radio => {
+            radio.addEventListener('change', function () {
+                if (this.value !== initialPlanId) {
+                    upgradeBtn.disabled = false;
+                } else {
+                    upgradeBtn.disabled = true;
+                }
+            });
+        });
+    });
+</script>
 
 
