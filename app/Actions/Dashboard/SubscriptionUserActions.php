@@ -82,7 +82,8 @@ class SubscriptionUserActions {
         $user_id = auth()->user()->id;
 
         // Get subscription by request
-        $userSubscription = $this->subRepo->getByID( $request['plan'] );
+        $subscriptionPlan = $this->subRepo->getByID( $request['plan'] );
+        $userSubscription = $this->userSubRepo->getByUserID( $user_id );
         if( !$userSubscription ) {
             return false;
         }
@@ -94,11 +95,19 @@ class SubscriptionUserActions {
             'paymentProfileId' => $primaryCard['Meta']['authnet_payment_profile_id'],
         ];
 
+        // Charge the first payment
+        /*$transaction = $this->authnet->chargeCustomerProfile(
+            $profile['customerProfileId'],
+            $profile['paymentProfileId'],
+            $subscriptionPlan['price'],
+        );
+        */
+
         // Subscribe user
         $subscription = $this->authnet->createSubscription(
             $profile['customerProfileId'],
             $profile['paymentProfileId'],
-            $userSubscription['price'],
+            $subscriptionPlan['price'],
         );
 
         if( isset($subscription['subscriptionId']) ) {
@@ -106,7 +115,7 @@ class SubscriptionUserActions {
             // Update subscription in database
             $sub = $this->userSubRepo->update( 
                 $userSubscription['id'], 
-                ['subscription_id' => $request['plan']]
+                ['subscription_id' => $request['plan'], 'price' => $subscriptionPlan['price'], 'status' => 'active']
             );
 
             // Set Authnet subscription ID
