@@ -96,12 +96,11 @@ class SubscriptionUserActions {
         ];
 
         // Charge the first payment
-        /*$transaction = $this->authnet->chargeCustomerProfile(
+        $firstPayment = $this->authnet->chargeCustomerProfile(
             $profile['customerProfileId'],
             $profile['paymentProfileId'],
             $subscriptionPlan['price'],
         );
-        */
 
         // Subscribe user
         $subscription = $this->authnet->createSubscription(
