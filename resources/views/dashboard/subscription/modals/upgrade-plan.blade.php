@@ -28,7 +28,7 @@
 
                         <div class="nav-group nav-group-outline mx-auto" data-kt-buttons="true">
                             <button 
-                                class="btn btn-color-gray-500 btn-active btn-active-secondary px-6 py-3 me-2 active"
+                                class="btn btn-color-gray-500 btn-active btn-active-secondary px-6 py-3 active"
                                 data-kt-plan="month">
                                 Monthly
                             </button>
