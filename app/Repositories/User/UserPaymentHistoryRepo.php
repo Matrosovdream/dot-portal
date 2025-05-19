@@ -39,7 +39,7 @@ class UserPaymentHistoryRepo extends AbstractRepo
             'payment_date' => $item->payment_date,
             'transaction_id' => $item->transaction_id,
             'status' => $item->status,
-            'notes ' => $item->notes,
+            'notes' => $item->notes,
             'Model' => $item
         ];
 
