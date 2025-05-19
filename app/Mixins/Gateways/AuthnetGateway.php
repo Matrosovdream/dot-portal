@@ -43,6 +43,7 @@ class AuthnetGateway
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
             return [
+                'success' => true,
                 "profileId" => $response->getCustomerProfileId(),
             ];
         } else {
@@ -88,6 +89,7 @@ class AuthnetGateway
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
             return [
+                'success' => true,
                 'profileId' => $response->getCustomerPaymentProfileId()
             ];
         } else {
@@ -158,6 +160,7 @@ class AuthnetGateway
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
             return [
+                "success"=> true,
                 'transactionId' => $response->getTransactionResponse()->getTransId()
             ];
         } else {
@@ -216,6 +219,7 @@ class AuthnetGateway
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
             return [
+                'success' => true,
                 'subscriptionId' => $response->getSubscriptionId(),
             ];
         } else {
@@ -267,7 +271,7 @@ class AuthnetGateway
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
             return [
-                'refunded' => true,
+                'success' => true,
                 'transactionId' => $response->getTransactionResponse()->getTransId()
             ];
         }
