@@ -48,7 +48,7 @@ class SubscriptionUserActions {
             'user' => $this->userRepo->getByID( $user_id ),
             'subscription' => $subscription,
             'allSubscriptions' => $this->subRepo->getAll( [], 100 ),
-            'paymentHistory' => $this->userPaymentHistoryRepo->getAll( ['user_id' => $user_id], 100 )
+            'paymentHistory' => $this->userPaymentHistoryRepo->getAll( ['user_id' => $user_id], 100, ['payment_date' => 'desc'] ),
         ];
 
         if( $subscription['subscription'] ) {

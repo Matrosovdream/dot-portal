@@ -41,7 +41,7 @@ abstract class AbstractRepo
         return $this->mapItem($item);
     }
 
-    public function getAll($filter = [], $paginate = 10)
+    public function getAll($filter = [], $paginate = 10, array $sorting = [] )
     {
         // Iterate over the filter array
         foreach ($filter as $key => $value) {
@@ -51,6 +51,17 @@ abstract class AbstractRepo
             } else {
                 // Otherwise apply the regular equality check
                 $this->model = $this->model->where($key, $value);
+            }
+        }
+
+        // Apply sorting
+        if ( count($sorting) > 0) {
+            foreach ($sorting as $key => $value) {
+                if (is_array($value)) {
+                    $this->model = $this->model->orderBy($key, $value[0], $value[1]);
+                } else {
+                    $this->model = $this->model->orderBy($key, $value);
+                }
             }
         }
 
