@@ -116,6 +116,26 @@ class SubscriptionUserActions {
             $subscriptionPlan['price'],
         );
 
+        if( $firstPayment['success'] ) {
+            // Create payment history record
+            $this->userPaymentHistoryRepo->create([
+                'user_id' => $user_id,
+                'payment_method_id' => 1,
+                'subscription_id' => $userSubscription['id'],
+                'type' => 'subscription',
+                'amount' => $subscriptionPlan['price'],
+                'payment_date' => date('Y-m-d H:i:s'),
+                'transaction_id' => $firstPayment['transactionId'],
+                'status' => 'success',
+                'notes' => 'First payment for subscription "' . $subscriptionPlan['name']. '"',
+            ]);
+        } else {
+            return [
+                'success' => false,
+                'message' => $firstPayment['message'],
+            ];
+        }
+
         // Subscribe user
         $subscription = $this->authnet->createSubscription(
             $profile['customerProfileId'],
