@@ -137,6 +137,7 @@ class SubscriptionUserActions {
         $user_id = auth()->user()->id;
         $userSubscription = $this->userSubRepo->getByUserID( $user_id );
         $subscriptionId = $userSubscription['Model']->getMeta('authnet_sub_id');
+
         if( !$subscriptionId ) {
             return false;
         }
