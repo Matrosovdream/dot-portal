@@ -13,7 +13,9 @@
     @include('dashboard.subscription.sections.payment-methods')
 
     <!-- Billing History -->
-    @include('dashboard.subscription.sections.billing-history')
+    @if( isset($paymentHistory) && $paymentHistory['items']->count() > 0 )
+        @include('dashboard.subscription.sections.billing-history')
+    @endif
 
     <!-- Subscription Modal -->
     @include('dashboard.subscription.modals.upgrade-plan')
