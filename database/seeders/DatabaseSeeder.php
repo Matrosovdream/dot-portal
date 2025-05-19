@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             //UserSubscriptionSeeder::class,
             //UserPaymentCardSeeder::class,
-            UserPaymentHistorySeeder::class,
+            //UserPaymentHistorySeeder::class,
 
             // Referecences
             LanguageSeeder::class,
