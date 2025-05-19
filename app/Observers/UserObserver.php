@@ -4,16 +4,32 @@ namespace App\Observers;
 
 use App\Models\User;
 
-use App\Helpers\UserHelper;
+use App\Repositories\User\UserSubscriptionRepo;
 
 class UserObserver
 {
+
+    protected $userSubRepo;
+
+    public function __construct()
+    {
+        $this->userSubRepo = new UserSubscriptionRepo();
+    }
+
     /**
      * Handle the User "created" event.
      */
     public function created(User $user): void
     {
-        //UserHelper::sendUserCreatedEmail($user);
+
+        // Create user subscription with null values
+        $sub = $this->userSubRepo->create(
+            [
+                'user_id' => $user->id,
+                'status' => 'disabled',
+            ]
+        );
+
     }
 
     /**

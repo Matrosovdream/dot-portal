@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
             // Users
             RoleSeeder::class,
             UserSeeder::class,
-            UserSubscriptionSeeder::class,
+            //UserSubscriptionSeeder::class,
             //UserPaymentCardSeeder::class,
             UserPaymentHistorySeeder::class,
 
