@@ -160,7 +160,7 @@ class AuthnetGateway
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
             return [
-                "success"=> true,
+                "success" => true,
                 'transactionId' => $response->getTransactionResponse()->getTransId()
             ];
         } else {
@@ -279,6 +279,30 @@ class AuthnetGateway
         return $this->prepareResponseError($response);
     }
 
+    public function voidTransaction(string $transactionId): array
+    {
+        $transactionRequest = new AnetAPI\TransactionRequestType();
+        $transactionRequest->setTransactionType("voidTransaction");
+        $transactionRequest->setRefTransId($transactionId);
+
+        $request = new AnetAPI\CreateTransactionRequest();
+        $request->setMerchantAuthentication($this->merchantAuthentication);
+        $request->setTransactionRequest($transactionRequest);
+
+        $controller = new AnetController\CreateTransactionController($request);
+        $response = $controller->executeWithApiResponse($this->environment);
+
+        if ($response && $response->getMessages()->getResultCode() === "Ok") {
+            return [
+                'success' => true,
+                'transactionId' => $response->getTransactionResponse()->getTransId()
+            ];
+        }
+
+        return $this->prepareResponseError($response);
+    }
+
+
     public function findCustomerProfileByEmail(string $email)
     {
         $request = new AnetAPI\GetCustomerProfileIdsRequest();
@@ -373,7 +397,7 @@ class AuthnetGateway
                 'profile' => [
                     'customerProfileId' => $profile->getCustomerProfileId(),
                     'customerPaymentProfileId' => $profile->getPaymentProfile()->getCustomerPaymentProfileId(),
-                ], 
+                ],
             ];
         }
 
