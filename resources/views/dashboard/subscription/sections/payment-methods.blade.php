@@ -110,7 +110,8 @@
                             <div class="mb-3 mb-md-0 fw-semibold">
                                 <h4 class="text-gray-900 fw-bold">Important Note!</h4>
                                 <div class="fs-6 text-gray-700 pe-7">Please carefully read
-                                    <a href="#" class="fw-bold me-1">Product Terms</a>adding
+                                    <a href="#" class="fw-bold me-1" data-bs-toggle="modal" data-bs-target="#kt_modal_credit_card_agreement">
+                                        Service Terms</a>adding
                                     <br />your new payment card
                                 </div>
                             </div>
@@ -133,3 +134,4 @@
 </div>
 
 @include('dashboard.subscription.modals.add-new-card')
+@include('dashboard.subscription.modals.add-new-card-agreement')
