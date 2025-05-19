@@ -195,7 +195,20 @@ class SubscriptionUserActions
             $userSubscription['price']
         );
 
-        dd($refundSum, $userSubscription);
+        $lastTransaction = $this->getSubLatestTransaction($user_id);
+
+        // Make a refund
+        $refundRes = $this->authnet->refundTransaction(
+            $lastTransaction['transaction_id'],
+            $refundSum,
+            '1111'
+        );
+
+        if ($refundRes['error'] ?? false && $refundRes['code'] === 'E00027') {
+            $voidRes = $this->authnet->voidTransaction( $lastTransaction['transaction_id'] );
+        }
+
+        dd($refundRes, $voidRes);
 
         $subRes = $this->authnet->cancelSubscription($subscriptionId);
         if (isset($subRes['success'])) {
@@ -220,6 +233,17 @@ class SubscriptionUserActions
                 'message' => $subRes['message'],
             ];
         }
+
+    }
+
+    public function getSubLatestTransaction( $user_id )
+    {
+
+        $transactions =$this->userPaymentHistoryRepo->getAll(
+            ['user_id' => $user_id, 'type' => 'subscription'], 100, ['payment_date' => 'desc']
+        );
+
+        return $transactions['items'][0] ?? null;
 
     }
 
@@ -406,7 +430,7 @@ class SubscriptionUserActions
         $start = Carbon::parse($start_date)->startOfDay();
         $end = Carbon::parse($end_date)->startOfDay();
         $now = Carbon::now()->startOfDay(); // Normalize current date to ignore time
-    
+
         // No refund if subscription already ended
         if ($now->greaterThanOrEqualTo($end)) {
             return 0.0;
