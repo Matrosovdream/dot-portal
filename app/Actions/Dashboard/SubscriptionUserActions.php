@@ -115,8 +115,7 @@ class SubscriptionUserActions {
             $nextDate = date('Y-m-d H:i:s', strtotime('+1 month'));
 
             // Update subscription in database
-            $sub = $this->userSubRepo->update( 
-                $userSubscription['id'], 
+            $userSubscription['Model']->update( 
                 [
                     'subscription_id' => $request['plan'], 
                     'price' => $subscriptionPlan['price'], 
@@ -125,11 +124,11 @@ class SubscriptionUserActions {
                     'start_date' => date('Y-m-d H:i:s'),
                     'next_date' => $nextDate,
                     'end_date' => $nextDate,
-                    ]
+                ]
             );
 
             // Set Authnet subscription ID
-            $sub['Model']->setMeta('authnet_sub_id', $subscription['subscriptionId']);
+            $userSubscription['Model']->setMeta('authnet_sub_id', $subscription['subscriptionId']);
 
         } else {
 
