@@ -54,8 +54,8 @@ class UserSubscriptionRepo extends AbstractRepo
 
         if( $res['subscription'] ) {
             // Drivers remained and used
-            $res['driversRemained'] = $res['subscription']['drivers_amount'] - $res['driversUsed'];
             $res['driversUsed'] = $this->driverRepo->countDriversByCompany( auth()->user()->id );
+            $res['driversRemained'] = $res['subscription']['drivers_amount'] - $res['driversUsed'];
         }
 
         $res['Model'] = $item;
