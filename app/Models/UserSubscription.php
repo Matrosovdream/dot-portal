@@ -16,6 +16,7 @@ class UserSubscription extends Model
         'subscription_id',
         'price',
         'discount',
+        'payment_card_id',
         'start_date',
         'end_date',
         'status',

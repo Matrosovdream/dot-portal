@@ -111,6 +111,9 @@ class SubscriptionUserActions {
 
         if( isset($subscription['subscriptionId']) ) {
 
+            // Calculate next date
+            $nextDate = date('Y-m-d H:i:s', strtotime('+1 month'));
+
             // Update subscription in database
             $sub = $this->userSubRepo->update( 
                 $userSubscription['id'], 
@@ -120,7 +123,8 @@ class SubscriptionUserActions {
                     'status' => 'active',
                     'payment_card_id' => $primaryCard['id'],
                     'start_date' => date('Y-m-d H:i:s'),
-                    'end_date' => date('Y-m-d H:i:s', strtotime('+1 month')),
+                    'next_date' => $nextDate,
+                    'end_date' => $nextDate,
                     ]
             );
 
