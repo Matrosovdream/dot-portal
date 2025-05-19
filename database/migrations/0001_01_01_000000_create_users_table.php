@@ -97,7 +97,9 @@ return new class extends Migration
             $table->foreignId('subscription_id')->on('subscriptions')->nullable();
             $table->float('price')->default(0);
             $table->float('discount')->default(0);
+            $table->foreignId('payment_card_id')->on('user_payment_cards')->nullable();
             $table->timestamp('start_date')->nullable();
+            $table->timestamp('next_date')->nullable();
             $table->timestamp('end_date')->nullable();
             $table->string('status')->nullable();
             $table->timestamps();
