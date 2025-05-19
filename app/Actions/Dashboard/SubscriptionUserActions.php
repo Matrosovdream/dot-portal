@@ -7,6 +7,7 @@ use App\Repositories\User\UserSubscriptionRepo;
 use App\Repositories\User\UserPaymentHistoryRepo;
 use App\Repositories\User\UserPaymentCardRepo;
 use App\Mixins\Gateways\AuthnetGateway;
+use Carbon\Carbon;
 
 /*
         Test cards
@@ -186,6 +187,15 @@ class SubscriptionUserActions
         if (!$subscriptionId) {
             return false;
         }
+
+        // Calculate refund sum
+        $refundSum = $this->calculateRefundSub(
+            $userSubscription['start_date'],
+            $userSubscription['end_date'],
+            $userSubscription['price']
+        );
+
+        dd($refundSum, $userSubscription);
 
         $subRes = $this->authnet->cancelSubscription($subscriptionId);
         if (isset($subRes['success'])) {
@@ -390,5 +400,23 @@ class SubscriptionUserActions
         $this->authnet->cancelAllSubscriptions();
         dd('Cancelled all subscriptions');
     }
+
+    public function calculateRefundSub($start_date, $end_date, $price): float
+    {
+        $start = Carbon::parse($start_date)->startOfDay();
+        $end = Carbon::parse($end_date)->startOfDay();
+        $now = Carbon::now()->startOfDay(); // Normalize current date to ignore time
+    
+        // No refund if subscription already ended
+        if ($now->greaterThanOrEqualTo($end)) {
+            return 0.0;
+        }
+    
+        $totalDays = $start->diffInDays($end);
+        $remainingDays = $now->diffInDays($end);
+        $dailyRate = $price / $totalDays;
+    
+        return round($remainingDays * $dailyRate, 2);
+    }    
 
 }
