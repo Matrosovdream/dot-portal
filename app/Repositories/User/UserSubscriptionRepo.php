@@ -38,22 +38,24 @@ class UserSubscriptionRepo extends AbstractRepo
             return null;
         }
 
+        $subscription = $this->subscriptionRepo->mapItem( $item->subscription ) ?? null;
+
         $res = [
             'id' => $item->id,
-            'subscription' => $this->subscriptionRepo->mapItem( $item->subscription ),
+            'subscription' => $subscription, // Can be null
             'price' => $item->price,
             'discount' => $item->discount,
             'start_date' => $item->start_date,
             'end_date' => $item->end_date,
             'status' => $item->status,
             'isActive' => $item->isActive(),
-            'driversUsed' => $this->driverRepo->countDriversByCompany( auth()->user()->id ),
             //'payments' => $this->subscriptionPaymentRepo->mapItems( $item->payments->all() ),
         ];
 
         if( $res['subscription'] ) {
-            // Drivers remained
+            // Drivers remained and used
             $res['driversRemained'] = $res['subscription']['drivers_amount'] - $res['driversUsed'];
+            $res['driversUsed'] = $this->driverRepo->countDriversByCompany( auth()->user()->id );
         }
 
         $res['Model'] = $item;
