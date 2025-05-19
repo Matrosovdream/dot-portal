@@ -44,7 +44,7 @@ class AuthnetGateway
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
             return [
                 "profileId" => $response->getCustomerProfileId(),
-            ]; 
+            ];
         } else {
             return $this->prepareResponseError($response);
         }
@@ -55,8 +55,8 @@ class AuthnetGateway
     {
 
         $creditCard = new AnetAPI\CreditCardType();
-        $creditCard->setCardNumber( $this->prepareCardNumber($cardData['number']) );
-        $creditCard->setExpirationDate( $this->prepareCardExpiry($cardData['expiry']) );
+        $creditCard->setCardNumber($this->prepareCardNumber($cardData['number']));
+        $creditCard->setExpirationDate($this->prepareCardExpiry($cardData['expiry']));
         $creditCard->setCardCode($cardData['cvv']);
 
         $payment = new AnetAPI\PaymentType();
@@ -87,7 +87,7 @@ class AuthnetGateway
         $response = $controller->executeWithApiResponse($this->environment);
 
         if ($response && $response->getMessages()->getResultCode() === "Ok") {
-            return[
+            return [
                 'profileId' => $response->getCustomerPaymentProfileId()
             ];
         } else {
@@ -325,25 +325,57 @@ class AuthnetGateway
 
         $results = [];
         if (
-            $response && $response->getMessages()->getResultCode() === "Ok" 
-            ) {
-                if( is_array( $response->getSubscriptionDetails() ) ) {
-                        
-                    foreach ($response->getSubscriptionDetails() as $subscription) {
-                        $results[] = [
-                            'id' => $subscription->getId(),
-                            'name' => $subscription->getName(),
-                            'status' => $subscription->getStatus(),
-                            'amount' => $subscription->getAmount(),
-                            'profileId' => $subscription->getCustomerProfileId(),
-                        ];
-                    }
-                    
+            $response && $response->getMessages()->getResultCode() === "Ok"
+        ) {
+            if (is_array($response->getSubscriptionDetails())) {
+
+                foreach ($response->getSubscriptionDetails() as $subscription) {
+                    $results[] = $this->getSubscription($subscription->getId());
                 }
+
+            }
         }
 
         return $results;
     }
+
+    public function getSubscription(string $subscriptionId): array
+    {
+        $request = new AnetAPI\ARBGetSubscriptionRequest();
+        $request->setMerchantAuthentication($this->merchantAuthentication);
+        $request->setSubscriptionId($subscriptionId);
+
+        $controller = new AnetController\ARBGetSubscriptionController($request);
+        $response = $controller->executeWithApiResponse($this->environment);
+
+        if ($response && $response->getMessages()->getResultCode() === "Ok") {
+            $subscription = $response->getSubscription();
+            $profile = $subscription->getProfile();
+            $paymentSchedule = $subscription->getPaymentSchedule();
+
+            return [
+                'id' => $subscriptionId,
+                'name' => $subscription->getName(),
+                'status' => $subscription->getStatus(),
+                'amount' => $subscription->getAmount(),
+                'trialAmount' => $subscription->getTrialAmount(),
+                'paymentSchedule' => [
+                    'intervalLength' => $paymentSchedule->getInterval()->getLength(),
+                    'intervalUnit' => $paymentSchedule->getInterval()->getUnit(),
+                    'startDate' => $paymentSchedule->getStartDate()->format('Y-m-d'),
+                    'totalOccurrences' => $paymentSchedule->getTotalOccurrences(),
+                    'trialOccurrences' => $paymentSchedule->getTrialOccurrences(),
+                ],
+                'profile' => [
+                    'customerProfileId' => $profile->getCustomerProfileId(),
+                    'customerPaymentProfileId' => $profile->getPaymentProfile()->getCustomerPaymentProfileId(),
+                ], 
+            ];
+        }
+
+        return $this->prepareResponseError($response);
+    }
+
 
     public function cancelAllSubscriptions(): array
     {
@@ -369,14 +401,14 @@ class AuthnetGateway
     }
 
 
-    private function prepareResponseError( object $response ): array
+    private function prepareResponseError(object $response): array
     {
         return [
             'error' => true,
             'code' => $response->getMessages()->getMessage()[0]->getCode(),
             'message' => $response->getMessages()->getMessage()[0]->getText(),
         ];
-    } 
+    }
 
     private function prepareCardExpiry(string $expiry): string
     {
