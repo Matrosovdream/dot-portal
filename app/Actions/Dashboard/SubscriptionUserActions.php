@@ -114,7 +114,14 @@ class SubscriptionUserActions {
             // Update subscription in database
             $sub = $this->userSubRepo->update( 
                 $userSubscription['id'], 
-                ['subscription_id' => $request['plan'], 'price' => $subscriptionPlan['price'], 'status' => 'active']
+                [
+                    'subscription_id' => $request['plan'], 
+                    'price' => $subscriptionPlan['price'], 
+                    'status' => 'active',
+                    'payment_card_id' => $primaryCard['id'],
+                    'start_date' => date('Y-m-d H:i:s'),
+                    'end_date' => date('Y-m-d H:i:s', strtotime('+1 month')),
+                    ]
             );
 
             // Set Authnet subscription ID
