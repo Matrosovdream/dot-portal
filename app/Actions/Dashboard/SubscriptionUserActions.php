@@ -88,6 +88,20 @@ class SubscriptionUserActions {
             return false;
         }
 
+        // Let's cancel the old subscription
+        $authnetSubId = $userSubscription['Model']->getMeta('authnet_sub_id');
+        if( $authnetSubId ) {
+            $cancelSub = $this->authnet->cancelSubscription($authnetSubId);
+
+            // Check if cancel was successful
+            if( !$cancelSub['success'] ) {
+                return [
+                    'success' => false,
+                    'message' => $cancelSub['message'],
+                ];
+            }
+        }
+
         // Get user primary card
         $primaryCard = $this->userCardRepo->getUserPrimaryCard( $user_id );
         $profile = [
