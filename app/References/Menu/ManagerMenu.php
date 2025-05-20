@@ -46,7 +46,7 @@ class ManagerMenu implements InterfaceMenu {
             array(
                 'title' => 'Requests',
                 'url' => '',
-                'icon' => 'ki-element-9',
+                'icon' => 'ki-message-question',
                 'roles' => ['admin', 'manager'],
                 'childs' => array(
                     array(
