@@ -9,6 +9,13 @@
 
         <div class="card-body pt-0 mt-5">
             <div class="table-responsive">
+
+                @if(count($requests['items']) == 0)
+                    <div class="text-center mt-10">
+                        <h4>No requests found</h4>
+                    </div>
+                @else
+
                 <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
                     <thead>
                         <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
@@ -51,6 +58,9 @@
 
                     </tbody>
                 </table>
+
+                @endif
+
             </div>
 
 
