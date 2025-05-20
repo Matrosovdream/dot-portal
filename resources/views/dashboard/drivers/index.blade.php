@@ -1,13 +1,9 @@
 @extends('dashboard.layouts.app')
 
-@section('toolbar-buttons')
+<!-- Toolbar -->
+@include('dashboard.drivers.partials.toolbar')
 
-    <a href="{{ route('dashboard.drivers.create') }}" class="btn btn-sm fw-bold btn-primary">
-        New Driver
-    </a>
-
-@endsection
-
+<!-- Content -->
 @section('content')
 
     <div class="card card-flush">
@@ -126,14 +122,6 @@
     <!--begin::Modal - Upgrade Subscription for Drivers-->
     @include('dashboard.drivers.modals.upgrade-sub')
     @include('dashboard.drivers.modals.add-sub')
-
-    <a href="#" class="btn btn-light btn-active-light-primary me-2" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_sub_drivers">
-        Upgrage
-    </a>
-
-    <a href="#" class="btn btn-light btn-active-light-primary me-2" data-bs-toggle="modal" data-bs-target="#kt_modal_add_sub_drivers">
-        Add
-    </a>
 
 
 @endsection
