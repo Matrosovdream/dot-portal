@@ -208,7 +208,7 @@ class SubscriptionUserActions
             $voidRes = $this->authnet->voidTransaction( $lastTransaction['transaction_id'] );
         }
 
-        dd($refundRes, $voidRes);
+        //dd($refundRes, $voidRes);
 
         $subRes = $this->authnet->cancelSubscription($subscriptionId);
         if (isset($subRes['success'])) {
