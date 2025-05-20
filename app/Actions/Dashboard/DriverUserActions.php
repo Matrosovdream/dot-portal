@@ -5,6 +5,7 @@ use App\Repositories\Driver\DriverRepo;
 use App\Repositories\Driver\DriverLicenseRepo;
 use App\Repositories\Driver\DriverAddressRepo;
 use App\Repositories\Driver\DriverMedicalCardRepo;
+use App\Repositories\User\UserSubscriptionRepo;
 use App\Repositories\References\RefDriverTypeRepo;
 use App\Repositories\References\RefCountryStateRepo;
 use App\Repositories\References\RefDriverLicenseTypeRepo;
@@ -20,6 +21,7 @@ class DriverUserActions {
     private $driverLicenseRepo;
     private $driverAddressRepo;
     private $driverMedicalCardRepo;
+    private $userSubRepo;
     private $refDriverTypeRepo;
     private $refStateRepo;
     private $refDriverLicenseTypeRepo;
@@ -34,6 +36,9 @@ class DriverUserActions {
         $this->driverLicenseRepo = new DriverLicenseRepo();
         $this->driverAddressRepo = new DriverAddressRepo();
         $this->driverMedicalCardRepo = new DriverMedicalCardRepo();
+
+        // User
+        $this->userSubRepo = new UserSubscriptionRepo();
 
         // References
         $this->refDriverTypeRepo = new RefDriverTypeRepo();
@@ -58,7 +63,8 @@ class DriverUserActions {
 
         $data = [
             'title' => 'My drivers',
-            'drivers' => $drivers
+            'drivers' => $drivers,
+            'userSubscription' => $this->userSubRepo->getByUserID(auth()->user()->id),
         ];
 
         return $data;
