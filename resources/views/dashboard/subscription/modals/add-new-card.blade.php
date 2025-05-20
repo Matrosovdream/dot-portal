@@ -159,7 +159,7 @@
                         </div>
 
                         <label class="form-check form-switch form-check-custom form-check-solid">
-                            <input class="form-check-input" type="checkbox" value="1" checked="checked" />
+                            <input class="form-check-input" type="checkbox" value="1" checked="checked" disabled />
                             <span class="form-check-label fw-semibold text-muted">Save Card</span>
                         </label>
 
