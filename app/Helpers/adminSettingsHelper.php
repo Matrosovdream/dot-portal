@@ -19,31 +19,46 @@ class adminSettingsHelper {
     }
 
 
-    public static function setActiveMenus( $menu ) {
+    public static function setActiveMenus($menu)
+{
+    $currentUrl = request()->url();
+    $currentRoute = request()->route() ? request()->route()->getName() : null;
 
-        // Lets mark active menus using routes data
-        foreach ($menu as $key => $item) {
-            if (isset($item['childs'])) {
-                foreach ($item['childs'] as $key2 => $item2) {
-                    if( request()->routeIs( $item2['route'] ) ) {
-                        $menu[$key]['active'] = true;
-                        $menu[$key]['childs'][$key2]['active'] = true;
-                    } else {
-                        $menu[$key]['active'] = true;
-                        $menu[$key]['childs'][$key2]['active'] = false;
-                    }
-                }
-            } else {
-                if ( strpos(request()->url(), $item['url']) !== false ) {
+    foreach ($menu as $key => $item) {
+        $menu[$key]['active'] = false;
+        $bestMatchLength = 0;
+
+        if (isset($item['childs'])) {
+            foreach ($item['childs'] as $key2 => $item2) {
+                $menu[$key]['childs'][$key2]['active'] = false;
+
+                $isExactRoute = !empty($item2['route']) && $currentRoute === $item2['route'];
+                $isUrlPrefix   = !empty($item2['url']) && str_starts_with($currentUrl, $item2['url']);
+
+                // Prefer route match or longest URL match
+                if ($isExactRoute || ($isUrlPrefix && strlen($item2['url']) > $bestMatchLength)) {
+                    $bestMatchLength = strlen($item2['url']);
+                    $bestMatchIndex = $key2;
                     $menu[$key]['active'] = true;
-                } else {
-                    $menu[$key]['active'] = false;
                 }
             }
+
+            // Mark only the best matching child as active
+            if (isset($bestMatchIndex)) {
+                $menu[$key]['childs'][$bestMatchIndex]['active'] = true;
+            }
+
+        } else {
+            if (!empty($item['url']) && str_starts_with($currentUrl, $item['url'])) {
+                $menu[$key]['active'] = true;
+            }
         }
-
-        return $menu;
-
     }
+
+    return $menu;
+}
+
+    
+
 
 }
