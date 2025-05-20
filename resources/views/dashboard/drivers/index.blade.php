@@ -123,4 +123,21 @@
 
     </div>
 
+    <!--begin::Modal - Upgrade Subscription for Drivers-->
+    @include('dashboard.drivers.modals.upgrade-sub')
+    @include('dashboard.drivers.modals.add-sub')
+
+    <a href="#" class="btn btn-light btn-active-light-primary me-2" data-bs-toggle="modal" data-bs-target="#kt_modal_upgrade_sub_drivers">
+        Upgrage
+    </a>
+
+    <a href="#" class="btn btn-light btn-active-light-primary me-2" data-bs-toggle="modal" data-bs-target="#kt_modal_add_sub_drivers">
+        Add
+    </a>
+
+
 @endsection
+
+
+
+
