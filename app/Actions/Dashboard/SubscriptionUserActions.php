@@ -228,8 +228,20 @@ class SubscriptionUserActions
             $voidRes = $this->authnet->voidTransaction( $lastTransaction['transaction_id'] );
         }
 
-        //dd($refundRes, $voidRes);
+        // Insert refund record in database
+        $this->userPaymentHistoryRepo->create([
+            'user_id' => $user_id,
+            'payment_method_id' => 1,
+            'subscription_id' => $userSubscription['id'],
+            'type' => 'subscription',
+            'amount' => $refundSum,
+            'payment_date' => date('Y-m-d H:i:s'),
+            'transaction_id' => $lastTransaction['transaction_id'] ?? null,
+            'status' => 'success',
+            'notes' => 'Refund for subscription cancellation "' . $userSubscription['subscription']['name'] . '"',
+        ]);
 
+        // Cancel subscription with API 
         $subRes = $this->authnet->cancelSubscription($subscriptionId);
         if (isset($subRes['success'])) {
 
