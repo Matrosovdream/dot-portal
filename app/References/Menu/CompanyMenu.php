@@ -34,7 +34,7 @@ class CompanyMenu implements InterfaceMenu {
             array(
                 'title' => 'Documents',
                 'url' => '',
-                'icon' => 'ki-notification',
+                'icon' => 'ki-document',
                 'roles' => ['user', 'manager', 'admin'],
                 'childs' => array(
                     array(
@@ -48,7 +48,7 @@ class CompanyMenu implements InterfaceMenu {
             array(
                 'title' => 'Drivers',
                 'url' => '',
-                'icon' => 'ki-notification',
+                'icon' => 'ki-user',
                 'roles' => ['user', 'manager', 'admin'],
                 'childs' => array(
                     array(
@@ -68,7 +68,7 @@ class CompanyMenu implements InterfaceMenu {
             array(
                 'title' => 'Vehicles',
                 'url' => '',
-                'icon' => 'ki-notification',
+                'icon' => 'ki-car',
                 'roles' => ['user', 'manager', 'admin'],
                 'childs' => array(
                     array(
@@ -88,7 +88,7 @@ class CompanyMenu implements InterfaceMenu {
             array(
                 'title' => 'Insurance vehicles',
                 'url' => '',
-                'icon' => 'ki-notification',
+                'icon' => 'ki-shield',
                 'roles' => ['user', 'manager', 'admin'],
                 'childs' => array(
                     array(
@@ -108,7 +108,7 @@ class CompanyMenu implements InterfaceMenu {
             array(
                 'title' => 'Service request',
                 'url' => '',
-                'icon' => 'ki-request',
+                'icon' => 'ki-message-question',
                 'roles' => ['user'],
                 'childs' => $this->getUserRequestGroups(),
             ),
