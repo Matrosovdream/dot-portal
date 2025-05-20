@@ -177,8 +177,8 @@ class SubscriptionUserActions
 
     }
 
-    public function cancelSubscription($request)
-    {
+    // Calculate refund sum when the subscription is cancelled
+    public function getCancelRefundSum() {
 
         $user_id = auth()->user()->id;
         $userSubscription = $this->userSubRepo->getByUserID($user_id);
@@ -195,6 +195,25 @@ class SubscriptionUserActions
             $userSubscription['price']
         );
 
+        return $refundSum ?? false;
+
+    }
+
+    public function cancelSubscription($request)
+    {
+
+        $user_id = auth()->user()->id;
+        $userSubscription = $this->userSubRepo->getByUserID($user_id);
+        $subscriptionId = $userSubscription['Model']->getMeta('authnet_sub_id');
+
+        if (!$subscriptionId) {
+            return false;
+        }
+
+        // Calculate refund sum
+        $refundSum = $this->getCancelRefundSum(); 
+
+        // The last transaction for refund
         $lastTransaction = $this->getSubLatestTransaction($user_id);
 
         // Make a refund
