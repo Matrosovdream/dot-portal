@@ -57,8 +57,7 @@ class ServiceAdminActions {
 
     public function update($service_id, $request)
     {
-        $data = $this->serviceRepo->update($service_id, $request);
-        return $data;
+        return $this->serviceRepo->update($service_id, $request);
     }
 
     public function updateServiceStatus($service_id, $request)
@@ -82,16 +81,12 @@ class ServiceAdminActions {
 
     public function store($request)
     {
-        $data = $this->serviceRepo->create($request);
-
-        return $data;
+        return $this->serviceRepo->create($request);
     }
 
     public function delete($service_id)
     {
-        $data = $this->serviceRepo->delete($service_id);
-
-        return $data;
+        return $this->serviceRepo->delete($service_id);
     }
 
     public function storeField($service_id, $request, $field_id=null)
