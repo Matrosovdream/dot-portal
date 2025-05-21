@@ -18,7 +18,7 @@ class AdminMenu implements InterfaceMenu {
             array(
                 'title' => 'Notifications manager',
                 'url' => '',
-                'icon' => 'ki-basket',
+                'icon' => 'ki-notification',
                 'roles' => ['admin'],
                 'childs' => array(
                     array(
@@ -38,7 +38,7 @@ class AdminMenu implements InterfaceMenu {
             array(
                 'title' => 'Services',
                 'url' => '',
-                'icon' => 'ki-basket',
+                'icon' => 'ki-setting',
                 'roles' => ['admin', 'manager'],
                 'childs' => array(
                     array(
