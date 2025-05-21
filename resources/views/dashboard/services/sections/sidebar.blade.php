@@ -5,7 +5,7 @@
 					<h2>{{ $service['name'] }}</h2>
 				</div>
 				<div class="card-toolbar">
-					<div class="rounded-circle @if( 1 == 1 ) bg-success @else bg-danger @endif w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
+					<div class="rounded-circle @if( $service['status_id'] == 1 ) bg-success @else bg-danger @endif w-15px h-15px" id="kt_ecommerce_add_product_status"></div>
 				</div>
 			</div>
 
