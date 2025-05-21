@@ -84,9 +84,9 @@ class RequestUserActions {
         // Create request
         $requestPayload = [
             'user_id' => auth()->user()->id,
-            'status_id' => 1,
+            'status_id' => ($service['is_paid'] == 1) ? 2 : 1, // 1 - Processing, 2 - Waiting for payment
             'service_id' => $service['id'],
-        ]; 
+        ];
         $requestData = $this->requestRepo->create($requestPayload);
 
         // Attach field values
