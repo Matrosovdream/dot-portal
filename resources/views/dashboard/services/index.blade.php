@@ -1,6 +1,11 @@
 @extends('dashboard.layouts.app')
 
 @section('toolbar-buttons')
+
+    <a href="{{ route('dashboard.services.create') }}" class="btn btn-sm fw-bold btn-primary">
+        New Service
+    </a>
+
 @endsection
 
 @section('content')
