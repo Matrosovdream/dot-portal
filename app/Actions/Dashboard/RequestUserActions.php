@@ -24,9 +24,12 @@ class RequestUserActions {
     {
         $group = $this->serviceGroupRepo->getBySlug($groupslug);
         if( $group ) {
-            $services = $this->serviceRepo->getByGroupID($group['id']);
+            $services = $this->serviceRepo->getAll(
+                ['group_id' => $group['id'], 'status_id' => 1], 
+                $paginate = 1000
+            );
         }
-        
+
         return [
             'title' => 'Services of ' . $groupslug,
             'group' => $group,
