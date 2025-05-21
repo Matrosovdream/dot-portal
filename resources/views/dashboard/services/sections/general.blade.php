@@ -81,12 +81,12 @@
                 <!-- Predefined Forms -->
                 <div class="fv-row mb-7" id="predefined_forms_block">
                     <label class="fs-6 fw-semibold mb-2 required">Predefined Form</label>
-                    <select name="predefined_form_id" class="form-select form-select-solid" data-control="select2"
+                    <select name="form_id" class="form-select form-select-solid" data-control="select2"
                             data-placeholder="Select predefined form">
-                        <option></option>
+                        <option value=""></option>
                         @foreach ($predefinedForms as $form)
                             <option value="{{ $form['id'] }}"
-                                    {{ $service['predefined_form_id'] == $form['id'] ? 'selected' : '' }}>
+                                    {{ $service['form_id'] == $form['id'] ? 'selected' : '' }}>
                                 {{ $form['name'] }}
                             </option>
                         @endforeach
@@ -109,25 +109,32 @@
     </div>
 </div>
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
 <!-- JS Logic -->
 <script>
-    function togglePriceBlock() {
-        const isPaid = document.getElementById('is_paid_select').value;
-        const priceBlock = document.getElementById('price_block');
-        priceBlock.style.display = (isPaid === '1') ? 'block' : 'none';
+    function togglePriceBlock() { 
+        const isPaid = $('#is_paid_select').val();
+        $('#price_block').toggle(isPaid === '1');
     }
 
     function togglePredefinedForms() {
-        const formType = document.getElementById('form_type_select').value;
-        const predefinedBlock = document.getElementById('predefined_forms_block');
-        predefinedBlock.style.display = (formType === 'predefined') ? 'block' : 'none';
+        const formType = $('#form_type_select').val();
+        $('#predefined_forms_block').toggle(formType === 'predefined');
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
+    $(document).ready(function () {
+        // Initialize Select2 (in case it's not already auto-initialized)
+        $('[data-control="select2"]').select2();
+
+        // Initial display state
         togglePriceBlock();
         togglePredefinedForms();
 
-        document.getElementById('is_paid_select').addEventListener('change', togglePriceBlock);
-        document.getElementById('form_type_select').addEventListener('change', togglePredefinedForms);
+        // Select2 events
+        $('#is_paid_select').on('select2:select', togglePriceBlock);
+        $('#form_type_select').on('select2:select', togglePredefinedForms);
     });
 </script>
+
+

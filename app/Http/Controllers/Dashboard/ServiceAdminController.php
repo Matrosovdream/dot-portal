@@ -35,15 +35,20 @@ class ServiceAdminController extends Controller
     public function update($service_id, Request $request)
     {
 
-        $request->validate([
+        $validated = $request->validate([
+            'group_id' => 'required',
             'name' => 'required',
+            'slug' => 'required',
             'description' => 'nullable',
+            'is_paid' => 'nullable',
             'price' => 'nullable',
+            'form_type' => 'nullable',
+            'form_id' => 'nullable',
         ]);
 
-        $data = $this->serviceAdminActions->update($service_id, $request);
+        $data = $this->serviceAdminActions->update($service_id, $validated);
         
-        return redirect()->route('dashboard.services.index');
+        return redirect()->back()->with('success','Service updated successfully');
     }
 
     public function updateServiceStatus($service_id, Request $request)

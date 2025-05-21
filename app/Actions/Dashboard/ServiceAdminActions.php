@@ -38,12 +38,29 @@ class ServiceAdminActions {
     public function show($service_id)
     {
         $service = $this->serviceRepo->getByID($service_id);
+        $service['form_id'] = 1;
+
+        $predefinedForms = [
+            [
+                'id' => 1,
+                'name' => 'Form 1'
+            ],
+            [
+                'id' => 2,
+                'name' => 'Form 2'
+            ],
+            [
+                'id' => 3,
+                'name' => 'Form 3'
+            ]
+        ];
 
         $data = [
             'title' => 'Service details',
             'service' => $service,
             'references' => $this->getReferences(),
-            'formFieldsRef' => $this->refFormFieldRepo->getAll([], $paginate = 10000)
+            'formFieldsRef' => $this->refFormFieldRepo->getAll([], $paginate = 10000),
+            'predefinedForms' => $predefinedForms,
         ];
 
         return $data;
