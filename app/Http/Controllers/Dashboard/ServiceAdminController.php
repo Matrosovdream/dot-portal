@@ -73,10 +73,14 @@ class ServiceAdminController extends Controller
     {
 
         $validated = $request->validate([
+            'group_id' => 'required',
             'name' => 'required',
             'slug' => 'required',
             'description' => 'nullable',
+            'is_paid' => 'nullable',
             'price' => 'nullable',
+            'form_type' => 'nullable',
+            'form_id' => 'nullable',
         ]);
 
         $data = $this->serviceAdminActions->store($validated);

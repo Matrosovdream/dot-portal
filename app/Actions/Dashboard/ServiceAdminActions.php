@@ -73,7 +73,8 @@ class ServiceAdminActions {
     {
         $data = [
             'title' => 'Create driver',
-            'references' => $this->getReferences()
+            'references' => $this->getReferences(),
+            'predefinedForms' => $this->serviceReferences->getPredefinedForms(),
         ];
 
         return $data;
