@@ -189,6 +189,7 @@ Route::group([
         Route::get('history', [RequestUserController::class, 'history'])->name('history.index');
         Route::get('history/{request_id}', [RequestUserController::class, 'historyShow'])->name('history.show');
         Route::get('history/{request_id}/pay', [RequestUserController::class, 'historyShowPay'])->name('history.showpay');
+        Route::post('history/{request_id}/pay', [RequestUserController::class, 'historyShowPayProcess'])->name('history.showpayprocess');
 
         // Group requests
         Route::get('{group}', [RequestUserController::class, 'showGroup'])->name('group');

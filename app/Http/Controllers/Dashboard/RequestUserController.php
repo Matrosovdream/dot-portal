@@ -70,6 +70,26 @@ class RequestUserController extends Controller
 
     }
 
+    public function historyShowPay($request_id) {
+
+        return view(
+            'dashboard.servicerequest.history.showpay', 
+            $this->RequestUserActions->historyShowPay($request_id)
+        );
+
+    }
+
+    public function historyShowPayProcess( Request $request, $request_id ) {
+
+        $validated = $request->validate([
+            'payment_method' => 'required',
+        ]);
+
+        $data = $this->RequestUserActions->historyShowPayProcess($validated, $request_id);
+        return redirect()->route('dashboard.servicerequest.history.index');
+
+
+    }
 
 
     public function destroy($service)
