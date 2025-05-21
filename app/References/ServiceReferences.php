@@ -81,4 +81,23 @@ class ServiceReferences {
 
     }
 
+    public function getPredefinedForms() {
+
+        return [
+            [
+                'id' => 1,
+                'name' => 'Form 1'
+            ],
+            [
+                'id' => 2,
+                'name' => 'Form 2'
+            ],
+            [
+                'id' => 3,
+                'name' => 'Form 3'
+            ]
+        ];
+        
+    }
+
 }

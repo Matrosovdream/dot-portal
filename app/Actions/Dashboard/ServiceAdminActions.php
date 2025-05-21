@@ -4,18 +4,23 @@ namespace App\Actions\Dashboard;
 use App\Repositories\Service\ServiceRepo;
 use App\Repositories\References\RefServiceGroupRepo;
 use App\Repositories\References\RefFormFieldRepo;
+use App\References\ServiceReferences;
 
 class ServiceAdminActions {
 
     private $serviceRepo;
     private $serviceGroupRepo;
     private $refFormFieldRepo;
+    private $serviceReferences;
 
     public function __construct()
     {
         $this->serviceRepo = new ServiceRepo();
         $this->serviceGroupRepo = new RefServiceGroupRepo();
         $this->refFormFieldRepo = new RefFormFieldRepo();
+
+        // References
+        $this->serviceReferences = new ServiceReferences();
     }
 
     public function index()
@@ -39,27 +44,12 @@ class ServiceAdminActions {
     {
         $service = $this->serviceRepo->getByID($service_id);
 
-        $predefinedForms = [
-            [
-                'id' => 1,
-                'name' => 'Form 1'
-            ],
-            [
-                'id' => 2,
-                'name' => 'Form 2'
-            ],
-            [
-                'id' => 3,
-                'name' => 'Form 3'
-            ]
-        ];
-
         $data = [
             'title' => 'Service details',
             'service' => $service,
             'references' => $this->getReferences(),
             'formFieldsRef' => $this->refFormFieldRepo->getAll([], $paginate = 10000),
-            'predefinedForms' => $predefinedForms,
+            'predefinedForms' => $this->serviceReferences->getPredefinedForms(),
         ];
 
         return $data;
