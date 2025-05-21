@@ -17,14 +17,14 @@
             @foreach($services['items'] as $service)
 
                 <div class="col">
-                    <div class="card card-flush flex-row-fluid p-6 pb-5">
+                    <div class="card card-flush flex-row-fluid p-0 pb-0 mh-300px">
 
                         <div class="card-body text-center">
 
                             <a
                                 href="{{ route('dashboard.servicerequest.show', ['group' => $group['slug'], 'service' => $service['slug']]) }}">
 
-                                <img src="assets/media/stock/food/img-2.jpg" class="rounded-3 mb-4 w-100px h-150px" alt="">
+                                <img src="https://www.lifestyleglitz.com/wp-content/uploads/2019/07/Follow-These-Tips-To-File-Your-Personal-Injury-Claim.png" class="rounded-3 mb-4 w-100" alt="">
 
                                 <div class="mb-2">
                                     <span class="fw-bold text-gray-800 cursor-pointer text-hover-primary fs-3 fs-xl-1">
