@@ -95,6 +95,7 @@ Route::group([
             Route::get('{service}', [ServiceAdminController::class, 'show'])->name('show');
             Route::post('{service}', [ServiceAdminController::class, 'update'])->name('update');
             Route::delete('{service}', [ServiceAdminController::class, 'destroy'])->name('destroy');
+            Route::post('{service}/update-status', [ServiceAdminController::class, 'updateServiceStatus'])->name('updatestatus');
 
             // Service fields
             Route::prefix('{service}/fields')->name('fields.')->group(function () {
