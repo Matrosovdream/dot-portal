@@ -46,6 +46,16 @@ class ServiceAdminController extends Controller
         return redirect()->route('dashboard.services.index');
     }
 
+    public function updateServiceStatus($service_id, Request $request)
+    {
+        $request->validate([
+            'status' => 'required',
+        ]);
+
+        $data = $this->serviceAdminActions->updateServiceStatus($service_id, $request);
+        return redirect()->back()->with('success','Service status updated successfully');
+    }
+
     public function create()
     {
         return view(

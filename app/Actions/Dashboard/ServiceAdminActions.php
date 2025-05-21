@@ -52,7 +52,15 @@ class ServiceAdminActions {
     public function update($service_id, $request)
     {
         $data = $this->serviceRepo->update($service_id, $request);
+        return $data;
+    }
 
+    public function updateServiceStatus($service_id, $request)
+    {
+        $data = $this->serviceRepo->update(
+            $service_id, 
+            ['status_id' => $request->status]
+        );
         return $data;
     }
 
