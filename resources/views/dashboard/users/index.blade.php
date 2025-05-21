@@ -96,8 +96,6 @@
 
                             @endforeach
 
-                        @endif
-
                     </tbody>
                 </table>
 
