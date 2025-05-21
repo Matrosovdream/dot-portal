@@ -22,7 +22,6 @@ class DocumentActions {
         $this->driverDocumentRepo = new DriverDocumentRepo();
         $this->driverRepo = new DriverRepo();
 
-
     }
 
     public function index()
@@ -34,9 +33,12 @@ class DocumentActions {
         if( $user->isDriver() ) {
 
             $driver = $this->driverRepo->getByUserId($user->id);
-            $files = $this->driverDocumentRepo->getAll(['driver_id' => $driver['id']]);
-            $file_ids = $files['Model']->pluck('file_id')->toArray();
-            
+
+            if( $driver ) {
+                $files = $this->driverDocumentRepo->getAll(['driver_id' => $driver['id']]);
+                $file_ids = $files['Model']->pluck('file_id')->toArray();
+            }
+
             if( !empty($file_ids) ) {
                 $filter['id'] = $file_ids;
             }
