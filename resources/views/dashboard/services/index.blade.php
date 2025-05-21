@@ -40,6 +40,7 @@
                                 <th class="min-w-200px">Name</th>
                                 <th class="min-w-200px">Price</th>
                                 <th class="min-w-200px">Group</th>
+                                <th class="min-w-100px">Status</th>
                                 <th class="min-w-200px text-center">Actions</th>
                             </tr>
                         </thead>
@@ -60,6 +61,13 @@
                                     </td>
                                     <td class="pe-0">
                                         {{ $service['group']['name'] ?? '-' }}
+                                    </td>
+                                    <td class="pe-0">
+                                        @if($service['status_id'] == 1)
+                                            <span class="badge badge-light-success">Active</span>
+                                        @else
+                                            <span class="badge badge-light-danger">Inactive</span>
+                                        @endif
                                     </td>
                                     <td class="text-center">
                                         <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
