@@ -23,11 +23,11 @@
 
                 <div class="menu-item ">
                     <!--begin:Menu link-->
-                    <a class="menu-link @if($child['active']) active @endif" href="{{ $child['url'] }}">
+                    <a class="menu-link @if($child['active']) active @endif" href="{{ $child['url'] ?? '#' }}">
                         <span class="menu-bullet">
                             <span class="bullet bullet-dot"></span>
                         </span>
-                        <span class="menu-title">{{ $child['title'] }}</span>
+                        <span class="menu-title">{{ $child['title'] ?? '' }}</span>
                     </a>
                     <!--end:Menu link-->
                 </div>

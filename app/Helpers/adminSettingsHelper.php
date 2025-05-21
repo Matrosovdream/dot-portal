@@ -25,7 +25,7 @@ class adminSettingsHelper
     {
         $currentUrl = request()->url();
         $currentRoute = request()->route() ? request()->route()->getName() : null;
-
+        
         foreach ($menu as $key => $item) {
             $menu[$key]['active'] = false;
             $bestMatchLength = 0;
@@ -56,6 +56,8 @@ class adminSettingsHelper
                 }
             }
         }
+
+        //dd($menu[5]['childs']);
 
         return $menu;
     }
