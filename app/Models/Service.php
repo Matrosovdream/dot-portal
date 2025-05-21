@@ -20,7 +20,8 @@ class Service extends Model
         'price', 
         'status_id',
         'group_id',
-        'form_type'
+        'form_type',
+        'form_id',
     ];
     
     public function user()

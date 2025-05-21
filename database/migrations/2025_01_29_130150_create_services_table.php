@@ -21,6 +21,7 @@ return new class extends Migration {
             $table->foreignId('status_id')->on('ref_request_status')->nullable();
             $table->foreignId('group_id')->on('ref_service_groups')->nullable();
             $table->string('form_type')->nullable();
+            $table->integer('form_id')->nullable();
             $table->timestamps();
         });
 
