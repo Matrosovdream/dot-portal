@@ -16,9 +16,11 @@ class Service extends Model
         'name', 
         'slug',
         'description', 
+        'is_paid',
         'price', 
         'status_id',
         'group_id',
+        'form_type'
     ];
     
     public function user()
