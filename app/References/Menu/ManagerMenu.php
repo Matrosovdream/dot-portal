@@ -16,23 +16,9 @@ class ManagerMenu implements InterfaceMenu {
 
         return array(
             array(
-                'title' => 'Notifications manager',
-                'url' => '',
-                'icon' => 'ki-basket',
-                'roles' => ['admin'],
-                'childs' => array(
-                    array(
-                        'title' => 'All',
-                        'url' => route('dashboard.notifications-manage.index'),
-                        'route' => 'dashboard.notifications-manage.index',
-                        'roles' => ['admin', 'manager'],
-                    ),
-                ),
-            ),
-            array(
                 'title' => 'Services',
                 'url' => '',
-                'icon' => 'ki-basket',
+                'icon' => 'ki-setting',
                 'roles' => ['admin', 'manager'],
                 'childs' => array(
                     array(
