@@ -38,7 +38,12 @@
                             </a>
 
                             <span class="text-success text-end fw-bold fs-1">
-                                ${{ $service['price'] ?? 'Free' }}
+                                @if($service['is_paid'])
+                                    ${{ $service['price'] ?? 0.00 }}
+                                @else
+                                    <span class="text-success">Free</span>
+                                @endif
+                                
                             </span>
 
                         </div>
