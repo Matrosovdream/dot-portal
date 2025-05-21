@@ -75,8 +75,10 @@ class ServiceRepo extends AbstractRepo
             'name' => $item->name,
             'slug' => $item->slug,
             'description' => $item->description,
+            'is_paid' => $item->is_paid,
             'price' => $item->price,
             'group' => $this->ServiceGroupRepo->mapItem( $item->group ),
+            'form_type' => $item->form_type,
             'formFields' => $this->serviceFieldRepo->mapItems($item->formFields->sortBy('order')),
             'Model' => $item
         ];
