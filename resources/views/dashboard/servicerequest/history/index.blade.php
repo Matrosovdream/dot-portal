@@ -48,9 +48,15 @@
                                     </span>
                                 </td>
                                 <td class="text-center">
-                                    <a href="{{ route('dashboard.servicerequest.history.show', $request['id']) }}"
-                                        class="menu-link px-3">Show
-                                    </a>
+
+                                    @if( $request['status']['id'] == 2 && !$request['is_paid'] )
+                                        <a href="{{ route('dashboard.servicerequest.history.showpay', $request['id']) }}"
+                                            class="menu-link px-3">Pay</a>
+                                    @else
+                                        <a href="{{ route('dashboard.servicerequest.history.show', $request['id']) }}"
+                                            class="menu-link px-3">Show
+                                        </a>
+                                    @endif
                                 </td>
                             </tr>
 
