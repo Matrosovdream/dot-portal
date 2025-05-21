@@ -57,7 +57,11 @@
                                         </a>
                                     </td>
                                     <td class="pe-0">
-                                        {{ $service['price'] }} $
+                                        @if( $service['is_paid'] )
+                                            Free
+                                        @else
+                                            ${{ $service['price'] }}
+                                        @endif
                                     </td>
                                     <td class="pe-0">
                                         {{ $service['group']['name'] ?? '-' }}

@@ -8,6 +8,9 @@ use App\Repositories\References\RefServiceGroupRepo;
 use App\Repositories\Service\ServiceRepo;
 use App\Repositories\Request\RequestRepo;
 use App\Repositories\User\UserRepo;
+use App\Repositories\User\UserPaymentCardRepo;
+use App\Mixins\Gateways\AuthnetGateway;
+use App\Repositories\User\UserPaymentHistoryRepo;
 
 class RequestUserActions {
 
@@ -15,6 +18,9 @@ class RequestUserActions {
     private $serviceRepo;
     private $requestRepo;
     private $userRepo;
+    private $userCardRepo;
+    private $authnet;
+    private $userPaymentHistoryRepo;
 
     public function __construct()
     {
@@ -22,6 +28,9 @@ class RequestUserActions {
         $this->serviceRepo = new ServiceRepo();
         $this->requestRepo = new RequestRepo();
         $this->userRepo = new UserRepo();
+        $this->userCardRepo = new UserPaymentCardRepo();
+        $this->authnet = new AuthnetGateway;
+        $this->userPaymentHistoryRepo = new UserPaymentHistoryRepo();
     }
 
     public function showGroup( $groupslug )
@@ -137,8 +146,66 @@ class RequestUserActions {
 
     public function historyShowPayProcess( $request, $request_id )
     {
-        
-        dd($request);
+
+        $paymentCard = $this->userCardRepo->getById( $request['payment_method'] );
+        $requestData = $this->requestRepo->getById($request_id);
+
+        if( !$requestData ) {
+            return false;
+        }
+
+        $price = $requestData['service']['price'];
+
+        // Prepare payment data
+        $profile = [
+            'customerProfileId' => $paymentCard['Meta']['authnet_profile_id'],
+            'paymentProfileId' => $paymentCard['Meta']['authnet_payment_profile_id'],
+        ];
+
+        //$profile['customerProfileId'] = 11111;
+
+        // Charge the customer
+        $paymentRes = $this->authnet->chargeCustomerProfile(
+            $profile['customerProfileId'],
+            $profile['paymentProfileId'],
+            $price,
+        );
+
+        if( !isset($paymentRes['error']) ) {
+
+            // Update request status
+            $requestData['Model']->update([
+                'status_id' => 1, // 1 - Processing
+                'is_paid' => 1,
+            ]);
+
+            // Create payment history record
+            $this->userPaymentHistoryRepo->create([
+                'user_id' => auth()->user()->id,
+                'payment_method_id' => 1,
+                //'subscription_id' => null,
+                'type' => 'request_payment',
+                'amount' => $price,
+                'payment_date' => date('Y-m-d H:i:s'),
+                'transaction_id' => $paymentRes['transactionId'],
+                'status' => 'success',
+                'notes' => 'Payment for the service "' . $requestData['service']['name'] . '"',
+            ]);
+
+            return [
+                'success' => true
+            ];
+
+        } else {
+
+            return [
+                'error' => true,
+                'message' => $paymentRes['message'],
+                'code' => $paymentRes['code'],
+            ];
+
+        }
+
 
     }
 
