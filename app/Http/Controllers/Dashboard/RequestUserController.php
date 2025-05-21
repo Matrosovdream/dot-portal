@@ -86,8 +86,12 @@ class RequestUserController extends Controller
         ]);
 
         $data = $this->RequestUserActions->historyShowPayProcess($validated, $request_id);
-        return redirect()->route('dashboard.servicerequest.history.index');
-
+        
+        if( isset($data['error']) ) {
+            return redirect()->back()->withErrors([ $data['message'] ]);
+        } else {
+            return redirect()->route('dashboard.servicerequest.history.index');
+        }
 
     }
 

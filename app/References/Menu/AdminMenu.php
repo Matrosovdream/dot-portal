@@ -27,6 +27,12 @@ class AdminMenu implements InterfaceMenu {
                         'route' => 'dashboard.notifications-manage.index',
                         'roles' => ['admin', 'manager'],
                     ),
+                    array(
+                        'title' => 'New notification',
+                        'url' => route('dashboard.notifications-manage.create'),
+                        'route' => 'dashboard.notifications-manage.create',
+                        'roles' => ['admin', 'manager'],
+                    ),
                 ),
             ),
             array(

@@ -2,6 +2,8 @@
     <div class="card-body py-20">
         <div class="mw-lg-950px mx-auto w-100">
 
+            @include('dashboard.includes.errors.default')
+
             <!-- Header -->
             <div class="d-flex justify-content-between flex-column flex-sm-row mb-19">
                 <h4 class="fw-bolder text-gray-800 fs-2qx pe-5 pb-7">INVOICE</h4>
