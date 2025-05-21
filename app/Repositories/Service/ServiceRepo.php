@@ -71,6 +71,7 @@ class ServiceRepo extends AbstractRepo
 
         return [
             'id' => $item->id,
+            'status_id' => $item->status_id,
             'name' => $item->name,
             'slug' => $item->slug,
             'description' => $item->description,
