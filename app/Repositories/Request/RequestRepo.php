@@ -62,7 +62,7 @@ class RequestRepo extends AbstractRepo
         if (empty($item)) {
             return null;
         }
-//dd($item->history);
+
         return [
             'id' => $item->id,
             'user' => $this->userRepo->mapItem( $item->user ),
@@ -70,6 +70,7 @@ class RequestRepo extends AbstractRepo
             'service' => $this->serviceRepo->mapItem( $item->service ),
             'fieldValues' => $this->fieldValueRepo->mapItems($item->fieldValues),
             'history' => $this->requestHistoryRepo->mapItems($item->history),
+            'is_paid' => $item->is_paid,
             'Model' => $item
         ];
     }

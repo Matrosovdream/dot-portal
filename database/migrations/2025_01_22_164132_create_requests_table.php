@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->on('users');
             $table->foreignId('status_id')->on('request_statuses');
             $table->foreignId('service_id')->on('services');
+            $table->boolean('is_paid')->default(false);
             $table->timestamps();
         });
 
