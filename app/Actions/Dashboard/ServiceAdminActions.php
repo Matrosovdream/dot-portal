@@ -38,7 +38,6 @@ class ServiceAdminActions {
     public function show($service_id)
     {
         $service = $this->serviceRepo->getByID($service_id);
-        $service['form_id'] = 1;
 
         $predefinedForms = [
             [
