@@ -1,23 +1,27 @@
 <?php
 namespace App\Actions\Dashboard;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 
 use App\Repositories\References\RefServiceGroupRepo;
 use App\Repositories\Service\ServiceRepo;
 use App\Repositories\Request\RequestRepo;
+use App\Repositories\User\UserRepo;
 
 class RequestUserActions {
 
     private $serviceGroupRepo;
     private $serviceRepo;
     private $requestRepo;
+    private $userRepo;
 
     public function __construct()
     {
         $this->serviceGroupRepo = new RefServiceGroupRepo();
         $this->serviceRepo = new ServiceRepo();
         $this->requestRepo = new RequestRepo();
+        $this->userRepo = new UserRepo();
     }
 
     public function showGroup( $groupslug )
@@ -114,6 +118,28 @@ class RequestUserActions {
             'title' => 'Request details #' . $service_id,
             'request' => $request
         ];
+    }
+
+    public function historyShowPay($request_id)
+    {
+        $request = $this->requestRepo->getById($request_id);
+        $service = $this->serviceRepo->getById($request['service']['id']);
+        $user = $this->userRepo->getByID( auth()->user()->id );
+
+        return [
+            'title' => 'Request payment #' . $request_id,
+            'request' => $request,
+            'service' => $service,
+            'user' => $this->userRepo->getByID( auth()->user()->id ),
+            'paymentCards' => $user['paymentCards'],
+        ];
+    }
+
+    public function historyShowPayProcess( $request, $request_id )
+    {
+        
+        dd($request);
+
     }
 
     public function destroy($group_id)
