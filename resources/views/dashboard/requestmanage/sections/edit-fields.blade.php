@@ -6,17 +6,33 @@
             <h3 class="fw-bold m-0">Edit Request Details</h3>
         </div>
 
-        @php /*
-        <a href="{{ route('dashboard.profile.company') }}" class="btn btn-sm btn-primary align-self-center">
-            Edit Company
-        </a>
-        */ @endphp
-
     </div>
 
     <div class="card-body p-9">
 
-        123
+        <form action=""
+            class="form mb-15 fv-plugins-bootstrap5 fv-plugins-framework" method="POST">
+            @csrf
+        
+            @include('dashboard.includes.errors.default')
+        
+            <div class="row mb-5">
+        
+                @foreach($fieldValues['items'] as $data)
+        
+                    @include('dashboard.servicerequest.includes.form-field', ['field' => $data])
+        
+                @endforeach
+        
+            </div>
+        
+            <div class="separator mb-8"></div>
+        
+            <button type="submit" class="btn btn-primary" id="kt_careers_submit_button">
+                <span class="indicator-label">Apply changes</span>
+            </button>
+        
+        </form>
 
     </div>
 </div>
