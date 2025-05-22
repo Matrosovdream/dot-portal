@@ -6,6 +6,7 @@ use App\Repositories\References\RefServiceGroupRepo;
 use App\Repositories\Service\ServiceRepo;
 use App\Repositories\Request\RequestRepo;
 use App\Repositories\References\RefRequestStatusRepo;
+use App\Repositories\User\UserPaymentHistoryRepo;
 
 class RequestAdminActions {
 
@@ -14,12 +15,14 @@ class RequestAdminActions {
     private $requestRepo;
 
     private $refRequestStatus;
+    private $userPaymentHistoryRepo;
 
     public function __construct()
     {
         $this->serviceGroupRepo = new RefServiceGroupRepo();
         $this->serviceRepo = new ServiceRepo();
         $this->requestRepo = new RequestRepo();
+        $this->userPaymentHistoryRepo = new UserPaymentHistoryRepo();
 
         // References
         $this->refRequestStatus = new RefRequestStatusRepo();
@@ -38,13 +41,14 @@ class RequestAdminActions {
     public function show($request_id)
     {
         $request = $this->requestRepo->getById($request_id);
+        $payments = $this->userPaymentHistoryRepo->getAll( ['request_id' => $request_id], $paginate = 1000 );
 
         return [
             'title' => 'Request details #' . $request_id,
             'request' => $request,
             'request_id' => $request_id,
             'fieldValues' => $request['fieldValues'] ?? [],
-            'payments' => [],
+            'paymentHistory' => $payments ?? [],
             'references' => $this->getReferences()
         ];
     }
