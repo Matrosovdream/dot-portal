@@ -34,7 +34,12 @@ class RequestAdminController extends Controller
 
     public function updateStatus( Request $request, $service_id)
     {
-        $data = $this->requestAdminActions->updateStatus($request, $service_id);
+
+        $validated = $request->validate([
+            'status_id' => 'required|integer',
+        ]);
+
+        $data = $this->requestAdminActions->updateStatus($validated, $service_id);
         return redirect()->route('dashboard.requestmanage.index');
     }
 
