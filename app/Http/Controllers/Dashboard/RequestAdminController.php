@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Actions\Dashboard\RequestAdminActions;
+use Illuminate\Http\Request;
 
 class RequestAdminController extends Controller
 {
@@ -29,6 +30,12 @@ class RequestAdminController extends Controller
             $this->requestAdminActions->show($service_id)
         );
 
+    }
+
+    public function updateStatus( Request $request, $service_id)
+    {
+        $data = $this->requestAdminActions->updateStatus($request, $service_id);
+        return redirect()->route('dashboard.requestmanage.index');
     }
 
     public function destroy($service)
