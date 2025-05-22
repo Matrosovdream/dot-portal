@@ -32,15 +32,26 @@ class RequestAdminController extends Controller
 
     }
 
-    public function updateStatus( Request $request, $service_id)
+    public function updateStatus( Request $request, $request_id)
     {
 
         $validated = $request->validate([
             'status_id' => 'required|integer',
         ]);
 
-        $data = $this->requestAdminActions->updateStatus($validated, $service_id);
+        $data = $this->requestAdminActions->updateStatus($validated, $request_id);
         return redirect()->back()->with('success', 'Status updated successfully');
+    }
+
+    public function updateFields( Request $request, $request_id) {
+
+        $validated = $request->validate([
+            'fields' => 'required|array',
+        ]);
+
+        $data = $this->requestAdminActions->updateFields($validated, $request_id);
+        return redirect()->back()->with('success', 'Fields updated successfully');
+
     }
 
     public function destroy($service)
