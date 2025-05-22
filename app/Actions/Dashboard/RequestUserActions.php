@@ -184,6 +184,7 @@ class RequestUserActions {
                 'user_id' => auth()->user()->id,
                 'payment_method_id' => 1,
                 //'subscription_id' => null,
+                'request_id' => $request_id,
                 'type' => 'request_payment',
                 'amount' => $price,
                 'payment_date' => date('Y-m-d H:i:s'),
