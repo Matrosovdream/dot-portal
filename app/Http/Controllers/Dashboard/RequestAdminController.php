@@ -40,7 +40,7 @@ class RequestAdminController extends Controller
         ]);
 
         $data = $this->requestAdminActions->updateStatus($validated, $service_id);
-        return redirect()->route('dashboard.requestmanage.index');
+        return redirect()->back()->with('success', 'Status updated successfully');
     }
 
     public function destroy($service)
