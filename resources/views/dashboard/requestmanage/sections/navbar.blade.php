@@ -14,6 +14,15 @@
         </a>
     </li>
 
+    @if( $request['service']['is_paid'] )
+        <li class="nav-item">
+            <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+                href="#kt_ecommerce_customer_payments">
+                Payments
+            </a>
+        </li>
+    @endif
+
     <!--
     <li class="nav-item">
         <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" 
@@ -21,6 +30,6 @@
             History
         </a>
     </li>
--->
+    -->
 
 </ul>

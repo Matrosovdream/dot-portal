@@ -143,6 +143,7 @@ return new class extends Migration
             $table->float('amount')->default(0);
             $table->timestamp('payment_date')->nullable();
             $table->string('transaction_id')->nullable();
+            $table->foreignId('request_id')->on('requests')->nullable();
             $table->string('status')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
