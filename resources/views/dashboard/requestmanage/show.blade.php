@@ -18,6 +18,8 @@
 
                 @include('dashboard.requestmanage.sections.fields')
 
+                @include('dashboard.requestmanage.sections.edit-fields')
+
                 @include('dashboard.requestmanage.sections.history')
 
             </div>
