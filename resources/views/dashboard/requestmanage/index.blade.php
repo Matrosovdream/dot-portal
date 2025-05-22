@@ -42,24 +42,29 @@
 
                                 <tr>
                                     <td>
-                                        <a href="{{ route('dashboard.servicerequest.history.show', $request['id']) }}"
+                                        <a href="{{ route('dashboard.requestmanage.show', $request['id']) }}"
                                             class="text-gray-800 text-hover-primary fs-5 fw-bold"
                                             data-kt-ecommerce-product-filter="product_name">
                                             {{ $request['service']['name'] }}
                                         </a>
                                     </td>
                                     <td class="pe-0">
-                                        <span class="text-gray-800 fw-bold d-block fs-6">
-                                            {{ $request['user']['firstname'] }} {{ $request['user']['lastname'] }}
+                                        <span class="d-block fs-6">
+                                            <a href="{{ route('dashboard.users.show', $request['user']['id']) }}"
+                                                class="text-hover-primary fs-5"
+                                                data-kt-ecommerce-product-filter="product_name">
+                                                {{ $request['user']['firstname'] }} {{ $request['user']['lastname'] }} ({{ $request['user']['email'] }})
+                                            </a>
+                                            
                                         </span>
                                     </td>
                                     <td class="text-center pe-0">
-                                        <span class="text-gray-800 fw-bold d-block fs-6">
+                                        <span class="d-block fs-6">
                                             {{ $request['status']['name'] }}
                                         </span>
                                     </td>
                                     <td class="text-center">
-                                        <span class="text-gray-800 fw-bold d-block fs-6">
+                                        <span class="d-block fs-6">
                                             {{ $request['Model']->created_at->format('d/m/Y') }}
                                         </span>
                                     </td>

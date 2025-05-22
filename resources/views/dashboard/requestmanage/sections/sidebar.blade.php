@@ -11,29 +11,34 @@
 		</div>
 	</div>
 
-	<div class="card-body pt-0">
+	<form action="{{ route('dashboard.requestmanage.show.updatestatus', $request['id']) }}" method="POST">
+		@csrf
 
-		<select class="form-select mb-2" data-control="select2" data-hide-search="true"
-			data-placeholder="Select an option" id="kt_ecommerce_add_product_status_select" name="status_id">
+		<div class="card-body pt-0">
 
-			@foreach( $references['requestStatus']['items'] as $item )
-				<option 
-					value="{{ $item['id'] }}" 
-					@if( $request['status']['id'] == $item['id'] ) selected="selected" @endif 
-					>
-					{{ $item['name'] }}
-				</option>
-			@endforeach
-			
-		</select>
+			<select class="form-select mb-2" data-control="select2" data-hide-search="true"
+				data-placeholder="Select an option" id="kt_ecommerce_add_product_status_select" name="status_id">
 
-	</div>
+				@foreach( $references['requestStatus']['items'] as $item )
+					<option 
+						value="{{ $item['id'] }}" 
+						@if( $request['status']['id'] == $item['id'] ) selected="selected" @endif 
+						>
+						{{ $item['name'] }}
+					</option>
+				@endforeach
+				
+			</select>
 
-	<div class="d-flex justify-content-center mt-30">
-		<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
-			<span class="indicator-label">Save Changes</span>
-		</button>
-	</div>
+		</div>
+
+		<div class="d-flex justify-content-center mt-30">
+			<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
+				<span class="indicator-label">Save Changes</span>
+			</button>
+		</div>
+
+	</form>
 
 </div>
 
