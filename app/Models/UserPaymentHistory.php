@@ -13,6 +13,7 @@ class UserPaymentHistory extends Model
         'user_id',
         'payment_method_id',
         'subscription_id',
+        'request_id',
         'type',
         'amount',
         'payment_date',
