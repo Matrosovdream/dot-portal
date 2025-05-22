@@ -129,8 +129,9 @@ Route::group([
         Route::prefix('request-manage')->name('requestmanage.')->group(function () {
             Route::get('/', [RequestAdminController::class, 'index'])->name('index');
             Route::get('{request_id}', [RequestAdminController::class, 'show'])->name('show');
-            Route::post('{request_id}/updatestatus', [RequestAdminController::class, 'updateStatus'])->name('show.updatestatus');
             Route::post('{request_id}', [RequestAdminController::class, 'update'])->name('update');
+            Route::post('{request_id}/updatestatus', [RequestAdminController::class, 'updateStatus'])->name('updatestatus');
+            Route::post('{request_id}/updatefields', [RequestAdminController::class, 'updateFields'])->name('updatefields');
             Route::delete('{request_id}', [RequestAdminController::class, 'destroy'])->name('destroy');
         });
 
