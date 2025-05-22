@@ -74,6 +74,12 @@ class User extends Authenticatable
         return $this->hasMany(UserMeta::class);
     }
 
+    // Driver
+    public function driver()
+    {
+        return $this->hasOne(Driver::class);
+    }
+
     // Check if user has role admin
     public function isAdmin()
     {
