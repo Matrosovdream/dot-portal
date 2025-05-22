@@ -7,6 +7,13 @@
         </a>
     </li>
 
+    <li class="nav-item">
+        <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab"
+            href="#kt_ecommerce_customer_edit_fields">
+            Edit Fields
+        </a>
+    </li>
+
     <!--
     <li class="nav-item">
         <a class="nav-link text-active-primary pb-4" data-bs-toggle="tab" 

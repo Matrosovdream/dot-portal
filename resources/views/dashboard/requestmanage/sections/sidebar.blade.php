@@ -34,7 +34,7 @@
 
 		<div class="d-flex justify-content-center mt-30">
 			<button type="submit" id="kt_ecommerce_add_product_submit" class="btn btn-primary">
-				<span class="indicator-label">Save Changes</span>
+				<span class="indicator-label">Save Status</span>
 			</button>
 		</div>
 
