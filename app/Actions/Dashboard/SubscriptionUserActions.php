@@ -94,6 +94,11 @@ class SubscriptionUserActions
         // Let's cancel the old subscription
         $authnetSubId = $userSubscription['Model']->getMeta('authnet_sub_id');
         if ($authnetSubId) {
+
+            // Make a refund of the latest subscription
+            $refundRes = $this->makeSubscriptionRefund();
+
+            // Cancel subscription
             $cancelSub = $this->authnet->cancelSubscription($authnetSubId);
 
             // Check if cancel was successful
@@ -211,6 +216,47 @@ class SubscriptionUserActions
             return false;
         }
 
+        // Make a refund
+        $refundRes = $this->makeSubscriptionRefund();
+
+        // Cancel subscription with API 
+        $subRes = $this->authnet->cancelSubscription($subscriptionId);
+        if (isset($subRes['success'])) {
+
+            // Update subscription in database
+            $this->userSubRepo->update(
+                $userSubscription['id'],
+                ['subscription_id' => null, 'status' => 'disabled']
+            );
+
+            // Delete subscription ID from meta
+            $userSubscription['Model']->setMeta('authnet_sub_id', null);
+
+            return [
+                'success' => true,
+                'message' => 'Subscription cancelled successfully',
+            ];
+
+        } else {
+            return [
+                'success' => false,
+                'message' => $subRes['message'],
+            ];
+        }
+
+    }
+
+    public function makeSubscriptionRefund()
+    {
+
+        $user_id = auth()->user()->id;
+        $userSubscription = $this->userSubRepo->getByUserID($user_id);
+        $subscriptionId = $userSubscription['Model']->getMeta('authnet_sub_id');
+
+        if (!$subscriptionId) {
+            return false;
+        }
+
         // Calculate refund sum
         $refundSum = $this->getCancelRefundSum(); 
 
@@ -240,31 +286,6 @@ class SubscriptionUserActions
             'status' => 'success',
             'notes' => 'Refund for subscription cancellation "' . $userSubscription['subscription']['name'] . '"',
         ]);
-
-        // Cancel subscription with API 
-        $subRes = $this->authnet->cancelSubscription($subscriptionId);
-        if (isset($subRes['success'])) {
-
-            // Update subscription in database
-            $this->userSubRepo->update(
-                $userSubscription['id'],
-                ['subscription_id' => null, 'status' => 'disabled']
-            );
-
-            // Delete subscription ID from meta
-            $userSubscription['Model']->setMeta('authnet_sub_id', null);
-
-            return [
-                'success' => true,
-                'message' => 'Subscription cancelled successfully',
-            ];
-
-        } else {
-            return [
-                'success' => false,
-                'message' => $subRes['message'],
-            ];
-        }
 
     }
 
