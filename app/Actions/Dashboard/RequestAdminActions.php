@@ -60,6 +60,19 @@ class RequestAdminActions {
         return $request;
     }
 
+    public function updateFields($data, $request_id)
+    {
+        $request = $this->requestRepo->getById($request_id);
+
+        if ($request) {
+            // Sync field values
+            $this->requestRepo->syncFieldValues( $request_id, $fields=$data['fields'] );
+        }
+
+        // Return updated request entity
+        return $this->requestRepo->getById($request_id);
+    }
+
     public function destroy($group_id)
     {
         return $this->requestRepo->delete($group_id);
