@@ -5,7 +5,7 @@
             {{ $field['field']['title'] }}
         </label>
         <input type="text" class="form-control form-control-soli" id="field-{{ $field['field']['slug'] }}"
-            name="fields[{{ $field['field']['id'] }}]" value="">
+            name="fields[{{ $field['field']['id'] }}]" value="{{ $field['value'] ?? '' }}">
     </div>
 
 @endif
@@ -17,7 +17,7 @@
             {{ $field['field']['title'] }}
         </label>
         <textarea class="form-control form-control-soli" id="field-{{ $field['field']['slug'] }}"
-            name="fields[{{ $field['field']['id'] }}]"></textarea>
+            name="fields[{{ $field['field']['id'] }}]">{{ $field['value'] ?? '' }}</textarea>
     </div>
 
 @endif
@@ -29,7 +29,7 @@
             {{ $field['field']['title'] }}
         </label>
         <input type="text" class="form-control form-control-soli datepicker" id="field-{{ $field['field']['slug'] }}"
-            name="fields[{{ $field['field']['id'] }}]" value="">
+            name="fields[{{ $field['field']['id'] }}]" value="{{ $field['value'] ?? '' }}">
     </div>
 
 @endif
