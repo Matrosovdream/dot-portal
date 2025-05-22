@@ -11,7 +11,7 @@
 		</div>
 	</div>
 
-	<form action="{{ route('dashboard.requestmanage.show.updatestatus', $request['id']) }}" method="POST">
+	<form action="{{ route('dashboard.requestmanage.updatestatus', $request['id']) }}" method="POST">
 		@csrf
 
 		<div class="card-body pt-0">

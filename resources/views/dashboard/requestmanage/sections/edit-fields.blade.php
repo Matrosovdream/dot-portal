@@ -10,7 +10,7 @@
 
     <div class="card-body p-9">
 
-        <form action=""
+        <form action="{{ route('dashboard.requestmanage.updatefields', ['request_id' => $request_id]) }}"
             class="form mb-15 fv-plugins-bootstrap5 fv-plugins-framework" method="POST">
             @csrf
         
