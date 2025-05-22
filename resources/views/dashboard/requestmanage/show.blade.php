@@ -20,6 +20,10 @@
 
                 @include('dashboard.requestmanage.sections.edit-fields')
 
+                @if( $request['service']['is_paid'] )
+                    @include('dashboard.requestmanage.sections.payments')
+                @endif
+
                 @include('dashboard.requestmanage.sections.history')
 
             </div>

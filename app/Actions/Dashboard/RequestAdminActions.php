@@ -44,6 +44,7 @@ class RequestAdminActions {
             'request' => $request,
             'request_id' => $request_id,
             'fieldValues' => $request['fieldValues'] ?? [],
+            'payments' => [],
             'references' => $this->getReferences()
         ];
     }
