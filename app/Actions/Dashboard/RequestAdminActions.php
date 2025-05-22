@@ -46,6 +46,18 @@ class RequestAdminActions {
         ];
     }
 
+    public function updateStatus($data, $service_id)
+    {
+        $request = $this->requestRepo->getById($service_id);
+
+        if ($request) {
+            $request['Model']->status_id = $data['status_id'];
+            $request['Model']->save();
+        }
+
+        return $request;
+    }
+
     public function destroy($group_id)
     {
         return $this->requestRepo->delete($group_id);
