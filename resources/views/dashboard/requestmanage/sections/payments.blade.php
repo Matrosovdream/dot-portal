@@ -3,49 +3,65 @@
 
         <div class="card-header border-0">
             <div class="card-title">
-                <h2>History</h2>
+                <h2>Payments history</h2>
             </div>
         </div>
 
-        <div class="card-body pt-0 pb-5">
-
+        <div id="kt_billing_all" class="card-body p-0 tab-pane fade active show" role="tabpanel"
+            aria-labelledby="kt_billing_all">
             <div class="table-responsive">
-                <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
-                    <thead>
-                        <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
-                            <th class="min-w-100px">Status</th>
-                            <th class="min-w-100px">User</th>
-                            <th class="min-w-100px">Comment</th>
-                        </tr>
-                    </thead>
-                    <tbody class="fw-semibold text-gray-600">
 
-                        @foreach($request['history']['items'] as $history)
+                @if(isset($paymentHistory))
 
+                    <table class="table table-row-bordered align-middle gy-4 gs-9">
+                        <thead class="border-bottom border-gray-200 fs-6 text-gray-600 fw-bold bg-light bg-opacity-75">
                             <tr>
-
-                                <td class="pe-0">
-                                    {{ $history['status']['name'] ?? '' }}
-                                </td>
-
-                                <td class="pe-0"> 
-                                    {{ $history['user']['firstname'] ?? '' }} {{ $history['user']['lastname'] ?? '' }} 
-                                </td>
-
-                                <td class="pe-0">
-                                    {{ $history['comment'] ?? '' }}
-                                </td>
-
+                                <td>Date</td>
+                                <td>Status</td>
+                                <td>Notes</td>
+                                <td>Amount</td>
+                                <td>Transaction ID</td>
+                                <td></td>
                             </tr>
+                        </thead>
+                        <tbody class="fw-semibold text-gray-600">
 
-                        @endforeach
+                        @php
+                        //dd($paymentHistory['items']);
+                        @endphp
 
-                    </tbody>
+                            @foreach($paymentHistory['items'] as $payment)
 
-                </table>
+                                <tr>
+                                    <td>{{ $payment['payment_date'] }}</td>
+                                    <td>
+                                        <span class="badge badge-light fw-bold">{{ $payment['status'] }}</span>
+                                    </td>
+                                    <td>
+                                        {{ $payment['notes'] ?? '' }}
+                                    </td>
+                                    <td>
+                                        ${{ $payment['amount'] }}
+                                    </td>
+                                    <td>
+                                        {{ $payment['transaction_id'] }}
+                                    </td>
+                                </tr>
+
+                            @endforeach
+
+                        </tbody>
+                    </table>
+
+                @else
+
+                    <div class="text-center py-2">
+                        <div class="text-gray-600 fs-2 fw-bold mb-5">No payments found</div>
+                    </div>
+
+                @endif
 
             </div>
-
         </div>
 
     </div>
