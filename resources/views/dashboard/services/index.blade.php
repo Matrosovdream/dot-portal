@@ -58,9 +58,9 @@
                                     </td>
                                     <td class="pe-0">
                                         @if( $service['is_paid'] )
-                                            Free
-                                        @else
                                             ${{ $service['price'] }}
+                                        @else
+                                            Free
                                         @endif
                                     </td>
                                     <td class="pe-0">
