@@ -30,7 +30,13 @@
             <div class="d-flex flex-column flex-lg-row mb-17">
 
                 <div class="flex-lg-row-fluid me-0 me-lg-10">
-                    @include('dashboard.servicerequest.sections.submit-form')
+
+                    @if( $formPath )
+                        @include( $formPath )
+                    @else
+                        @include('dashboard.servicerequest.sections.submit-form')
+                    @endif
+                    
                 </div>
 
                 <div class="flex-lg-row-auto w-100 w-lg-275px w-xxl-330px">

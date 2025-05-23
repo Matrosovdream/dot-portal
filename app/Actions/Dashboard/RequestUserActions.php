@@ -11,6 +11,7 @@ use App\Repositories\User\UserRepo;
 use App\Repositories\User\UserPaymentCardRepo;
 use App\Mixins\Gateways\AuthnetGateway;
 use App\Repositories\User\UserPaymentHistoryRepo;
+use App\References\ServiceReferences;
 
 class RequestUserActions {
 
@@ -21,6 +22,7 @@ class RequestUserActions {
     private $userCardRepo;
     private $authnet;
     private $userPaymentHistoryRepo;
+    private $serviceRef;
 
     public function __construct()
     {
@@ -31,6 +33,9 @@ class RequestUserActions {
         $this->userCardRepo = new UserPaymentCardRepo();
         $this->authnet = new AuthnetGateway;
         $this->userPaymentHistoryRepo = new UserPaymentHistoryRepo();
+
+        // References
+        $this->serviceRef = new ServiceReferences();
     }
 
     public function showGroup( $groupslug )
@@ -62,10 +67,16 @@ class RequestUserActions {
         // Service
         $service = $this->serviceRepo->getBySlug($serviceslug);
 
+        // Get form path for predefined forms
+        if( $service['form_type'] == 'predefined' ) {
+            $formPath = $this->serviceRef->getPredefinedForms()[ $service['form_id'] ]['path'] ?? null;
+        }
+
         return [
             'title' => 'Services of ' . $groupslug,
             'group' => $group,
-            'service' => $service
+            'service' => $service,
+            'formPath' => $formPath ?? null,
         ];
     }
 
