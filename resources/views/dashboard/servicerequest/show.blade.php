@@ -10,7 +10,7 @@
                 <div class="overlay overlay-show">
 
                     <div class="bgi-no-repeat bgi-position-center bgi-size-cover card-rounded min-h-250px"
-                        style="background-image:url('assets/media/stock/1600x800/img-1.jpg')">
+                        style="background-image:url('https://i.ytimg.com/vi/6km8SBLOcps/maxresdefault.jpg')">
                     </div>
 
                     <div class="overlay-layer rounded bg-black" style="opacity: 0.4"></div>
@@ -21,7 +21,7 @@
                         {{ $service['name'] }}
                     </h3>
                     <div class="fs-5 fw-semibold">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut
+                        Some text here
                     </div>
                 </div>
 
@@ -56,6 +56,7 @@
 
                             </div>
 
+                            <!--
                             <div class="mb-8">
 
                                 <h4 class="text-gray-700 w-bolder mb-0">Title</h4>
@@ -69,8 +70,8 @@
                                 </div>
 
                             </div>
-
                             <a href="pages/blog/post.html" class="link-primary fs-6 fw-semibold">Explore More</a>
+                            -->
 
                         </div>
 
