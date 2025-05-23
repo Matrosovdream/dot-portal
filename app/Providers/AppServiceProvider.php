@@ -5,6 +5,7 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 use App\View\Components\Dashboard\Forms\FileUploader;
 use App\View\Components\Dashboard\Forms\Select;
+use App\View\Components\Dashboard\Forms\Date;
 use App\View\Components\Dashboard\Layout\SidebarMenu;
 
 
@@ -30,6 +31,7 @@ class AppServiceProvider extends ServiceProvider
         // Form components
         Blade::component('file-uploader', FileUploader::class);
         Blade::component('select', Select::class);
+        Blade::component('date', Date::class);
 
     }
 }
