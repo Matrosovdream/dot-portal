@@ -84,60 +84,60 @@ class ServiceReferences {
     public function getPredefinedForms() {
 
         return [
-            [
+            1 => [
                 'id' => 1,
                 'name' => 'UCR'
             ],
-            [
-                'id' => 2,
+            2 => [
+                'id'=> 2,
                 'name' => 'Road Taxes'
             ],
-            [
-                'id' => 3,
+            3 => [
+                'id'=> 3,
                 'name' => 'Annual report'
             ],
-            [
-                'id' => 4,
+            4 => [
+                'id'=> 4,
                 'name' => 'IFTA'
             ],
-            [
-                'id' => 5,
+            5 => [
+                'id'=> 5,
                 'name' => 'State permits'
             ],
-            [
-                'id' => 6,
+            6 => [
+                'id'=> 6,
                 'name' => 'IRP Service'
             ],
-            [
-                'id' => 7,
+            7 => [
+                'id'=> 7,
                 'name' => 'DOT Update'
             ],
-            [
-                'id' => 8,
+            8 => [
+                'id'=> 8,
                 'name' => 'Fuel Tax Quarterly Filing'
             ],
-            [
-                'id' => 9,
+            9 => [
+                'id'=> 9,
                 'name' => 'MVR'
             ],
-            [
-                'id' => 10,
+            10 => [
+                'id'=> 10,
                 'name' => 'New Driver Setup'
             ],
-            [
-                'id' => 11,
+            11 => [
+                'id'=> 11,
                 'name' => 'Add to Fleet'
             ],
-            [
-                'id' => 12,
+            12 => [
+                'id'=> 12,
                 'name' => 'Equipment Inspection'
             ],
-            [
-                'id' => 13,
+            13 => [
+                'id'=> 13,
                 'name' => 'Terminate Driver'
             ],
-            [
-                'id' => 14,
+            14 => [
+                'id'=> 14,
                 'name' => 'Terminate Equipment'
             ],
         ];
