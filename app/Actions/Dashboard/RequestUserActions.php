@@ -126,7 +126,8 @@ class RequestUserActions {
 
         return [
             'title' => 'Request details #' . $request_id,
-            'request' => $request
+            'request' => $request,
+            'paymentHistory' => $payments ?? [],
         ];
     }
 
