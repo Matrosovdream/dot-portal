@@ -1,4 +1,4 @@
-<div class="col-md-6 fv-row fv-plugins-icon-container">
+<div class="col-md-6 mb-5">
     @if($label)
         <label for="{{ $inputId ?? $inputName }}" class="{{ $required ? 'required' : '' }} fs-5 fw-semibold mb-2">
             {{ $label }}
