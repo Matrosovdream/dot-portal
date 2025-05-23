@@ -1,4 +1,4 @@
-<div class="tab-pane fade active" id="kt_ecommerce_customer_payments" role="tabpanel">
+<div class="tab-pane active" id="kt_ecommerce_customer_payments" role="tabpanel">
     <div class="card pt-4 mb-6 mb-xl-9">
 
         <div class="card-header border-0">
