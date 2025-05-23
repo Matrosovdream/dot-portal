@@ -190,6 +190,7 @@ Route::group([
     Route::prefix('service-request')->name('servicerequest.')->group(function () {
         Route::get('history', [RequestUserController::class, 'history'])->name('history.index');
         Route::get('history/{request_id}', [RequestUserController::class, 'historyShow'])->name('history.show');
+        Route::get('history/{request_id}/payments', [RequestUserController::class, 'historyShowPayments'])->name('history.show.payments');
         Route::get('history/{request_id}/pay', [RequestUserController::class, 'historyShowPay'])->name('history.showpay');
         Route::post('history/{request_id}/pay', [RequestUserController::class, 'historyShowPayProcess'])->name('history.showpayprocess');
 
