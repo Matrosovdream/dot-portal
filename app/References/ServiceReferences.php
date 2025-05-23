@@ -86,16 +86,60 @@ class ServiceReferences {
         return [
             [
                 'id' => 1,
-                'name' => 'Form 1'
+                'name' => 'UCR'
             ],
             [
                 'id' => 2,
-                'name' => 'Form 2'
+                'name' => 'Road Taxes'
             ],
             [
                 'id' => 3,
-                'name' => 'Form 3'
-            ]
+                'name' => 'Annual report'
+            ],
+            [
+                'id' => 4,
+                'name' => 'IFTA'
+            ],
+            [
+                'id' => 5,
+                'name' => 'State permits'
+            ],
+            [
+                'id' => 6,
+                'name' => 'IRP Service'
+            ],
+            [
+                'id' => 7,
+                'name' => 'DOT Update'
+            ],
+            [
+                'id' => 8,
+                'name' => 'Fuel Tax Quarterly Filing'
+            ],
+            [
+                'id' => 9,
+                'name' => 'MVR'
+            ],
+            [
+                'id' => 10,
+                'name' => 'New Driver Setup'
+            ],
+            [
+                'id' => 11,
+                'name' => 'Add to Fleet'
+            ],
+            [
+                'id' => 12,
+                'name' => 'Equipment Inspection'
+            ],
+            [
+                'id' => 13,
+                'name' => 'Terminate Driver'
+            ],
+            [
+                'id' => 14,
+                'name' => 'Terminate Equipment'
+            ],
         ];
         
     }
