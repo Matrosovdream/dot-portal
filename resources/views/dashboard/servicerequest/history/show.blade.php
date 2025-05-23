@@ -13,9 +13,18 @@
     @if(request()->routeIs('dashboard.servicerequest.history.show'))
 
         <div class="collapse show">
-
             @include('dashboard.servicerequest.history.sections.overview')
+        </div>
 
+    @endif
+
+    @if(
+        request()->routeIs('dashboard.servicerequest.history.show.payments') &&
+        $request['service']['is_paid']
+        )
+
+        <div class="collapse show">
+            @include('dashboard.servicerequest.history.sections.payments')
         </div>
 
     @endif

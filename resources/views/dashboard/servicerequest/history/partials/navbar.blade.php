@@ -7,6 +7,13 @@
         ],
     ];
 
+    if ($request['service']['is_paid']) {
+        $sections['payments'] = [
+            'title' => 'Payments',
+            'url' => route('dashboard.servicerequest.history.show.payments', $request['id']),
+        ];
+    }
+
 @endphp
 
 
