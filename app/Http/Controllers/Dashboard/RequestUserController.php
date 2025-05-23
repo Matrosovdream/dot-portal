@@ -70,6 +70,15 @@ class RequestUserController extends Controller
 
     }
 
+    public function historyShowPayments($request_id) {
+
+        return view(
+            'dashboard.servicerequest.history.show', 
+            $this->RequestUserActions->historyShowPayments($request_id)
+        );
+
+    }
+
     public function historyShowPay($request_id) {
 
         return view(
