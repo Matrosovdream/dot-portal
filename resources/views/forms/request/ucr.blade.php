@@ -1,3 +1,14 @@
+<x-date
+    inputName="date_of_birth"
+    label="Date of Birth"
+    :required=true
+    :placeholder="__('Enter your date of birth')"
+    :note="__('Please enter your date of birth in the format YYYY-MM-DD')"
+    :description="__('This field is required for age verification')"
+    :value="2025-01-01"
+/>
+
+
 <x-select 
     inputName="range_of_units"
     label="Select the range of units"
