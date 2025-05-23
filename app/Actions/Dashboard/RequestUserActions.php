@@ -119,12 +119,13 @@ class RequestUserActions {
         ];
     }
 
-    public function historyShow($service_id)
+    public function historyShow($request_id)
     {
-        $request = $this->requestRepo->getById($service_id);
+        $request = $this->requestRepo->getById($request_id);
+        $payments = $this->userPaymentHistoryRepo->getAll( ['request_id' => $request_id], $paginate = 1000 );
 
         return [
-            'title' => 'Request details #' . $service_id,
+            'title' => 'Request details #' . $request_id,
             'request' => $request
         ];
     }
