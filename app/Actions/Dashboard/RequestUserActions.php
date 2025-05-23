@@ -121,12 +121,20 @@ class RequestUserActions {
 
     public function historyShow($request_id)
     {
-        $request = $this->requestRepo->getById($request_id);
+
+        return [
+            'title' => 'Request details #' . $request_id,
+            'request' => $this->requestRepo->getById($request_id)
+        ];
+    }
+
+    public function historyShowPayments($request_id)
+    {
         $payments = $this->userPaymentHistoryRepo->getAll( ['request_id' => $request_id], $paginate = 1000 );
 
         return [
             'title' => 'Request details #' . $request_id,
-            'request' => $request,
+            'request' => $request = $this->requestRepo->getById($request_id),
             'paymentHistory' => $payments ?? [],
         ];
     }
