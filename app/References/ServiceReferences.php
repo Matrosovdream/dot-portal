@@ -87,7 +87,12 @@ class ServiceReferences {
             1 => [
                 'id' => 1,
                 'name' => 'UCR',
-                'path' => 'forms.request.ucr'
+                'path' => 'forms.request.ucr',
+                'fields' => [
+                    'range_of_units' => ['title' => 'Range of units', 'type' => 'text', 'required' => true],
+                    'date_of_birth' => ['title' => 'Date of birth', 'type' => 'date', 'required' => true],
+                    'permit_year' => ['title' => 'Permit year', 'type' => 'text', 'required' => true],
+                ]
             ],
             2 => [
                 'id'=> 2,
