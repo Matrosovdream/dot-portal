@@ -48,4 +48,9 @@ class Request extends Model
         return $this->hasMany(RequestFieldValue::class);
     }
 
+    public function predefinedValues()
+    {
+        return $this->hasMany(RequestPredefinedValue::class);
+    }
+
 }
