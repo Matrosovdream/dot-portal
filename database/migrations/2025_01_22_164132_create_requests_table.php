@@ -52,6 +52,13 @@ return new class extends Migration
             $table->text('value')->nullable();
         });
 
+        Schema::create('request_predefined_values', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('request_id')->on('requests');
+            $table->string('field_code')->nullable();
+            $table->text('value')->nullable();
+        });
+
     }
 
     /**
@@ -64,6 +71,7 @@ return new class extends Migration
         Schema::dropIfExists('request_history');
         Schema::dropIfExists('ref_request_statuses');
         Schema::dropIfExists('request_field_values');
+        Schema::dropIfExists('request_predefined_values');
     }
     
 };
