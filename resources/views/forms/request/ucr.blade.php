@@ -1,7 +1,7 @@
 
 <div class="col-md-6 mb-3">
     <x-select 
-        inputName="range_of_units"
+        inputName="fields[range_of_units]"
         label="Select the range of units"
         :options="[
             ['value' => '0-2 Units', 'title' => '0-2 Units'],
@@ -17,7 +17,7 @@
 
 <div class="col-md-6 mb-3">
     <x-date
-        inputName="date_of_birth"
+        inputName="fields[date_of_birth]"
         label="Date of Birth"
         :required=true
         :placeholder="__('Enter your date of birth')"
@@ -29,7 +29,7 @@
 
 <div class="col-md-6 mb-3">
     <x-select 
-        inputName="permit_year"
+        inputName="fields[permit_year]"
         label="Permit Year"
         :options="[
             ['value' => '2024', 'title' => '2024'],
