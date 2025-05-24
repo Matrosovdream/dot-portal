@@ -2,6 +2,8 @@
     class="form mb-15 fv-plugins-bootstrap5 fv-plugins-framework" method="POST">
     @csrf
 
+    <input type="hidden" name="form_type" value="custom">
+
     @include('dashboard.includes.errors.default')
 
     <div class="row mb-5">
