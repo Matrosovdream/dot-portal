@@ -32,7 +32,7 @@
                 <div class="flex-lg-row-fluid me-0 me-lg-10">
 
                     @if( $formPath )
-                        @include( $formPath )
+                        @include('dashboard.servicerequest.sections.submit-form-predefined', ['formPath' => $formPath])
                     @else
                         @include('dashboard.servicerequest.sections.submit-form')
                     @endif
