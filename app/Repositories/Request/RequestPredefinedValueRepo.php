@@ -17,14 +17,14 @@ class RequestPredefinedValueRepo extends AbstractRepo
         $this->model = new RequestPredefinedValue();
     }
 
-    public function syncValue($request_id, $field_id, $value)
+    public function syncValue($request_id, $field_code, $value)
     {
-        $data = $this->model->where('request_id', $request_id)->where('field_id', $field_id)->first();
+        $data = $this->model->where('request_id', $request_id)->where('field_id', $field_code)->first();
 
         if (empty($data)) {
-            $data = new RequestFieldValue();
+            $data = $this->model->newInstance();
             $data->request_id = $request_id;
-            $data->field_id = $field_id;
+            $data->field_code = $field_code;
         }
         $data->value = $value;
         $data->save();
