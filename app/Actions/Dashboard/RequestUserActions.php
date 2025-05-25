@@ -113,13 +113,8 @@ class RequestUserActions {
         ];
         $requestData = $this->requestRepo->create($requestPayload);
 
-        if( $request->form_type == 'custom' ) {
-            // Attach field values
-            $this->requestRepo->syncFieldValues( $requestData['id'], $request->fields );
-        } elseif( $request->form_type == 'predefined' ) {
-            // Attach predefined form values
-            $this->requestRepo->syncPredefinedFormValues( $requestData['id'], $request->fields );
-        }
+        // Sync field values, custom or predefined
+        $this->requestRepo->syncFieldValues( $requestData['id'], $request->fields );
         
         // Return updated request entity
         return $this->requestRepo->getById($requestData['id']);
