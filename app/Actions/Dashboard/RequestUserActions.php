@@ -133,10 +133,23 @@ class RequestUserActions {
     public function historyShow($request_id)
     {
 
-        return [
+        $request = $this->requestRepo->getById($request_id);
+
+        if( !$request ) {
+            return false;
+        }
+
+        $data = [
             'title' => 'Request details #' . $request_id,
-            'request' => $this->requestRepo->getById($request_id)
+            'request' => $request,
         ];
+
+        if( $request['service']['form_type'] == 'predefined' ) {
+            $data['predefinedForm'] = $this->serviceRef->getPredefinedForms()[ $request['service']['form_id'] ];
+            $data['predefinedValues'] = $request['predefinedValues'] ?? [];
+        }
+        
+        return $data;
     }
 
     public function historyShowPayments($request_id)
