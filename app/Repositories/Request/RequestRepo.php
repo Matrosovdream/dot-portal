@@ -48,7 +48,6 @@ class RequestRepo extends AbstractRepo
 
     public function syncFieldValues($request_id, $values)
     {
-        $request = $this->getById($request_id);
 
         foreach( $values as $field_id=>$value ) {
             $this->syncFieldValue( $request_id, $field_id, $value );
@@ -57,7 +56,15 @@ class RequestRepo extends AbstractRepo
     }
 
     public function syncFieldValue( $request_id, $field_id, $value ) {
-        $this->fieldValueRepo->syncValue($request_id, $field_id, $value);
+
+        $request = $this->getById($request_id);
+
+        if( $request['form_type'] == 'custom' ) {
+            $this->fieldValueRepo->syncValue($request_id, $field_id, $value);
+        } else {
+            $this->predefinedValueRepo->syncValue($request_id, $field_id, $value);
+        }
+        
     }
 
     public function mapItem($item)
