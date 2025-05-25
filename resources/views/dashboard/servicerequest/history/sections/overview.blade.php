@@ -15,20 +15,41 @@
 
     <div class="card-body p-9">
 
-        @foreach( $request['fieldValues']['items'] as $item )
+        @if( $formType == 'custom' )
 
-            <div class="row mb-7">
-                <label class="col-lg-4 fw-semibold text-muted">
-                    {{ $item['field']['title'] ?? '' }}
-                </label>
-                <div class="col-lg-8">
-                    <span class="fw-bold fs-6 text-gray-800">
-                        {{ $item['value'] ?? '-' }}
-                    </span>
+            @foreach( $request['fieldValues']['items'] as $item )
+
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-semibold text-muted">
+                        {{ $item['field']['title'] ?? '' }}
+                    </label>
+                    <div class="col-lg-8">
+                        <span class="fw-bold fs-6 text-gray-800">
+                            {{ $item['value'] ?? '-' }}
+                        </span>
+                    </div>
                 </div>
-            </div>
 
-        @endforeach
+            @endforeach
+
+        @elseif( $formType == 'predefined' )
+
+            @foreach( $request['predefinedValues']['items'] as $item )
+
+                <div class="row mb-7">
+                    <label class="col-lg-4 fw-semibold text-muted">
+                        {{ $predefinedForm['fields'][ $item['field_code'] ]['title'] }}
+                    </label>
+                    <div class="col-lg-8">
+                        <span class="fw-bold fs-6 text-gray-800">
+                            {{ $item['value'] ?? '-' }}
+                        </span>
+                    </div>
+                </div>
+
+            @endforeach
+
+        @endif
 
     </div>
 </div>

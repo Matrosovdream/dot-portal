@@ -141,6 +141,7 @@ class RequestUserActions {
 
         $data = [
             'title' => 'Request details #' . $request_id,
+            'formType' => $request['service']['form_type'] ?? 'custom',
             'request' => $request,
         ];
 
@@ -148,7 +149,7 @@ class RequestUserActions {
             $data['predefinedForm'] = $this->serviceRef->getPredefinedForms()[ $request['service']['form_id'] ];
             $data['predefinedValues'] = $request['predefinedValues'] ?? [];
         }
-        
+
         return $data;
     }
 
