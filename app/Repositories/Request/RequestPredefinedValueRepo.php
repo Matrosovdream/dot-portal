@@ -45,7 +45,7 @@ class RequestPredefinedValueRepo extends AbstractRepo
         $res = [
             'id' => $item->id,
             'request_id' => $item->request_id,
-            'field' => $this->refFormFieldRepo->mapItem($item->field),
+            'field_code' => $item->field_code,
             'value' => $item->value,
             'Model' => $item
         ];
