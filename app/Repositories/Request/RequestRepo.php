@@ -59,10 +59,13 @@ class RequestRepo extends AbstractRepo
 
         $request = $this->getById($request_id);
 
-        if( $request['form_type'] == 'custom' ) {
-            $this->fieldValueRepo->syncValue($request_id, $field_id, $value);
-        } else {
-            $this->predefinedValueRepo->syncValue($request_id, $field_id, $value);
+        switch ($request['form_type']) {
+            case 'custom':
+                $this->fieldValueRepo->syncValue($request_id, $field_id, $value);
+            break;
+            case 'predefined':
+                $this->predefinedValueRepo->syncValue($request_id, $field_id, $value);
+            break;
         }
         
     }
