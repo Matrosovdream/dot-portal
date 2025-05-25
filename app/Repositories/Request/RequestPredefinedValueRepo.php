@@ -30,9 +30,9 @@ class RequestPredefinedValueRepo extends AbstractRepo
         $data->save();
     }
 
-    public function findValue($request_id, $field_id)
+    public function findValue($request_id, $field_code)
     {
-        $data = $this->model->where('request_id', $request_id)->where('field_id', $field_id)->first();
+        $data = $this->model->where('request_id', $request_id)->where('field_code', $field_code)->first();
         return $this->mapItem($data);
     }
 
