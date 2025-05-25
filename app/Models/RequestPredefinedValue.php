@@ -15,6 +15,8 @@ class RequestPredefinedValue extends Model
         'value'
     ];
 
+    public $timestamps = false;
+
     public function request()
     {
         return $this->belongsTo(Request::class);
