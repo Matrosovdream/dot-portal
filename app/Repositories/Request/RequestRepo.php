@@ -59,7 +59,7 @@ class RequestRepo extends AbstractRepo
 
         $request = $this->getById($request_id);
 
-        switch ($request['form_type']) {
+        switch ($request['service']['form_type']) {
             case 'custom':
                 $this->fieldValueRepo->syncValue($request_id, $field_id, $value);
             break;
