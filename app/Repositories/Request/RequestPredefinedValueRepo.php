@@ -19,15 +19,19 @@ class RequestPredefinedValueRepo extends AbstractRepo
 
     public function syncValue($request_id, $field_code, $value)
     {
-        $data = $this->model->where('request_id', $request_id)->where('field_id', $field_code)->first();
+        $data = $this->findValue($request_id, $field_code);
 
         if (empty($data)) {
             $data = $this->model->newInstance();
             $data->request_id = $request_id;
             $data->field_code = $field_code;
+            $data->value = $value;
+            $data->save();
+        } else {
+            $data['Model']->value = $value;
+            $data['Model']->save();
         }
-        $data->value = $value;
-        $data->save();
+        
     }
 
     public function findValue($request_id, $field_code)
