@@ -42,6 +42,10 @@ class ServiceGroupActions {
 
     public function update($group_id, $request)
     {
+
+        // Prepare the request data
+        $request['is_active'] = isset($request['is_active']) ? 1 : 0;
+
         $data = $this->serviceGroupRepo->update($group_id, $request);
 
         return $data;
@@ -58,6 +62,10 @@ class ServiceGroupActions {
 
     public function store($request)
     {
+
+        // Prepare the request data
+        $request['is_active'] = isset($request['is_active']) ? 1 : 0;
+
         $data = $this->serviceGroupRepo->create($request);
         return $data;
     }
