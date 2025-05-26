@@ -146,6 +146,20 @@
                         </div>
                     </div>
 
+                    @if( $subscription['refundSum'] > 0 )
+
+                        <!-- Refund Summary -->
+                        <div class="mb-7" id="upgrade-refund-summary" style="display: none;">
+                            <h4 class="fw-bold mb-2">Refund Summary</h4>
+                            <p class="fs-5 text-gray-700">
+                                You are about to upgrade your subscription. Upon confirmation, 
+                                a refund of <strong>${{ $subscription['refundSum'] }}</strong> (Current Plan: {{ $subscription['subscription']['name'] }})
+                                will be issued to your original payment method.
+                            </p>
+                        </div>
+
+                    @endif
+
                     <div class="d-flex flex-center flex-row-fluid pt-12">
                         <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" class="btn btn-primary" id="kt_modal_upgrade_plan_btn">
@@ -171,6 +185,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const planRadios = document.querySelectorAll('input[name="plan"]');
         const upgradeBtn = document.getElementById('kt_modal_upgrade_plan_btn');
+        const refundSummary = document.getElementById('upgrade-refund-summary');
 
         // Store the initially selected plan ID
         let initialPlanId = null;
@@ -188,8 +203,16 @@
             radio.addEventListener('change', function () {
                 if (this.value !== initialPlanId) {
                     upgradeBtn.disabled = false;
+                    // Show refund summary if it exists
+                    if (refundSummary) {
+                        refundSummary.style.display = 'block';
+                    }
                 } else {
                     upgradeBtn.disabled = true;
+                    // Hide refund summary if it exists
+                    if (refundSummary) {
+                        refundSummary.style.display = 'none';
+                    }
                 }
             });
         });
