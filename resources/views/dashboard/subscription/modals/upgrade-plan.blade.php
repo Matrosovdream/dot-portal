@@ -146,7 +146,10 @@
                         </div>
                     </div>
 
-                    @if( $subscription['refundSum'] > 0 )
+                    @if( 
+                        isset($subscription['refundSum']) &&
+                        $subscription['refundSum'] > 0 
+                        )
 
                         <!-- Refund Summary -->
                         <div class="mb-7" id="upgrade-refund-summary" style="display: none;">
