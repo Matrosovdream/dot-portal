@@ -1,4 +1,11 @@
 <div class="fv-row mb-2">
+
+    @if($title)
+        <label for="{{ $inputId ?? $inputName }}" class="form-label {{ $required ? 'required' : '' }} fs-5 fw-semibold mb-2">
+            {{ $title }}
+        </label>
+    @endif
+
     <div class="dropzone" id="kt_ecommerce_add_{{ $inputId }}">
 
         <input 
@@ -25,10 +32,14 @@
         </div>
     </div>
 </div>
-<div class="text-muted fs-7">
-    {{ $description }}
-</div>
 
+@if($note)
+    <div class="form-text">{{ $note }}</div>
+@endif
+
+@if($description)
+    <div class="text-muted fs-7">{{ $description }}</div>
+@endif
 
 
 <script>

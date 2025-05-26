@@ -35,6 +35,7 @@
 <div class="col-md-6 mb-3">
     <x-file-uploader
         inputName="fields[auth_document]"
+        title="Upload MVR Authorization Document"
         label="Upload signed MVR authorization"
         value=""
         :multiple=false
