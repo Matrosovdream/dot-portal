@@ -26,7 +26,7 @@ class ServiceSeeder extends Seeder
             [
                 'name' => 'MCS-150 Update', 
                 'slug' => 'msc-150-update', 
-                'description' => 'Service 1 description', 
+                'description' => 'MCS-150 description', 
                 'is_paid' => true,
                 'price' => 50, 
                 'status_id' => 1, 
@@ -37,7 +37,7 @@ class ServiceSeeder extends Seeder
             [
                 'name' => 'UCR Renewal', 
                 'slug' => 'ucr-renewel', 
-                'description' => 'Service 2 description', 
+                'description' => 'UCR Renewal description', 
                 'is_paid' => false,
                 'price' => 0, 
                 'status_id' => 1, 
@@ -48,13 +48,13 @@ class ServiceSeeder extends Seeder
             [
                 'name' => 'MVR Check', 
                 'slug' => 'mvr-check', 
-                'description' => 'Service 3 description', 
+                'description' => 'MVR check description', 
                 'is_paid' => false,
                 'price' => 0, 
                 'status_id' => 1, 
                 'group_id' => 2,
-                'form_type' => 'custom',
-                'form_id' => null,
+                'form_type' => 'predefined',
+                'form_id' => 9
             ],
         ];
         
