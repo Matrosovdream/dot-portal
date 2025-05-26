@@ -7,6 +7,7 @@ use App\Repositories\Service\ServiceRepo;
 use App\Repositories\Request\RequestRepo;
 use App\Repositories\References\RefRequestStatusRepo;
 use App\Repositories\User\UserPaymentHistoryRepo;
+use App\References\ServiceReferences;
 
 class RequestAdminActions {
 
@@ -16,6 +17,7 @@ class RequestAdminActions {
 
     private $refRequestStatus;
     private $userPaymentHistoryRepo;
+    private $serviceRef;
 
     public function __construct()
     {
@@ -26,6 +28,7 @@ class RequestAdminActions {
 
         // References
         $this->refRequestStatus = new RefRequestStatusRepo();
+        $this->serviceRef = new ServiceReferences();
     }
 
     public function index()
@@ -43,14 +46,25 @@ class RequestAdminActions {
         $request = $this->requestRepo->getById($request_id);
         $payments = $this->userPaymentHistoryRepo->getAll( ['request_id' => $request_id], $paginate = 1000 );
 
-        return [
+        if( !$request ) { return false;}
+
+        $data = [
             'title' => 'Request details #' . $request_id,
             'request' => $request,
             'request_id' => $request_id,
             'fieldValues' => $request['fieldValues'] ?? [],
             'paymentHistory' => $payments ?? [],
+            'formType' => $request['service']['form_type'] ?? 'custom',
             'references' => $this->getReferences()
         ];
+
+        if( $request['service']['form_type'] == 'predefined' ) {
+            $data['predefinedForm'] = $this->serviceRef->getPredefinedForms()[ $request['service']['form_id'] ];
+            $data['predefinedValues'] = $request['predefinedValues'] ?? [];
+        }
+
+        return $data;
+
     }
 
     public function updateStatus($data, $service_id)
