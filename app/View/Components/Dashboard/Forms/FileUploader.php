@@ -16,6 +16,7 @@ class FileUploader extends Component
         public ?string $accept,
         public ?bool $multiple,
         public ?bool $required,
+        public ?string $title,
         public ?string $label,
         public ?string $note,
         public ?string $description,
