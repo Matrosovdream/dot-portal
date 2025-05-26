@@ -68,6 +68,8 @@
                     
                     
                     <div class="card-body pt-0 pb-5">
+
+                        @include('dashboard.includes.errors.default')
                         
                         <form class="form" method="POST" action="{{ route('dashboard.users.update', $user->id) }}" id="kt_ecommerce_customer_profile">
                             @csrf
