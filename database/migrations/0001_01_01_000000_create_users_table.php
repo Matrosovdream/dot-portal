@@ -53,7 +53,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->on('users');
             $table->foreignId('role_id')->on('users');
-            $table->timestamps();
         });
 
         Schema::create('user_company', function (Blueprint $table) {
