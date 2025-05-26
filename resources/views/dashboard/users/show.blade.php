@@ -101,11 +101,35 @@
                             </div>
 
                             <div class="fv-row mb-7">
-                                <label class="fs-6 fw-semibold mb-2 required">Name</label>
+                                <label class="fs-6 fw-semibold mb-2 required">First Name</label>
                                 <input 
                                     type="text" 
-                                    name="name"
-                                    value="{{ $user->name }}" 
+                                    name="firstname"
+                                    value="{{ $user->firstname }}" 
+                                    class="form-control form-control-solid" 
+                                    placeholder="" 
+                                    />
+                                
+                            </div>
+
+                            <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2 required">Last Name</label>
+                                <input 
+                                    type="text" 
+                                    name="lastname"
+                                    value="{{ $user->lastname }}" 
+                                    class="form-control form-control-solid" 
+                                    placeholder="" 
+                                    />
+                                
+                            </div>
+
+                            <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2 required">Phone</label>
+                                <input 
+                                    type="text" 
+                                    name="phone"
+                                    value="{{ $user->phone }}" 
                                     class="form-control form-control-solid" 
                                     placeholder="" 
                                     />
