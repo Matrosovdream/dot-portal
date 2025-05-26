@@ -74,13 +74,24 @@ class RequestUserActions {
         if( $service['form_type'] == 'predefined' ) {
             $formPath = $this->serviceRef->getPredefinedForms()[ $service['form_id'] ]['path'] ?? null;
         }
-        
+
+        // Get referencences and prepare data
+        $references = $this->getReferences();
+        $drivers = [];
+        foreach( $references['companyDrivers']['items'] as $driver ) {
+            $drivers[] = [
+                'value' => $driver['id'],
+                'title' => $driver['firstname'] . ' ' . $driver['lastname'] . ' (' . $driver['email'] . ')',
+            ];
+        }
+        $references['companyDrivers'] = $drivers;
+
         $data = [
             'title' => 'Services of ' . $groupslug,
             'group' => $group,
             'service' => $service,
             'formPath' => $formPath ?? null,
-            'references' => $this->getReferences(),
+            'references' => $references,
         ];
 
         return $data;
