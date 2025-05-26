@@ -76,11 +76,41 @@
 
                             </div>
 
+                            
                             <div class="fv-row mb-7">
-                                <label class="fs-6 fw-semibold mb-2 required">Name</label>
-                                <input type="text" name="name" value="{{ old('name') }}"
-                                    class="form-control form-control-solid" placeholder="" />
+                                <label class="fs-6 fw-semibold mb-2 required">First Name</label>
+                                <input 
+                                    type="text" 
+                                    name="firstname"
+                                    value="{{ old('firstname') }}" 
+                                    class="form-control form-control-solid" 
+                                    placeholder="" 
+                                    />
+                                
+                            </div>
 
+                            <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2 required">Last Name</label>
+                                <input 
+                                    type="text" 
+                                    name="lastname"
+                                    value="{{ old('lastname') }}" 
+                                    class="form-control form-control-solid" 
+                                    placeholder="" 
+                                    />
+                                
+                            </div>
+
+                            <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2 required">Phone</label>
+                                <input 
+                                    type="text" 
+                                    name="phone"
+                                    value="{{ old('phone') }}" 
+                                    class="form-control form-control-solid" 
+                                    placeholder="" 
+                                    />
+                                
                             </div>
 
                             <div class="row row-cols-1 row-cols-md-2">
