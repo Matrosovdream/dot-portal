@@ -2,7 +2,7 @@
     action="{{ route('dashboard.servicerequest.store.request', ['group' => $group['slug'], 'service' => $service['slug']]) }}"
     class="form mb-15 fv-plugins-bootstrap5 fv-plugins-framework" 
     method="POST" 
-    enctype="multipart/form-data"
+    enctype="multipart/form-data">
     @csrf
 
     <input type="hidden" name="form_type" value="predefined">
