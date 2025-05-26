@@ -52,7 +52,7 @@ class DashboardUsersController extends Controller
 
             $user->setRole($request->role);
 
-            return redirect()->route('dashboard.users.index');
+            return redirect()->back()->with('success', 'User updated successfully');
         }
 
         if ($request->action == 'save_password') {
