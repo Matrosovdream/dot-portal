@@ -36,6 +36,7 @@
     <x-file-uploader
         inputName="fields[auth_document]"
         label="Upload signed MVR authorization"
+        value=""
         :multiple=false
         :required=true
     />
