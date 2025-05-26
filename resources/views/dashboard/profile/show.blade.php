@@ -16,7 +16,7 @@
 
             @include('dashboard.profile.sections.overview-profile')
 
-            @if( request()->user()->isUser() )
+            @if( request()->user()->isUser() ) 
                 @include('dashboard.profile.sections.overview-company', ['company' => $user['company']])
             @endif
 
