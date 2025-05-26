@@ -88,14 +88,19 @@ class DashboardUsersController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required',
-            'email' => 'required:email',
-            'password' => 'required',
+            'firstname' => 'required',
+            'lastname' => 'nullable',
+            'email' => 'required|email',
+            'phone' => 'nullable',
+            'birthday' => 'nullable|date',
             'role' => 'required',
         ]);
 
         $user = new User();
-        $user->name = $request->name;
+        $user->firstname = $request->firstname;
+        $user->lastname = $request->lastname;
+        $user->phone = $request->phone;
+        $user->birthday = $request->birthday;
         $user->email = $request->email;
         $user->password = bcrypt($request->password);
         $user->save();
