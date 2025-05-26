@@ -124,7 +124,13 @@ class ServiceReferences {
             ],
             9 => [
                 'id'=> 9,
-                'name' => 'MVR'
+                'name' => 'MVR',
+                'path' => 'forms.request.mvr',
+                'fields' => [
+                    'driver_id' => ['title' => 'Driver', 'type' => 'select', 'required' => true],
+                    'mvr_type' => ['title' => 'MVR type', 'type' => 'select', 'required' => true],
+                    'auth_document' => ['title' => 'Upload signed MVR authorization', 'type' => 'file', 'required' => true],
+                ]
             ],
             10 => [
                 'id'=> 10,
