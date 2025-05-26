@@ -38,13 +38,17 @@ class DashboardUsersController extends Controller
 
         if ($request->action == 'save_general') {
 
-            $request->validate([
-                'name' => 'required',
+            $validated = $request->validate([
+                'firstname' => 'nullable',
+                'lastname' => 'nullable',
+                'email' => 'nullable|email',
+                'phone' => 'nullable',
+                'birthday' => 'nullable|date',
                 'role' => 'required',
             ]);
 
             $user = User::find($user_id);
-            $user->update(request()->all());
+            $user->update( $validated );
 
             $user->setRole($request->role);
 
@@ -64,8 +68,8 @@ class DashboardUsersController extends Controller
             return redirect()->route('dashboard.users.index');
         }
 
-        $user = User::find($user_id);
-        $user->update(request()->all());
+        //$user = User::find($user_id);
+        //$user->update(request()->all());
 
         return redirect()->route('dashboard.users.index');
     }
