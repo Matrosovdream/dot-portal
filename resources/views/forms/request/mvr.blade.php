@@ -2,7 +2,7 @@
     <x-select 
         inputName="fields[driver_id]"
         label="Select Driver"
-        :options="$references['drivers']"
+        :options="$references['companyDrivers'] ?? []"
         value=""
         :multiple=false
         :required=true
