@@ -43,8 +43,9 @@
                             </div>
                         </div>
 
-
                         <div class="card-body pt-0 pb-5">
+
+                            @include('dashboard.includes.errors.default')
 
                             <input type="hidden" name="action" value="save_general" />
 
