@@ -135,9 +135,7 @@ class RequestUserActions {
 
         $request = $this->requestRepo->getById($request_id);
 
-        if( !$request ) {
-            return false;
-        }
+        if( !$request ) { return false; }
 
         $data = [
             'title' => 'Request details #' . $request_id,
@@ -185,9 +183,7 @@ class RequestUserActions {
         $paymentCard = $this->userCardRepo->getById( $request['payment_method'] );
         $requestData = $this->requestRepo->getById($request_id);
 
-        if( !$requestData ) {
-            return false;
-        }
+        if( !$requestData ) { return false; }
 
         $price = $requestData['service']['price'];
 
