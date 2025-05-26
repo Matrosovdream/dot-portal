@@ -2,13 +2,8 @@
     <x-select 
         inputName="fields[driver_id]"
         label="Select Driver"
-        :options="[
-            ['value' => '0-2 Units', 'title' => '0-2 Units'],
-            ['value' => '3-5 Units', 'title' => '3-5 Units'],
-            ['value' => '6-20 Units', 'title' => '6-20 Units'],
-            ['value' => '21-100 Units', 'title' => '21-100 Units']
-        ]"
-        value="3-5 Units"
+        :options="$references['drivers']"
+        value=""
         :multiple=false
         :required=true
     />
@@ -20,10 +15,8 @@
         inputName="fields[mvr_type]"
         label="Select MVR Type"
         :options="[
-            ['value' => '0-2 Units', 'title' => '0-2 Units'],
-            ['value' => '3-5 Units', 'title' => '3-5 Units'],
-            ['value' => '6-20 Units', 'title' => '6-20 Units'],
-            ['value' => '21-100 Units', 'title' => '21-100 Units']
+            ['value' => 'A La Carte', 'title' => 'A La Carte'],
+            ['value' => 'Annual', 'title' => 'Annual'],
         ]"
         value="3-5 Units"
         :multiple=false

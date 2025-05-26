@@ -12,6 +12,7 @@ use App\Repositories\User\UserPaymentCardRepo;
 use App\Mixins\Gateways\AuthnetGateway;
 use App\Repositories\User\UserPaymentHistoryRepo;
 use App\References\ServiceReferences;
+use App\Repositories\Driver\DriverRepo;
 
 class RequestUserActions {
 
@@ -22,6 +23,7 @@ class RequestUserActions {
     private $userCardRepo;
     private $authnet;
     private $userPaymentHistoryRepo;
+    private $driverRepo;
     private $serviceRef;
 
     public function __construct()
@@ -36,6 +38,7 @@ class RequestUserActions {
 
         // References
         $this->serviceRef = new ServiceReferences();
+        $this->driverRepo = new DriverRepo();
     }
 
     public function showGroup( $groupslug )
@@ -71,13 +74,17 @@ class RequestUserActions {
         if( $service['form_type'] == 'predefined' ) {
             $formPath = $this->serviceRef->getPredefinedForms()[ $service['form_id'] ]['path'] ?? null;
         }
-
-        return [
+        
+        $data = [
             'title' => 'Services of ' . $groupslug,
             'group' => $group,
             'service' => $service,
             'formPath' => $formPath ?? null,
+            'references' => $this->getReferences(),
         ];
+
+        return $data;
+
     }
 
     public function update($group_id, $request)
@@ -244,6 +251,16 @@ class RequestUserActions {
     public function destroy($group_id)
     {
         return $this->serviceGroupRepo->delete($group_id);
+    }
+
+    public function getReferences()
+    {
+        return [
+            'companyDrivers' => $this->driverRepo->getAll(
+                ['company_id' => auth()->user()->id], 
+                $paginate = 1000
+            ),
+        ];
     }
 
 }
