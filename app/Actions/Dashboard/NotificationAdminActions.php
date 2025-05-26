@@ -46,6 +46,9 @@ class NotificationAdminActions {
     public function store($request)
     {
 
+        // Set user ID
+        $request['user_id'] = auth()->user()->id;
+
         $this->notificationsRepo->create( $request );
 
         return redirect()->route('dashboard.notifications-manage.index');
