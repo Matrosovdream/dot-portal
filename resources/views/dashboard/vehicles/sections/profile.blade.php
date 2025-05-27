@@ -134,7 +134,7 @@
                 <label class="col-lg-4 col-form-label required fw-semibold fs-6">Registration expire date</label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="date" name="reg_expire_date" class="form-control form-control-lg form-control-solid"
+                    <input type="date" name="reg_expire_date" class="form-control form-control-lg form-control-solid datepicker"
                         value="{{ $vehicle['regExpireDate'] }}" />
                 </div>
 
@@ -146,7 +146,7 @@
 
                 <div class="col-lg-4 fv-row">
                     <input type="date" name="inspection_expire_date"
-                        class="form-control form-control-lg form-control-solid"
+                        class="form-control form-control-lg form-control-solid datepicker"
                         value="{{ $vehicle['inspectionExpireDate'] }}" />
                 </div>
 
