@@ -46,28 +46,26 @@ class VehicleUserActions
     {
         $vehicle = $this->vehicleRepo->getByID($vehicle_id);
 
-        $data = [
+        return [
             'title' => 'Vehicle details',
             'vehicle' => $vehicle,
             'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
             'references' => $this->vehicleRepo->getReferences()
         ];
 
-        return $data;
     }
 
     public function profile($vehicle_id)
     {
         $vehicle = $this->vehicleRepo->getByID($vehicle_id);
 
-        $data = [
+        return [
             'title' => 'Vehicle profile',
             'vehicle' => $vehicle,
             'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
             'references' => $this->vehicleRepo->getReferences()
         ];
 
-        return $data;
     }
 
     public function updateProfile($vehicle_id, $request)
