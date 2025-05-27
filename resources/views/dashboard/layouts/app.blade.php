@@ -142,6 +142,19 @@
 
         @yield('footer-scripts')
 
+            <script type="text/javascript">
+                jQuery(document).ready(function () {
+
+                    // Date filter
+                    jQuery('.datepicker').flatpickr({
+                        altInput: true,
+                        altFormat: "F j, Y",
+                        dateFormat: "Y-m-d",
+                    });
+                });
+            </script>
+
+
     </body>
 
 </html>
