@@ -90,14 +90,12 @@ class VehicleUserActions
 
         $vehicle = $this->vehicleRepo->getByID($driver_id);
 
-        $data = [
+        return [
             'title' => 'Vehicle MVR',
             'vehicle' => $vehicle,
             'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
             'references' => $this->vehicleRepo->getReferences()
         ];
-
-        return $data;
 
     }
 
@@ -144,13 +142,12 @@ class VehicleUserActions
 
         $vehicle = $this->vehicleRepo->getByID($vehicle_id);
 
-        $data = [
+        return [
             'title' => 'Vehicle inspections',
             'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
             'vehicle' => $vehicle
         ];
 
-        return $data;
     }
 
     public function storeInspection($vehicle_id, $request)
@@ -177,11 +174,8 @@ class VehicleUserActions
 
     public function destroyInspection($inspection_id)
     {
-
         $this->inspectionRepo->delete($inspection_id);
-
     }
-
 
     public function driverHistory($vehicle_id)
     {
@@ -230,14 +224,11 @@ class VehicleUserActions
 
     public function create()
     {
-        $data = [
+        return [
             'title' => 'Create vehicle',
             'references' => $this->vehicleRepo->getReferences()
         ];
 
-        //dd($data);
-
-        return $data;
     }
 
     public function store($request)
