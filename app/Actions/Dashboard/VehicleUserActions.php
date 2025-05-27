@@ -34,12 +34,11 @@ class VehicleUserActions
 
         $vehicles = $this->vehicleRepo->getAll([], $paginate = 10);
 
-        $data = [
+        return [
             'title' => 'My vehicles',
             'vehicles' => $vehicles
         ];
 
-        return $data;
     }
 
     public function show($vehicle_id)
