@@ -155,7 +155,7 @@
                             <input 
                                 type="date" 
                                 name="reg_expire_date" 
-                                class="form-control form-control-lg form-control-solid"
+                                class="form-control form-control-lg form-control-solid datepicker"
                                 value="{{ old('reg_expire_date') }}" />
                         </div>
 
@@ -169,7 +169,7 @@
                             <input 
                                 type="date" 
                                 name="inspection_expire_date" 
-                                class="form-control form-control-lg form-control-solid"
+                                class="form-control form-control-lg form-control-solid datepicker"
                                 value="{{ old('inspection_expire_date') }}" />
                         </div>
 
