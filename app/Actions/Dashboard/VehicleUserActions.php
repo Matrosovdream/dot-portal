@@ -82,7 +82,7 @@ class VehicleUserActions
         // Save profile photo from request
         $this->saveProfilePhoto($vehicle_id);
 
-        return $data;
+        return $this->vehicleRepo->getByID($vehicle_id);
     }
 
     public function mvr($driver_id)
