@@ -57,7 +57,7 @@
                 <label class="col-lg-4 col-form-label required fw-semibold fs-6">DOB</label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="date" name="birthday" class="form-control form-control-lg form-control-solid"
+                    <input type="date" name="birthday" class="form-control form-control-lg form-control-solid datepicker"
                         value="{{ $user['birthday'] ?? '' }}" />
                 </div>
 
