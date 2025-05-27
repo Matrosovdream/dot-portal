@@ -30,7 +30,7 @@
                 </label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="date" name="test_date" class="form-control form-control-lg form-control-solid"
+                    <input type="date" name="test_date" class="form-control form-control-lg form-control-solid datepicker"
                         placeholder="Test date" value="{{ $driver['drugTest']['test_date'] ?? '' }}" />
                 </div>
 

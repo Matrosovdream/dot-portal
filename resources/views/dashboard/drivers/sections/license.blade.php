@@ -91,7 +91,7 @@
                 </label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="date" name="expiration_date" class="form-control form-control-lg form-control-solid"
+                    <input type="date" name="expiration_date" class="form-control form-control-lg form-control-solid datepicker"
                         placeholder="Expiration date" value="{{ $driver['license']['expiration_date'] ?? '' }}" />
                 </div>
 

@@ -52,7 +52,7 @@
                 </label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="date" name="issue_date" class="form-control form-control-lg form-control-solid"
+                    <input type="date" name="issue_date" class="form-control form-control-lg form-control-solid datepicker"
                         placeholder="Issue date" value="{{ $driver['medicalCard']['issue_date'] ?? '' }}" />
                 </div>
 
@@ -65,7 +65,7 @@
                 </label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="date" name="expiration_date" class="form-control form-control-lg form-control-solid"
+                    <input type="date" name="expiration_date" class="form-control form-control-lg form-control-solid datepicker"
                         placeholder="Expiration date" value="{{ $driver['medicalCard']['expiration_date'] ?? '' }}" />
                 </div>
 

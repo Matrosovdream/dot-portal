@@ -144,7 +144,7 @@
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">DOB</label>
 
                         <div class="col-lg-4 fv-row">
-                            <input type="date" name="dob" class="form-control form-control-lg form-control-solid"
+                            <input type="date" name="dob" class="form-control form-control-lg form-control-solid datepicker"
                                 value="{{ old('dob') }}" />
                         </div>
 
@@ -166,7 +166,7 @@
                         <label class="col-lg-4 col-form-label required fw-semibold fs-6">Hire date</label>
 
                         <div class="col-lg-4 fv-row">
-                            <input type="date" name="hire_date" class="form-control form-control-lg form-control-solid"
+                            <input type="date" name="hire_date" class="form-control form-control-lg form-control-solid datepicker"
                                 value="{{ old('hire_date') }}" />
                         </div>
 
