@@ -12,12 +12,7 @@ class adminSettingsHelper
         $menu = DashboardReferences::sidebarMenu();
 
         // Set active menus
-        $menu = self::setActiveMenus($menu);
-
-        //dd($menu);
-
-        return $menu;
-
+        return self::setActiveMenus($menu);
     }
 
 
@@ -67,10 +62,6 @@ class adminSettingsHelper
                     $menu[$key]['active'] = true;
                 }
             }
-        }
-
-        if( request()->has('lggg') ) {
-            dd($menu[2]['childs']);
         }
 
         return $menu;
