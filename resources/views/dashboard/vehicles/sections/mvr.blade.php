@@ -47,7 +47,7 @@
                 <label class="col-lg-4 col-form-label required fw-semibold fs-6">MVR date</label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="date" name="mvr_date" class="form-control form-control-lg form-control-solid"
+                    <input type="date" name="mvr_date" class="form-control form-control-lg form-control-solid datepicker"
                         placeholder="Number" value="{{ $vehicle['mvr']['mvr_date'] ?? '' }}" />
                 </div>
 
