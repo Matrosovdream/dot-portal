@@ -29,7 +29,7 @@
                             <input 
                                 type="date" 
                                 name="inspection_date" 
-                                class="form-control form-control-solid mb-2" 
+                                class="form-control form-control-solid mb-2 datepicker" 
                                 value="{{ old('inspection_date') }}"
                                 />
                         </div>
