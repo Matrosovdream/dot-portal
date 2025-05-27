@@ -81,7 +81,7 @@
                             {{ $user['address']['city'] ?? '' }}, {{ $user['address']['zip'] ?? '' }}
                         </a>
                     @endif
-
+                    
                     <a href="#" class="d-flex align-items-center text-gray-500 text-hover-primary mb-2">
                         <i class="ki-duotone ki-sms fs-4 me-1">
                             <span class="path1"></span>
@@ -90,6 +90,8 @@
                         {{ $user['email'] ?? '' }}
                     </a>
                 </div>
+
+                
 
             </div>
 
