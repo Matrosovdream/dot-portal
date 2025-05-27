@@ -47,7 +47,7 @@
                 <label class="col-lg-4 col-form-label fw-semibold fs-6">Start date</label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="date" name="start_date" class="form-control form-control-lg form-control-solid"
+                    <input type="date" name="start_date" class="form-control form-control-lg form-control-solid datepicker"
                         value="{{ $insurance['start_date'] ?? '' }}" />
                 </div>
 
@@ -58,7 +58,7 @@
                 <label class="col-lg-4 col-form-label fw-semibold fs-6">End date</label>
 
                 <div class="col-lg-4 fv-row">
-                    <input type="date" name="end_date" class="form-control form-control-lg form-control-solid"
+                    <input type="date" name="end_date" class="form-control form-control-lg form-control-solid datepicker"
                         value="{{ $insurance['end_date'] ?? '' }}" />
                 </div>
 
