@@ -34,7 +34,8 @@ class ServiceFieldActions {
 
         $data = [
             'title' => 'Service details',
-            'field' => $field
+            'field' => $field,
+            'references' => $this->getReferences()
         ];
 
         return $data;
@@ -51,6 +52,7 @@ class ServiceFieldActions {
     {
         $data = [
             'title' => 'Create driver',
+            'references' => $this->getReferences()
         ];
 
         return $data;
@@ -67,6 +69,14 @@ class ServiceFieldActions {
         $data = $this->formFieldRepo->delete($field_id);
 
         return $data;
+    }
+
+    protected function getReference() {
+
+        return [
+            'fieldTypes' => 123
+        ];
+
     }
 
 }
