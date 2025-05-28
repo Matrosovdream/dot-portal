@@ -63,7 +63,7 @@ class RequestAdminActions {
             $data['predefinedForm'] = $this->serviceRef->getPredefinedForms()[ $request['service']['form_id'] ];
             $data['predefinedValues'] = $request['predefinedValues'] ?? [];
         }
-dd( $data );
+
         return $data;
 
     }
