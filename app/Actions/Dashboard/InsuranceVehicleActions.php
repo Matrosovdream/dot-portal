@@ -23,7 +23,15 @@ class InsuranceVehicleActions {
 
     public function index()
     {
-        $items = $this->insuranceRepo->getAll([], $paginate = 30);
+
+        $filter = [];
+
+        // Filter by search form
+        if( request()->has('q') && !empty(request()->input('q')) ) {
+            $filter['search_index'] = '%' . request()->input('q') . '%'; 
+        }
+
+        $items = $this->insuranceRepo->getAll($filter, $paginate = 30);
 
         return [
             'title' => 'Insurance Vehicles',
