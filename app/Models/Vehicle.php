@@ -26,20 +26,20 @@ class Vehicle extends Model
     {
         // Set fullname on creating and updating
         static::creating(function ($user) {
-            $user->search_index = $this->prepareSearchIndex();
+            $user->search_index = self::prepareSearchIndex( $user);
         });
 
         static::updating(function ($user) {
-            $user->search_index = $this->prepareSearchIndex();
+            $user->search_index = self::prepareSearchIndex( $user );
         });
     }
 
-    private function prepareSearchIndex()
+    protected static function prepareSearchIndex( $user )
     {
 
         $fields = [
-            $this->number ?? '',
-            $this->vin ?? '',
+            $user->number ?? '',
+            $user->vin ?? '',
         ];
 
         // Remove empty fields from the array
