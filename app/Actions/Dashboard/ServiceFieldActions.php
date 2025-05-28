@@ -71,7 +71,7 @@ class ServiceFieldActions {
         return $data;
     }
 
-    protected function getReference() {
+    protected function getReferences() {
 
         return [
             'fieldTypes' => 123

@@ -66,7 +66,7 @@
                                     <select name="type" class="form-select form-select-solid" data-control="select2"
                                         data-hide-search="true">
                                         <option value="">Select type</option>
-                                        @foreach($fieldTypes as $code => $type)
+                                        @foreach($references['fieldTypes'] as $code => $type)
                                             <option value="{{ $code }}" {{ old('type') == $code ? 'selected' : '' }}>
                                                 {{ $type['title'] }}
                                             </option>
