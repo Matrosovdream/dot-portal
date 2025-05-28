@@ -19,6 +19,7 @@ class User extends Authenticatable
     protected $fillable = [
         'firstname',
         'lastname',
+        'fullname',
         'phone',
         'birthday',
         'email',
@@ -30,7 +31,6 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
-
  
     // Get roles
     public function roles()
