@@ -9,7 +9,7 @@
             ['value' => '6-20 Units', 'title' => '6-20 Units'],
             ['value' => '21-100 Units', 'title' => '21-100 Units']
         ]"
-        value="3-5 Units"
+        value="{{ $values['range_of_units'] ?? '' }}"
         :multiple=false
         :required=true
     />
@@ -23,7 +23,7 @@
         :placeholder="__('Enter your date of birth')"
         :note="__('Please enter your date of birth in the format YYYY-MM-DD')"
         :description="__('This field is required for age verification')"
-        :value="2025-01-01"
+        value="{{ $values['date_of_birth'] ?? '' }}"
     />
 </div>
 
@@ -37,7 +37,7 @@
             ['value' => '2026', 'title' => '2026'],
             ['value' => '2027', 'title' => '2027']
         ]"
-        value=""
+        value="{{ $values['permit_year'] ?? '' }}"
         :multiple=false
         :required=true
     />
