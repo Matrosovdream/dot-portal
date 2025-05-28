@@ -26,9 +26,15 @@ class ServiceAdminActions {
     public function index()
     {
 
+        // Filter by search form
+        $filter = [];
+        if( request()->has('q') ) {
+            $filter['name'] = '%' . request()->input('q') . '%';
+        }
+
         // Get drivers by user
         $services = $this->serviceRepo->getAll( 
-            [], 
+            $filter, 
             $paginate = 10 
         );
 
