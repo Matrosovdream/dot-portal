@@ -17,7 +17,20 @@ class InsuranceVehicle extends Model
         'file_id',
         'company_id',
         'user_id',
+        'search_index'
     ];
+
+    protected static function booted(): void
+    {
+        // Set fullname on creating and updating
+        static::creating(function ($insurance) {
+            $insurance->search_index = self::prepareSearchIndex( $insurance );
+        });
+
+        static::updating(function ($insurance) {
+            $insurance->search_index = self::prepareSearchIndex( $insurance );
+        });
+    }
 
     public function file()
     {
@@ -32,6 +45,25 @@ class InsuranceVehicle extends Model
     public function user()
     {
         return $this->belongsTo(User::class, 'user_id');
+    }
+
+    protected static function prepareSearchIndex( $user )
+    {
+
+        $fields = [
+            $user->name ?? '',
+            $user->number ?? '',
+        ];
+
+        // Remove empty fields from the array
+        foreach ($fields as $key => $value) {
+            if (empty($value) || $value == "") {
+                unset($fields[$key]);
+            }
+        }
+
+        $searchIndex = implode(' | ', $fields);
+        return $searchIndex;
     }
 
 }
