@@ -3,7 +3,7 @@
         inputName="fields[driver_id]"
         label="Select Driver"
         :options="$references['companyDrivers'] ?? []"
-        value=""
+        value="{{ $values['driver_id'] ?? '' }}"
         :multiple=false
         :required=true
     />
@@ -18,7 +18,7 @@
             ['value' => 'A La Carte', 'title' => 'A La Carte'],
             ['value' => 'Annual', 'title' => 'Annual'],
         ]"
-        value="3-5 Units"
+        value="{{ $values['mvr_type'] ?? '' }}"
         :multiple=false
         :required=true
     />
@@ -30,7 +30,7 @@
         inputName="fields[auth_document]"
         title="Upload MVR Authorization Document"
         label="Upload signed MVR authorization"
-        value=""
+        value="{{ $values['auth_document'] ?? '' }}"
         :multiple=false
         :required=true
     />
