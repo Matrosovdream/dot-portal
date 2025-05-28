@@ -66,17 +66,16 @@
                                     <select name="type" class="form-select form-select-solid" data-control="select2"
                                         data-hide-search="true">
                                         <option value="">Select type</option>
-                                        @php /*
-                                        @foreach($field_types as $code => $type)
+                                        @foreach($fieldTypes as $code => $type)
                                             <option value="{{ $code }}" {{ $field['type'] == $code ? 'selected' : '' }}>
                                                 {{ $type['title'] }}
                                             </option>
                                         @endforeach
-                                        */ @endphp
                                     </select>
 
                                 </div>
 
+                                @php /*
                                 <div class="fv-row mb-7">
 
                                     <label class="fs-6 fw-semibold mb-2">
@@ -86,16 +85,15 @@
                                     <select name="reference_code" class="form-select form-select-solid"
                                         data-control="select2" data-hide-search="true">
                                         <option value="">Select reference</option>
-                                        @php /*
                                         @foreach($references as $code => $ref)
                                             <option value="{{ $code }}" {{ $field['reference_code'] == $code ? 'selected' : '' }}>
                                                 {{ $ref['title'] }}
                                             </option>
                                         @endforeach
-                                        */ @endphp
                                     </select>
 
                                 </div>
+                                */ @endphp
 
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Placeholder</label>
