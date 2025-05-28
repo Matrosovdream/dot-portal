@@ -42,7 +42,7 @@
                                     @foreach( $allSubscriptions['items'] as $sub )
 
                                         <label
-                                            class="nav-link btn btn-outline btn-outline-dashed btn-color-dark d-flex flex-stack text-start p-6 mb-6
+                                            class="nav-link btn btn-outline btn-outline-dashed btn-color-dark btn-active btn-active-primary d-flex flex-stack text-start p-6 mb-6
                                             @if( $subscription['subscription'] )
                                             {{ $sub['id'] == $subscription['subscription']['id'] ? 'active btn-active btn-active-primary' : '' }}
                                             @endif
