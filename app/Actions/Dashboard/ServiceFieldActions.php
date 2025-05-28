@@ -7,6 +7,7 @@ use App\Repositories\References\RefFormFieldRepo;
 class ServiceFieldActions {
 
     private $formFieldRepo;
+    private $formFieldRef;
 
     public function __construct()
     {
