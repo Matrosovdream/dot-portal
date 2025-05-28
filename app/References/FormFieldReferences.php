@@ -10,6 +10,24 @@ class FormFieldReferences {
                 'type'=> 'text',
                 'title' => 'Text',
             ],
+            'date' => [
+                'type'=> 'date',
+                'title' => 'Date',
+            ],
+            'textarea' => [
+                'type'=> 'textarea',
+                'title' => 'Textarea',
+            ],
+            'phone' => [
+                'type'=> 'phone',
+                'title' => 'Phone',
+            ],
+            /*
+            'reference' => [
+                'type'=> 'reference',
+                'title' => 'Reference',
+            ],
+            */
         ];
 
     }
