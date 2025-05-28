@@ -60,10 +60,10 @@ class DriverUserActions {
         // Filter by search form
         if( request()->has('q') && !empty(request()->input('q')) ) {
             $users = $this->userRepo->getAll([
-                'firstname' => '%' . request()->input('q') . '%',
+                'fullname' => '%' . request()->input('q') . '%',
             ], $paginate = 1000); 
             $user_ids = $users['Model']->pluck('id')->toArray();
-            
+
             $filter['user_id'] = $user_ids; 
         }
 
