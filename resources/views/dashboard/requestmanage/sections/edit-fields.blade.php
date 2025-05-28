@@ -13,16 +13,25 @@
         <form action="{{ route('dashboard.requestmanage.updatefields', ['request_id' => $request_id]) }}"
             class="form mb-15 fv-plugins-bootstrap5 fv-plugins-framework" method="POST">
             @csrf
+
+            <input type="hidden" name="form_type" value="{{ $formType }}" />
         
             @include('dashboard.includes.errors.default')
         
             <div class="row mb-5">
+
+                @if( $formType == 'custom' )
         
-                @foreach($fieldValues['items'] as $data)
+                    @foreach($fieldValues['items'] as $data)
+                        @include('dashboard.servicerequest.includes.form-field', ['field' => $data])
+                    @endforeach
+
+                @elseif( $formType == 'predefined' && isset($predefinedForm) && !empty($predefinedForm) )
         
-                    @include('dashboard.servicerequest.includes.form-field', ['field' => $data])
-        
-                @endforeach
+                    {{-- Predefined Form --}}
+                    @include( $predefinedForm['path'], ['values' => $predefinedValues['Mapped']] )
+
+                @endif
         
             </div>
         
