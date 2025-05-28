@@ -32,7 +32,14 @@ class VehicleUserActions
     public function index()
     {
 
-        $vehicles = $this->vehicleRepo->getAll([], $paginate = 10);
+        $filter = [];
+
+        // Filter by search form
+        if( request()->has('q') && !empty(request()->input('q')) ) {
+            $filter['search_index'] = '%' . request()->input('q') . '%'; 
+        }
+
+        $vehicles = $this->vehicleRepo->getAll($filter, $paginate = 10);
 
         return [
             'title' => 'My vehicles',
