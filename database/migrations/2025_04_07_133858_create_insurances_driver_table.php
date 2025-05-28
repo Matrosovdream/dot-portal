@@ -20,6 +20,7 @@ return new class extends Migration
             $table->integer('file_id')->nullable();
             $table->foreignId('company_id')->on('users')->nullable();
             $table->foreignId('user_id')->on('users')->nullable();
+            $table->text('search_index')->nullable();
             $table->timestamps();
         });
     }
