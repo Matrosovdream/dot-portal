@@ -18,12 +18,6 @@ class hasRole
             return redirect()->route('web.index');
         }
 
-        /*
-        if ( !auth()->user()->isManager() ) {
-            return redirect()->route('dashboard');
-        }
-        */
-
         return $next($request);
     }
 }
