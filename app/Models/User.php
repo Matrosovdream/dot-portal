@@ -31,6 +31,18 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    protected static function booted(): void
+    {
+        // Set fullname on creating and updating
+        static::creating(function ($user) {
+            $user->fullname = trim("{$user->firstname} {$user->lastname}");
+        });
+
+        static::updating(function ($user) {
+            $user->fullname = trim("{$user->firstname} {$user->lastname}");
+        });
+    }
  
     // Get roles
     public function roles()
