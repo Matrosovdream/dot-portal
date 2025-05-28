@@ -33,25 +33,6 @@ class Vehicle extends Model
             $user->search_index = self::prepareSearchIndex( $user );
         });
     }
-
-    protected static function prepareSearchIndex( $user )
-    {
-
-        $fields = [
-            $user->number ?? '',
-            $user->vin ?? '',
-        ];
-
-        // Remove empty fields from the array
-        foreach ($fields as $key => $value) {
-            if (empty($value) || $value == "") {
-                unset($fields[$key]);
-            }
-        }
-
-        $searchIndex = implode(' | ', $fields);
-        return $searchIndex;
-    }
     
     public function driver()
     {
@@ -101,6 +82,25 @@ class Vehicle extends Model
     public function driverHistory()
     {
         return $this->hasMany(VehicleDriverHistory::class);
+    }
+
+    protected static function prepareSearchIndex( $user )
+    {
+
+        $fields = [
+            $user->number ?? '',
+            $user->vin ?? '',
+        ];
+
+        // Remove empty fields from the array
+        foreach ($fields as $key => $value) {
+            if (empty($value) || $value == "") {
+                unset($fields[$key]);
+            }
+        }
+
+        $searchIndex = implode(' | ', $fields);
+        return $searchIndex;
     }
 
 }
