@@ -1,6 +1,7 @@
 <?php
 namespace App\Actions\Dashboard;
 
+use App\References\FormFieldReferences;
 use App\Repositories\References\RefFormFieldRepo;
 
 class ServiceFieldActions {
@@ -10,6 +11,9 @@ class ServiceFieldActions {
     public function __construct()
     {
         $this->formFieldRepo = new RefFormFieldRepo();
+
+        // References
+        $this->formFieldRef = new FormFieldReferences();
     }
 
     public function index()
@@ -74,7 +78,7 @@ class ServiceFieldActions {
     protected function getReferences() {
 
         return [
-            'fieldTypes' => 123
+            'fieldTypes' => $this->formFieldRef->getTypes(),
         ];
 
     }
