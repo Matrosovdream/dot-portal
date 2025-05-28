@@ -12,18 +12,30 @@
 
     <div class="card card-flush">
 
-        <div class="card-header align-items-center py-5 gap-2 gap-md-5">
-            <div class="card-title">
-                <div class="d-flex align-items-center position-relative my-1">
-                    <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                    </i>
-                    <input type="text" data-kt-ecommerce-product-filter="search"
-                        class="form-control form-control-solid w-250px ps-12" placeholder="Search Services">
+        <form action="{{ route('dashboard.services.index') }}" method="GET">
+
+            <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+
+                <div class="card-title"></div>
+
+                <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+
+                    <div class="d-flex align-items-center position-relative my-1">
+                        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                        <input type="text" name="q" value="{{ request()->q ?? '' }}"
+                            data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-12"
+                            placeholder="Find services">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Filter</button>
+
                 </div>
             </div>
-        </div>
+
+        </form>
 
         <div class="card-body pt-0">
             <div class="table-responsive">
