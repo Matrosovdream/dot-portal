@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('reg_expire_date')->nullable();
             $table->date('inspection_expire_date')->nullable();
             $table->integer('profile_photo_id')->nullable();
+            $table->text('search_index')->nullable();
             $table->timestamps();
         });
 
