@@ -82,12 +82,13 @@ class RequestAdminActions {
 
     public function updateFields($data, $request_id)
     {
-        $request = $this->requestRepo->getById($request_id);
-
-        if ($request) {
-            // Sync field values
-            $this->requestRepo->syncFieldValues( $request_id, $fields=$data['fields'] );
+        $request = $this->requestRepo->getById($request_id); 
+        if (!$request) {
+            return false; // Request not found
         }
+
+        // Sync field values
+        $this->requestRepo->syncFieldValues($request_id, $fields = $data['fields']);
 
         // Return updated request entity
         return $this->requestRepo->getById($request_id);
