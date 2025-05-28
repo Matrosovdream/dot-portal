@@ -19,7 +19,39 @@ class Vehicle extends Model
         'profile_photo_id',
         'driver_id',
         'company_id',
+        'search_index'
     ];
+
+    protected static function booted(): void
+    {
+        // Set fullname on creating and updating
+        static::creating(function ($user) {
+            $user->search_index = $this->prepareSearchIndex();
+        });
+
+        static::updating(function ($user) {
+            $user->search_index = $this->prepareSearchIndex();
+        });
+    }
+
+    private function prepareSearchIndex()
+    {
+
+        $fields = [
+            $this->number ?? '',
+            $this->vin ?? '',
+        ];
+
+        // Remove empty fields from the array
+        foreach ($fields as $key => $value) {
+            if (empty($value) || $value == "") {
+                unset($fields[$key]);
+            }
+        }
+
+        $searchIndex = implode(' | ', $fields);
+        return $searchIndex;
+    }
     
     public function driver()
     {
