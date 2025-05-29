@@ -131,7 +131,7 @@ class DriverController extends Controller
             'expiration_date' => 'nullable',
             'type_id' => 'nullable',
             'state_id' => 'nullable',
-            '*_remove' => 'nullable', // This allows for any field to be removed
+            '*_remove' => 'nullable', 
         ]);
 
         $data = $this->driverUserActions->updateLicense($driver_id, $validated);
@@ -154,6 +154,7 @@ class DriverController extends Controller
             'national_registry' => 'nullable',
             'issue_date' => 'nullable',
             'expiration_date' => 'nullable',
+            '*_remove' => 'nullable', 
         ]);
 
         $data = $this->driverUserActions->updateMedicalCard($driver_id, $validated);

@@ -306,6 +306,11 @@ class DriverUserActions {
 
         }
 
+        if( isset( $request['medical_card_remove'] ) ) {
+            // Remove old document
+            $this->driverRepo->removeDocument($driver_id, 'medical_card');
+        }
+
         // If isset medical card
         if ( $driver['medicalCard'] ) {
             $data = $this->driverMedicalCardRepo->update($driver['medicalCard']['id'], $request);
