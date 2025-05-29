@@ -130,7 +130,7 @@
                 <div class="col-lg-4 fv-row">
                     <x-file-uploader 
                         :inputName="'license_file'"
-                        :value="''"
+                        :value="($driver['documents']['groupType']['license'][0]['file'] ?? null)"
                         :accept="'image/*,application/pdf'"
                         :multiple="false"
                         :required="false"

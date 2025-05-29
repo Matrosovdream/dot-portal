@@ -12,7 +12,7 @@ class FileUploader extends Component
     public function __construct(
         public string $inputName,
         public ?string $inputId=null,
-        public ?string $value,
+        public ?array $value,
         public ?string $accept,
         public ?bool $multiple,
         public ?bool $required,
@@ -22,7 +22,6 @@ class FileUploader extends Component
         public ?string $description,
     )
     {
-
 
         if( !$inputId || empty( $inputId ) ) {
             $this->inputId = $inputName;
