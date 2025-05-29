@@ -5,7 +5,9 @@
             <h3 class="fw-bold m-0">Driver license</h3>
         </div>
 
-        <a href="{{ route('dashboard.drivers.show.license', $driver['id']) }}" class="btn btn-sm btn-primary align-self-center">Edit licens</a>
+        <a href="{{ route('dashboard.drivers.show.license', $driver['id']) }}" class="btn btn-sm btn-primary align-self-center">
+            Edit license
+        </a>
 
     </div>
 
