@@ -42,10 +42,6 @@
                         </thead>
                         <tbody class="fw-semibold text-gray-600">
 
-                        @php
-                        //dd($paymentHistory['items']);
-                        @endphp
-
                             @foreach($paymentHistory['items'] as $payment)
 
                                 <tr>
