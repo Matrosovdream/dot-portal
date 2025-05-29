@@ -24,30 +24,6 @@
 
                     <div class="row mb-5">
 
-                        <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                            <label class="form-label required">Start date</label>
-                            <input 
-                                type="date" 
-                                name="start_date" 
-                                class="form-control form-control-solid mb-2 datepicker" 
-                                value="{{ $item['start_date'] }}"
-                                />
-                        </div>
-
-                        <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                            <label class="form-label required">End date</label>
-                            <input 
-                                type="date" 
-                                name="end_date" 
-                                class="form-control form-control-solid mb-2 datepicker" 
-                                value="{{ $item['end_date'] }}"
-                                />
-                        </div>
-
-                    </div>
-
-                    <div class="row mb-5">
-
                         <div class="col-lg-4 fv-row">
 
                             <label class="form-label required">
@@ -73,6 +49,30 @@
                         </div>
 
                     </div> 
+
+                    <div class="row mb-5">
+
+                        <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                            <label class="form-label required">Start date</label>
+                            <input 
+                                type="date" 
+                                name="start_date" 
+                                class="form-control form-control-solid mb-2 datepicker" 
+                                value="{{ $item['start_date'] }}"
+                                />
+                        </div>
+
+                        <div class="col-lg-6 fv-row fv-plugins-icon-container">
+                            <label class="form-label required">End date</label>
+                            <input 
+                                type="date" 
+                                name="end_date" 
+                                class="form-control form-control-solid mb-2 datepicker" 
+                                value="{{ $item['end_date'] }}"
+                                />
+                        </div>
+
+                    </div>
 
                     <div class="d-flex flex-stack">
 
