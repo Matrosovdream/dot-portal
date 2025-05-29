@@ -83,7 +83,7 @@
                                         {{ $document['sizeFormatted'] }}
                                     </td>
                                     <td class="text-center pe-0">
-                                        {{ $document['Model']->created_at->format('d/m/Y') }}
+                                        {{ dateFormat( $document['Model']->created_at ) }}
                                     </td>
                                     <td class="text-center">
                                         <a href="{{ $document['downloadUrl'] }}" class="fs-6">

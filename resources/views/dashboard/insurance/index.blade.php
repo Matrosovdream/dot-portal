@@ -78,10 +78,12 @@
                                 </a>
                             </td>
                             <td>
-                                {{ $insurance['start_date'] ?? '' }} : {{ $insurance['end_date'] ?? '' }}
+                                @if( $insurance['start_date'] && $insurance['end_date'] )
+                                    {{ dateFormat( $insurance['start_date'] ) }} : {{ dateFormat( $insurance['end_date'] ) }}
+                                @endif
                             </td>
                             <td class="text-center">
-                                {{ $insurance['Model']->created_at->format('d M Y') }}
+                                {{ dateFormat( $insurance['Model']->created_at ) }} 
                             </td>
                             <td class="text-center">
                                 <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"

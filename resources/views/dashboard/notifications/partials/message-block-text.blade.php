@@ -17,7 +17,7 @@
             </div>
 
             <div class="d-flex align-items-center mt-1 fs-6">
-                <div class="text-muted me-2 fs-7">Added at {{ $notification['Model']->created_at->format('m/d/Y H:i') }}</div>
+                <div class="text-muted me-2 fs-7">Added at {{ dateTimeFormat( $notification['Model']->created_at ) }}</div>
             </div>
         </div>
 

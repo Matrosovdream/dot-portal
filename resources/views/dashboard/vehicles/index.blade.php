@@ -85,12 +85,15 @@
                                         {{ $vehicle['ownershipType']['name'] }}
                                     </td>
                                     <td>
-                                        {{ $vehicle['regExpireDate'] }}
+                                        @if( $vehicle['regExpireDate'] )
+                                            {{ dateFormat( $vehicle['regExpireDate'] ) }}
+                                        @endif
                                     </td>
                                     <td>
-                                        {{ $vehicle['inspectionExpireDate'] }}
+                                        @if( $vehicle['inspectionExpireDate'] )
+                                            {{ dateFormat( $vehicle['inspectionExpireDate'] ) }}
+                                        @endif
                                     </td>
-
 
                                     <td class="text-center">
                                         <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"

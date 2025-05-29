@@ -72,10 +72,10 @@
                                         <span class="text-gray-800 fw-bold d-block fs-6">{{ $notification['type'] }}</span>
                                     </td>
                                     <td class="text-center pe-0">
-                                        {{ $notification['Model']->created_at->format('d/m/Y H:i') }}
+                                        {{ dateFormat( $notification['Model']->created_at ) }}
                                     </td>
                                     <td class="text-center pe-0">
-                                        {{ $notification['Model']->updated_at->format('d/m/Y H:i') }}
+                                        {{ dateFormat( $notification['Model']->updated_at ) }}
                                     </td>
                                     <td class="text-center">
                                         <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"

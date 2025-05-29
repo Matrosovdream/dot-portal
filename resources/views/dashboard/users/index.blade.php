@@ -66,7 +66,7 @@
                                         </span>
                                     </td>
                                     <td class="text-center pe-0">
-                                        {{ $user->created_at->format('d/m/Y') }}
+                                        {{ dateFormat( $user->created_at ) }}
                                     </td>
                                     <td class="text-center">
                                         <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
