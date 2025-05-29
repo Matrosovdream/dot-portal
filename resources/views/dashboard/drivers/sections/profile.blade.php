@@ -28,7 +28,6 @@
                 <div class="col-lg-4 fv-row">
                     <x-file-uploader 
                         :inputName="'profile_photo'" 
-                        :value="''" 
                         :accept="'image/*'"
                         :multiple="false" 
                         :required="false" 
