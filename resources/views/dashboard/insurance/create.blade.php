@@ -53,7 +53,7 @@
                         <label class="col-lg-4 col-form-label fw-semibold fs-6">Start date</label>
 
                         <div class="col-lg-4 fv-row">
-                            <input type="date" name="start_date" class="form-control form-control-lg form-control-solid"
+                            <input type="date" name="start_date" class="form-control form-control-lg form-control-solid datepicker"
                                 value="{{ old('start_date') }}" />
                         </div>
 
@@ -64,7 +64,7 @@
                         <label class="col-lg-4 col-form-label fw-semibold fs-6">End date</label>
 
                         <div class="col-lg-4 fv-row">
-                            <input type="date" name="end_date" class="form-control form-control-lg form-control-solid"
+                            <input type="date" name="end_date" class="form-control form-control-lg form-control-solid datepicker"
                                 value="{{ old('end_date') }}" />
                         </div>
 
@@ -90,32 +90,6 @@
                         </div>
 
                     </div>
-
-                    @php /*
-                    <div class="row mb-6">
-
-                        <label class="col-lg-4 col-form-label fw-semibold fs-6">
-                            <span class="required">Vehicles</span>
-                        </label>
-
-                        <div class="col-lg-4 fv-row">
-                            <select name="vehicle_ids[]" aria-label="Select Vehicles" data-control="select2"
-                                data-placeholder="Select Vehicles"
-                                class="form-select form-select-solid form-select-lg fw-semibold"
-                                multiple
-                                >
-                                <option value="">Select vehicles</option>
-
-                                @foreach($references['vehicle']['items'] as $item)
-                                    <option value="{{ $item['id'] }}">
-                                        #{{ $item['number'] }} / VIN {{ $item['vin'] }}
-                                    </option>
-                                @endforeach
-                            </select>
-                        </div>
-
-                    </div>
-                    */ @endphp
 
                 </div>
 
