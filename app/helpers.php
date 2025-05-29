@@ -13,3 +13,11 @@ if (!function_exists('formatDateTime')) {
         return Carbon::parse($date)->format('m/d/Y h:i A'); // US format with AM/PM
     }
 }
+
+if (!function_exists('siteSettings')) {
+    function siteSettings(): array {
+        
+        return \App\Services\SiteSettingsService::getAllSettings();
+
+    }
+}
