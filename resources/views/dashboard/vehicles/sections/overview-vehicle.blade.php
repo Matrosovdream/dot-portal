@@ -61,7 +61,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Registration expire date</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $vehicle['regExpireDate'] }}
+                    {{ dateFormat( $vehicle['regExpireDate'] ) ?? '-' }}
                 </span>
             </div>
         </div>
@@ -70,7 +70,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Inspection expire date</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $vehicle['inspectionExpireDate'] }}
+                    {{ dateFormat( $vehicle['inspectionExpireDate'] ) ?? '-' }}
                 </span>
             </div>
         </div>
