@@ -72,7 +72,7 @@
                                         {{ $driver['Model']->driverType->title ?? 'N/A' }}
                                     </td>
                                     <td class="text-center">
-                                        {{ $driver['dob'] ?? '' }}
+                                        {{ dateFormat( $driver['dob'] ?? '' ) }}
                                     </td>
                                     <td class="text-center">
                                         {{ $driver['license']['Model']['type']->title ?? '' }}
@@ -82,10 +82,10 @@
                                         {{ $driver['license']['license_number'] ?? '' }}
                                     </td>
                                     <td class="text-center">
-                                        {{ $driver['hire_date'] ?? '' }}
+                                        {{ dateFormat( $driver['hire_date'] ?? '' ) }}
                                     </td>
                                     <td class="text-center">
-                                        {{ $driver['Model']->created_at->format('d M Y') }}
+                                        {{ dateFormat( $driver['Model']->created_at ) }}
                                     </td>
                                     <td class="text-center">
                                         <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"

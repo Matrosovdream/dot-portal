@@ -65,7 +65,7 @@
                                     </td>
                                     <td class="text-center">
                                         <span class="d-block fs-6">
-                                            {{ $request['Model']->created_at->format('d/m/Y') }}
+                                            {{ dateFormat( $request['Model']->created_at ) }}
                                         </span>
                                     </td>
                                     <td class="text-center">
