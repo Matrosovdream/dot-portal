@@ -29,7 +29,7 @@
                             <input 
                                 type="date" 
                                 name="start_date" 
-                                class="form-control form-control-solid mb-2" 
+                                class="form-control form-control-solid mb-2 datepicker" 
                                 value="{{ $item['start_date'] }}"
                                 />
                         </div>
@@ -39,7 +39,7 @@
                             <input 
                                 type="date" 
                                 name="end_date" 
-                                class="form-control form-control-solid mb-2" 
+                                class="form-control form-control-solid mb-2 datepicker" 
                                 value="{{ $item['end_date'] }}"
                                 />
                         </div>
