@@ -21,7 +21,7 @@
         </div>
 
         <div class="row mb-7">
-            <label class="col-lg-4 fw-semibold text-muted">Edit drug test</label>
+            <label class="col-lg-4 fw-semibold text-muted">Uploaded document</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
 
