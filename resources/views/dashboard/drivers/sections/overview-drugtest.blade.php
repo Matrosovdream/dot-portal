@@ -31,7 +31,7 @@
 
                     @if( $file )
                         <a href="{{ $file['file']['downloadUrl'] }}">
-                            {{ $file['title'] }}
+                            Download ({{ $file['title'] }})
                         </a>
                     @else
                         -
