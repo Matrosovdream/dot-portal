@@ -25,7 +25,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Start date</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $insurance['start_date'] ?? '-' }}
+                    {{ dateFormat( $insurance['start_date'] ) ?? '-' }}
                 </span>
             </div>
         </div>
@@ -34,7 +34,7 @@
             <label class="col-lg-4 fw-semibold text-muted">End date</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $insurance['end_date'] ?? '-' }}
+                    {{ dateFormat( $insurance['end_date'] ) ?? '-' }}
                 </span>
             </div>
         </div>
