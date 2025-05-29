@@ -80,7 +80,7 @@
                 <div class="col-lg-4 fv-row">
                     <x-file-uploader 
                         :inputName="'medical_card'"
-                        :value="''"
+                        :value="($driver['documents']['groupType']['medical_card'][0]['file'] ?? null)"
                         :accept="'image/*,application/pdf'"
                         :multiple="false"
                         :required="false"
