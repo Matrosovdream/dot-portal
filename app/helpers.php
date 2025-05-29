@@ -3,13 +3,19 @@
 use Carbon\Carbon;
 
 if (!function_exists('formatDate')) {
-    function dateFormat($date): string {
+    function dateFormat( $date=null ): string {
+        if (is_null($date) || $date === '') {
+            return null;
+        }
         return Carbon::parse($date)->format('m/d/Y'); // US format
     }
 }
 
 if (!function_exists('formatDateTime')) {
-    function dateTimeFormat($date): string {
+    function dateTimeFormat( $date=null ): string {
+        if (is_null($date) || $date === '') {
+            return null;
+        }
         return Carbon::parse($date)->format('m/d/Y h:i A'); // US format with AM/PM
     }
 }
