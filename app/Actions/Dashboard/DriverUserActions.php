@@ -221,6 +221,11 @@ class DriverUserActions {
 
         }
 
+        if( isset( $request['license_file_remove'] ) ) {
+            // Remove old document
+            $this->driverRepo->removeDocument($driver_id, 'license');
+        }
+
         // If isset license
         if ( $driver['license'] ) {
             $data = $this->driverLicenseRepo->update($driver['license']['id'], $request);

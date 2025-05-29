@@ -131,6 +131,7 @@ class DriverController extends Controller
             'expiration_date' => 'nullable',
             'type_id' => 'nullable',
             'state_id' => 'nullable',
+            '*_remove' => 'nullable', // This allows for any field to be removed
         ]);
 
         $data = $this->driverUserActions->updateLicense($driver_id, $validated);
