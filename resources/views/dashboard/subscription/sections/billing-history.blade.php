@@ -49,7 +49,7 @@
                             @foreach($paymentHistory['items'] as $payment)
 
                                 <tr>
-                                    <td>{{ $payment['payment_date'] }}</td>
+                                    <td>{{ dateTimeFormat( $payment['payment_date'] ) ?? '' }}</td>
                                     <td>
                                         <span class="badge badge-light fw-bold">{{ $payment['status'] }}</span>
                                     </td>
