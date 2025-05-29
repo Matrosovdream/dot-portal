@@ -8,8 +8,7 @@
             <div class="d-flex justify-content-between flex-column flex-sm-row mb-19">
                 <h4 class="fw-bolder text-gray-800 fs-2qx pe-5 pb-7">INVOICE</h4>
                 <div class="text-sm-end fw-semibold fs-4 text-muted mt-7">
-                    <div>Cecilia Chapman, 711-2880 Nulla St, Mankato</div>
-                    <div>Mississippi 96522</div>
+                    <div>{{ siteSettings()['address'] ?? '' }}</div>
                 </div>
             </div>
 
