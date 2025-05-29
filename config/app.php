@@ -123,14 +123,4 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
-    /*
-    |--------------------------------------------------------------------------
-    | Global Aliases - Class Aliases
-    |--------------------------------------------------------------------------
-    */
-
-    'aliases' => [
-        'DateFormat' => App\Helpers\DateFormat::class,
-    ],
-
 ];
