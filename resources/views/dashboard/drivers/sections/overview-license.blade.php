@@ -51,7 +51,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Expiration date</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ $driver['license']['expiration_date'] ?? '-' }}
+                    {{ dateFormat( $driver['license']['expiration_date'] ) ?? '-' }}
                 </span>
             </div>
         </div>
