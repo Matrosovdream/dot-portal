@@ -5,6 +5,7 @@ use App\Repositories\Driver\DriverRepo;
 use App\Repositories\Driver\DriverLicenseRepo;
 use App\Repositories\Driver\DriverAddressRepo;
 use App\Repositories\Driver\DriverMedicalCardRepo;
+use App\Repositories\Driver\DriverDrugTestRepo;
 use App\Repositories\User\UserSubscriptionRepo;
 use App\Repositories\References\RefDriverTypeRepo;
 use App\Repositories\References\RefCountryStateRepo;
@@ -21,6 +22,7 @@ class DriverUserActions {
     private $driverLicenseRepo;
     private $driverAddressRepo;
     private $driverMedicalCardRepo;
+    private $driverDrugTestRepo;
     private $userSubRepo;
     private $refDriverTypeRepo;
     private $refStateRepo;
@@ -36,6 +38,7 @@ class DriverUserActions {
         $this->driverLicenseRepo = new DriverLicenseRepo();
         $this->driverAddressRepo = new DriverAddressRepo();
         $this->driverMedicalCardRepo = new DriverMedicalCardRepo();
+        $this->driverDrugTestRepo = new DriverDrugTestRepo();
 
         // User
         $this->userSubRepo = new UserSubscriptionRepo();
@@ -339,6 +342,11 @@ class DriverUserActions {
     public function updateDrugtest($driver_id, $request)
     {
         $driver = $this->driverRepo->getByID($driver_id);
+
+        if( isset( $request['drugtest_file_remove'] ) ) {
+            // Remove old document
+            $this->driverDrugTestRepo->removeDocument($driver_id);
+        }
 
         return $this->driverRepo->updateDrugtest(
             $driver_id, 

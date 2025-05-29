@@ -198,7 +198,8 @@ class DriverController extends Controller
         $validated = $request->validate([
             'test_type' => 'nullable',
             'test_date' => 'nullable',
-            'result' => 'nullable'
+            'result' => 'nullable',
+            '*_remove' => 'nullable', 
         ]);
 
         $data = $this->driverUserActions->updateDrugtest($driver_id, $validated);
