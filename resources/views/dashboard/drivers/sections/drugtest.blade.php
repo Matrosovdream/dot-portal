@@ -45,7 +45,7 @@
                 <div class="col-lg-4 fv-row">
                     <x-file-uploader 
                         :inputName="'drugtest_file'"
-                        :value="''"
+                        :value="($driver['drugTest']['file'] ?? null)"
                         :accept="'image/*,application/pdf'"
                         :multiple="false"
                         :required="false"

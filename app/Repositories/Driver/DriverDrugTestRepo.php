@@ -24,6 +24,24 @@ class DriverDrugTestRepo extends AbstractRepo
 
     }
 
+    public function removeDocument($test_id)
+    {
+
+        $drugTest = $this->getById($test_id);
+        $file = $drugTest['file'] ?? null;
+        if( empty($file) ) {
+            return;
+        }
+    
+        // Remove from model
+        $drugTest['Model']->file_id = null;
+        $drugTest['Model']->save();
+
+        // Remove from file repo
+        $this->fileRepo->delete($file['id']);
+
+    }
+
     public function mapItem($item)
     {
 
