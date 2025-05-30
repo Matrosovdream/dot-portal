@@ -39,7 +39,13 @@
                     <div class="menu-item pt-5">
                         <!--begin:Menu content-->
                         <div class="menu-content">
-                            <span class="menu-heading fw-bold text-uppercase fs-7">Administration</span>
+                            <span class="menu-heading fw-bold text-uppercase fs-7">
+                                @if( auth()->user()->isAdmin() || auth()->user()->isManager() )
+                                    Administration
+                                @else
+                                    My cabinet
+                                @endif
+                            </span>
                         </div>
                         <!--end:Menu content-->
                     </div>
