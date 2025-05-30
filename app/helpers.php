@@ -3,7 +3,7 @@
 use Carbon\Carbon;
 
 if (!function_exists('formatDate')) {
-    function dateFormat( $date=null ): string {
+    function dateFormat( $date=null ): string|null {
         if (is_null($date) || $date === '') {
             return null;
         }
@@ -12,7 +12,7 @@ if (!function_exists('formatDate')) {
 }
 
 if (!function_exists('formatDateTime')) {
-    function dateTimeFormat( $date=null ): string {
+    function dateTimeFormat( $date=null ): string|null {
         if (is_null($date) || $date === '') {
             return null;
         }

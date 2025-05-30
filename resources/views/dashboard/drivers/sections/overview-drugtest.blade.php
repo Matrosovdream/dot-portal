@@ -15,7 +15,7 @@
             <label class="col-lg-4 fw-semibold text-muted">Test date</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    {{ dateFormat( $driver['drugTest']['test_date'] ) ?? '-' }}
+                    {{ dateFormat( $driver['drugTest']['test_date'] ?? null ) ?? '-' }}
                 </span>
             </div>
         </div>
