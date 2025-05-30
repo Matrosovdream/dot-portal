@@ -77,10 +77,13 @@ class DriverController extends Controller
             'hire_date' => 'nullable|date',
             'driver_type_id' => 'required',
         ]);
-
+        
         $data = $this->driverUserActions->store($validated);
 
+        return redirect()->route('dashboard.drivers.index');
+
         if( !isset($data['error']) ) {
+            
             return redirect()->route('dashboard.drivers.index');
         } else {
             return redirect()->back()->withError($data['message']);
