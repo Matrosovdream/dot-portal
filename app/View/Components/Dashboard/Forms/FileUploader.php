@@ -12,7 +12,7 @@ class FileUploader extends Component
     public function __construct(
         public string $inputName,
         public ?string $inputId=null,
-        public ?array $value,
+        public string|array|null $value = null,
         public ?string $accept,
         public ?bool $multiple,
         public ?bool $required,
