@@ -63,7 +63,7 @@ class InsuranceVehicleController extends Controller
             'number' => 'required|string|max:255',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
-            //'vehicle_ids' => 'nullable|array',
+            '*_remove' => 'nullable',
         ]);
 
         $this->insuranceActions->update($validated, $id);

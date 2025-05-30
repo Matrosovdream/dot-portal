@@ -66,6 +66,7 @@ class InsuranceVehicleActions {
 
     public function show($id)
     {
+
         return [
             'title' => 'Insurance Vehicle',
             'insurance' => $this->insuranceRepo->getById($id),
@@ -75,6 +76,7 @@ class InsuranceVehicleActions {
 
     public function profile($id)
     {
+        
         return [
             'title' => 'Insurance Vehicle General',
             'insurance' => $this->insuranceRepo->getById($id),
@@ -84,6 +86,11 @@ class InsuranceVehicleActions {
 
     public function update($request, $id)
     {
+
+        if( isset( $request['document_remove'] ) ) {
+            $this->insuranceRepo->removeDocument($id);
+        }
+
         $insurance = $this->insuranceRepo->update(
             $id,
             $request,

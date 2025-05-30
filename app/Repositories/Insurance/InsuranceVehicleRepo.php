@@ -86,6 +86,19 @@ class InsuranceVehicleRepo extends AbstractRepo
 
     }
 
+    public function removeDocument( $insurance_id ) {
+
+        $insurance = $this->getByID($insurance_id);
+
+        if( isset($insurance['file']['id']) ) {
+            $this->fileRepo->delete( $insurance['file']['id'] );
+            $this->update( $insurance['id'], ['file_id' => null] );
+        }
+
+        return true;
+
+    }
+
     public function getCompanyStats($company_id)
     {
         $itemsCount = $this->model
