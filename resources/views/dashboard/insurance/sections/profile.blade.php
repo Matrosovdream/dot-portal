@@ -71,9 +71,16 @@
                 </label>
 
                 <div class="col-lg-4 fv-row">
-                    <x-file-uploader :inputName="'document'" :value="''" :accept="'image/* application/pdf'"
-                        :multiple="false" :required="false" :label="'Upload file'" :note="'Upload 1 image or PDF file'"
-                        :description="''" />
+                    <x-file-uploader 
+                        :inputName="'document'" 
+                        :value="$insurance['file'] ?? ''" 
+                        :accept="'image/* application/pdf'"
+                        :multiple="false" 
+                        :required="false" 
+                        :label="'Upload file'" 
+                        :note="'Upload 1 image or PDF file'"
+                        :description="''" 
+                        />
                 </div>
 
             </div>

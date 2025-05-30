@@ -40,19 +40,23 @@
         </div>
 
         <div class="row mb-7">
-            <label class="col-lg-4 fw-semibold text-muted">Document</label>
+            <label class="col-lg-4 fw-semibold text-muted">Uploaded document</label>
             <div class="col-lg-8">
-                @if(!empty($insurance['file']))
-                                <a href="#" class="btn btn-primary btn-sm flex-shrink-0 me-3" data-bs-toggle="modal"
-                                    data-bs-target="#kt_modal_filepreview_{{ $insurance['file']['id'] }}">
-                                    Preview
-                                </a>
-                                @include('dashboard.modals.layout.file-preview', [
-                                    'file_id' => $insurance['file']['id'],
-                                ])
-                @else
-                    <span class="fw-bold fs-6 text-gray-800">No document uploaded</span>
-                @endif
+                <span class="fw-bold fs-6 text-gray-800">
+
+                    @php
+                    $file = $insurance['file'] ?? null;
+                    @endphp
+
+                    @if( $file )
+                        <a href="{{ $file['downloadUrl'] }}">
+                            Download ({{ $file['title'] }})
+                        </a>
+                    @else
+                        -
+                    @endif
+                    
+                </span>
             </div>
         </div>
 
