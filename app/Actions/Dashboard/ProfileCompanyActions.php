@@ -170,6 +170,13 @@ class ProfileCompanyActions {
             'references' => $this->getReferences()
         ];
 
+        // Driver documents
+        $data['driverDocuments'] = $data['driver']['documents']['groupType'] ?? null;
+
+        if( request()->has('logg') ) {
+            dd( $data );
+        }
+
         return $data;
     }
 
