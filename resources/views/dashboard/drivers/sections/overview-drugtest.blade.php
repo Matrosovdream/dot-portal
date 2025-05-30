@@ -26,11 +26,11 @@
                 <span class="fw-bold fs-6 text-gray-800">
 
                     @php
-                    $file = $driver['documents']['groupType']['medical_card'][0] ?? null;
+                    $file = $driver['drugTest']['file'] ?? null;
                     @endphp
 
                     @if( $file )
-                        <a href="{{ $file['file']['downloadUrl'] }}">
+                        <a href="{{ $file['downloadUrl'] }}">
                             Download ({{ $file['title'] }})
                         </a>
                     @else
