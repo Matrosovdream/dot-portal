@@ -119,6 +119,7 @@ class ProfileCompanyController {
             'driver_type_id' => 'nullable',
             'new_password' => 'nullable',
             'action' => 'nullable',
+            '*_remove' => 'nullable',
         ]);
 
         $data = $this->profileCompanyActions->updateDriverLicense($validated);
@@ -138,7 +139,8 @@ class ProfileCompanyController {
     {
         $validated = $request->validate([
             'expiration_date' => 'nullable',
-            'file' => 'nullable|mimes:jpg,jpeg,png,pdf|max:2048'
+            'file' => 'nullable|mimes:jpg,jpeg,png,pdf|max:2048',
+            '*_remove' => 'nullable',
         ]);
 
         $data = $this->profileCompanyActions->updateMedicalCard($validated);
