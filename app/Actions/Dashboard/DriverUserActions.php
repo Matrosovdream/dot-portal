@@ -261,7 +261,7 @@ class DriverUserActions {
         if ( $driver['address'] ) {
             $data = $this->driverAddressRepo->update($driver['address']['id'], $request);
         } else {
-            $request['item_id'] = $driver_id; dd($request);
+            $request['item_id'] = $driver_id; 
             $data = $this->driverAddressRepo->create($request);
         }
 
