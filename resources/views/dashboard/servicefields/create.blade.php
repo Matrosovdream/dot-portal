@@ -113,11 +113,13 @@
                                         class="form-control form-control-solid" placeholder="" />
                                 </div>
 
+                                <!--
                                 <div class="fv-row mb-7">
                                     <label class="fs-6 fw-semibold mb-2 required">Icon</label>
                                     <input type="text" name="icon" value="{{ old('icon') }}"
                                         class="form-control form-control-solid" placeholder="" />
                                 </div>
+                                -->
 
                                 <div class="d-flex justify-content-end">
 

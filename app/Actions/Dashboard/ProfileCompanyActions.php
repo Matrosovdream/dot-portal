@@ -162,10 +162,14 @@ class ProfileCompanyActions {
 
     public function medicalCard()
     {
-        $data = $this->profilePreview();
 
-        $data['driver'] = $this->driverRepo->getByUserID( auth()->user()->id );
-        $data['title'] = 'Edit medical card';
+        $data = [
+            'title' => 'Edit medical card',
+            'user' => $this->userRepo->getByID( auth()->user()->id ),
+            'driver' => $this->driverRepo->getByUserID( auth()->user()->id ),
+            'references' => $this->getReferences()
+        ];
+
         return $data;
     }
 
