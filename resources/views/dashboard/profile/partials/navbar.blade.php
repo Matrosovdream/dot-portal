@@ -68,8 +68,6 @@
                     </a>
                 </div>
 
-                
-
                 <div class="d-flex flex-wrap fw-semibold fs-6 mb-4 pe-2">
 
                     @if( isset($user['address']) )
@@ -78,7 +76,7 @@
                                 <span class="path1"></span>
                                 <span class="path2"></span>
                             </i>
-                            {{ $user['address']['city'] ?? '' }}, {{ $user['address']['zip'] ?? '' }}
+                            {{ $user['address']['full_address'] ?? '' }}
                         </a>
                     @endif
                     
