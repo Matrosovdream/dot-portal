@@ -116,6 +116,19 @@ class VehicleRepo extends AbstractRepo
 
     }
 
+    public function removeMvrDocument( $vehicle_id ) {
+
+        $vehicle = $this->getByID($vehicle_id);
+
+        if( isset($vehicle['mvr']) && isset($vehicle['mvr']['file_id']) ) {
+            $this->fileRepo->delete( $vehicle['mvr']['file_id'] );
+            $this->mvrRepo->update( $vehicle['mvr']['id'], ['file_id' => null] );
+        }
+
+        return true;
+
+    }
+
     public function setInsurance( $vehicle_id, $insurance_id ) {
 
         $vehicle = $this->getByID($vehicle_id);

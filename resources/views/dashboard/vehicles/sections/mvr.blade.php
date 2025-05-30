@@ -24,8 +24,14 @@
                 </label>
 
                 <div class="col-lg-4 fv-row">
-                    <x-file-uploader :inputName="'mvr_document'" :value="''" :accept="'image/*'"
-                        :multiple="false" :required="false" :label="'Upload file'" :note="'Upload 1 image'"
+                    <x-file-uploader 
+                        :inputName="'mvr_document'" 
+                        :value="$vehicle['mvr']['file'] ?? ''" 
+                        :accept="'image/*'"
+                        :multiple="false" 
+                        :required="false" 
+                        :label="'Upload file'" 
+                        :note="'Upload 1 image'"
                         :description="''" />
                 </div>
 

@@ -80,6 +80,7 @@ class VehicleUserController extends Controller
         $validated = $request->validate([
             'mvr_number' => 'required',
             'mvr_date' => 'required|date',
+            '*_remove' => 'nullable'
         ]);
 
         $data = $this->vehicleUserActions->updateMvr($driver_id, $validated);

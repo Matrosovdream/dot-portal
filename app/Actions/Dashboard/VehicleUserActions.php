@@ -106,6 +106,11 @@ class VehicleUserActions
     public function updateMvr($vehicle_id, $request)
     {
 
+        if( isset( $request['mvr_document_remove'] ) ) {
+            // Remove MVR document
+            $this->vehicleRepo->removeMvrDocument($vehicle_id);
+        }
+
         return $this->vehicleRepo->updateMvr(
             $vehicle_id,
             $request,
