@@ -16,7 +16,7 @@ class DriverController extends Controller
     }
 
     public function index()
-    {
+    { 
         //dd($this->driverUserActions->index());
         return view(
             'dashboard.drivers.index', 
@@ -45,9 +45,20 @@ class DriverController extends Controller
 
     public function create()
     {
+
+        $data = $this->driverUserActions->create();
+
+        // If no subscriptions are available, redirect to index
+        if( 
+            !isset($data['userSubscription']) ||
+            $data['userSubscription']['isActive'] === false
+            ) {
+            return redirect()->route('dashboard.subscription.index');
+        }
+
         return view(
             'dashboard.drivers.create', 
-            $this->driverUserActions->create()
+            $data
         );
     }
 
