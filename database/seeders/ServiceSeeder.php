@@ -17,9 +17,8 @@ class ServiceSeeder extends Seeder
 
         $fields = [
             ['field_id' => 1, 'order' => 1],
-            ['field_id' => 3, 'order' => 2],
-            ['field_id' => 4, 'order' => 3],
-            ['field_id' => 5, 'order' => 3],
+            ['field_id' => 2, 'order' => 2],
+            ['field_id' => 3, 'order' => 3],
         ];
         
         $services = [
