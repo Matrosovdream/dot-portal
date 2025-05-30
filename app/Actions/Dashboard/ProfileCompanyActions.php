@@ -142,6 +142,9 @@ class ProfileCompanyActions {
         $data['driver'] = $this->driverRepo->getByUserID( auth()->user()->id );
         $data['title'] = 'Edit driver license';
 
+        // Driver documents
+        $data['driverDocuments'] = $data['driver']['documents']['groupType'] ?? null;
+
         return $data;
     }
 
