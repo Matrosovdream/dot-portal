@@ -1,4 +1,4 @@
-<div class="modal fade" id="kt_modal_product_form_field_general" tabindex="-1" aria-hidden="true"
+<div class="modal fade fields-modal" id="kt_modal_product_form_field_general" tabindex="-1" aria-hidden="true"
     style="display: none;">
     <div class="modal-dialog modal-dialog-centered mw-900px">
         <div class="modal-content">
@@ -24,7 +24,7 @@
 
                         <div class="col-lg-6 fv-row fv-plugins-icon-container">
                             <label class="required form-label">Field</label>
-                            <select name="field_id" class="form-select form-select-solid">
+                            <select name="field_id" class="form-select form-select-solid required">
                                 <option>Select field</option>
                                 @foreach($formFields as $field)
                                     <option value="{{ $field['id'] }}">{{ $field['title'] }}</option>
@@ -99,3 +99,5 @@
 
     </div>
 </div>
+
+
