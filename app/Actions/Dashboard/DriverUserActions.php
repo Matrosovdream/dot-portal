@@ -110,10 +110,9 @@ class DriverUserActions {
     {
         $data = [
             'title' => 'Create driver',
-            'references' => $this->getReferences()
+            'references' => $this->getReferences(),
+            'userSubscription' => $this->userSubRepo->getByUserID(auth()->user()->id),
         ];
-
-        //dd($data);
 
         return $data;
     }
