@@ -1,4 +1,4 @@
-<div class="modal fade" id="kt_modal_product_form_field_{{ $field['id'] }}" tabindex="-1" aria-hidden="true"
+<div class="modal fade fields-modal" id="kt_modal_product_form_field_{{ $field['id'] }}" tabindex="-1" aria-hidden="true"
     style="display: none;">
     <div class="modal-dialog modal-dialog-centered mw-900px">
         <div class="modal-content">
@@ -24,7 +24,7 @@
 
                         <div class="col-lg-6 fv-row fv-plugins-icon-container">
                         <label class="required form-label">Field</label>
-                        <select name="field_id" class="form-select form-select-solid mb-2">
+                        <select name="field_id" class="form-select form-select-solid required mb-2">
                             <option>Select field</option>
                             @foreach($formFields as $field)
                                 <option 
@@ -75,37 +75,27 @@
 
                     </div>
 
-                </form>
-
                 <hr />
-
-                
-
 
                 <div class="row mb-5">
 
                     <div class="col-lg-6 fv-row fv-plugins-icon-container">
-                        <form action="{{ route('dashboard.services.fields.destroy', ['service' => $service['id'], 'field_id' => $fieldValue['id']]) }}" method="POST">
-                            @csrf
-                            @method('DELETE')
-
-                            <button type="submit" class="btn btn-danger alert">
-                                Delete field
-                            </button>
-
-                        </form>
+                        
                     </div>
 
                     <div class="col-lg-6 fv-row fv-plugins-icon-container text-end">
-                    <button type="submit" class="btn btn-lg btn-primary">
-                                Save
-                                <i class="ki-duotone ki-arrow-right fs-3 ms-1 me-0">
-                                    <span class="path1"></span>
-                                    <span class="path2"></span>
-                                </i></button>
+                        <button type="submit" class="btn btn-lg btn-primary">
+                                    Save
+                                    <i class="ki-duotone ki-arrow-right fs-3 ms-1 me-0">
+                                        <span class="path1"></span>
+                                        <span class="path2"></span>
+                                    </i>
+                        </button>
                     </div>
 
                 </div>
+
+            </form>
 
             </div>
         </div>

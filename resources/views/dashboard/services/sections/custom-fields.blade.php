@@ -26,3 +26,43 @@
 
     </div>
 </div>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector('.fields-modal form');
+
+        form.addEventListener('submit', function (e) {
+            let isValid = true;
+
+            // Validate Field select
+            const fieldSelect = form.querySelector('select[name="field_id"]');
+            if (!fieldSelect.value || fieldSelect.value === 'Select field') {
+                fieldSelect.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                fieldSelect.classList.remove('is-invalid');
+            }
+
+            // Validate Required select
+            const requiredSelect = form.querySelector('select[name="required"]');
+            if (requiredSelect.value !== "0" && requiredSelect.value !== "1") {
+                requiredSelect.classList.add('is-invalid');
+                isValid = false;
+            } else {
+                requiredSelect.classList.remove('is-invalid');
+            }
+
+            if (!isValid) {
+                e.preventDefault(); // Stop form submission
+            }
+        });
+    });
+</script>
+
+
+<style>
+    .is-invalid {
+        border-color: #dc3545;
+    }
+</style>
