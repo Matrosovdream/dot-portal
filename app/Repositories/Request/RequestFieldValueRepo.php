@@ -40,7 +40,7 @@ class RequestFieldValueRepo extends AbstractRepo
         if( $field['type'] == 'file' ) {
             $file = $this->uploadFile(
                 $request_id,
-                $field['slug'],
+                '[fields]['.$field['id'].']',
                 ['request '.$request_id, 'file']
             );
         }
