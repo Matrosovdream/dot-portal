@@ -69,7 +69,7 @@
 
         <div class="w-50">
             <x-file-uploader 
-                inputName="fields[{{ $field['field']['slug'] }}]"
+                inputName="fields[{{ $field['field']['id'] }}]"
                 :value="(null)"
                 :accept="'image/*,application/pdf'"
                 :multiple="false"
