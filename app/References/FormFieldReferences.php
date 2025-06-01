@@ -22,6 +22,10 @@ class FormFieldReferences {
                 'type'=> 'phone',
                 'title' => 'Phone',
             ],
+            'file' => [
+                'type'=> 'file',
+                'title' => 'File',
+            ],
             /*
             'reference' => [
                 'type'=> 'reference',
