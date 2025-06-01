@@ -2,7 +2,12 @@
 
 @section('content')
 
-    <form class="form" method="POST" action="{{ route('dashboard.servicegroups.store') }}">
+    <form 
+        class="form" 
+        method="POST" 
+        enctype="multipart/form-data"
+        action="{{ route('dashboard.servicegroups.store') }}"
+        >
         @csrf
 
         <div class="d-flex flex-column flex-xl-row">
