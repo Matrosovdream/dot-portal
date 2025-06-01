@@ -58,6 +58,32 @@
 @if($field['field']['type'] == 'file')
 
     <div class="mb-10 fv-row fv-plugins-icon-container">
+        <label for="field-{{ $field['field']['slug'] }}" class="form-label fs-5 fw-semibold mb-2">
+            {{ $field['field']['title'] }} {{ $field['required'] ? '*' : '' }}
+        </label>
+        @if(isset($field['value']))
+            <a href="{{ Storage::url($field['value']->path) }}" target="_blank">
+                {{ __('Download') }}
+            </a>
+        @endif  
+
+        <div class="w-50">
+            <x-file-uploader 
+                inputName="fields[{{ $field['field']['slug'] }}]"
+                :value="(null)"
+                :accept="'image/*,application/pdf'"
+                :multiple="false"
+                :required="false"
+                :label="'Upload file'"
+                :note="'Upload 1 image or PDF'"
+                :description="''"
+            />
+        </div>
+
+    </div>
+
+    @php /*
+    <div class="mb-10 fv-row fv-plugins-icon-container">
         <label for="field-{{ $field['field']['slug'] }}" class="form-label  w-100">
             {{ $field['field']['title'] }} {{ $field['required'] ? '*' : '' }}
         </label>
@@ -69,6 +95,7 @@
         <input type="file" class="form-control form-control-soli" id="field-{{ $field['field']['slug'] }}"
             name="fields[{{ $field['field']['slug'] }}]">
     </div>
+    */ @endphp
 
 @endif
 
