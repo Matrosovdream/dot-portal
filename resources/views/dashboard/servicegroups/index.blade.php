@@ -12,6 +12,7 @@
 
     <div class="card card-flush">
 
+        <!--
         <div class="card-header align-items-center py-5 gap-2 gap-md-5">
             <div class="card-title">
                 <div class="d-flex align-items-center position-relative my-1">
@@ -24,6 +25,7 @@
                 </div>
             </div>
         </div>
+        -->
 
         <div class="card-body pt-0">
             <div class="table-responsive">
