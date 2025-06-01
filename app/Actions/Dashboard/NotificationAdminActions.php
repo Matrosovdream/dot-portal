@@ -19,6 +19,12 @@ class NotificationAdminActions {
         $filter = [
             'type' => 'info',
         ];
+
+        // Filter by search form
+        if( request()->has('q') ) {
+            $filter['title'] = '%' . request()->input('q') . '%';
+        }
+
         $notifications = $this->notificationsRepo->getAll( 
             $filter, 
             $paginate = 20 
