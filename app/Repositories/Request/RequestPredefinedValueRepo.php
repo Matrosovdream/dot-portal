@@ -63,13 +63,18 @@ class RequestPredefinedValueRepo extends AbstractRepo
         return $this->mapItem($data);
     }
 
-    public function mapItems($items)
+    public function mapItems($items, $request_id = null)
     {
         if( empty($items) ) {
             return null;
         }
 
         $items = parent::mapItems($items);
+        return $this->mapRequestValues($request_id, $items);
+
+    }
+
+    public function mapRequestValues($request_id, $items=null) {
 
         // Map so key => value
         foreach ($items['items'] as $key=>$item) {
