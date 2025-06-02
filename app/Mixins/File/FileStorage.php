@@ -5,7 +5,8 @@ namespace App\Mixins\File;
 use App\Models\File;
 use App\Repositories\File\FileRepo;
 
-class FileStorage {
+class FileStorage
+{
 
     private $base_path = 'uploads/';
     private $base_disk = 'local';
@@ -22,63 +23,59 @@ class FileStorage {
         $this->fileRepo = new FileRepo();
     }
 
-    public function uploadFile( $request_file, $path, $disk='local', $data = [] ) {
-
-        // Important variables
+    public function uploadFile($request_file, $path, $disk = 'local', $data = [])
+    {
+        // Determine disk and path
         $filepath = $this->base_path . $path;
         $disk = $disk ?? $this->base_disk;
 
-        // Retrieve the file from the request
-        $file = request()->file($request_file);
+        // Handle both dot notation and array access
+        $file = data_get(request()->allFiles(), $request_file);
 
-        // Save the file if exists
-        if( $file ) {
-
+        if ($file) {
             $filename = $data['filename'] ?? $file->getClientOriginalName();
 
             // Save to the disk
             $filePath = $file->storeAs(
                 $filepath,
-                $filename, 
+                $filename,
                 ['disk' => $disk]
             );
 
-            // Save to the database by Repo
-            if( $filePath ) {
-
-                $fileServer = $this->saveRepo( 
+            if ($filePath) {
+                // Save to the database by Repo
+                $fileServer = $this->saveRepo(
                     $file,
                     [
                         'filepath' => $filePath,
                         'filename' => $filename,
                         'disk' => $disk,
                         'visibility' => '',
-                        'user_id' => $data['user_id'] ?? auth('')->user()->id,
-                        'tags' => isset($data['tags']) ? $data['tags'] : []
+                        'user_id' => $data['user_id'] ?? auth()->id(),
+                        'tags' => $data['tags'] ?? [],
                     ]
                 );
 
                 return [
                     'file' => $fileServer,
-                    'error' => null
+                    'error' => null,
                 ];
-
             }
-
-        } else {
-            return [
-                'file' => null,
-                'error' => 'File not found'
-            ];
         }
 
+        return [
+            'file' => null,
+            'error' => 'File not found',
+        ];
     }
 
-    protected function saveRepo( $file, $data=[] ) {
+
+    protected function saveRepo($file, $data = [])
+    {
 
         // Save to the database by Repo
         $fields = [
-            'filename' => trim( pathinfo($data['filename'], PATHINFO_FILENAME) ),
+            'filename' => trim(pathinfo($data['filename'], PATHINFO_FILENAME)),
             'path' => $data['filepath'],
             'type' => $file->getMimeType(),
             'size' => $file->getSize(),
@@ -88,13 +85,13 @@ class FileStorage {
             'visibility' => $data['visibility'],
             'user_id' => $data['user_id']
         ];
-        $fileNew = $this->fileRepo->create( $fields );
+        $fileNew = $this->fileRepo->create($fields);
 
         // Add tags
-        if( !empty($data['tags']) ) {
+        if (!empty($data['tags'])) {
 
             $tags = array_map(fn($tag) => ['name' => $tag], $data['tags']);
-            $this->fileRepo->addTags( $fileNew['id'], $tags );
+            $this->fileRepo->addTags($fileNew['id'], $tags);
 
         }
 
