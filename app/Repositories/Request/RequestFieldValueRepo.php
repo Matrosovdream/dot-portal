@@ -71,12 +71,6 @@ class RequestFieldValueRepo extends AbstractRepo
         );
 
         if( isset($file['file']['id']) ) {
-            $this->update(
-                $request_id,
-                [
-                    'file_id' => $file['file']['id'],
-                ]
-            );
             return $file['file'];
         }
 

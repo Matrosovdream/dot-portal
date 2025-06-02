@@ -141,4 +141,20 @@ class ServiceReferences {
         
     }
 
+    public function getFormFields($form_id=null) {
+
+        if( empty($form_id) ) {
+            return [];
+        }
+
+        $forms = $this->getPredefinedForms();
+
+        if( isset($forms[$form_id]) ) {
+            return $forms[$form_id]['fields'] ?? [];
+        }
+
+        return [];
+
+    }
+
 }

@@ -3,23 +3,46 @@ namespace App\Repositories\Request;
 
 use App\Repositories\AbstractRepo;
 use App\Models\RequestPredefinedValue;
+use App\Mixins\File\FileStorage;
+use App\References\ServiceReferences;
 
 
 class RequestPredefinedValueRepo extends AbstractRepo
 {
 
     protected $model;
+    protected $serviceReferences;
 
+    protected $fileStorage;
     protected $fields = [];
 
     public function __construct()
     {
         $this->model = new RequestPredefinedValue();
+
+        $this->fileStorage = new FileStorage();
+        $this->serviceReferences = new ServiceReferences();
     }
 
     public function syncValue($request_id, $field_code, $value)
     {
         $data = $this->findValue($request_id, $field_code);
+        $request = (new RequestRepo)->getById($request_id);
+        $form_id = $request['service']['form_id'] ?? null;
+
+        // Field data
+        $fields = $this->serviceReferences->getFormFields($form_id);
+        $fieldData = $fields[$field_code] ?? null;
+
+        // Upload file handling
+        if( $fieldData['type'] == 'file' ) { 
+            $file = $this->uploadFile(
+                $request_id,
+                'fields.'.$field_code,
+                ['request #'.$request_id, $fieldData['title']]
+            );
+            $value = $file['id'] ?? null;
+        }
 
         if (empty($data)) {
             $data = $this->model->newInstance();
@@ -54,6 +77,23 @@ class RequestPredefinedValueRepo extends AbstractRepo
         }
 
         return $items;
+
+    }
+
+    public function uploadFile( $request_id, $filename, $tags = [] ) {
+
+        $file = $this->fileStorage->uploadFile(
+            $filename, 
+            'fieldValue/' . $request_id,
+            'local',
+            ['tags' => $tags]
+        );
+
+        if( isset($file['file']['id']) ) {
+            return $file['file'];
+        }
+
+        return null;
 
     }
 
