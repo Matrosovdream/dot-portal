@@ -41,8 +41,9 @@ class RequestFieldValueRepo extends AbstractRepo
             $file = $this->uploadFile(
                 $request_id,
                 'fields.'.$field['id'],
-                ['request '.$request_id, 'file']
+                ['request #'.$request_id, $field['title']]
             );
+            $value = $file['id'] ?? null;
         }
 
         if (empty($data)) {
@@ -76,7 +77,7 @@ class RequestFieldValueRepo extends AbstractRepo
                     'file_id' => $file['file']['id'],
                 ]
             );
-            return $file['file']['id'];
+            return $file['file'];
         }
 
         return null;
