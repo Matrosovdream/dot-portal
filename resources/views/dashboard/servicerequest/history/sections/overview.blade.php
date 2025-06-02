@@ -36,13 +36,26 @@
 
             @foreach( $request['predefinedValues']['items'] as $item )
 
+                @php
+                    $field = $predefinedForm['fields'][ $item['field_code'] ] ?? null;
+                    if( !$field ) continue;
+                @endphp
+
                 <div class="row mb-7">
                     <label class="col-lg-4 fw-semibold text-muted">
-                        {{ $predefinedForm['fields'][ $item['field_code'] ]['title'] }}
+                        {{ $field['title'] }}
                     </label>
                     <div class="col-lg-8">
                         <span class="fw-bold fs-6 text-gray-800">
-                            {{ $item['value'] ?? '-' }}
+                            @if( $field['type'] == 'file' )
+                            
+                                @include('dashboard.modals.layout.file-preview', [
+                                    'file_id' => $item['value']
+                                ])
+                                
+                            @else
+                                {{ $item['value'] ?? '-' }}
+                            @endif
                         </span>
                     </div>
                 </div>
