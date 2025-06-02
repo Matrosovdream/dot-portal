@@ -17,6 +17,10 @@
 
         @if( $formType == 'custom' )
 
+            @php
+                //dd($request['fieldValues']['items']);
+            @endphp
+
             @foreach( $request['fieldValues']['items'] as $item )
 
                 <div class="row mb-7">
@@ -25,7 +29,18 @@
                     </label>
                     <div class="col-lg-8">
                         <span class="fw-bold fs-6 text-gray-800">
-                            {{ $item['value'] ?? '-' }}
+
+                            @if( $item['field']['type'] == 'file' )
+
+                                <x-file-download
+                                    :fileId="$item['value']"
+                                    :isPreview="true"
+                                />
+
+                            @else 
+                                {{ $item['value'] ?? '-' }}
+                            @endif
+
                         </span>
                     </div>
                 </div>
