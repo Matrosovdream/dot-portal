@@ -48,6 +48,20 @@ class ServiceReferences {
                 'section' => "trip",
                 'icon' => 'c_mail.svg',
             ],
+            [
+                'title' => "Document",
+                'slug' => "document",
+                'entity' => "service",
+                'type' => "file",
+                'placeholder' => "",
+                'tooltip' => "",
+                'description' => "",
+                'default_value' => "",
+                'reference_code' => "",
+                'default' => true,
+                'section' => "",
+                'icon' => '',
+            ],
         ];
 
     }
