@@ -48,10 +48,10 @@
                     <div class="col-lg-8">
                         <span class="fw-bold fs-6 text-gray-800">
                             @if( $field['type'] == 'file' )
-                            
-                                @include('dashboard.modals.layout.file-preview', [
-                                    'file_id' => $item['value']
-                                ])
+
+                                <x-file-download
+                                    :fileId="$item['value']"
+                                />
                                 
                             @else
                                 {{ $item['value'] ?? '-' }}
