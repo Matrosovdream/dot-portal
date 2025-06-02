@@ -14,7 +14,8 @@ class FileDownload extends Component
 
     public function __construct(
         public ?int $fileId,
-        public ?array $file
+        public ?array $file,
+        public ?bool $isPreview = false,
     )
     {
         $this->fileRepo = app(FileRepo::class);
