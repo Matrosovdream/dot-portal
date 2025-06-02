@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Actions\Dashboard\ServiceGroupActions;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 
 class ServiceGroupsController extends Controller
 {
@@ -32,24 +33,24 @@ class ServiceGroupsController extends Controller
         );
     }
 
-    public function update($driver_id, Request $request)
+    public function update($group_id, Request $request)
     {
-
         $validated = $request->validate([
             'name' => 'required',
-            'slug' => 'required',
+            'slug' => [
+                'required',
+                Rule::unique('ref_service_groups', 'slug')->ignore($group_id),
+            ],
             'description' => 'nullable',
             'is_active' => 'nullable'
         ]);
 
-        $data = $this->serviceGroupActions->update($driver_id, $validated);
+        $data = $this->serviceGroupActions->update($group_id, $validated);
 
-        if (isset($data['error'])) {
-            return redirect()->back()->withErrors($data['message']);
-        } else {
-            return redirect()->back();
-        }
+        return redirect()->back();
+
     }
+
 
     public function create()
     {
@@ -61,23 +62,21 @@ class ServiceGroupsController extends Controller
 
     public function store(Request $request)
     {
-
         $validated = $request->validate([
             'name' => 'required',
-            'slug' => 'required',
+            'slug' => [
+                'required',
+                Rule::unique('ref_service_groups', 'slug'),
+            ],
             'description' => 'nullable',
             'is_active' => 'nullable'
         ]);
 
         $data = $this->serviceGroupActions->store($validated);
 
-        if (isset($data['error'])) {
-            return redirect()->back()->withErrors($data['message']);
-        } else {
-            return redirect()->route('dashboard.servicegroups.index');
-        }
-        
+        return redirect()->route('dashboard.servicegroups.index');
     }
+
 
     public function destroy($service)
     {
