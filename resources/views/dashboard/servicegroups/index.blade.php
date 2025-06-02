@@ -26,8 +26,11 @@
             </div>
         </div>
         -->
-
+        
         <div class="card-body pt-0">
+
+            @include('dashboard.includes.errors.default')
+
             <div class="table-responsive">
 
                 @if(count($groups['items']) == 0)
