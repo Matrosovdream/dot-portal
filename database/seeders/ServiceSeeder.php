@@ -19,6 +19,7 @@ class ServiceSeeder extends Seeder
             ['field_id' => 1, 'order' => 1],
             ['field_id' => 2, 'order' => 2],
             ['field_id' => 3, 'order' => 3],
+            ['field_id'=> 4, 'order'=> 4],
         ];
         
         $services = [
@@ -59,15 +60,20 @@ class ServiceSeeder extends Seeder
         
         foreach ($services as $service) {
             $serviceData = Service::firstOrCreate($service);
-            
-            // Add fields
-            foreach ($fields as $field) {
-                ServiceField::firstOrCreate([
-                    'service_id' => $serviceData->id,
-                    'field_id' => $field['field_id'],
-                    'order' => $field['order'],
-                ]);
+
+            if( $service['form_type'] == 'custom' ) {
+
+                // Add fields
+                foreach ($fields as $field) {
+                    ServiceField::firstOrCreate([
+                        'service_id' => $serviceData->id,
+                        'field_id' => $field['field_id'],
+                        'order' => $field['order'],
+                    ]);
+                }
+
             }
+            
         }
 
     }
