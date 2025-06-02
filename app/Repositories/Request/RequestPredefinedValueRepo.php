@@ -5,6 +5,7 @@ use App\Repositories\AbstractRepo;
 use App\Models\RequestPredefinedValue;
 use App\Mixins\File\FileStorage;
 use App\References\ServiceReferences;
+use App\Models\Request;
 
 
 class RequestPredefinedValueRepo extends AbstractRepo
@@ -70,17 +71,17 @@ class RequestPredefinedValueRepo extends AbstractRepo
         }
 
         $items = parent::mapItems($items);
-        return $this->mapRequestValues($request_id, $items);
+        return $this->mapRequestValues($items, $request_id);
 
     }
 
-    public function mapRequestValues($request_id, $items=null) {
+    public function mapRequestValues(array $items, int $request_id) {
 
         // Map so key => value
         foreach ($items['items'] as $key=>$item) {
             $items['Mapped'][ $item['field_code'] ] = $item['value'];
         }
-
+        
         return $items;
 
     }
