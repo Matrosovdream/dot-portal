@@ -82,7 +82,7 @@ class RequestRepo extends AbstractRepo
             'status' => $this->requestStatusRepo->mapItem( $item->status ),
             'service' => $this->serviceRepo->mapItem( $item->service ),
             'fieldValues' => $this->fieldValueRepo->mapItems($item->fieldValues),
-            'predefinedValues' => $this->predefinedValueRepo->mapItems($item->predefinedValues),
+            'predefinedValues' => $this->predefinedValueRepo->mapItems($item->predefinedValues, $item->id),
             'history' => $this->requestHistoryRepo->mapItems($item->history),
             'is_paid' => $item->is_paid,
             'Model' => $item
