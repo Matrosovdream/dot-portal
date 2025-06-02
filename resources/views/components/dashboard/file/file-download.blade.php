@@ -1,3 +1,7 @@
-<div>
-    <!-- Knowing is not enough; we must apply. Being willing is not enough; we must do. - Leonardo da Vinci -->
-</div>
+@if( isset($file) )
+
+    <a href="{{ $file['downloadUrl'] }}">
+        {{ $file['filename'] }} (download)
+    </a>
+
+@endif

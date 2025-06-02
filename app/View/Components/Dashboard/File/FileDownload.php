@@ -13,18 +13,22 @@ class FileDownload extends Component
     protected $fileRepo;
 
     public function __construct(
-        protected ?int $fileId,
-        protected ?array $file
+        public ?int $fileId,
+        public ?array $file
     )
     {
         $this->fileRepo = app(FileRepo::class);
 
-        // Let's find the file by ID
-        $file = $this->fileRepo->getById($this->fileId);
-        if( $file ) {
-            $this->file = $file;
+        if ($fileId) {
+
+            // Let's find the file by ID
+            $file = $this->fileRepo->getById($this->fileId);
+            if( $file ) {
+                $this->file = $file;
+            }
+
         }
-        
+
     }
 
     public function render(): View|Closure|string
