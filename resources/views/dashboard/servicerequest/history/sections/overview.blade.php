@@ -51,6 +51,7 @@
 
                                 <x-file-download
                                     :fileId="$item['value']"
+                                    :isPreview="true"
                                 />
                                 
                             @else
