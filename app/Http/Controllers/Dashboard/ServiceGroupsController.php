@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use App\Actions\Dashboard\ServiceGroupActions;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
+use App\Rules\CanDeleteServiceGroup;
 
 class ServiceGroupsController extends Controller
 {
@@ -78,9 +79,18 @@ class ServiceGroupsController extends Controller
     }
 
 
-    public function destroy($service)
+    public function destroy(Request $request, $serviceGroupId)
     {
-        $data = $this->serviceGroupActions->destroy($service);
+        // Inject the ID manually for validation
+        $request->merge(['service_group_id' => $serviceGroupId]);
+
+        $request->validate([
+            'service_group_id' => [new CanDeleteServiceGroup]
+        ]);
+
+        $this->serviceGroupActions->destroy($serviceGroupId);
+
         return redirect()->route('dashboard.servicegroups.index');
     }
+
 }
