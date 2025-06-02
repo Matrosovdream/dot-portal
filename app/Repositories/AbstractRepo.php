@@ -41,7 +41,7 @@ abstract class AbstractRepo
         return $this->mapItem($item);
     }
 
-    public function getAll($filter = [], $paginate = 10, array $sorting = [] )
+    public function getAll($filter = [], $paginate = 20, array $sorting = [] )
     {
         // Iterate over the filter array
         foreach ($filter as $key => $value) {
@@ -63,6 +63,9 @@ abstract class AbstractRepo
                     $this->model = $this->model->orderBy($key, $value);
                 }
             }
+        } else {
+            // Default sorting if none provided
+            $this->model = $this->model->orderBy('id', 'desc');
         }
 
         // Apply pagination
