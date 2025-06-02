@@ -43,7 +43,12 @@ class ServiceGroupsController extends Controller
         ]);
 
         $data = $this->serviceGroupActions->update($driver_id, $validated);
-        return redirect()->back();
+
+        if (isset($data['error'])) {
+            return redirect()->back()->withErrors($data['message']);
+        } else {
+            return redirect()->back();
+        }
     }
 
     public function create()
@@ -65,7 +70,13 @@ class ServiceGroupsController extends Controller
         ]);
 
         $data = $this->serviceGroupActions->store($validated);
-        return redirect()->route('dashboard.servicegroups.index');
+
+        if (isset($data['error'])) {
+            return redirect()->back()->withErrors($data['message']);
+        } else {
+            return redirect()->route('dashboard.servicegroups.index');
+        }
+        
     }
 
     public function destroy($service)

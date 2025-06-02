@@ -46,6 +46,15 @@ class ServiceGroupActions {
         // Prepare the request data
         $request['is_active'] = isset($request['is_active']) ? 1 : 0;
 
+        // Check if the slug already exists
+        $isset = $this->serviceGroupRepo->getBySlug( $request['slug'] );
+        if ( $isset && $isset['id'] != $group_id ) {
+            return [
+                'error' => true,
+                'message' => 'Group with this slug already exists.'
+            ];
+        }
+
         $data = $this->serviceGroupRepo->update($group_id, $request);
 
         return $data;
@@ -65,6 +74,15 @@ class ServiceGroupActions {
 
         // Prepare the request data
         $request['is_active'] = isset($request['is_active']) ? 1 : 0;
+
+        // Check if the slug already exists
+        $isset = $this->serviceGroupRepo->getBySlug( $request['slug'] );
+        if ($isset) {
+            return [
+                'error' => true,
+                'message' => 'Group with this slug already exists.'
+            ];
+        }
 
         $data = $this->serviceGroupRepo->create($request);
         return $data;
