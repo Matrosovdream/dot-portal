@@ -57,11 +57,16 @@
 
 @if($field['field']['type'] == 'file')
 
+    @php
+        //dd($field);
+    @endphp
+
     <div class="mb-10 fv-row fv-plugins-icon-container">
         <label for="field-{{ $field['field']['slug'] }}" class="form-label fs-5 fw-semibold mb-2">
-            {{ $field['field']['title'] }} {{ $field['required'] ? '*' : '' }}
+            {{ $field['field']['title'] }} 
+            {{ ( $field['required'] ?? false ) ? '*' : '' }}
         </label>
-        @if(isset($field['value']))
+        @if( isset($field['value']) && is_array($field['value']) )
             <a href="{{ Storage::url($field['value']->path) }}" target="_blank">
                 {{ __('Download') }}
             </a>
