@@ -7,6 +7,8 @@ trait EntityTestable {
     protected $createdRecords = [];
     protected $model;
 
+    //protected $user_id;
+
     protected function createRecord(array $data = [])
     {
         $record = $this->model->create($data);
