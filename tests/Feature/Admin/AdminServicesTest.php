@@ -63,7 +63,7 @@ class AdminServicesTest extends TestCase
 
         $this->storeRecordTest(
             $this->getRoute('store'),
-            $this->getNewRecordValues(),
+            ['new' => $this->getNewRecordValues()],
             true
         );
 
@@ -72,30 +72,13 @@ class AdminServicesTest extends TestCase
     public function test_update_record(): void
     {
 
-        $data = $this->getNewRecordValues();
-
-        // Create a record to update
-        $record = $this->createRecord( $data );
-
-        // Prepare updated data
-        $dataUpdated = $this->getUpdateRecordValues();
-
-        // Perform the PUT request
-        $response = $this->actingAs($this->user)->
-            post(
-                route($this->routes['update'], $record->id), 
-                $dataUpdated
+        $this->updateRecordTest(
+            $this->getRoute('store'),
+            $this->routes['update'],
+            ['new' => $this->getNewRecordValues(), 'update' => $this->getUpdateRecordValues()],
+            true
         );
-
-        // Verify the record was updated
-        $updatedRecord = $this->findRecord($dataUpdated);
-
-        // Assert
-        $this->assertNotNull($updatedRecord, 'Record was not updated successfully.');
-
-        // Clean up
-        $this->deleteAllRecords();
-
+        
     }
 
     public function test_delete_record(): void
