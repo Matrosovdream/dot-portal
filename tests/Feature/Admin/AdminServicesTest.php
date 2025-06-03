@@ -2,10 +2,11 @@
 
 namespace Tests\Feature\Admin;
 
-use App\Models\Notification;
+use App\Models\Service;
 use Tests\Feature\Traits\EntityTestable;
 use Tests\TestCase;
 use App\Models\User;
+
 
 class AdminServicesTest extends TestCase
 {
@@ -28,7 +29,7 @@ class AdminServicesTest extends TestCase
         parent::setUp();
 
         // Model set
-        $this->model = new Notification();
+        $this->model = new Service();
 
         // User set
         $this->user = User::find( $this->user_id );
@@ -57,16 +58,10 @@ class AdminServicesTest extends TestCase
         $response->assertStatus(200);
     }
 
-    /*
     public function test_store_record(): void
     {
-        // Prepare test data
-        $data = [
-            'user_id' => $this->user_id, 
-            'type' => 1,
-            'title' => 'recordTestCreate',
-            'message' => 'message test create',
-        ];
+
+        $data = $this->getNewRecordValues();
 
         // Perform the POST request
         $response = $this->actingAs($this->user)->
@@ -86,6 +81,7 @@ class AdminServicesTest extends TestCase
         }
     }
 
+    /*
     public function test_update_record(): void
     {
 
@@ -146,6 +142,34 @@ class AdminServicesTest extends TestCase
         // Assert
         $this->assertNull($deletedRecord, 'Record was not deleted successfully.');
     }
-    */
+    */    
+    
+    public function getNewRecordValues(): array
+    {
+        return [
+            'name' => "recordTestCreate",
+            'slug' => 'record-test-create',
+            'description' => 'description test create',
+            'is_paid' => 1,
+            'price' => 100.00,
+            'status_id' => 1,
+            'group_id' => 1,
+            'form_type' => 'custom'
+        ];
+    }
+
+    public function getUpdateRecordValues(): array
+    {
+        return [
+            'name' => "recordTestUpdate",
+            'slug' => 'record-test-update',
+            'description' => 'description test update',
+            'is_paid' => 0,
+            'price' => 50.00,
+            'status_id' => 2,
+            'group_id' => 2,
+            'form_type' => 'default'
+        ];
+    }
 
 }
