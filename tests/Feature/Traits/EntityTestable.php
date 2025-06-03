@@ -37,7 +37,10 @@ trait EntityTestable {
     protected function deleteAllRecords(): void
     {
         foreach ($this->createdRecords as $record) {
-            $this->deleteRecord($record->id);
+            if( $this->model->find($record->id) ) {
+                // Only delete if the record still exists
+                $this->deleteRecord($record->id);
+            }
         }
         $this->createdRecords = [];
     }
