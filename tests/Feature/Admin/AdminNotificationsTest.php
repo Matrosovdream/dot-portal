@@ -5,26 +5,27 @@ namespace Tests\Feature\Admin;
 use Tests\TestCase;
 use App\Models\User;
 
-class NotificationsTest extends TestCase
+class AdminNotificationsTest extends TestCase
 {
 
     protected $initialPath = '/dashboard';
 
-    protected $admin_id = 1;
+    protected $user_id = 1;
 
-    protected $userAdmin;
+    protected $user;
 
     protected function setUp(): void
     {
         parent::setUp();
 
-        $this->userAdmin = User::find( $this->admin_id );
+        $this->user = User::find( $this->user_id );
     }
 
     // Front page
     public function test_front_page(): void
     {
-        $response = $this->actingAs($this->userAdmin)->get($this->initialPath);
+        $path = $this->initialPath.'/notifications';
+        $response = $this->actingAs($this->user)->get($path);
         $response->assertStatus(200);
     }
     
