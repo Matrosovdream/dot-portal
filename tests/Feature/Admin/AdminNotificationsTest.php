@@ -15,6 +15,14 @@ class AdminNotificationsTest extends TestCase
     protected $initialPath = '/dashboard/notifications-manager';
     protected $user_id = 1;
     protected $user;
+    protected $routes = [
+        'index' => 'dashboard.notifications-manage.index',
+        'create' => 'dashboard.notifications-manage.create',
+        'store' => 'dashboard.notifications-manage.store',
+        'edit' => 'dashboard.notifications-manage.edit',
+        'update' => 'dashboard.notifications-manage.update',
+        'destroy' => 'dashboard.notifications-manage.destroy',
+    ];
 
     protected function setUp(): void
     {
@@ -39,8 +47,7 @@ class AdminNotificationsTest extends TestCase
     // Index page
     public function test_index_page(): void
     {
-        $path = $this->initialPath.'/';
-        $response = $this->actingAs($this->user)->get($path);
+        $response = $this->actingAs($this->user)->get( $this->getRoute('index') );
         $response->assertStatus(200);
     }
     
