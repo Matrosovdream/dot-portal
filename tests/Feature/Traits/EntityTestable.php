@@ -104,5 +104,29 @@ trait EntityTestable {
 
     }   
 
+    protected function deleteRecordTest( string $routeDelete, array $values, $cleanUp = false ): void {
+
+        // Create a record to delete
+        $record = $this->createRecord( $values['new'] );
+
+        // Perform the DELETE request
+        $response = $this->actingAs($this->user)->
+            delete(
+                route($routeDelete, $record->id)
+        );
+
+        // Verify the record was deleted
+        $deletedRecord = $this->findRecord( ['id' => $record->id] );
+
+        // Assert
+        $this->assertNull($deletedRecord, 'Record was not deleted successfully.');
+
+        // Clean up
+        if ($cleanUp) {
+            $this->deleteAllRecords();
+        }
+
+    }
+
 }
 

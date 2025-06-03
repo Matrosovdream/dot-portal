@@ -83,22 +83,13 @@ class AdminServicesTest extends TestCase
 
     public function test_delete_record(): void
     {
-        $data = $this->getNewRecordValues();
-
-        // Create a record to update
-        $record = $this->createRecord( $data );
-
-        // Perform the DELETE request
-        $response = $this->actingAs($this->user)->
-            delete(
-                route($this->routes['destroy'], $record->id)
-        );
         
-        // Verify the record was deleted
-        $deletedRecord = $this->findRecord($data);
+        $this->deleteRecordTest(
+            $this->routes['destroy'],
+            ['new' => $this->getNewRecordValues()],
+            true
+        );
 
-        // Assert
-        $this->assertNull($deletedRecord, 'Record was not deleted successfully.');
     }
 
     
