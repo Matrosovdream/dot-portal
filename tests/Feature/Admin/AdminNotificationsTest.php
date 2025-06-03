@@ -3,14 +3,14 @@
 namespace Tests\Feature\Admin;
 
 use App\Models\Notification;
-use Tests\Feature\Abstracts\EntityAbstract;
+use Tests\Feature\Traits\EntityTestable;
 use Tests\TestCase;
 use App\Models\User;
 
 class AdminNotificationsTest extends TestCase
 {
 
-    use EntityAbstract;
+    use EntityTestable;
 
     protected $initialPath = '/dashboard/notifications-manager';
     protected $user_id = 1;

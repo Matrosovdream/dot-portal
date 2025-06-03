@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature\Abstracts;
+namespace Tests\Feature\Traits;
 
 
-trait EntityAbstract {
+trait EntityTestable {
 
     protected $createdRecords = [];
     protected $model;
