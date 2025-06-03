@@ -85,22 +85,13 @@ class AdminServicesTest extends TestCase
     public function test_update_record(): void
     {
 
-        $data = [
-            'user_id' => $this->user_id,
-            'type' => 1,
-            'title' => 'recordTestUpdate',
-            'message' => 'message test update',
-        ];
+        $data = $this->getNewRecordValues();
 
         // Create a record to update
         $record = $this->createRecord( $data );
 
         // Prepare updated data
-        $dataUpdated = [
-            'type' => 2,
-            'title' => 'updatedRecordTest',
-            'message' => 'updated message test',
-        ];
+        $dataUpdated = $this->getUpdateRecordValues();
 
         // Perform the PUT request
         $response = $this->actingAs($this->user)->
@@ -117,6 +108,7 @@ class AdminServicesTest extends TestCase
 
     }
 
+    
     public function test_delete_record(): void
     {
         // Prepare test data
@@ -149,12 +141,8 @@ class AdminServicesTest extends TestCase
         return [
             'name' => "recordTestCreate",
             'slug' => 'record-test-create',
-            'description' => 'description test create',
             'is_paid' => 1,
-            'price' => 100.00,
-            'status_id' => 1,
             'group_id' => 1,
-            'form_type' => 'custom'
         ];
     }
 
@@ -163,12 +151,8 @@ class AdminServicesTest extends TestCase
         return [
             'name' => "recordTestUpdate",
             'slug' => 'record-test-update',
-            'description' => 'description test update',
             'is_paid' => 0,
-            'price' => 50.00,
-            'status_id' => 2,
             'group_id' => 2,
-            'form_type' => 'default'
         ];
     }
 
