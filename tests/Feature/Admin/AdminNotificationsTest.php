@@ -12,7 +12,6 @@ class AdminNotificationsTest extends TestCase
 
     use EntityTestable;
 
-    protected $initialPath = '/dashboard/notifications-manager';
     protected $user_id = 1;
     protected $user;
     protected $routes = [
@@ -54,7 +53,6 @@ class AdminNotificationsTest extends TestCase
     // Create page
     public function test_create_page(): void
     {
-        $path = $this->initialPath.'/create';
         $response = $this->actingAs($this->user)->get( $this->getRoute('create') );
         $response->assertStatus(200);
     }
