@@ -79,9 +79,9 @@ class AdminServicesTest extends TestCase
         if ($record) {
             $this->createdRecords[] = $record;
         }
+
     }
 
-    /*
     public function test_update_record(): void
     {
 
@@ -108,7 +108,7 @@ class AdminServicesTest extends TestCase
 
     }
 
-    
+    /*
     public function test_delete_record(): void
     {
         // Prepare test data

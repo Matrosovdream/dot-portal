@@ -9,7 +9,11 @@ trait EntityTestable {
 
     protected function createRecord(array $data = [])
     {
-        return $this->model->create($data);
+        $record = $this->model->create($data);
+        if ($record) {
+            $this->createdRecords[] = $record;
+        }
+        return $record;
     }
 
     protected function updateRecord( $record_id, array $data = [] )
