@@ -80,6 +80,9 @@ class AdminServicesTest extends TestCase
             $this->createdRecords[] = $record;
         }
 
+        // Clean up
+        $this->deleteAllRecords();
+
     }
 
     public function test_update_record(): void
@@ -106,20 +109,16 @@ class AdminServicesTest extends TestCase
         // Assert
         $this->assertNotNull($updatedRecord, 'Record was not updated successfully.');
 
+        // Clean up
+        $this->deleteAllRecords();
+
     }
 
-    /*
     public function test_delete_record(): void
     {
-        // Prepare test data
-        $data = [
-            'user_id' => $this->user_id, 
-            'type' => 1,
-            'title' => 'recordTestDelete',
-            'message' => 'message test delete',
-        ];
+        $data = $this->getNewRecordValues();
 
-        // Create a record to delete
+        // Create a record to update
         $record = $this->createRecord( $data );
 
         // Perform the DELETE request
@@ -127,14 +126,14 @@ class AdminServicesTest extends TestCase
             delete(
                 route($this->routes['destroy'], $record->id)
         );
-
+        
         // Verify the record was deleted
         $deletedRecord = $this->findRecord($data);
 
         // Assert
         $this->assertNull($deletedRecord, 'Record was not deleted successfully.');
     }
-    */    
+
     
     public function getNewRecordValues(): array
     {
