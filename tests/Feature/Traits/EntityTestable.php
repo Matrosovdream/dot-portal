@@ -4,7 +4,6 @@ namespace Tests\Feature\Traits;
 
 
 trait EntityTestable {
-
     protected $createdRecords = [];
     protected $model;
 
@@ -38,6 +37,15 @@ trait EntityTestable {
         }
         $this->createdRecords = [];
     }
+
+    protected function getRoute(string $key, array $params = []): string
+    {
+        if (!isset($this->routes[$key])) {
+            return '';
+        }
+        return route($this->routes[$key], $params);
+    }
+
 
 }
 
