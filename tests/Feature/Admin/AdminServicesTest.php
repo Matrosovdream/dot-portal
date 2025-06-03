@@ -61,27 +61,11 @@ class AdminServicesTest extends TestCase
     public function test_store_record(): void
     {
 
-        $data = $this->getNewRecordValues();
-
-        // Perform the POST request
-        $response = $this->actingAs($this->user)->
-            post(
-                $this->getRoute('store'),
-                $data
+        $this->storeRecordTest(
+            $this->getRoute('store'),
+            $this->getNewRecordValues(),
+            true
         );
-
-        // Verify the record exists
-        $record = $this->findRecord($data);
-
-        // Assert
-        $this->assertNotNull($record, 'Record was not created successfully.');
-
-        if ($record) {
-            $this->createdRecords[] = $record;
-        }
-
-        // Clean up
-        $this->deleteAllRecords();
 
     }
 
