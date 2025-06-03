@@ -55,7 +55,7 @@ class AdminNotificationsTest extends TestCase
     public function test_create_page(): void
     {
         $path = $this->initialPath.'/create';
-        $response = $this->actingAs($this->user)->get($path);
+        $response = $this->actingAs($this->user)->get( $this->getRoute('create') );
         $response->assertStatus(200);
     }
 
@@ -72,7 +72,7 @@ class AdminNotificationsTest extends TestCase
         // Perform the POST request
         $response = $this->actingAs($this->user)->
             post(
-                route('dashboard.notifications-manage.store'), 
+                $this->getRoute('store'),
                 $data
         );
 
@@ -110,7 +110,7 @@ class AdminNotificationsTest extends TestCase
         // Perform the PUT request
         $response = $this->actingAs($this->user)->
             post(
-                route('dashboard.notifications-manage.update', $record->id), 
+                route($this->routes['update'], $record->id), 
                 $dataUpdated
         );
 
@@ -138,7 +138,7 @@ class AdminNotificationsTest extends TestCase
         // Perform the DELETE request
         $response = $this->actingAs($this->user)->
             delete(
-                route('dashboard.notifications-manage.destroy', $record->id)
+                route($this->routes['destroy'], $record->id)
         );
 
         // Verify the record was deleted
