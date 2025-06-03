@@ -53,6 +53,32 @@ trait EntityTestable {
         return route($this->routes[$key], $params);
     }
 
+    protected function storeRecordTest( string $route, array $values, $cleanUp = false ): void{
+
+        // Perform the POST request
+        $response = $this->actingAs($this->user)->
+            post(
+                $route,
+                $values
+        );
+
+        // Verify the record exists
+        $record = $this->findRecord($values);
+
+        // Assert
+        $this->assertNotNull($record, 'Record was not created successfully.');
+
+        if ($record) {
+            $this->createdRecords[] = $record;
+        }
+
+        // Clean up
+        if ($cleanUp) {
+            $this->deleteAllRecords();
+        }
+
+    }
+
 
 }
 
