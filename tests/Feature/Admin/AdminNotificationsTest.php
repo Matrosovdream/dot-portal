@@ -22,9 +22,9 @@ class AdminNotificationsTest extends TestCase
     }
 
     // Front page
-    public function test_front_page(): void
+    public function test_index_page(): void
     {
-        $path = $this->initialPath.'/notifications';
+        $path = $this->initialPath.'/notifications-manager';
         $response = $this->actingAs($this->user)->get($path);
         $response->assertStatus(200);
     }
