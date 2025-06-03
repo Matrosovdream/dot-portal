@@ -104,4 +104,12 @@ class AdminNotificationsTest extends TestCase
         return $this->model->where($filter)->first();
     }
 
+    protected function deleteAllRecords(): void
+    {
+        foreach ($this->createdRecords as $record) {
+            $this->deleteRecord($record->id);
+        }
+        $this->createdRecords = [];
+    }
+
 }
