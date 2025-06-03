@@ -63,7 +63,7 @@ class AdminServiceFieldsTest extends TestCase
 
         $this->storeRecordTest(
             $this->getRoute('store'),
-            ['new' => $this->getNewRecordValues()],
+            ['new' => $this->getValues()['new']],
             true
         );
 
@@ -75,7 +75,7 @@ class AdminServiceFieldsTest extends TestCase
         $this->updateRecordTest(
             $this->getRoute('store'),
             $this->routes['update'],
-            ['new' => $this->getNewRecordValues(), 'update' => $this->getUpdateRecordValues()],
+            ['new' => $this->getValues()['new'], 'update' => $this->getValues()['update']],
             true
         );
         
@@ -86,28 +86,25 @@ class AdminServiceFieldsTest extends TestCase
         
         $this->deleteRecordTest(
             $this->routes['destroy'],
-            ['new' => $this->getNewRecordValues()],
+            ['new' => $this->getValues()['new']],
             true
         );
 
     }
 
-    
-    public function getNewRecordValues(): array
+    public function getValues(): array
     {
         return [
-            'title' => "recordTestCreate",
-            'slug' => 'record-test-create',
-            'entity' => 'service',
-        ];
-    }
-
-    public function getUpdateRecordValues(): array
-    {
-        return [
-            'title' => "recordTestUpdate",
-            'slug' => 'record-test-update',
-            'entity' => 'order',
+            'new' => [
+                'title' => "recordTestCreate",
+                'slug' => 'record-test-create',
+                'entity' => 'service',
+            ],
+            'update' => [
+                'title' => "recordTestUpdate",
+                'slug' => 'record-test-update',
+                'entity' => 'order',
+            ],
         ];
     }
 
