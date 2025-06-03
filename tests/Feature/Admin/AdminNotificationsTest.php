@@ -58,8 +58,8 @@ class AdminNotificationsTest extends TestCase
         $data = [
             'user_id' => $this->user_id, 
             'type' => 1,
-            'title' => 'recordTest',
-            'message' => 'message test',
+            'title' => 'recordTestCreate',
+            'message' => 'message test create',
         ];
 
         // Perform the POST request
@@ -86,8 +86,8 @@ class AdminNotificationsTest extends TestCase
         $data = [
             'user_id' => $this->user_id,
             'type' => 1,
-            'title' => 'recordTest',
-            'message' => 'message test',
+            'title' => 'recordTestUpdate',
+            'message' => 'message test update',
         ];
 
         // Create a record to update
@@ -113,6 +113,32 @@ class AdminNotificationsTest extends TestCase
         // Assert
         $this->assertNotNull($updatedRecord, 'Record was not updated successfully.');
 
+    }
+
+    public function test_delete_record(): void
+    {
+        // Prepare test data
+        $data = [
+            'user_id' => $this->user_id, 
+            'type' => 1,
+            'title' => 'recordTestDelete',
+            'message' => 'message test delete',
+        ];
+
+        // Create a record to delete
+        $record = $this->createRecord( $data );
+
+        // Perform the DELETE request
+        $response = $this->actingAs($this->user)->
+            delete(
+                route('dashboard.notifications-manage.destroy', $record->id)
+        );
+
+        // Verify the record was deleted
+        $deletedRecord = $this->findRecord($data);
+
+        // Assert
+        $this->assertNull($deletedRecord, 'Record was not deleted successfully.');
     }
 
 }
