@@ -3,20 +3,18 @@
 namespace Tests\Feature\Admin;
 
 use App\Models\Notification;
+use Tests\Feature\Abstracts\EntityAbstract;
 use Tests\TestCase;
 use App\Models\User;
 
 class AdminNotificationsTest extends TestCase
 {
 
+    use EntityAbstract;
+    
     protected $initialPath = '/dashboard/notifications-manager';
-
     protected $user_id = 1;
-
     protected $user;
-    protected $model;
-    protected $createdRecords = [];
-
 
     protected function setUp(): void
     {
@@ -78,38 +76,6 @@ class AdminNotificationsTest extends TestCase
         if ($record) {
             $this->createdRecords[] = $record;
         }
-    }
-
-
-    protected function createRecord(array $data = []): Notification
-    {
-        return $this->model->create($data);
-    }
-
-    protected function updateRecord( $record_id, array $data = [] ): Notification
-    {
-        $record = $this->model->find($record_id);
-        $record->update($data);
-        return $record->refresh();
-    }
-
-    protected function deleteRecord( $record_id ): void
-    {
-        $record = $this->model->find($record_id);
-        $record->delete();
-    }
-
-    protected function findRecord(array $filter): ?Notification
-    {
-        return $this->model->where($filter)->first();
-    }
-
-    protected function deleteAllRecords(): void
-    {
-        foreach ($this->createdRecords as $record) {
-            $this->deleteRecord($record->id);
-        }
-        $this->createdRecords = [];
     }
 
 }
