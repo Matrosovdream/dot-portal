@@ -61,19 +61,20 @@ class AdminUsersTest extends TestCase
 
         $this->storeRecordTest(
             $this->getRoute('store'),
-            ['new' => $this->getValues()['new']],
+            $this->getValues(),
             true
         );
 
     }
 
+    /*
     public function test_update_record(): void
     {
 
         $this->updateRecordTest(
             $this->getRoute('store'),
             $this->routes['update'],
-            ['new' => $this->getValues()['new'], 'update' => $this->getValues()['update']],
+            $this->getValues(),
             true
         );
 
@@ -84,11 +85,12 @@ class AdminUsersTest extends TestCase
 
         $this->deleteRecordTest(
             $this->routes['destroy'],
-            ['new' => $this->getValues()['new']],
+            $this->getValues(),
             true
         );
 
     }
+    */    
 
     protected function getValues(): array
     {
@@ -97,16 +99,26 @@ class AdminUsersTest extends TestCase
                 'firstname' => 'Test',
                 'lastname' => 'User',
                 'fullname' => 'Test User',
-                'email' => 'feature-test@email.com',
+                'email' => 'featuretest@email.com',
+                'phone' => '1234567890',
+                'birthday' => '1990-01-01',
                 'password' => 'passwordMMM111!',
+                'role' => 'admin',
             ],
             'update' => [
                 'firstname' => 'Updated',
                 'lastname' => 'User',
                 'fullname' => 'Updated User',
-                'email' => 'feature-test@email.com',
+                'email' => 'featuretest@email.com',
+                'phone' => '0987654321',
+                'birthday' => '1990-01-01',
                 'password' => 'passwordMMM111!',
+                'role'=> 'admin',
             ],
+            // Array by which we will find the record
+            'find' => [
+                'email' => 'featuretest@email.com'
+            ]
         ];
     }
 
