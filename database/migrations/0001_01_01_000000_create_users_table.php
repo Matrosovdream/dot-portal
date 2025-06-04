@@ -172,6 +172,8 @@ return new class extends Migration
             $table->timestamp('completed_at')->nullable();
             $table->string('priority')->default('normal')->nullable();
             $table->string('link')->nullable();
+            $table->string('entity')->nullable();
+            $table->string('entity_id')->nullable();
             $table->timestamps();
         });
 
