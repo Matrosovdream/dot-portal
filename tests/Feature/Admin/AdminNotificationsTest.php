@@ -62,7 +62,7 @@ class AdminNotificationsTest extends TestCase
 
         $this->storeRecordTest(
             $this->getRoute('store'),
-            ['new' => $this->getValues()['new']],
+            $this->getValues(),
             true
         );
 
@@ -74,7 +74,7 @@ class AdminNotificationsTest extends TestCase
         $this->updateRecordTest(
             $this->getRoute('store'),
             $this->routes['update'],
-            ['new' => $this->getValues()['new'], 'update' => $this->getValues()['update']],
+            $this->getValues(),
             true
         );
 
@@ -85,7 +85,7 @@ class AdminNotificationsTest extends TestCase
 
         $this->deleteRecordTest(
             $this->routes['destroy'],
-            ['new' => $this->getValues()['new']],
+            $this->getValues(),
             true
         );
 
@@ -101,6 +101,11 @@ class AdminNotificationsTest extends TestCase
                 'message' => 'message test create',
             ],
             'update' => [
+                'type' => 2,
+                'title' => "recordTestUpdate",
+                'message' => 'message test update',
+            ],
+            'find' => [
                 'type' => 2,
                 'title' => "recordTestUpdate",
                 'message' => 'message test update',
