@@ -65,7 +65,8 @@ trait EntityTestable {
         );
 
         // Verify the record exists
-        $record = $this->findRecord( $values['new'] );
+        $searchParams = isset($values['find']) ? $values['find'] : $values['new'];
+        $record = $this->findRecord( $searchParams );
 
         // Assert
         $this->assertNotNull($record, 'Record was not created successfully.');
@@ -94,7 +95,8 @@ trait EntityTestable {
         );
 
         // Verify the record was updated
-        $updatedRecord = $this->findRecord( $values['update'] );
+        $searchParams = isset($values['find']) ? $values['find'] : $values['new'];
+        $updatedRecord = $this->findRecord( $searchParams );
 
         // Assert
         $this->assertNotNull($updatedRecord, 'Record was not updated successfully.');
