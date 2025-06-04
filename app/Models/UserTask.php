@@ -9,6 +9,8 @@ class UserTask extends Model
 {
 
     use Metaable;
+
+    protected $table = "user_tasks";
     
     protected $fillable = [
         'user_id',
