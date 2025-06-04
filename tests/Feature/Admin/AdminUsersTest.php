@@ -67,7 +67,6 @@ class AdminUsersTest extends TestCase
 
     }
 
-    /*
     public function test_update_record(): void
     {
 
@@ -90,7 +89,6 @@ class AdminUsersTest extends TestCase
         );
 
     }
-    */    
 
     protected function getValues(): array
     {
