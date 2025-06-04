@@ -26,6 +26,15 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // User meta data
+        Schema::create('user_meta', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->on('users');
+            $table->string('key');
+            $table->text('value')->nullable();
+            $table->timestamps();
+        });
+
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
@@ -149,12 +158,29 @@ return new class extends Migration
             $table->timestamps();
         });
 
-        Schema::create('user_meta', function (Blueprint $table) {
+        // User tasks
+        Schema::create('user_tasks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->on('users');
+            $table->foreignId('assigned_to')->on('users')->nullable();
+            $table->string('title')->nullable();
+            $table->text('description')->nullable();
+            $table->string('category')->nullable();
+            $table->string('subcategory')->nullable();
+            $table->string('status')->default('pending');
+            $table->timestamp('due_date')->nullable();
+            $table->timestamp('completed_at')->nullable();
+            $table->string('priority')->default('normal')->nullable();
+            $table->string('link')->nullable();
+            $table->timestamps();
+        });
+
+        // User tasks meta
+        Schema::create('user_task_meta', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('task_id')->on('user_tasks');
             $table->string('key');
             $table->text('value')->nullable();
-            $table->timestamps();
         });
 
     }
@@ -165,6 +191,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('users');
+        Schema::dropIfExists('user_meta');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
         Schema::dropIfExists('roles');
@@ -177,6 +204,7 @@ return new class extends Migration
         Schema::dropIfExists('user_payment_cards');
         Schema::dropIfExists('user_payment_card_meta');
         Schema::dropIfExists('user_payment_history');
-        Schema::dropIfExists('user_meta');
+        Schema::dropIfExists('user_tasks');
+        Schema::dropIfExists('user_task_meta');
     }
 };
