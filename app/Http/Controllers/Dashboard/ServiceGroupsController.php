@@ -85,7 +85,7 @@ class ServiceGroupsController extends Controller
         $request->merge(['service_group_id' => $serviceGroupId]);
 
         $request->validate([
-            'service_group_id' => [new CanDeleteServiceGroup]
+            //'service_group_id' => [new CanDeleteServiceGroup]
         ]);
 
         $this->serviceGroupActions->destroy($serviceGroupId);
