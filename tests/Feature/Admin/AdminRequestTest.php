@@ -63,30 +63,6 @@ class AdminRequestTest extends TestCase
         $this->deleteRecord($record->id);
     }
 
-    /*
-    public function test_store_record(): void
-    {
-
-        $this->storeRecordTest(
-            $this->getRoute('store'),
-            ['new' => $this->getValues()['new']],
-            true
-        );
-
-    }
-
-    public function test_update_record(): void
-    {
-
-        $this->updateRecordTest(
-            $this->getRoute('store'),
-            $this->routes['update'],
-            ['new' => $this->getValues()['new'], 'update' => $this->getValues()['update']],
-            true
-        );
-
-    }
-
     public function test_delete_record(): void
     {
 
@@ -97,7 +73,6 @@ class AdminRequestTest extends TestCase
         );
 
     }
-    */    
 
     protected function getValues(): array
     {
