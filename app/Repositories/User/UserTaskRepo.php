@@ -16,6 +16,7 @@ class UserTaskRepo extends AbstractRepo
     protected $withRelations = [];
 
     protected $userRepo;
+    protected $metaRepo;
 
     public function __construct()
     {
@@ -23,6 +24,7 @@ class UserTaskRepo extends AbstractRepo
 
         // Relationship repositories
         $this->userRepo = new UserRepo();
+        $this->metaRepo = new UserTaskMetaRepo();
     }
 
     public function mapItem($item)
@@ -49,6 +51,7 @@ class UserTaskRepo extends AbstractRepo
             'link' => $item->link,
             'entity' => $item->entity,
             'entity_id' => $item->entity_id,
+            'meta' => $this->metaRepo->mapItems($item->meta),
             'Model' => $item
         ];
 
