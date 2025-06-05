@@ -19,7 +19,7 @@ class ToDoActions {
     public function index()
     {
 
-        $safer = (new SaferwebAPI())->getCompanySnapshot(2553306);
+        $safer = (new SaferwebAPI())->getHistoryAll(2553306);
         dd($safer);
 
         $data = [
