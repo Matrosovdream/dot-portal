@@ -11,7 +11,7 @@ class UserTaskRepo extends AbstractRepo
 
     protected $model;
 
-    protected $fields = [];
+    protected $fields = ['meta'];
 
     protected $withRelations = [];
 
