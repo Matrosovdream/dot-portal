@@ -32,6 +32,21 @@ class DriverMenu implements InterfaceMenu {
                 ),
             ),
             array(
+                'title' => 'To-Do List',
+                'url' => route('dashboard.todo.index'),
+                'route' => 'dashboard.todo.index',
+                'icon' => 'ki-check-square',
+                'roles' => ['driver', 'company'],
+                'childs' => array(
+                    array(
+                        'title' => 'All tasks',
+                        'url' => route('dashboard.todo.index'),
+                        'route' => 'dashboard.todo.index',
+                        'roles' => ['driver', 'company'],
+                    ),
+                ),
+            ),
+            array(
                 'title' => 'Documents',
                 'url' => '',
                 'icon' => 'ki-document',
