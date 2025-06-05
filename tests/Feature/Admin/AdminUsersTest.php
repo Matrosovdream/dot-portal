@@ -115,7 +115,6 @@ class AdminUsersTest extends TestCase
                 'email' => 'featuretest@email.com',
                 'phone' => '0987654321',
                 'birthday' => '1990-01-01',
-                'password' => 'passwordMMM111!',
                 'role'=> 'driver',
             ],
             'updateFind'=> [
