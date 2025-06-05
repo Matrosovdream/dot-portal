@@ -39,8 +39,13 @@ class UpdateSaferwebData extends Command
 
             $dotNumber = $user['company']['dot_number'] ?? null;
 
-            echo $dotNumber . "\n";
+            $apiData = $this->saferweb->getCompanySnapshot($dotNumber);
 
+            if( $apiData != null ) { 
+                $user['Model']->company->update([
+                    'mc_number' => $apiData['phone'],
+                ]);
+            }
 
         }
 
