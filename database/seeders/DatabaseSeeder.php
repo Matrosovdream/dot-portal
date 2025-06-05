@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             // Users
             RoleSeeder::class,
             UserSeeder::class,
+            UserTaskSeeder::class,
             //UserSubscriptionSeeder::class,
             //UserPaymentCardSeeder::class,
             //UserPaymentHistorySeeder::class,
