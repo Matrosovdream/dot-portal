@@ -1,6 +1,7 @@
 <?php
 namespace App\Actions\Dashboard;
 
+use App\Mixins\Integrations\SaferwebAPI;
 use App\Models\Service;
 use App\Repositories\User\UserTaskRepo;
 
@@ -17,6 +18,10 @@ class ToDoActions {
 
     public function index()
     {
+
+        $safer = (new SaferwebAPI())->getCompanySnapshot(2553306);
+        dd($safer);
+
         $data = [
             'title' => 'To-Do List',
             'tasks' => $this->todoRepo->getAll( 

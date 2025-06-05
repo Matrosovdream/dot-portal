@@ -48,5 +48,4 @@ return [
     'saferweb' => [
         'api_key' => env('SAFERWEB_API_KEY'),
     ],
-
 ];

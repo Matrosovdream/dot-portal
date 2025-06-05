@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Log;
 
 class SaferwebAPI
 {
-    protected string $baseUrl = 'https://saferwebapi.com/v3/';
+    protected string $baseUrl = 'https://saferwebapi.com/';
     protected string $apiKey;
 
     public function __construct()
@@ -17,42 +17,27 @@ class SaferwebAPI
 
     public function getInspectionHistory(string $usdot): array|null
     {
-        return $this->request("history/inspection/{$usdot}");
+        return $this->request("v3/history/inspection/{$usdot}");
     }
 
     public function getCrashHistory(string $usdot): array|null
     {
-        return $this->request("history/crash/{$usdot}");
-    }
-
-    public function getSafetyRatings(string $usdot): array|null
-    {
-        return $this->request("snapshots/safety/{$usdot}");
-    }
-
-    public function getOOSRates(string $usdot): array|null
-    {
-        return $this->request("snapshots/oos/{$usdot}");
+        return $this->request("v3/history/crash/{$usdot}");
     }
 
     public function getInspectionSummary(string $usdot): array|null
     {
-        return $this->request("snapshots/inspection/{$usdot}");
-    }
-
-    public function getInsuranceHistory(string $usdot): array|null
-    {
-        return $this->request("history/insurance/{$usdot}");
+        return $this->request("v3/history/inspection/{$usdot}");
     }
 
     public function getCompanySnapshot(string $usdot): array|null
     {
-        return $this->request("snapshots/company/{$usdot}");
+        return $this->request("/v2/usdot/snapshot/{$usdot}");
     }
 
-    public function getEquipmentSnapshot(string $usdot): array|null
+    public function getHistoryAll(string $usdot): array|null
     {
-        return $this->request("snapshots/equipment/{$usdot}");
+        return $this->request("v3/history/everything/{$usdot}");
     }
 
     protected function request(string $endpoint): array|null
