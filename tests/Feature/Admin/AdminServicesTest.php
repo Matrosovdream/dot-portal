@@ -63,7 +63,7 @@ class AdminServicesTest extends TestCase
 
         $this->storeRecordTest(
             $this->getRoute('store'),
-            ['new' => $this->getValues()['new']],
+            $this->getValues(),
             true
         );
 
@@ -75,7 +75,7 @@ class AdminServicesTest extends TestCase
         $this->updateRecordTest(
             $this->getRoute('store'),
             $this->routes['update'],
-            ['new' => $this->getValues()['new'], 'update' => $this->getValues()['update']],
+            $this->getValues(),
             true
         );
         
@@ -86,7 +86,7 @@ class AdminServicesTest extends TestCase
         
         $this->deleteRecordTest(
             $this->routes['destroy'],
-            ['new' => $this->getValues()['new']],
+            $this->getValues(),
             true
         );
 
@@ -101,11 +101,19 @@ class AdminServicesTest extends TestCase
                 'is_paid' => 1,
                 'group_id' => 1,
             ],
+            'newFind' => [
+                'name' => "recordTestCreate",
+                'slug' => 'record-test-create',
+            ],
             'update' => [
                 'name' => "recordTestUpdate",
                 'slug' => 'record-test-update',
                 'is_paid' => 0,
                 'group_id' => 2,
+            ],
+            'updateFind' => [
+                'name' => "recordTestUpdate",
+                'slug' => 'record-test-update',
             ],
         ];
     }
