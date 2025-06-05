@@ -23,7 +23,7 @@
                     <div class="fw-bold">Details</div>
                     <span
                         class="badge badge-light-{{ $user->role == 'admin' ? 'primary' : 'success' }} badge-pill">
-                        {{ $user->getRole()->title }}
+                        {{ $user->getRole()->title ?? '-' }}
                     </span>
                 </div>
 
@@ -89,7 +89,7 @@
                                             @foreach($roles as $role)
                                                 <option 
                                                 value="{{ $role->slug }}" 
-                                                {{ $user->getRole()->slug == $role->slug ? 'selected' : '' }}>
+                                                {{ ( $user->getRole()->slug ?? null ) == $role->slug ? 'selected' : '' }}>
                                                     {{ $role->title }}
                                                 </option>
                                             @endforeach
