@@ -101,7 +101,12 @@ class AdminUsersTest extends TestCase
                 'phone' => '1234567890',
                 'birthday' => '1990-01-01',
                 'password' => 'passwordMMM111!',
-                'role' => 'admin',
+                'role' => 'driver',
+            ],
+            'newFind' => [
+                'firstname' => 'Test',
+                'lastname' => 'User',
+                'email' => 'featuretest@email.com'
             ],
             'update' => [
                 'firstname' => 'Updated',
@@ -111,10 +116,11 @@ class AdminUsersTest extends TestCase
                 'phone' => '0987654321',
                 'birthday' => '1990-01-01',
                 'password' => 'passwordMMM111!',
-                'role'=> 'admin',
+                'role'=> 'driver',
             ],
-            // Array by which we will find the record
-            'find' => [
+            'updateFind'=> [
+                'firstname' => 'Updated',
+                'lastname' => 'User',
                 'email' => 'featuretest@email.com'
             ]
         ];
