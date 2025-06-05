@@ -4,7 +4,9 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Mixins\Integrations\SaferwebAPI;
+use App\Jobs\UpdateUserFromSaferweb;
 use App\Repositories\User\UserRepo;
+
 
 class UpdateSaferwebData extends Command
 {
@@ -37,15 +39,7 @@ class UpdateSaferwebData extends Command
             // Skip users without a company 
             if( $user['company'] == null ) { continue; }
 
-            $dotNumber = $user['company']['dot_number'] ?? null;
-
-            $apiData = $this->saferweb->getCompanySnapshot($dotNumber);
-
-            if( $apiData != null ) { 
-                $user['Model']->company->update([
-                    'mc_number' => $apiData['phone'],
-                ]);
-            }
+            UpdateUserFromSaferweb::dispatch($user['id']);
 
         }
 
