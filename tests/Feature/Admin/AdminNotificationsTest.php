@@ -100,15 +100,19 @@ class AdminNotificationsTest extends TestCase
                 'title' => "recordTestCreate",
                 'message' => 'message test create',
             ],
+            'newFind' => [
+                'user_id' => $this->user_id,
+                'type' => 1,
+                'title' => "recordTestCreate",
+            ],
             'update' => [
                 'type' => 2,
                 'title' => "recordTestUpdate",
                 'message' => 'message test update',
             ],
-            'find' => [
+            'updateFind' => [
                 'type' => 2,
                 'title' => "recordTestUpdate",
-                'message' => 'message test update',
             ],
         ];
     }
