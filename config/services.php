@@ -45,5 +45,8 @@ return [
         'transaction_key' => env('ANET_TRANSACTION_KEY'),
         'sandbox' => env('AUTHORIZE_NET_SANDBOX', true) ?? true,
     ],
+    'saferweb' => [
+        'api_key' => env('SAFERWEB_API_KEY'),
+    ],
 
 ];
