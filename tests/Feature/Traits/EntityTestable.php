@@ -65,7 +65,7 @@ trait EntityTestable {
         );
 
         // Verify the record exists
-        $searchParams = isset($values['find']) ? $values['find'] : $values['new'];
+        $searchParams = isset($values['newFind']) ? $values['newFind'] : $values['new'];
         $record = $this->findRecord( $searchParams );
 
         // Assert
@@ -95,7 +95,7 @@ trait EntityTestable {
         );
 
         // Verify the record was updated
-        $searchParams = isset($values['find']) ? $values['find'] : $values['new'];
+        $searchParams = isset($values['updateFind']) ? $values['updateFind'] : $values['new'];
         $updatedRecord = $this->findRecord( $searchParams );
 
         // Assert
