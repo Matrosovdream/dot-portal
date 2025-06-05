@@ -2,6 +2,7 @@
 
 namespace App\Mixins\Integrations;
 
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 
 class SaferwebAPI
@@ -14,86 +15,66 @@ class SaferwebAPI
         $this->apiKey = config('services.saferweb.api_key');
     }
 
-    // 1. Inspection History
-    public function getInspectionHistory(string $usdot): array|string|null
+    public function getInspectionHistory(string $usdot): array|null
     {
         return $this->request("history/inspection/{$usdot}");
     }
 
-    // 2. Crashes
-    public function getCrashHistory(string $usdot): array|string|null
+    public function getCrashHistory(string $usdot): array|null
     {
         return $this->request("history/crash/{$usdot}");
     }
 
-    // 3. Safety Ratings
-    public function getSafetyRatings(string $usdot): array|string|null
+    public function getSafetyRatings(string $usdot): array|null
     {
         return $this->request("snapshots/safety/{$usdot}");
     }
 
-    // 4. Out of Service (OOS) Rates
-    public function getOOSRates(string $usdot): array|string|null
+    public function getOOSRates(string $usdot): array|null
     {
         return $this->request("snapshots/oos/{$usdot}");
     }
 
-    // 5. Inspections Summary
-    public function getInspectionSummary(string $usdot): array|string|null
+    public function getInspectionSummary(string $usdot): array|null
     {
         return $this->request("snapshots/inspection/{$usdot}");
     }
 
-    // 6. Insurance History
-    public function getInsuranceHistory(string $usdot): array|string|null
+    public function getInsuranceHistory(string $usdot): array|null
     {
         return $this->request("history/insurance/{$usdot}");
     }
 
-    // 7. Company Details
-    public function getCompanySnapshot(string $usdot): array|string|null
+    public function getCompanySnapshot(string $usdot): array|null
     {
         return $this->request("snapshots/company/{$usdot}");
     }
 
-    // 8. Power Units and Drivers
-    public function getEquipmentSnapshot(string $usdot): array|string|null
+    public function getEquipmentSnapshot(string $usdot): array|null
     {
         return $this->request("snapshots/equipment/{$usdot}");
     }
 
-    protected function request(string $endpoint): array|string|null
+    protected function request(string $endpoint): array|null
     {
-        $curl = curl_init();
-
-        curl_setopt_array($curl, [
-            CURLOPT_URL => $this->baseUrl . $endpoint,
-            CURLOPT_RETURNTRANSFER => true,
-            CURLOPT_ENCODING => '',
-            CURLOPT_MAXREDIRS => 10,
-            CURLOPT_TIMEOUT => 30,
-            CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-            CURLOPT_CUSTOMREQUEST => 'GET',
-            CURLOPT_HTTPHEADER => [
-                'x-api-key: ' . $this->apiKey,
-            ],
-        ]);
-
         try {
-            $response = curl_exec($curl);
+            $response = Http::withHeaders([
+                'x-api-key' => $this->apiKey,
+            ])->timeout(30)->get($this->baseUrl . $endpoint);
 
-            if (curl_errno($curl)) {
-                $error = curl_error($curl);
-                Log::error('SaferWeb API error: ' . $error);
+            if ($response->successful()) {
+                return $response->json();
+            } else {
+                Log::error('SaferWeb API error', [
+                    'url' => $endpoint,
+                    'status' => $response->status(),
+                    'body' => $response->body(),
+                ]);
                 return null;
             }
-
-            return json_decode($response, true);
         } catch (\Exception $e) {
             Log::error('SaferWeb API Exception: ' . $e->getMessage());
             return null;
-        } finally {
-            curl_close($curl);
         }
     }
 
