@@ -19,6 +19,7 @@ use App\Http\Controllers\Dashboard\RequestAdminController;
 use App\Http\Controllers\Dashboard\DocumentsController;
 use App\Http\Controllers\Dashboard\VehicleUserController;
 use App\Http\Controllers\Dashboard\InsuranceVehicleController;
+use App\Http\Controllers\Dashboard\ToDoController;
 
 Route::group([
     'prefix' => 'dashboard',
@@ -31,6 +32,12 @@ Route::group([
 
     // Notifications
     Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
+
+    // To-Do list
+    Route::prefix('todo')->name('todo.')->group(function () {
+        Route::get('/', [ToDoController::class, 'index'])->name('index');
+        Route::get('{task_id}', [ToDoController::class, 'show'])->name('show');
+    });
 
     // Drivers
     Route::prefix('my-drivers')->name('drivers.')->group(function () {
