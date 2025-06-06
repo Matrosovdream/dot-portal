@@ -7,7 +7,7 @@ use App\Repositories\User\UserRepo;
 
 class UserTaskHelper {
 
-    public function updateCompanySnapshot(int $user_id): void
+    public function updateCompanySnapshot(int $user_id): array|null
     {
 
         $apiService = new SaferwebAPI();
@@ -27,6 +27,12 @@ class UserTaskHelper {
             $user['Model']->company->update([
                 'mc_number' => $apiData['phone'],
             ]);
+
+            return $apiData;
+
+        } else {
+            // Handle error or empty response
+            return null;
         }
     }
 
