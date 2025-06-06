@@ -32,6 +32,18 @@ class UserSeeder extends Seeder
             $user->password = Hash::make($userData['password']);
             $user->save();
 
+            // Add company details if the user is a company
+            if ($userData['role'] == 3) {
+                $user->company()->updateOrCreate(
+                    ['user_id' => $user->id],
+                    [
+                        'name' => 'Company Name',
+                        'phone' => '+381123456789',
+                        'dot_number' => '4034969',
+                        'mc_number' => '',
+                    ]);
+            }        
+
             // Assign roles
             $user->roles()->sync($userData['role']);
         }
