@@ -54,20 +54,35 @@ class SaferwebAPI
                 'x-api-key' => $this->apiKey,
             ])->timeout(30)->get($this->baseUrl . $endpoint);
 
-            if ($response->successful()) {
+            if ($response->status() === 200) {
                 return $response->json();
             } else {
+                $error = [
+                    'error' => true,
+                    'status' => $response->status(),
+                    'message' => $response->json('message') ?? $response->body(),
+                ];
+
                 Log::error('SaferWeb API error', [
                     'url' => $endpoint,
-                    'status' => $response->status(),
-                    'body' => $response->body(),
+                    'status' => $error['status'],
+                    'message' => $error['message'],
                 ]);
-                return null;
+
+                return $error;
             }
         } catch (\Exception $e) {
-            Log::error('SaferWeb API Exception: ' . $e->getMessage());
-            return null;
+            $error = [
+                'error' => true,
+                'status' => 500,
+                'message' => $e->getMessage(),
+            ];
+
+            Log::error('SaferWeb API Exception', $error);
+
+            return $error;
         }
     }
+
 
 }
