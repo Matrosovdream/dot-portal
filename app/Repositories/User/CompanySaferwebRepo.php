@@ -42,6 +42,7 @@ class CompanySaferwebRepo extends AbstractRepo
             'physical_address' => $item->physical_address,
             'mailing_address' => $item->mailing_address,
             'latest_update' => $item->latest_update,
+            'api_data' => $item->api_data,
             'Model' => $item
         ];
 
