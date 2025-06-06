@@ -19,7 +19,12 @@ class CompanySaferweb extends Model
         'entity_type',
         'physical_address',
         'mailing_address',
-        'latest_update'
+        'latest_update',
+        'api_data',
+    ];
+
+    protected $casts = [
+        'api_data' => 'array',
     ];
 
     public function user()

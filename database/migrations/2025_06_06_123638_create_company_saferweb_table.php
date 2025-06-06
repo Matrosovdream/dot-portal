@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('physical_address')->nullable();
             $table->string('mailing_address')->nullable();
             $table->date('latest_update')->nullable();
+            $table->json('api_data')->nullable(); // Store API response data
             $table->timestamps();
         });
     }
