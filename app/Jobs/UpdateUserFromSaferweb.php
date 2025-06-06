@@ -8,6 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use App\Helpers\UserTaskHelper;
+use Log;
 
 class UpdateUserFromSaferweb implements ShouldQueue
 {
@@ -25,10 +26,14 @@ class UpdateUserFromSaferweb implements ShouldQueue
 
     public function handle(UserTaskHelper $taskHelper): void
     {
+
+        Log::info("Updating user {$this->userId} from Saferweb API");
      
+        /*
         $taskHelper->updateCompanySnapshot(
             $this->userId,
         );
+        */
 
     }
 
