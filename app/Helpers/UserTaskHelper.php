@@ -16,7 +16,9 @@ class UserTaskHelper {
         $user = $userRepo->getByID($user_id);
         $dotNumber = $user['company']['dot_number'] ?? null;
 
-        $apiData = $apiService->getCompanySnapshot($dotNumber);
+        if ($dotNumber) {
+            $apiData = $apiService->getCompanySnapshot($dotNumber);
+        } 
 
         if ( 
             empty($apiData['error']) &&
