@@ -10,8 +10,8 @@ class UserTaskHelper {
     public function updateCompanySnapshot(int $user_id): array|null
     {
 
-        $apiService = new SaferwebAPI();
-        $userRepo = new UserRepo();
+        $apiService = app(SaferwebAPI::class);
+        $userRepo = app(UserRepo::class);
 
         $user = $userRepo->getByID($user_id);
         $dotNumber = $user['company']['dot_number'] ?? null;

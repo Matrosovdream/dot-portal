@@ -39,12 +39,11 @@ class UpdateSaferwebData extends Command
             // Skip users without a company 
             if( $user['company'] == null ) { continue; }
 
-            UpdateUserFromSaferweb::dispatch($user['id']);
+            UpdateUserFromSaferweb::dispatch($user['id'])
+                ->delay(now()->addSeconds($delay));
 
         }
 
-
-        
         $this->info("SaferWeb user updates completed.");
     }
 }
