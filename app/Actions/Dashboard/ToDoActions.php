@@ -21,8 +21,41 @@ class ToDoActions {
     public function index()
     {
 
-        $safer = (new UserTaskHelper())->updateCompanySnapshot(3);
-        dd($safer);
+        $taskHelper = new UserTaskHelper();
+        $safer = new SaferwebAPI();
+
+        if( request()->has('update_snapshop')) {
+            $safer = $taskHelper->updateCompanySnapshot(3);
+            dd($safer);
+        } 
+
+        if( request()->has('number') ) {
+            $dotNumber = request()->input('number');
+        } else {
+            $dotNumber = 4296324;
+        }
+
+        if( request()->has('dot') ) {
+            $safer = $safer->getCompanySnapshot($dotNumber);
+            dd($safer);
+        }
+        if( request()->has('inspection') ) {
+            $safer = $safer->getInspectionHistory($dotNumber);
+            dd($safer);
+        }
+        if( request()->has('crash') ) {
+            $safer = $safer->getCrashHistory($dotNumber);
+            dd($safer);
+        }
+        if( request()->has('summary') ) {
+            $safer = $safer->getInspectionSummary($dotNumber);
+            dd($safer);
+        }
+        if( request()->has('history') ) {
+            $safer = $safer->getHistoryAll($dotNumber);
+            dd($safer);
+        }
+       
 
         $data = [
             'title' => 'To-Do List',
