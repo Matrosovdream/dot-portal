@@ -18,7 +18,7 @@ class UserTaskHelper {
 
         if ($dotNumber) {
             $apiData = $apiService->getCompanySnapshot($dotNumber);
-        } 
+        } else { return null; }
 
         if ( 
             empty($apiData['error']) &&
