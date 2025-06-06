@@ -56,6 +56,15 @@ class User extends Authenticatable
         return $this->hasOne(UserCompany::class);
     }
 
+    // Get Saferweb company if user is company
+    public function companySaferweb()
+    {
+        if ($this->isCompany()) {
+            return $this->hasOne(CompanySaferweb::class, 'user_id', 'id');
+        }
+        return null;
+    }
+
     // User address
     public function address()
     {
