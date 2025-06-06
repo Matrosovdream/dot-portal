@@ -4,6 +4,7 @@ namespace App\Actions\Dashboard;
 use App\Mixins\Integrations\SaferwebAPI;
 use App\Models\Service;
 use App\Repositories\User\UserTaskRepo;
+use App\Helpers\UserTaskHelper;
 
 
 class ToDoActions {
@@ -19,7 +20,7 @@ class ToDoActions {
     public function index()
     {
 
-        $safer = (new SaferwebAPI())->getHistoryAll(2553306);
+        $safer = (new UserTaskHelper())->updateCompanySnapshot(3);
         dd($safer);
 
         $data = [
