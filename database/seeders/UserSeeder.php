@@ -39,7 +39,7 @@ class UserSeeder extends Seeder
                     [
                         'name' => 'Company Name',
                         'phone' => '+381123456789',
-                        'dot_number' => '4034969',
+                        'dot_number' => '4296324',
                         'mc_number' => '',
                     ]);
             }        
