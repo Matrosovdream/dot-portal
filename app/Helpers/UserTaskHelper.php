@@ -17,6 +17,7 @@ class UserTaskHelper {
         $dotNumber = $user['company']['dot_number'] ?? null;
 
         $apiData = $apiService->getCompanySnapshot($dotNumber);
+        dd($apiData);
 
         if ($apiData != null) { 
             $user['Model']->company->update([
