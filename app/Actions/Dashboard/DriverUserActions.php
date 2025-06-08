@@ -88,6 +88,35 @@ class DriverUserActions {
         return $data;
     }
 
+    public function terminated()
+    {
+        $filter = ['company_id' => auth()->user()->id, 'status_id' => 3];
+
+        // Filter by search form
+        if( request()->has('q') && !empty(request()->input('q')) ) {
+            $users = $this->userRepo->getAll([
+                'fullname' => '%' . request()->input('q') . '%',
+            ], $paginate = 1000); 
+            $user_ids = $users['Model']->pluck('id')->toArray();
+
+            $filter['user_id'] = $user_ids; 
+        }
+
+        // Get drivers by user
+        $drivers = $this->driverRepo->getAll( 
+            $filter, 
+            $paginate = 10 
+        );
+
+        $data = [
+            'title' => 'Terminated drivers',
+            'drivers' => $drivers,
+            'references' => $this->getReferences()
+        ];
+
+        return $data;
+    }
+
     public function show($driver_id)
     {
         $driver = $this->driverRepo->getByID($driver_id);
