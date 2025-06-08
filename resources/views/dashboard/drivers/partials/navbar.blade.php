@@ -119,12 +119,18 @@
             </div>
 
             <div class="d-flex my-4">
-                <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
-                    <i class="ki-duotone ki-check fs-3 d-none"></i>
-                    <span class="indicator-label">
-                        Disable
-                    </span>
-                </a>
+
+                <span class="indicator-label">
+                    <form action="{{ route('dashboard.drivers.terminate', $driver['id']) }}"
+                        method="POST">
+                        @csrf
+
+                        <button class="btn btn-sm btn-light me-2" type="submit">
+                            Terminate
+                        </button>
+                    </form>
+                </span>
+
                 <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_offer_a_deal">
                     Update from API
