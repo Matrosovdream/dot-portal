@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('ssn')->nullable();
             $table->date('hire_date')->nullable();
             $table->foreignId('driver_type_id')->on('ref_driver_type');
+            $table->integer('status_id')->default(1)->nullable();
             $table->timestamps();
         });
 
