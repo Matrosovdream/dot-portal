@@ -100,16 +100,20 @@
                                                     class="menu-link px-3">Edit</a>
                                             </div>
 
-                                            <div class="menu-item px-3">
-                                                <form action="{{ route('dashboard.drivers.terminate', $driver['id']) }}"
-                                                    method="POST">
-                                                    @csrf
+                                            @if( !$driver['isTerminated'] )
 
-                                                    <button class="menu-link px-3" type="submit">
-                                                        Terminate
-                                                    </button>
-                                                </form>
-                                            </div>
+                                                <div class="menu-item px-3">
+                                                    <form action="{{ route('dashboard.drivers.terminate', $driver['id']) }}"
+                                                        method="POST">
+                                                        @csrf
+
+                                                        <button class="menu-link px-3" type="submit">
+                                                            Terminate
+                                                        </button>
+                                                    </form>
+                                                </div>
+
+                                            @endif
 
                                             <div class="menu-item px-3">
                                                 <form action="{{ route('dashboard.drivers.destroy', $driver['id']) }}"
