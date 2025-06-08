@@ -73,6 +73,12 @@ class CompanyMenu implements InterfaceMenu {
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                     array(
+                        'title' => 'Terminated drivers',
+                        'url' => route('dashboard.drivers.terminated'),
+                        'route' => 'dashboard.drivers.terminated',
+                        'roles' => ['user', 'manager', 'admin'],
+                    ),
+                    array(
                         'title' => 'New driver',
                         'url' => route('dashboard.drivers.create'),
                         'route' => 'dashboard.drivers.create',
