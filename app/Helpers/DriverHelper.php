@@ -1,30 +1,25 @@
 <?php 
 
+namespace App\Helpers;
+
+use App\Repositories\Driver\DriverRepo;
+use App\Repositories\User\UserRepo;
+
 class DriverHelper {
 
-    public function terminateDriver($driver_id)
+    public function terminate($driver_id)
     {
-        $driverRepo = app('App\Repositories\Driver\DriverRepo');
-        $userRepo = app('App\Repositories\User\UserRepo');
+        $driverRepo = app(DriverRepo::class);
 
         // Get the driver by ID
         $driver = $driverRepo->getByID($driver_id);
 
         // Check if the driver exists
-        if (!$driver) {
-            return ['error' => 'Driver not found'];
-        }
-
-        // Terminate the driver
-        $result = $driverRepo->terminate($driver_id);
+        if (!$driver) { return null; }
 
         // If termination was successful, update the user status
-        if ($result) {
-            $userRepo->updateStatus($driver->user_id, 'terminated');
-            return ['success' => 'Driver terminated successfully'];
-        }
+        $driverRepo->updateStatus($driver_id, 3);
 
-        return ['error' => 'Failed to terminate driver'];
     }
 
 }
