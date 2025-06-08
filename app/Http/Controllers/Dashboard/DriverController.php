@@ -17,7 +17,6 @@ class DriverController extends Controller
 
     public function index()
     { 
-        //dd($this->driverUserActions->index());
         return view(
             'dashboard.drivers.index', 
             $this->driverUserActions->index()
