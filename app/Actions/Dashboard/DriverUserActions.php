@@ -58,7 +58,7 @@ class DriverUserActions {
     public function index()
     {
 
-        $filter = ['company_id' => auth()->user()->id];
+        $filter = ['company_id' => auth()->user()->id, 'status_id' => 1];
 
         // Filter by search form
         if( request()->has('q') && !empty(request()->input('q')) ) {
