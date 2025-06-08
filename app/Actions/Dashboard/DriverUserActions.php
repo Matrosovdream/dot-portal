@@ -111,7 +111,7 @@ class DriverUserActions {
         $data = [
             'title' => 'Terminated drivers',
             'drivers' => $drivers,
-            'references' => $this->getReferences()
+            'userSubscription' => $this->userSubRepo->getByUserID(auth()->user()->id),
         ];
 
         return $data;

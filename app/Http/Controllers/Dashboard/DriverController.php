@@ -27,7 +27,7 @@ class DriverController extends Controller
     public function terminated()
     {
         return view(
-            'dashboard.drivers.terminated', 
+            'dashboard.drivers.index', 
             $this->driverUserActions->terminated()
         );
     }
