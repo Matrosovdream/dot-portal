@@ -11,12 +11,6 @@ class DriverHelper {
     {
         $driverRepo = app(DriverRepo::class);
 
-        // Get the driver by ID
-        $driver = $driverRepo->getByID($driver_id);
-
-        // Check if the driver exists
-        if (!$driver) { return null; }
-
         // If termination was successful, update the user status
         $driverRepo->updateStatus($driver_id, 3);
 
