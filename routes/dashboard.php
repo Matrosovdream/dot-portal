@@ -42,6 +42,7 @@ Route::group([
     // Drivers
     Route::prefix('my-drivers')->name('drivers.')->group(function () {
         Route::get('/', [DriverController::class, 'index'])->name('index');
+        Route::get('terminated', [DriverController::class, 'terminated'])->name('terminated');
         Route::get('create', [DriverController::class, 'create'])->name('create');
         Route::post('/', [DriverController::class, 'store'])->name('store');
         Route::get('{driver}', [DriverController::class, 'show'])->name('show');
