@@ -239,6 +239,7 @@ class DriverRepo extends AbstractRepo
             'hire_date' => $item->hire_date,
             'driver_type_id' => $item->driver_type_id,
             'user_id' => $item->user_id,
+            'status_id' => $item->status_id,
             'Model' => $item
         ];
 
