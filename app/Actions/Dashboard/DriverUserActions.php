@@ -14,6 +14,7 @@ use App\Repositories\References\RefDriverLicenseEndrsRepo;
 use App\Mixins\File\FileStorage;
 use App\Repositories\User\UserRepo;
 use App\Helpers\Validation\Models\DriverValidation;
+use App\Helpers\DriverHelper;
 
 
 class DriverUserActions {
@@ -31,6 +32,7 @@ class DriverUserActions {
     private $userRepo;
     protected $fileStorage;
     protected $driverValidation;
+    protected $driverHelper;
 
     public function __construct()
     {
@@ -52,6 +54,7 @@ class DriverUserActions {
         $this->fileStorage = new FileStorage();
         $this->userRepo = new UserRepo();
         $this->driverValidation = new DriverValidation();
+        $this->driverHelper = new DriverHelper();
 
     }
 
@@ -355,6 +358,11 @@ class DriverUserActions {
             ]
         );
         
+    }
+
+    public function terminateDriver($driver_id)
+    {
+        return $this->driverHelper->terminate($driver_id);
     }
 
     public function logs($driver_id)
