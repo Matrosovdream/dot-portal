@@ -24,6 +24,7 @@ class Driver extends Model
         'user_id',
         'company_id',
         'profile_photo_id',
+        'status_id', // 1 - active, 2 - inactive, 3 - terminated
     ];
     
     public function user()
