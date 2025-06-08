@@ -24,6 +24,14 @@ class DriverController extends Controller
         );
     }
 
+    public function terminated()
+    {
+        return view(
+            'dashboard.drivers.terminated', 
+            $this->driverUserActions->terminated()
+        );
+    }
+
     public function show( $driver_id )
     {
         return view(
