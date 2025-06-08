@@ -225,6 +225,18 @@ class DriverRepo extends AbstractRepo
             ->count();
     }
 
+    public function updateStatus($driver_id, $status_id)
+    {
+        $driver = $this->getByID($driver_id);
+
+        if( !$driver ) { return null;}
+
+        $driver['Model']->status_id = $status_id;
+        $driver['Model']->save();
+
+        return $this->mapItem($driver['Model']->fresh());
+    }
+
     public function mapItem($item)
     {
 
