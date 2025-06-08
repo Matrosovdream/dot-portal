@@ -120,16 +120,20 @@
 
             <div class="d-flex my-4">
 
-                <span class="indicator-label">
-                    <form action="{{ route('dashboard.drivers.terminate', $driver['id']) }}"
-                        method="POST">
-                        @csrf
+                @if( !$driver['isTerminated'] )
 
-                        <button class="btn btn-sm btn-light me-2" type="submit">
-                            Terminate
-                        </button>
-                    </form>
-                </span>
+                    <span class="indicator-label">
+                        <form action="{{ route('dashboard.drivers.terminate', $driver['id']) }}"
+                            method="POST">
+                            @csrf
+
+                            <button class="btn btn-sm btn-light me-2" type="submit">
+                                Terminate
+                            </button>
+                        </form>
+                    </span>
+
+                @endif
 
                 <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal"
                     data-bs-target="#kt_modal_offer_a_deal">
