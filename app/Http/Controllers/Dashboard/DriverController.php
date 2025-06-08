@@ -220,6 +220,12 @@ class DriverController extends Controller
         return redirect()->back()->with('success', 'License updated successfully');
     }
 
+    public function terminateDriver($driver_id)
+    {
+        $this->driverUserActions->terminateDriver($driver_id);
+        return redirect()->route('dashboard.drivers.index');
+    }
+
     public function logs($driver_id)
     {
         return view(
