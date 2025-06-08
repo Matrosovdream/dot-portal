@@ -46,7 +46,7 @@ Route::group([
         Route::post('/', [DriverController::class, 'store'])->name('store');
         Route::get('{driver}', [DriverController::class, 'show'])->name('show');
         Route::post('{driver}', [DriverController::class, 'update'])->name('update');
-        Route::post('{driver}', [DriverController::class, 'terminate'])->name('terminate');
+        Route::post('{driver}', [DriverController::class, 'terminateDriver'])->name('terminate');
         Route::delete('{driver}', [DriverController::class, 'destroy'])->name('destroy');
 
         // Driver subroutes
