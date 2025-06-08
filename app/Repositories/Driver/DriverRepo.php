@@ -252,6 +252,7 @@ class DriverRepo extends AbstractRepo
             'driver_type_id' => $item->driver_type_id,
             'user_id' => $item->user_id,
             'status_id' => $item->status_id,
+            'isTerminated' => $item->status_id === 3,
             'Model' => $item
         ];
 
