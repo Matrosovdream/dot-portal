@@ -73,7 +73,9 @@
 
                             </div>
 
-                            <span class="badge badge-light fs-8">1 hr</span>
+                            <span class="badge badge-light fs-8">
+                                {{ \Carbon\Carbon::parse($item['Model']->created_at)->diffForHumans() }}
+                            </span>
 
                         </div>
 
