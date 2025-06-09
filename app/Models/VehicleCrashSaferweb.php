@@ -21,6 +21,10 @@ class VehicleCrashSaferweb extends Model
         'api_data'
     ];
 
+    protected $casts = [
+        'api_data' => 'array',
+    ];
+
     public function vehicle()
     {
         return $this->belongsTo(Vehicle::class);
