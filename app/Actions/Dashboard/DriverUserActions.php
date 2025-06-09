@@ -374,9 +374,12 @@ class DriverUserActions {
     {
         $driver = $this->driverRepo->getByID($driver_id);
 
-        if( isset( $request['drugtest_file_remove'] ) ) {
+        if( 
+            isset( $request['drugtest_file_remove'] ) &&
+            isset( $driver['drugTest']['id'] )
+            ) {
             // Remove old document
-            $this->driverDrugTestRepo->removeDocument($driver_id);
+            $this->driverDrugTestRepo->removeDocument( $driver['drugTest']['id'] );
         }
 
         return $this->driverRepo->updateDrugtest(
