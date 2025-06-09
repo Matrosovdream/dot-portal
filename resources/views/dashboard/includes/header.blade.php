@@ -54,6 +54,10 @@
             <!--begin::Navbar-->
             <div class="app-navbar flex-shrink-0">
 
+                <!--begin::Notifications-->
+                <x-topbar-notifications />
+                <!--end::Notification-->
+
                 <!--begin::User menu-->
                 <div class="app-navbar-item ms-1 ms-md-4" id="kt_header_user_menu_toggle">
                     <!--begin::Menu wrapper-->
