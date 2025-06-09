@@ -10,7 +10,7 @@ use App\Repositories\Notification\NotificationRepo;
 class TopbarNotifications extends Component
 {
 
-    protected $notifications;
+    public $notifications;
 
     private $notificationsRepo;
 
