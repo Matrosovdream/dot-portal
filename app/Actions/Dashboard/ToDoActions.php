@@ -40,11 +40,11 @@ class ToDoActions {
             dd($safer);
         }
         if( request()->has('inspection') ) {
-            $safer = $safer->getInspectionHistory($dotNumber);
+            $safer = $safer->getInspectionHistory($dotNumber)['inspection_records'][2];
             dd($safer);
         }
         if( request()->has('crash') ) {
-            $safer = $safer->getCrashHistory($dotNumber);
+            $safer = $safer->getCrashHistory($dotNumber)['crash_records'][0];
             dd($safer);
         }
         if( request()->has('summary') ) {
@@ -52,7 +52,7 @@ class ToDoActions {
             dd($safer);
         }
         if( request()->has('history') ) {
-            $safer = $safer->getHistoryAll($dotNumber);
+            $safer = $safer->getHistoryAll($dotNumber)['violation_records'];
             dd($safer);
         }
        

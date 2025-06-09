@@ -85,6 +85,21 @@ return new class extends Migration
             $table->foreignId('insurance_id')->on('insurances_vehicle');
         });
 
+        // Vehicle crashes from Saferweb API
+        Schema::create('vehicle_crashes_saferweb', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('vehicle_id')->on('vehicles');
+            $table->date('report_date')->nullable();
+            $table->string('report_number')->nullable();
+            $table->string('report_sequence_number')->nullable();
+            $table->string('report_state')->nullable();
+            $table->foreignId('report_state_id')->on('ref_states')->nullable();
+            $table->integer('total_injuries')->nullable();
+            $table->integer('total_fatalities')->nullable();
+            $table->json('api_data')->nullable();
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -100,5 +115,6 @@ return new class extends Migration
         Schema::dropIfExists('ref_vehicle_unit_type');
         Schema::dropIfExists('ref_vehicle_ownership_type');
         Schema::dropIfExists('vehicle_insurance_link');
+        Schema::dropIfExists('vehicle_crashes_saferweb');
     }
 };
