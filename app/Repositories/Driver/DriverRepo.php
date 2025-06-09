@@ -187,7 +187,7 @@ class DriverRepo extends AbstractRepo
 
         $driver = $this->getByID($driver_id);
 
-        if( isset($vehicle['drugTest']) ) {
+        if( isset($driver['drugTest']) ) {
             $this->drugTestRepo->update( $driver['drugTest']['id'], $request );
         } else {
             $request['driver_id'] = $driver_id;
