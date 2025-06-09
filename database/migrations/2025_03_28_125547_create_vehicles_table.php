@@ -93,7 +93,7 @@ return new class extends Migration
             $table->string('report_number')->nullable();
             $table->string('report_sequence_number')->nullable();
             $table->string('report_state')->nullable();
-            $table->foreignId('report_state_id')->on('ref_states')->nullable();
+            $table->foreignId('report_state_id')->on('ref_country_states')->nullable();
             $table->integer('total_injuries')->nullable();
             $table->integer('total_fatalities')->nullable();
             $table->json('api_data')->nullable();
