@@ -17,23 +17,17 @@ class UpdateCompanyInspections implements ShouldQueue
     public int $tries = 3;
     public int $timeout = 5;
 
-    protected int $userId;
+    protected int $companyId;
 
-    public function __construct(int $userId)
+    public function __construct(int $companyId)
     {
-        $this->userId = $userId;
+        $this->companyId = $companyId;
     }
 
     public function handle(UserTaskHelper $taskHelper): void
     {
 
-        Log::info("Updating user {$this->userId} from Saferweb API");
-     
-        /*
-        $taskHelper->updateCompanySnapshot(
-            $this->userId,
-        );
-        */
+        Log::info("Updating company inspections {$this->companyId} from Saferweb API");
 
     }
 

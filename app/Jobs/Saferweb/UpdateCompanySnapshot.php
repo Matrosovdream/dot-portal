@@ -10,24 +10,24 @@ use Illuminate\Queue\SerializesModels;
 use App\Helpers\UserTaskHelper;
 use Log;
 
-class UpdateUserSnapshot implements ShouldQueue
+class UpdateCompanySnapshot implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public int $tries = 3;
     public int $timeout = 5;
 
-    protected int $userId;
+    protected int $companyId;
 
-    public function __construct(int $userId)
+    public function __construct(int $companyId)
     {
-        $this->userId = $userId;
+        $this->companyId = $companyId;
     }
 
     public function handle(UserTaskHelper $taskHelper): void
     {
 
-        Log::info("Updating user {$this->userId} from Saferweb API");
+        Log::info("Updating user {$this->companyId} from Saferweb API");
      
         /*
         $taskHelper->updateCompanySnapshot(
