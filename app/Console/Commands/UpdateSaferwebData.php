@@ -4,7 +4,8 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use App\Mixins\Integrations\SaferwebAPI;
-use App\Jobs\UpdateUserFromSaferweb;
+use App\Jobs\Saferweb\UpdateCompanySnapshot;
+use App\Jobs\Saferweb\UpdateCompanyInspections;
 use App\Repositories\User\UserRepo;
 
 
@@ -13,17 +14,12 @@ class UpdateSaferwebData extends Command
     protected $signature = 'saferweb:update {--chunk=100} {--delay=2}';
 
     protected $description = 'Update users DOT info from SaferWeb API';
-
-    protected SaferwebAPI $saferweb;
     protected UserRepo $userRepo;
 
-    public function __construct(
-        SaferwebAPI $saferweb
-        )
+    public function __construct()
     {
         parent::__construct();
 
-        $this->saferweb = $saferweb;
         $this->userRepo = new UserRepo();
     }
 
@@ -39,8 +35,13 @@ class UpdateSaferwebData extends Command
             // Skip users without a company 
             if( $user['company'] == null ) { continue; }
 
-            UpdateUserFromSaferweb::dispatch($user['id'])
+            // Company Snapshot
+            UpdateCompanySnapshot::dispatch($user['company']['id'])
                 ->delay(now()->addSeconds($delay));
+
+            // Company Inspections
+            UpdateCompanyInspections::dispatch($user['company']['id'])
+                ->delay(now()->addSeconds($delay));    
 
         }
 
