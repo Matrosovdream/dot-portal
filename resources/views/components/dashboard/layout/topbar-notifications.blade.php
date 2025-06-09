@@ -45,12 +45,11 @@
 
                 <div class="scroll-y mh-325px my-5 px-8">
 
-                    @foreach( $notifications['items'] as $item )
-
+                    @forelse ($notifications['items'] as $item)
                         <div class="d-flex flex-stack py-4">
-
+                
                             <div class="d-flex align-items-center">
-
+                
                                 <div class="symbol symbol-35px me-4">
                                     <span class="symbol-label bg-light-primary">
                                         <i class="ki-duotone ki-abstract-28 fs-2 text-primary">
@@ -59,39 +58,44 @@
                                         </i>
                                     </span>
                                 </div>
-        
+                
                                 <div class="mb-0 me-2">
                                     <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">
-                                        {{ $item['title'] }}    
+                                        {{ $item['Model']->title ?? 'Notification' }}
                                     </a>
                                     <div class="text-gray-500 fs-7">
-                                        @php /*
-                                        {{ $item['preview'] }}
-                                        */ @endphp
+                                        {{ $item['Model']->message ?? 'No message available' }}
                                     </div>
                                 </div>
-
+                
                             </div>
-
+                
                             <span class="badge badge-light fs-8">
                                 {{ \Carbon\Carbon::parse($item['Model']->created_at)->diffForHumans() }}
                             </span>
-
+                
                         </div>
-
-                    @endforeach
-
+                    @empty
+                        <div class="text-center text-gray-500 fw-semibold py-2">
+                            No notifications found.
+                        </div>
+                    @endforelse
+                
                 </div>
+                
+                @if( $notifications['Model']->count() > 0 )
 
-                <div class="py-3 text-center border-top">
-                    <a href="{{ route('dashboard.notifications') }}" class="btn btn-color-gray-600 btn-active-color-primary">
-                        View All 
-                        <i class="ki-duotone ki-arrow-right fs-5">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
-                    </a>
-                </div>
+                    <div class="py-3 text-center border-top">
+                        <a href="{{ route('dashboard.notifications') }}" class="btn btn-color-gray-600 btn-active-color-primary">
+                            View All 
+                            <i class="ki-duotone ki-arrow-right fs-5">
+                                <span class="path1"></span>
+                                <span class="path2"></span>
+                            </i>
+                        </a>
+                    </div>
+
+                @endif
 
             </div>
 
