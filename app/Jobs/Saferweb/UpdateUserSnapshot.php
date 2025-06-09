@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Jobs;
+namespace App\Jobs\Saferweb;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Foundation\Bus\Dispatchable;
@@ -10,7 +10,7 @@ use Illuminate\Queue\SerializesModels;
 use App\Helpers\UserTaskHelper;
 use Log;
 
-class UpdateUserFromSaferweb implements ShouldQueue
+class UpdateUserSnapshot implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
