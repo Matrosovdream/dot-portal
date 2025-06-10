@@ -7,7 +7,7 @@ use App\Repositories\User\UserCompanyRepo;
 use App\Repositories\User\CompanySaferwebRepo;
 use App\Repositories\Vehicle\VehicleRepo;
 use App\Repositories\Vehicle\VehicleCrashesSaferwebRepo;
-use App\Repositories\Vehicle\VehicleInspectionSaferwebRepo;
+use App\Repositories\Vehicle\VehicleInspectionsSaferwebRepo;
 
 class CompanyHelper {
 
@@ -111,7 +111,7 @@ class CompanyHelper {
 
         $apiService = app(SaferwebAPI::class);
         $companyRepo = app(UserCompanyRepo::class);
-        $inspRepo = app(VehicleInspectionSaferwebRepo::class);
+        $inspRepo = app(VehicleInspectionsSaferwebRepo::class);
         $vehicleRepo = app(VehicleRepo::class);
 
         $company = $companyRepo->getByID($company_id);
