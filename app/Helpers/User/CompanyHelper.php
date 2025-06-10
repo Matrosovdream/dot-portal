@@ -74,9 +74,12 @@ class CompanyHelper {
             
             foreach ($apiData['crash_records'] as $record) {
 
-                $vehicle = $vehicleRepo->getByVIN($record['vehicle_vin'] ?? null);
+                $vehicle = $vehicleRepo->getByVIN($record['vehicle']['vin'] ?? null);
+
+                if ( !$vehicle ) { continue; }
 
                 $mappedData = [
+                    'vehicle_id' => $vehicle['id'],
                     'report_date' => isset($record['report_date']) ? \Carbon\Carbon::parse($record['report_date'])->format('Y-m-d'): null,
                     'report_number' => $record['report_number'] ?? null,
                     'report_sequence_number' => $record['report_sequence_number'] ?? null,
@@ -86,14 +89,14 @@ class CompanyHelper {
                     'total_fatalities' => $record['total_fatalities'] ?? null,
                     'api_data' => json_encode($record),
                 ];
-                $records[] = $mappedData;
+                // Unique by report_number
+                $records[ $record['report_number'] ] = $mappedData;
 
             }
 
-            dd($records, $apiData['crash_records']);
-            $companySaferwebRepo->sync($company_id, $mappedData);
+            //$companySaferwebRepo->sync($company_id, $mappedData);
 
-            return $apiData;
+            return $records;
 
         } else {
             // Handle error or empty response
