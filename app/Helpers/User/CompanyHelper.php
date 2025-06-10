@@ -5,8 +5,7 @@ namespace App\Helpers\User;
 use App\Mixins\Integrations\SaferwebAPI;
 use App\Repositories\User\UserCompanyRepo;
 use App\Repositories\User\CompanySaferwebRepo;
-
-use Log;
+use App\Repositories\Vehicle\VehicleRepo;
 
 class CompanyHelper {
 
@@ -50,6 +49,57 @@ class CompanyHelper {
             // Handle error or empty response
             return null;
         }
+    }
+
+    public function updateCrashes(int $company_id) {
+
+        $apiService = app(SaferwebAPI::class);
+        $companyRepo = app(UserCompanyRepo::class);
+        $companySaferwebRepo = app(CompanySaferwebRepo::class);
+        $vehicleRepo = app(VehicleRepo::class);
+
+        $company = $companyRepo->getByID($company_id);
+        $dotNumber = $company['dot_number'] ?? null;
+
+        if ($dotNumber) {
+            $apiData = $apiService->getCrashHistory($dotNumber);
+        } else { return null; }
+
+        if ( 
+            empty($apiData['error']) &&
+            $apiData != null
+            ) { 
+
+            $records = [];
+            
+            foreach ($apiData['crash_records'] as $record) {
+
+                $vehicle = $vehicleRepo->getByVIN($record['vehicle_vin'] ?? null);
+
+                $mappedData = [
+                    'report_date' => isset($record['report_date']) ? \Carbon\Carbon::parse($record['report_date'])->format('Y-m-d'): null,
+                    'report_number' => $record['report_number'] ?? null,
+                    'report_sequence_number' => $record['report_sequence_number'] ?? null,
+                    'report_state' => $record['report_state'] ?? null,
+                    'report_state_id' => null,
+                    'total_injuries' => $record['total_injuries'] ?? null,
+                    'total_fatalities' => $record['total_fatalities'] ?? null,
+                    'api_data' => json_encode($record),
+                ];
+                $records[] = $mappedData;
+
+            }
+
+            dd($records, $apiData['crash_records']);
+            $companySaferwebRepo->sync($company_id, $mappedData);
+
+            return $apiData;
+
+        } else {
+            // Handle error or empty response
+            return null;
+        }
+
     }
 
 }
