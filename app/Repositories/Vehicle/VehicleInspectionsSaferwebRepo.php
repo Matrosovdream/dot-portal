@@ -2,7 +2,7 @@
 namespace App\Repositories\Vehicle;
 
 use App\Repositories\AbstractRepo;
-use App\Models\VehicleCrashSaferweb;
+use App\Models\VehicleInspectionSaferweb;
 
 
 class VehicleInspectionsSaferwebRepo extends AbstractRepo
@@ -16,7 +16,7 @@ class VehicleInspectionsSaferwebRepo extends AbstractRepo
 
     public function __construct()
     {
-        $this->model = new VehicleCrashSaferweb();
+        $this->model = new VehicleInspectionSaferweb();
     }
 
     public function syncItems($vehicle_id, $data)
