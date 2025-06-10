@@ -6,6 +6,7 @@ use App\Mixins\Integrations\SaferwebAPI;
 use App\Repositories\User\UserCompanyRepo;
 use App\Repositories\User\CompanySaferwebRepo;
 use App\Repositories\Vehicle\VehicleRepo;
+use App\Repositories\Vehicle\VehicleCrashesSaferwebRepo;
 
 class CompanyHelper {
 
@@ -55,7 +56,7 @@ class CompanyHelper {
 
         $apiService = app(SaferwebAPI::class);
         $companyRepo = app(UserCompanyRepo::class);
-        $companySaferwebRepo = app(CompanySaferwebRepo::class);
+        $crashesRepo = app(VehicleCrashesSaferwebRepo::class);
         $vehicleRepo = app(VehicleRepo::class);
 
         $company = $companyRepo->getByID($company_id);
@@ -94,7 +95,7 @@ class CompanyHelper {
 
             }
 
-            //$companySaferwebRepo->sync($company_id, $mappedData);
+            $crashesRepo->syncItems($company_id, $records);
 
             return $records;
 
