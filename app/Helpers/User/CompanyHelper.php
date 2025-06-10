@@ -7,7 +7,7 @@ use App\Repositories\User\UserRepo;
 
 class CompanyHelper {
 
-    public function updateCompanySnapshot(int $user_id): array|null
+    public function updateSnapshot(int $user_id): array|null
     {
 
         $apiService = app(SaferwebAPI::class);
