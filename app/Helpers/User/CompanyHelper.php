@@ -141,7 +141,7 @@ class CompanyHelper {
                 $mappedData = [
                     'vehicle_id' => $vehicle['id'],
                     'unique_id' => $record['unique_id'] ?? null,
-                    'report_date' => isset($record['report_date']) ? \Carbon\Carbon::parse($record['report_date'])->format('Y-m-d'): null,
+                    'report_date' => isset($record['inspection_date']) ? \Carbon\Carbon::parse($record['inspection_date'])->format('Y-m-d'): null,
                     'report_number' => $record['report_number'] ?? null,
                     'inspection_level' => $record['inspection_level'] ?? null,
                     'report_state' => $record['report_state'] ?? null,
