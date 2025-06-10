@@ -23,6 +23,21 @@ class CompanySaferwebRepo extends AbstractRepo
 
     }
 
+    public function sync(int $company_id, array $data): ?CompanySaferweb
+    {
+        $item = $this->model->where('company_id', $company_id)->first();
+
+        if( empty($item) ) {
+            $item = new CompanySaferweb();
+            $item->company_id = $company_id;
+        }
+
+        $item->fill($data);
+        $item->save();
+
+        return $item;
+    }
+
     public function mapItem($item)
     {
 
