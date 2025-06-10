@@ -7,6 +7,7 @@ use App\Repositories\User\UserCompanyRepo;
 use App\Repositories\User\CompanySaferwebRepo;
 use App\Repositories\Vehicle\VehicleRepo;
 use App\Repositories\Vehicle\VehicleCrashesSaferwebRepo;
+use App\Repositories\Vehicle\VehicleInspectionSaferwebRepo;
 
 class CompanyHelper {
 
@@ -96,6 +97,63 @@ class CompanyHelper {
             }
 
             $crashesRepo->syncItems($company_id, $records);
+
+            return $records;
+
+        } else {
+            // Handle error or empty response
+            return null;
+        }
+
+    }
+
+    public function updateInspections(int $company_id) {
+
+        $apiService = app(SaferwebAPI::class);
+        $companyRepo = app(UserCompanyRepo::class);
+        $inspRepo = app(VehicleInspectionSaferwebRepo::class);
+        $vehicleRepo = app(VehicleRepo::class);
+
+        $company = $companyRepo->getByID($company_id);
+        $dotNumber = $company['dot_number'] ?? null;
+
+        if ($dotNumber) {
+            $apiData = $apiService->getInspectionHistory($dotNumber);
+        } else { return null; }
+
+        if ( 
+            empty($apiData['error']) &&
+            $apiData != null
+            ) { 
+
+            $records = [];
+            
+            foreach ($apiData['inspection_records'] as $record) {
+
+                $units = $record['units_inspected'] ?? [];
+                $unit = $units[0] ?? null;
+                if ( !$unit ) { continue; }
+
+                $vehicle = $vehicleRepo->getByVIN($unit['unit_vin'] ?? null);
+
+                if ( !$vehicle ) { continue; }
+
+                $mappedData = [
+                    'vehicle_id' => $vehicle['id'],
+                    'unique_id' => $record['unique_id'] ?? null,
+                    'report_date' => isset($record['report_date']) ? \Carbon\Carbon::parse($record['report_date'])->format('Y-m-d'): null,
+                    'report_number' => $record['report_number'] ?? null,
+                    'inspection_level' => $record['inspection_level'] ?? null,
+                    'report_state' => $record['report_state'] ?? null,
+                    'report_state_id' => null,
+                    'api_data' => json_encode($record),
+                ];
+                // Unique by report_number
+                $records[ $record['report_number'] ] = $mappedData;
+
+            }
+
+            $inspRepo->syncItems($company_id, $records);
 
             return $records;
 

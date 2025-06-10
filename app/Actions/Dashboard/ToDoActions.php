@@ -34,6 +34,11 @@ class ToDoActions {
             dd($safer);
         } 
 
+        if( request()->has('update_inspections')) {
+            $safer = $taskHelper->updateInspections(1);
+            dd($safer);
+        } 
+
         if( request()->has('number') ) {
             $dotNumber = request()->input('number');
         } else {
