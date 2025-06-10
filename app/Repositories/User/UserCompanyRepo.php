@@ -40,6 +40,7 @@ class UserCompanyRepo extends AbstractRepo
 
         $res = [
             'id' => $item->id,
+            'user_id' => $item->user_id,
             'name' => $item->name,
             'phone' => $item->phone,
             'dot_number' => $item->dot_number,
