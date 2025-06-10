@@ -35,13 +35,15 @@ class UpdateSaferwebData extends Command
             // Skip users without a company 
             if( $user['company'] == null ) { continue; }
 
+            $companyId = $user['company']['id'];
+
             // Company Snapshot
-            UpdateCompanySnapshot::dispatch($user['company']['id'])
+            UpdateCompanySnapshot::dispatch($companyId)
                 ->delay(now()->addSeconds($delay));
 
             // Company Inspections
-            /*UpdateCompanyInspections::dispatch($user['company']['id'])
-                ->delay(now()->addSeconds($delay));*/    
+            UpdateCompanyInspections::dispatch($companyId)
+                ->delay(now()->addSeconds($delay));   
 
         }
 
