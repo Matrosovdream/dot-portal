@@ -27,12 +27,23 @@ class UpdateCompanySnapshot implements ShouldQueue
     public function handle(CompanyHelper $companyHelper): void
     {
 
-        Log::info("Updating user {$this->companyId} from Saferweb API");
+        $this->log("Updating company snapshot for company ID: {$this->companyId}");
      
-        $companyHelper->updateSnapshot(
+        $res = $companyHelper->updateSnapshot(
             $this->companyId,
         );
 
+        if ($res === null) {
+            $this->log("No data Company snapshot found for company ID: {$this->companyId}");
+        } else {
+            $this->log("Company snapshot updated successfully for company ID: {$this->companyId}");
+        }
+
+    }
+
+    private function log(string $message): void
+    {
+        Log::info($message);
     }
 
 }
