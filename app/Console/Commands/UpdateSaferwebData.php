@@ -40,11 +40,11 @@ class UpdateSaferwebData extends Command
                 ->delay(now()->addSeconds($delay));
 
             // Company Inspections
-            UpdateCompanyInspections::dispatch($user['company']['id'])
-                ->delay(now()->addSeconds($delay));    
+            /*UpdateCompanyInspections::dispatch($user['company']['id'])
+                ->delay(now()->addSeconds($delay));*/    
 
         }
 
-        $this->info("SaferWeb user updates completed.");
+        $this->info("SaferWeb company IDs have been added to the queue.");
     }
 }
