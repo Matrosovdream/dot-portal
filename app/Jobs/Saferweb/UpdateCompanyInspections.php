@@ -28,16 +28,16 @@ class UpdateCompanyInspections implements ShouldQueue
     public function handle(CompanyHelper $companyHelper): void
     {
 
-        $this->log("Updating company snapshot for company ID: {$this->companyId}");
+        $this->log("Updating company inspections for company ID: {$this->companyId}");
      
         $res = $companyHelper->updateInspections(
             $this->companyId,
         );
 
         if ($res === null) {
-            $this->log("No data Company snapshot found for company ID: {$this->companyId}");
+            $this->log("No data Company inspections found for company ID: {$this->companyId}");
         } else {
-            $this->log("Company snapshot updated successfully for company ID: {$this->companyId}");
+            $this->log("Company inspections updated successfully for company ID: {$this->companyId}");
         }
 
     }
