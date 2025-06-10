@@ -25,6 +25,7 @@ class UpdateCompanySnapshot implements ShouldQueue, ShouldBeUnique
         $this->companyId = $companyId;
     }
 
+    
     public function handle(CompanyHelper $companyHelper): void
     {
 

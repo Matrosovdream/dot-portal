@@ -4,7 +4,7 @@ namespace App\Actions\Dashboard;
 use App\Mixins\Integrations\SaferwebAPI;
 use App\Models\Service;
 use App\Repositories\User\UserTaskRepo;
-use App\Helpers\UserTaskHelper;
+use App\Helpers\User\CompanyHelper;
 
 
 
@@ -21,11 +21,11 @@ class ToDoActions {
     public function index()
     {
 
-        $taskHelper = new UserTaskHelper();
+        $taskHelper = new CompanyHelper();
         $safer = new SaferwebAPI();
 
         if( request()->has('update_snapshop')) {
-            $safer = $taskHelper->updateCompanySnapshot(3);
+            $safer = $taskHelper->updateSnapshot(1);
             dd($safer);
         } 
 

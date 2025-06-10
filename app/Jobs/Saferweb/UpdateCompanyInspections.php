@@ -24,6 +24,7 @@ class UpdateCompanyInspections implements ShouldQueue
         $this->companyId = $companyId;
     }
 
+    
     public function handle(CompanyHelper $companyHelper): void
     {
 

@@ -3,18 +3,21 @@
 namespace App\Helpers\User;
 
 use App\Mixins\Integrations\SaferwebAPI;
-use App\Repositories\User\UserRepo;
+use App\Repositories\User\UserCompanyRepo;
+use Log;
 
 class CompanyHelper {
 
-    public function updateSnapshot(int $user_id): array|null
+    public function updateSnapshot(int $company_id): array|null
     {
 
-        $apiService = app(SaferwebAPI::class);
-        $userRepo = app(UserRepo::class);
+        Log::info("TT {$company_id}");
 
-        $user = $userRepo->getByID($user_id);
-        $dotNumber = $user['company']['dot_number'] ?? null;
+        $apiService = app(SaferwebAPI::class);
+        $companyRepo = app(UserCompanyRepo::class);
+
+        $company = $companyRepo->getByID($company_id);
+        $dotNumber = $company['dot_number'] ?? null;
 
         if ($dotNumber) {
             $apiData = $apiService->getCompanySnapshot($dotNumber);
@@ -24,7 +27,7 @@ class CompanyHelper {
             empty($apiData['error']) &&
             $apiData != null
             ) { 
-            $user['Model']->company->update([
+            $company['Model']->update([
                 'mc_number' => $apiData['phone'],
             ]);
 
