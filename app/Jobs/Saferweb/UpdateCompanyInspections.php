@@ -7,7 +7,7 @@ use Illuminate\Foundation\Bus\Dispatchable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Helpers\UserTaskHelper;
+use App\Helpers\User\CompanyHelper;
 use Log;
 
 class UpdateCompanyInspections implements ShouldQueue
@@ -24,11 +24,26 @@ class UpdateCompanyInspections implements ShouldQueue
         $this->companyId = $companyId;
     }
 
-    public function handle(UserTaskHelper $taskHelper): void
+    public function handle(CompanyHelper $companyHelper): void
     {
 
-        Log::info("Updating company inspections {$this->companyId} from Saferweb API");
+        $this->log("Updating company snapshot for company ID: {$this->companyId}");
+     
+        $res = $companyHelper->updateInspections(
+            $this->companyId,
+        );
 
+        if ($res === null) {
+            $this->log("No data Company snapshot found for company ID: {$this->companyId}");
+        } else {
+            $this->log("Company snapshot updated successfully for company ID: {$this->companyId}");
+        }
+
+    }
+
+    private function log(string $message): void
+    {
+        Log::info($message);
     }
 
 }
