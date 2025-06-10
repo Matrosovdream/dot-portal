@@ -200,6 +200,13 @@ class VehicleRepo extends AbstractRepo
 
     }
 
+    public function getByVin($vin)
+    {
+        $vehicle = $this->model->where('vin', $vin)->first();
+        if( empty($vehicle) ) return null;
+        return $this->mapItem($vehicle);
+    }
+
     public function mapItem($item)
     {
 
