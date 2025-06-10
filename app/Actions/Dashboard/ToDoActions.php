@@ -29,6 +29,11 @@ class ToDoActions {
             dd($safer);
         } 
 
+        if( request()->has('update_crashes')) {
+            $safer = $taskHelper->updateCrashes(1);
+            dd($safer);
+        } 
+
         if( request()->has('number') ) {
             $dotNumber = request()->input('number');
         } else {
@@ -44,7 +49,7 @@ class ToDoActions {
             dd($safer);
         }
         if( request()->has('crash') ) {
-            $safer = $safer->getCrashHistory($dotNumber)['crash_records'][0];
+            $safer = $safer->getCrashHistory($dotNumber)['crash_records'];
             dd($safer);
         }
         if( request()->has('summary') ) {
