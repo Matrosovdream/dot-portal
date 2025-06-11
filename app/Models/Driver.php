@@ -4,11 +4,13 @@ namespace App\Models;
 
 use App\Traits\Metaable;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Driver extends Model
 {
 
     use Metaable;
+    use Searchable;
     protected $table = 'drivers';
     
     protected $fillable = [
@@ -26,6 +28,20 @@ class Driver extends Model
         'profile_photo_id',
         'status_id', // 1 - active, 2 - inactive, 3 - terminated
     ];
+
+    public function toSearchableArray()
+    {
+        return [
+            'firstname' => $this->user->firstname ?? '',
+            'middlename' => $this->user->middlename ?? '',
+            'lastname' => $this->user->lastname ?? '',
+            'phone' => $this->user->phone ?? '',
+            'email' => $this->user->email ?? '',
+            'ssn' => $this->ssn ?? '',
+            'license_number' => $this->license->license_number ?? '',
+            'medical_national_registry' => $this->medicalCard->national_registry ?? '',
+        ];
+    }
     
     public function user()
     {
