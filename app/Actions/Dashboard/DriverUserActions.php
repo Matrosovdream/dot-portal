@@ -65,12 +65,18 @@ class DriverUserActions {
 
         // Filter by search form
         if( request()->has('q') && !empty(request()->input('q')) ) {
+
+            $records = $this->driverRepo->modelSearch( request()->input('q') );
+            dd($records);
+
+            /*
             $users = $this->userRepo->getAll([
                 'fullname' => '%' . request()->input('q') . '%',
             ], $paginate = 1000); 
             $user_ids = $users['Model']->pluck('id')->toArray();
 
             $filter['user_id'] = $user_ids; 
+            */
         }
 
         // Get drivers by user
