@@ -54,6 +54,17 @@ services:
     networks:
       - laravel
 
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: meilisearch
+    environment:
+      MEILI_NO_ANALYTICS: true
+      MEILI_MASTER_KEY: masterKey
+    ports:
+      - "7700:7700"
+    networks:
+      - laravel
+
 volumes:
   mysql-data:
 
