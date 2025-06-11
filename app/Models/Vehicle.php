@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Vehicle extends Model
 {
+    use Searchable;
     
     protected $table = 'vehicles';
     
@@ -21,6 +23,14 @@ class Vehicle extends Model
         'company_id',
         'search_index'
     ];
+
+    public function toSearchableArray()
+    {
+        return [
+            'number'=> $this->number,
+            'vin'=> $this->vin,
+        ];
+    }
 
     protected static function booted(): void
     {
