@@ -51,7 +51,7 @@ class DocumentActions {
 
         // Filter by search form
         if( request()->has('q') ) {
-            $filter['filename'] = '%' . request()->input('q') . '%';
+            $filter['id'] = $this->fileRepo->modelSearch( request()->has('q') );
         }
 
         $data = [
