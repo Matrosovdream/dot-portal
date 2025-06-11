@@ -4,6 +4,7 @@ namespace App\Console\Commands\Search;
 
 use Illuminate\Console\Command;
 use App\Models\Driver; 
+use App\Models\File;
 
 class ReindexSearch extends Command
 {
@@ -17,8 +18,9 @@ class ReindexSearch extends Command
         
         $this->info('Reindexing search data...');
 
-        // Driver model
+        // Searchable models
         Driver::all()->searchable();
+        File::all()->searchable();
 
         $this->info('Done!');
 

@@ -2,11 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class File extends Model
 {
+
+    use Searchable;
 
     protected $table = 'files';
 
@@ -21,6 +23,15 @@ class File extends Model
         'visibility',
         'user_id'
     ];
+
+    public function toSearchableArray()
+    {
+        return [
+            'filename' => $this->filename,
+            'description' => $this->description,
+            'tags' => $this->tags->pluck('name')->toArray(),
+        ];
+    }
 
     public function user()
     {
