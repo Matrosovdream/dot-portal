@@ -2,6 +2,7 @@
 namespace App\Repositories;
 
 use Illuminate\Database\Eloquent\Collection;
+use Log;
 
 abstract class AbstractRepo
 {
@@ -106,7 +107,21 @@ abstract class AbstractRepo
 
     public function modelSearch( $query, $map=true ) {
 
-        $items = $this->model::search($query)->get();
+        // Validate the query because we depend on the Scout package
+        try {
+            $items = $this->model::search($query)->get();
+        } catch (\Exception $e) {
+            Log::error('Search error '.$e->getMessage());
+
+            // Return an empty collection or null based on your preference
+            if( $map ) {
+                $items = $this->mapItem($items);
+            } else {
+                return new Collection();
+            }
+
+        }
+        
         if ($map) {
             return $this->mapItems($items);
         } else {
