@@ -111,7 +111,7 @@ abstract class AbstractRepo
         try {
             $items = $this->model::search($query)->get();
         } catch (\Exception $e) {
-            Log::error('Search error '.$e->getMessage());
+            Log::error('Search error: '.$e->getMessage());
 
             // Return an empty collection or null based on your preference
             if( $map ) {
