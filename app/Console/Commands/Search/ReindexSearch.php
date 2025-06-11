@@ -1,30 +1,26 @@
 <?php
 
-namespace App\Console\Commands;
+namespace App\Console\Commands\Search;
 
 use Illuminate\Console\Command;
+use App\Models\Driver; 
 
 class ReindexSearch extends Command
 {
-    /**
-     * The name and signature of the console command.
-     *
-     * @var string
-     */
+
     protected $signature = 'app:reindex-search';
 
-    /**
-     * The console command description.
-     *
-     * @var string
-     */
-    protected $description = 'Command description';
+    protected $description = 'Reindex the search index for all searchable models - Scout package';
 
-    /**
-     * Execute the console command.
-     */
     public function handle()
     {
-        //
+        
+        $this->info('Reindexing search data...');
+
+        // Driver model
+        Driver::all()->searchable();
+
+        $this->info('Done!');
+
     }
 }
