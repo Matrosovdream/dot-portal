@@ -121,18 +121,20 @@
                                                     </form>
                                                 </div>
 
-                                            @endif
+                                            @else
 
-                                            <div class="menu-item px-3">
-                                                <form action="{{ route('dashboard.drivers.destroy', $driver['id']) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button class="menu-link px-3" type="submit">
-                                                        Delete
-                                                    </button>
-                                                </form>
-                                            </div>
+                                                <div class="menu-item px-3">
+                                                    <form action="{{ route('dashboard.drivers.destroy', $driver['id']) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+                                                        <button class="menu-link px-3" type="submit">
+                                                            Delete
+                                                        </button>
+                                                    </form>
+                                                </div>
+
+                                            @endif
                       
                                         </div>
                                     </td>
