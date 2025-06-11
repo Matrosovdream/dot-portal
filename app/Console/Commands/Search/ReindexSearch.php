@@ -5,6 +5,7 @@ namespace App\Console\Commands\Search;
 use Illuminate\Console\Command;
 use App\Models\Driver; 
 use App\Models\File;
+use App\Models\InsuranceVehicle;
 
 class ReindexSearch extends Command
 {
@@ -21,6 +22,7 @@ class ReindexSearch extends Command
         // Searchable models
         Driver::all()->searchable();
         File::all()->searchable();
+        InsuranceVehicle::all()->searchable();
 
         $this->info('Done!');
 
