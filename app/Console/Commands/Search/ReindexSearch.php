@@ -18,16 +18,25 @@ class ReindexSearch extends Command
     public function handle()
     {
         
-        $this->info('Reindexing search data...');
+        $this->info('Reindexing search data started');
 
         // Searchable models
-        Driver::all()->searchable();
-        File::all()->searchable();
-        Vehicle::all()->searchable();
-        InsuranceVehicle::all()->searchable();
+        foreach ($this->getModels() as $model) {
+            $model::query()->searchable();
+        }
 
-
-        $this->info('Done!');
+        $this->info('Reindexing search data ended');
 
     }
+
+    private function getModels()
+    {
+        return [
+            Driver::class,
+            File::class,
+            Vehicle::class,
+            InsuranceVehicle::class,
+        ];
+    }
+
 }
