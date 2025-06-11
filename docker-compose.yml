@@ -65,6 +65,19 @@ services:
     networks:
       - laravel
 
+  queue:
+    build:
+      context: .
+      dockerfile: docker/php/Dockerfile
+    container_name: laravel-queue
+    command: php artisan queue:work
+    volumes:
+      - .:/var/www
+    depends_on:
+      - mysql
+    networks:
+      - laravel
+
 volumes:
   mysql-data:
 
