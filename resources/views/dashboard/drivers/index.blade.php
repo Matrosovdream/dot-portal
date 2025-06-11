@@ -52,6 +52,7 @@
                                 <th class=" text-center">License state / Number</th>
                                 <th class=" text-center">Hire date</th>
                                 <th class=" text-center">Added</th>
+                                <th class="min-w-100px">Status</th>
                                 <th class=" text-center">Actions</th>
                             </tr>
                         </thead>
@@ -86,6 +87,13 @@
                                     </td>
                                     <td class="text-center">
                                         {{ dateFormat( $driver['Model']->created_at ) }}
+                                    </td>
+                                    <td class="pe-0">
+                                        @if( !$driver['isTerminated'] )
+                                            <span class="badge badge-light-success">Active</span>
+                                        @else
+                                            <span class="badge badge-light-danger">Terminated</span>
+                                        @endif
                                     </td>
                                     <td class="text-center">
                                         <a href="#" class="btn btn-sm btn-light btn-flex btn-center btn-active-light-primary"
