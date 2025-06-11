@@ -66,8 +66,8 @@ class DriverUserActions {
         // Filter by search form
         if( request()->has('q') && !empty(request()->input('q')) ) {
 
-            $records = $this->driverRepo->modelSearch( request()->input('q') );
-            dd($records);
+            $records = $this->driverRepo->modelSearch( '%'.request()->input('q') .'%');
+            dd($records['items']);
 
             /*
             $users = $this->userRepo->getAll([
