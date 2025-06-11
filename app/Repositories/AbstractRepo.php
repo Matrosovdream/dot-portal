@@ -104,10 +104,14 @@ abstract class AbstractRepo
         $item->delete();
     }
 
-    public function modelSearch( $query ) {
+    public function modelSearch( $query, $map=true ) {
 
         $items = $this->model::search($query)->get();
-        return $this->mapItems($items);
+        if ($map) {
+            return $this->mapItems($items);
+        } else {
+            return $items;
+        }
 
     }
 
