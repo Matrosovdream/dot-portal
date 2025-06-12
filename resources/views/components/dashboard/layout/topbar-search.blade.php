@@ -81,6 +81,7 @@
     <div id="driversShowAll" class="text-center mt-4"></div>
 </div>
 
+
 <div class="tab-pane fade" id="search-tab-vehicles" role="tabpanel">
     <div id="vehiclesResults" class="scroll-y pe-3" style="max-height: 300px;"></div>
     <div id="vehiclesShowAll" class="text-center mt-4"></div>
@@ -109,7 +110,7 @@
                 const data = response.data;
 
                 updateTab(data.documents, 'documentsResults', 'documentsShowAll', 'documentsCount');
-updateTab(data.drivers, 'driversResults', 'driversShowAll', 'driversCount');
+updateTab(data.drivers, 'driversResults', 'driversShowAll', 'driversCount', 'drivers');
 updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount');
 
             })
@@ -118,7 +119,7 @@ updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount');
             });
     });
 
-    function updateTab(section, containerId, showAllId, countId) {
+    function updateTab(section, containerId, showAllId, countId, type = 'default') {
     const container = document.getElementById(containerId);
     const showAll = document.getElementById(showAllId);
     const countEl = document.getElementById(countId);
@@ -135,23 +136,45 @@ updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount');
     }
 
     section.items.forEach(item => {
-        let title = item.title ?? item.filename ?? 'Untitled';
-        let description = item.description ?? 'No description available.';
-        let url = item.showUrl ?? '#';
-        let tags = item.tags?.items?.map(t => t.name).join(', ') ?? '';
-        let meta = item.user?.company?.name ?? item.user?.fullname ?? '';
+        let element = '';
 
-        const element = `
-            <div class="mb-6">
-                <a href="${url}" class="fs-5 fw-bold text-hover-primary d-block mb-1">${title}</a>
-                <div class="text-muted fs-7 mb-2">${description}</div>
-                <div class="d-flex flex-wrap text-muted fs-8 gap-3">
-                    <span><i class="bi bi-person"></i> ${meta}</span>
-                    ${tags ? `<span><i class="bi bi-tags"></i> ${tags}</span>` : ''}
-                    ${item.type ? `<span><i class="bi bi-file-earmark"></i> ${item.type.split('/').pop().toUpperCase()}</span>` : ''}
+        if (type === 'drivers') {
+            const user = item.user ?? {};
+            const fullname = `${user.firstname ?? ''} ${user.lastname ?? ''}`.trim() || 'Unnamed';
+            const dob = user.birthday ?? 'N/A';
+            const ssn = item.ssn ?? 'N/A';
+            const hireDate = item.hire_date ?? 'N/A';
+            const url = item.showUrl ?? '#';
+
+            element = `
+                <div class="mb-6">
+                    <a href="${url}" class="fs-5 fw-bold text-hover-primary d-block mb-1">${fullname}</a>
+                    <div class="d-flex flex-wrap text-muted fs-8 gap-4 mt-2">
+                        <span><i class="bi bi-calendar2-week"></i> DOB: ${dob}</span>
+                        <span><i class="bi bi-credit-card-2-front"></i> SSN: ${ssn}</span>
+                        <span><i class="bi bi-briefcase"></i> Hire Date: ${hireDate}</span>
+                    </div>
                 </div>
-            </div>
-        `;
+            `;
+        } else {
+            let title = item.title ?? item.filename ?? 'Untitled';
+            let description = item.description ?? item.desription ?? 'No description available.';
+            let url = item.showUrl ?? '#';
+            let tags = item.tags?.items?.map(t => t.name).join(', ') ?? '';
+            let meta = item.user?.company?.name ?? item.user?.fullname ?? 'Unknown';
+
+            element = `
+                <div class="mb-6">
+                    <a href="${url}" class="fs-5 fw-bold text-hover-primary d-block mb-1">${title}</a>
+                    <div class="text-muted fs-7 mb-2">${description}</div>
+                    <div class="d-flex flex-wrap text-muted fs-8 gap-3">
+                        <span><i class="bi bi-person"></i> ${meta}</span>
+                        ${tags ? `<span><i class="bi bi-tags"></i> ${tags}</span>` : ''}
+                        ${item.type ? `<span><i class="bi bi-file-earmark"></i> ${item.type.split('/').pop().toUpperCase()}</span>` : ''}
+                    </div>
+                </div>
+            `;
+        }
 
         container.insertAdjacentHTML('beforeend', element);
     });
@@ -164,6 +187,5 @@ updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount');
         `;
     }
 }
-
 
 </script>
