@@ -60,11 +60,11 @@
                                 </div>
                 
                                 <div class="mb-0 me-2">
-                                    <a href="#" class="fs-6 text-gray-800 text-hover-primary fw-bold">
-                                        {{ $item['Model']->title ?? 'Notification' }}
+                                    <a href="{{ $item['link'] ?? '#' }}" class="fs-6 text-gray-800 text-hover-primary fw-bold">
+                                        {{ $item['title'] ?? '' }}
                                     </a>
                                     <div class="text-gray-500 fs-7">
-                                        {{ $item['Model']->message ?? 'No message available' }}
+                                        {{ $item['message'] ?? '' }}
                                     </div>
                                 </div>
                 
