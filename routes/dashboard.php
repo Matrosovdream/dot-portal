@@ -30,6 +30,9 @@ Route::group([
     // Home dashboard
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
+    // Search
+    Route::get('search', [HomeController::class, 'globalSearchAjax'])->name('global.ajax');
+
     // Notifications
     Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
 
