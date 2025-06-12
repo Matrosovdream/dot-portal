@@ -33,6 +33,7 @@ Route::group([
 
     // Search
     Route::post('search', [SearchController::class, 'globalSearchAjax'])->name('search.global.ajax');
+    Route::get('search', [SearchController::class, 'globalSearchAjax'])->name('search.global.ajax');
 
     // Notifications
     Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
