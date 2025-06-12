@@ -54,6 +54,10 @@
             <!--begin::Navbar-->
             <div class="app-navbar flex-shrink-0">
 
+                <!--begin::Search-->
+                <x-topbar-search />
+                <!--end::Search-->
+
                 <!--begin::Notifications-->
                 <x-topbar-notifications />
                 <!--end::Notification-->
