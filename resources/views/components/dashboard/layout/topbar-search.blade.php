@@ -70,23 +70,22 @@
 
             <!--begin::Tab content-->
             <div class="tab-content" id="searchTabsContent" data-kt-search-element="results">
-                <!-- inside tab-content -->
-<div class="tab-pane fade show active" id="search-tab-documents" role="tabpanel">
-    <div id="documentsResults" class="scroll-y pe-3" style="max-height: 300px;"></div>
-    <div id="documentsShowAll" class="text-center mt-4"></div>
-</div>
 
-<div class="tab-pane fade" id="search-tab-drivers" role="tabpanel">
-    <div id="driversResults" class="scroll-y pe-3" style="max-height: 300px;"></div>
-    <div id="driversShowAll" class="text-center mt-4"></div>
-</div>
+                <div class="tab-pane fade show active" id="search-tab-documents" role="tabpanel">
+                    <div id="documentsResults" class="scroll-y pe-3" style="max-height: 300px;"></div>
+                    <div id="documentsShowAll" class="text-center mt-4"></div>
+                </div>
+
+                <div class="tab-pane fade" id="search-tab-drivers" role="tabpanel">
+                    <div id="driversResults" class="scroll-y pe-3" style="max-height: 300px;"></div>
+                    <div id="driversShowAll" class="text-center mt-4"></div>
+                </div>
 
 
-<div class="tab-pane fade" id="search-tab-vehicles" role="tabpanel">
-    <div id="vehiclesResults" class="scroll-y pe-3" style="max-height: 300px;"></div>
-    <div id="vehiclesShowAll" class="text-center mt-4"></div>
-</div>
-
+                <div class="tab-pane fade" id="search-tab-vehicles" role="tabpanel">
+                    <div id="vehiclesResults" class="scroll-y pe-3" style="max-height: 300px;"></div>
+                    <div id="vehiclesShowAll" class="text-center mt-4"></div>
+                </div>
 
             </div>
             <!--end::Tab content-->
@@ -99,115 +98,139 @@
 
 
 
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     const searchInput = document.querySelector('[data-kt-search-element="input"]');
+    const spinner = document.querySelector('[data-kt-search-element="spinner"]');
 
     searchInput.addEventListener('input', function () {
         const query = this.value.trim();
-        if (query.length < 2) return;
+        if (query.length < 2) {
+            resetAllTabs();
+            return;
+        }
+
+        spinner.classList.remove('d-none');
 
         axios.post('/dashboard/search', { q: query })
             .then(response => {
                 const data = response.data;
 
+                const isEmpty = (
+                    !data.documents?.items?.length &&
+                    !data.drivers?.items?.length &&
+                    !data.vehicles?.items?.length
+                );
+
+                if (isEmpty) {
+                    resetAllTabs();
+                    return;
+                }
+
                 updateTab(data.documents, 'documentsResults', 'documentsShowAll', 'documentsCount');
-updateTab(data.drivers, 'driversResults', 'driversShowAll', 'driversCount', 'drivers');
-updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount', 'vehicles');
-
-
+                updateTab(data.drivers, 'driversResults', 'driversShowAll', 'driversCount', 'drivers');
+                updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount', 'vehicles');
             })
             .catch(error => {
                 console.error('Search failed:', error);
+                resetAllTabs();
             })
             .finally(() => {
-                const spinner = document.querySelector('[data-kt-search-element="spinner"]');
                 spinner.classList.add('d-none');
             });
     });
 
+    function resetAllTabs() {
+        updateTab({ items: [], count: 0 }, 'documentsResults', 'documentsShowAll', 'documentsCount');
+        updateTab({ items: [], count: 0 }, 'driversResults', 'driversShowAll', 'driversCount');
+        updateTab({ items: [], count: 0 }, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount');
+    }
+
     function updateTab(section, containerId, showAllId, countId, type = 'default') {
-    const container = document.getElementById(containerId);
-    const showAll = document.getElementById(showAllId);
-    const countEl = document.getElementById(countId);
+        const container = document.getElementById(containerId);
+        const showAll = document.getElementById(showAllId);
+        const countEl = document.getElementById(countId);
 
-    container.innerHTML = '';
-    showAll.innerHTML = '';
-    if (countEl) {
-        countEl.innerText = `(${section?.count ?? 0})`;
-    }
+        container.innerHTML = '';
+        showAll.innerHTML = '';
 
-    if (!section || section.count === 0) {
-        container.innerHTML = '<div class="text-muted">No results found.</div>';
-        return;
-    }
+        const count = section?.count ?? 0;
+        const items = section?.items ?? [];
 
-    section.items.forEach(item => {
-        let element = '';
-
-        if (type === 'drivers') {
-            const user = item.user ?? {};
-            const fullname = `${user.firstname ?? ''} ${user.lastname ?? ''}`.trim() || 'Unnamed';
-            const dob = user.birthday ?? 'N/A';
-            const ssn = item.ssn ?? 'N/A';
-            const hireDate = item.hire_date ?? 'N/A';
-            const url = item.showUrl ?? '#';
-
-            element = `
-                <div class="mb-6">
-                    <a href="${url}" class="fs-5 fw-bold text-hover-primary d-block mb-1">${fullname}</a>
-                    <div class="d-flex flex-wrap text-muted fs-8 gap-4 mt-2">
-                        <span><i class="bi bi-calendar2-week"></i> DOB: ${dob}</span>
-                        <span><i class="bi bi-credit-card-2-front"></i> SSN: ${ssn}</span>
-                        <span><i class="bi bi-briefcase"></i> Hire Date: ${hireDate}</span>
-                    </div>
-                </div>
-            `;
-        } else if (type === 'vehicles') {
-    const vin = item.vin ?? 'N/A';
-    const number = item.number ?? 'N/A';
-    const url = item.showUrl ?? '#';
-
-    element = `
-        <div class="mb-6">
-            <a href="${url}" class="fs-5 fw-bold text-hover-primary d-block mb-1">
-                VIN: ${vin}
-            </a>
-            <div class="text-muted fs-8 mt-1">
-                <i class="bi bi-hash"></i> Number: ${number}
-            </div>
-        </div>
-    `;
-} else {
-            let title = item.title ?? item.filename ?? 'Untitled';
-            let description = item.description ?? item.desription ?? 'No description available.';
-            let url = item.showUrl ?? '#';
-            let tags = item.tags?.items?.map(t => t.name).join(', ') ?? '';
-            let meta = item.user?.company?.name ?? item.user?.fullname ?? 'Unknown';
-
-            element = `
-                <div class="mb-6">
-                    <a href="${url}" class="fs-5 fw-bold text-hover-primary d-block mb-1">${title}</a>
-                    <div class="text-muted fs-7 mb-2">${description}</div>
-                    <div class="d-flex flex-wrap text-muted fs-8 gap-3">
-                        <span><i class="bi bi-person"></i> ${meta}</span>
-                        ${tags ? `<span><i class="bi bi-tags"></i> ${tags}</span>` : ''}
-                        ${item.type ? `<span><i class="bi bi-file-earmark"></i> ${item.type.split('/').pop().toUpperCase()}</span>` : ''}
-                    </div>
-                </div>
-            `;
+        if (countEl) {
+            countEl.innerText = `(${count})`;
         }
 
-        container.insertAdjacentHTML('beforeend', element);
-    });
+        if (!items.length) {
+            container.innerHTML = '<div class="text-muted">No results found.</div>';
+            return;
+        }
 
-    if (section.count > 15) {
-        showAll.innerHTML = `
-            <a href="${section.url}" class="btn btn-sm btn-light-primary fw-semibold">
-                Show All
-            </a>
-        `;
+        items.forEach(item => {
+            let element = '';
+
+            if (type === 'drivers') {
+                const user = item.user ?? {};
+                const fullname = `${user.firstname ?? ''} ${user.lastname ?? ''}`.trim() || 'Unnamed';
+                const dob = user.birthday ?? 'N/A';
+                const ssn = item.ssn ?? 'N/A';
+                const hireDate = item.hire_date ?? 'N/A';
+                const url = item.showUrl ?? '#';
+
+                element = `
+                    <div class="mb-6">
+                        <a href="${url}" class="fs-5 fw-bold text-hover-primary d-block mb-1">${fullname}</a>
+                        <div class="d-flex flex-wrap text-muted fs-8 gap-4 mt-2">
+                            <span><i class="bi bi-calendar2-week"></i> DOB: ${dob}</span>
+                            <span><i class="bi bi-credit-card-2-front"></i> SSN: ${ssn}</span>
+                            <span><i class="bi bi-briefcase"></i> Hire Date: ${hireDate}</span>
+                        </div>
+                    </div>
+                `;
+            } else if (type === 'vehicles') {
+                const vin = item.vin ?? 'N/A';
+                const number = item.number ?? 'N/A';
+                const url = item.showUrl ?? '#';
+
+                element = `
+                    <div class="mb-6">
+                        <a href="${url}" class="fs-5 fw-bold text-hover-primary d-block mb-1">
+                            VIN: ${vin}
+                        </a>
+                        <div class="text-muted fs-8 mt-1">
+                            <i class="bi bi-hash"></i> Number: ${number}
+                        </div>
+                    </div>
+                `;
+            } else {
+                let title = item.title ?? item.filename ?? 'Untitled';
+                let description = item.description ?? item.desription ?? 'No description available.';
+                let url = item.showUrl ?? '#';
+                let tags = item.tags?.items?.map(t => t.name).join(', ') ?? '';
+                let meta = item.user?.company?.name ?? item.user?.fullname ?? 'Unknown';
+
+                element = `
+                    <div class="mb-6">
+                        <a href="${url}" class="fs-5 fw-bold text-hover-primary d-block mb-1">${title}</a>
+                        <div class="text-muted fs-7 mb-2">${description}</div>
+                        <div class="d-flex flex-wrap text-muted fs-8 gap-3">
+                            <span><i class="bi bi-person"></i> ${meta}</span>
+                            ${tags ? `<span><i class="bi bi-tags"></i> ${tags}</span>` : ''}
+                            ${item.type ? `<span><i class="bi bi-file-earmark"></i> ${item.type.split('/').pop().toUpperCase()}</span>` : ''}
+                        </div>
+                    </div>
+                `;
+            }
+
+            container.insertAdjacentHTML('beforeend', element);
+        });
+
+        if (count > 15) {
+            showAll.innerHTML = `
+                <a href="${section.url}" class="btn btn-sm btn-light-primary fw-semibold">
+                    Show All
+                </a>
+            `;
+        }
     }
-}
-
-
 </script>
