@@ -87,6 +87,7 @@
     <div id="vehiclesShowAll" class="text-center mt-4"></div>
 </div>
 
+
             </div>
             <!--end::Tab content-->
         </div>
@@ -111,7 +112,8 @@
 
                 updateTab(data.documents, 'documentsResults', 'documentsShowAll', 'documentsCount');
 updateTab(data.drivers, 'driversResults', 'driversShowAll', 'driversCount', 'drivers');
-updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount');
+updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount', 'vehicles');
+
 
             })
             .catch(error => {
@@ -156,7 +158,22 @@ updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount');
                     </div>
                 </div>
             `;
-        } else {
+        } else if (type === 'vehicles') {
+    const vin = item.vin ?? 'N/A';
+    const number = item.number ?? 'N/A';
+    const url = item.showUrl ?? '#';
+
+    element = `
+        <div class="mb-6">
+            <a href="${url}" class="fs-5 fw-bold text-hover-primary d-block mb-1">
+                VIN: ${vin}
+            </a>
+            <div class="text-muted fs-8 mt-1">
+                <i class="bi bi-hash"></i> Number: ${number}
+            </div>
+        </div>
+    `;
+} else {
             let title = item.title ?? item.filename ?? 'Untitled';
             let description = item.description ?? item.desription ?? 'No description available.';
             let url = item.showUrl ?? '#';
@@ -187,5 +204,6 @@ updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount');
         `;
     }
 }
+
 
 </script>
