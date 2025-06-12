@@ -119,19 +119,16 @@ class CompanyHelper {
 
         if ($dotNumber) {
             $apiData = $apiService->getInspectionHistory($dotNumber);
+            $apiRecords = $apiData['inspection_records'] ?? [];
         } else { return null; }
 
         if ( 
             empty($apiData['error']) &&
-            $apiData != null
+            !empty($apiRecords)
             ) { 
 
-            if( count( $apiData['inspection_records'] ) === 0 ) {
-                return null; // No inspection records found
-            }
-            
             $records = [];
-            foreach ($apiData['inspection_records'] as $record) {
+            foreach ($apiRecords as $record) {
 
                 $units = $record['units_inspected'] ?? [];
                 $unit = $units[0] ?? null;
