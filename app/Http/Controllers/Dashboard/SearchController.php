@@ -3,6 +3,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use App\Actions\Dashboard\SearchActions;
+use Illuminate\Http\Request;
 
 class SearchController extends Controller
 {
@@ -14,9 +15,14 @@ class SearchController extends Controller
         $this->searchActions = new SearchActions();
     }
     
-    public function index()
+    public function globalSearchAjax( Request $request )
     {
-        return view('dashboard.notifications.user', $this->searchActions->index());
+
+        $validated = $request->validate([
+            'q' => 'required|string|max:255',
+        ]);
+
+        return response()->json($this->searchActions->globalSearchAjax(  $validated ));
     }
 
 }

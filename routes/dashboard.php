@@ -20,6 +20,7 @@ use App\Http\Controllers\Dashboard\DocumentsController;
 use App\Http\Controllers\Dashboard\VehicleUserController;
 use App\Http\Controllers\Dashboard\InsuranceVehicleController;
 use App\Http\Controllers\Dashboard\ToDoController;
+use App\Http\Controllers\Dashboard\SearchController;
 
 Route::group([
     'prefix' => 'dashboard',
@@ -31,7 +32,7 @@ Route::group([
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     // Search
-    Route::get('search', [HomeController::class, 'globalSearchAjax'])->name('global.ajax');
+    Route::get('search', [SearchController::class, 'globalSearchAjax'])->name('global.ajax');
 
     // Notifications
     Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
