@@ -50,69 +50,42 @@
             <!--begin::Tabs-->
             <ul class="nav nav-tabs nav-line-tabs mb-5 fs-6" id="searchTabs" role="tablist">
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link active" id="tab-documents" data-bs-toggle="tab" href="#search-tab-documents" role="tab">Documents</a>
+                    <a class="nav-link active" id="tab-documents" data-bs-toggle="tab" href="#search-tab-documents" role="tab">
+                        Documents <span id="documentsCount" class="text-muted">(0)</span>
+                    </a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="tab-drivers" data-bs-toggle="tab" href="#search-tab-drivers" role="tab">Drivers</a>
+                    <a class="nav-link" id="tab-drivers" data-bs-toggle="tab" href="#search-tab-drivers" role="tab">
+                        Drivers <span id="driversCount" class="text-muted">(0)</span>
+                    </a>
                 </li>
                 <li class="nav-item" role="presentation">
-                    <a class="nav-link" id="tab-vehicles" data-bs-toggle="tab" href="#search-tab-vehicles" role="tab">Vehicles</a>
+                    <a class="nav-link" id="tab-vehicles" data-bs-toggle="tab" href="#search-tab-vehicles" role="tab">
+                        Vehicles <span id="vehiclesCount" class="text-muted">(0)</span>
+                    </a>
                 </li>
             </ul>
+            
             <!--end::Tabs-->
 
             <!--begin::Tab content-->
             <div class="tab-content" id="searchTabsContent" data-kt-search-element="results">
-                <div class="tab-pane fade show active" id="search-tab-documents" role="tabpanel">
-                    <div class="scroll-y pe-3" style="max-height: 300px;">
-                        <!-- Document Item -->
-                        <div class="mb-6">
-                            <a href="/documents/1" class="fs-5 fw-bold text-hover-primary d-block mb-1">Employee Onboarding Guide</a>
-                            <div class="text-muted fs-7 mb-2">A detailed document outlining the onboarding process for new employees in the organization.</div>
-                            <div class="d-flex flex-wrap text-muted fs-8 gap-3">
-                                <span><i class="bi bi-person"></i> HR Department</span>
-                                <span><i class="bi bi-calendar"></i> Jun 5, 2025</span>
-                                <span><i class="bi bi-file-earmark-text"></i> PDF</span>
-                            </div>
-                        </div>
-                
-                        <!-- Document Item -->
-                        <div class="mb-6">
-                            <a href="/documents/2" class="fs-5 fw-bold text-hover-primary d-block mb-1">Quarterly Marketing Report</a>
-                            <div class="text-muted fs-7 mb-2">Performance insights and analytics for Q2 2025 with visual charts and department goals.</div>
-                            <div class="d-flex flex-wrap text-muted fs-8 gap-3">
-                                <span><i class="bi bi-person"></i> Marketing Team</span>
-                                <span><i class="bi bi-calendar"></i> Jun 1, 2025</span>
-                                <span><i class="bi bi-file-earmark-bar-graph"></i> Excel</span>
-                            </div>
-                        </div>
-                
-                        <!-- Document Item -->
-                        <div class="mb-6">
-                            <a href="/documents/3" class="fs-5 fw-bold text-hover-primary d-block mb-1">IT Security Policy</a>
-                            <div class="text-muted fs-7 mb-2">An updated policy document outlining acceptable use and security protocols for all IT assets.</div>
-                            <div class="d-flex flex-wrap text-muted fs-8 gap-3">
-                                <span><i class="bi bi-person"></i> IT Dept</span>
-                                <span><i class="bi bi-calendar"></i> May 28, 2025</span>
-                                <span><i class="bi bi-shield-lock"></i> Word Doc</span>
-                            </div>
-                        </div>
-                    </div>
-                
-                    <!-- Show All Button -->
-                    <div class="text-center mt-4">
-                        <a href="/documents" class="btn btn-sm btn-light-primary fw-semibold">
-                            Show All Documents
-                        </a>
-                    </div>
-                </div>
-                
-                <div class="tab-pane fade text-center" id="search-tab-drivers" role="tabpanel">
-                    <p class="text-muted">No results</p>
-                </div>
-                <div class="tab-pane fade text-center  mt-4" id="search-tab-vehicles" role="tabpanel">
-                    <p class="text-muted">No results</p>
-                </div>
+                <!-- inside tab-content -->
+<div class="tab-pane fade show active" id="search-tab-documents" role="tabpanel">
+    <div id="documentsResults" class="scroll-y pe-3" style="max-height: 300px;"></div>
+    <div id="documentsShowAll" class="text-center mt-4"></div>
+</div>
+
+<div class="tab-pane fade" id="search-tab-drivers" role="tabpanel">
+    <div id="driversResults" class="scroll-y pe-3" style="max-height: 300px;"></div>
+    <div id="driversShowAll" class="text-center mt-4"></div>
+</div>
+
+<div class="tab-pane fade" id="search-tab-vehicles" role="tabpanel">
+    <div id="vehiclesResults" class="scroll-y pe-3" style="max-height: 300px;"></div>
+    <div id="vehiclesShowAll" class="text-center mt-4"></div>
+</div>
+
             </div>
             <!--end::Tab content-->
         </div>
@@ -121,3 +94,76 @@
     </div>
     <!--end::Menu-->
 </div>
+
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+    const searchInput = document.querySelector('[data-kt-search-element="input"]');
+
+    searchInput.addEventListener('input', function () {
+        const query = this.value.trim();
+        if (query.length < 2) return;
+
+        axios.post('/dashboard/search', { q: query })
+            .then(response => {
+                const data = response.data;
+
+                updateTab(data.documents, 'documentsResults', 'documentsShowAll', 'documentsCount');
+updateTab(data.drivers, 'driversResults', 'driversShowAll', 'driversCount');
+updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount');
+
+            })
+            .catch(error => {
+                console.error('Search failed:', error);
+            });
+    });
+
+    function updateTab(section, containerId, showAllId, countId) {
+    const container = document.getElementById(containerId);
+    const showAll = document.getElementById(showAllId);
+    const countEl = document.getElementById(countId);
+
+    container.innerHTML = '';
+    showAll.innerHTML = '';
+    if (countEl) {
+        countEl.innerText = `(${section?.count ?? 0})`;
+    }
+
+    if (!section || section.count === 0) {
+        container.innerHTML = '<div class="text-muted">No results found.</div>';
+        return;
+    }
+
+    section.items.forEach(item => {
+        let title = item.title ?? item.filename ?? 'Untitled';
+        let description = item.description ?? 'No description available.';
+        let url = item.showUrl ?? '#';
+        let tags = item.tags?.items?.map(t => t.name).join(', ') ?? '';
+        let meta = item.user?.company?.name ?? item.user?.fullname ?? '';
+
+        const element = `
+            <div class="mb-6">
+                <a href="${url}" class="fs-5 fw-bold text-hover-primary d-block mb-1">${title}</a>
+                <div class="text-muted fs-7 mb-2">${description}</div>
+                <div class="d-flex flex-wrap text-muted fs-8 gap-3">
+                    <span><i class="bi bi-person"></i> ${meta}</span>
+                    ${tags ? `<span><i class="bi bi-tags"></i> ${tags}</span>` : ''}
+                    ${item.type ? `<span><i class="bi bi-file-earmark"></i> ${item.type.split('/').pop().toUpperCase()}</span>` : ''}
+                </div>
+            </div>
+        `;
+
+        container.insertAdjacentHTML('beforeend', element);
+    });
+
+    if (section.count > 15) {
+        showAll.innerHTML = `
+            <a href="${section.url}" class="btn btn-sm btn-light-primary fw-semibold">
+                Show All
+            </a>
+        `;
+    }
+}
+
+
+</script>
