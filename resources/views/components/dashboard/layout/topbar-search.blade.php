@@ -98,7 +98,7 @@
 </div>
 
 
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 <script>
     const searchInput = document.querySelector('[data-kt-search-element="input"]');
 
@@ -118,6 +118,10 @@ updateTab(data.vehicles, 'vehiclesResults', 'vehiclesShowAll', 'vehiclesCount', 
             })
             .catch(error => {
                 console.error('Search failed:', error);
+            })
+            .finally(() => {
+                const spinner = document.querySelector('[data-kt-search-element="spinner"]');
+                spinner.classList.add('d-none');
             });
     });
 
