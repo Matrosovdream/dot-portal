@@ -25,9 +25,9 @@ class SearchActions {
         $results = [];
 
         $models = [
-            'vehicles' => ['repo' => $this->vehicleRepo, 'url' => 'dashboard.vehicles.index'],
-            'documents' => ['repo' => $this->fileRepo, 'url' => 'dashboard.documents.index'],
-            'drivers' => ['repo' => $this->driverRepo, 'url' => 'dashboard.drivers.index'],
+            'vehicles' => ['repo' => $this->vehicleRepo, 'url' => 'dashboard.vehicles.index', 'detail_url' => 'dashboard.vehicles.show'],
+            'documents' => ['repo' => $this->fileRepo, 'url' => 'dashboard.documents.index', 'detail_url' => 'dashboard.documents.show'],
+            'drivers' => ['repo' => $this->driverRepo, 'url' => 'dashboard.drivers.index', 'detail_url' => 'dashboard.drivers.show'],
         ];
 
         foreach ($models as $key => $modelData) {
@@ -36,6 +36,11 @@ class SearchActions {
 
             // We don't need model here
             unset($res['Model']);
+
+            // Loop through items and add detail links
+            foreach ($res['items'] as $item_key=>$item) {
+                //$res['items'][$item_key] = route($modelData['detail_url'], $item['id']);
+            }
 
             $results[$key] = $res;
             $results[$key]['count'] = $count;
