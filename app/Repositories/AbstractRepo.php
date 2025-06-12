@@ -105,11 +105,11 @@ abstract class AbstractRepo
         $item->delete();
     }
 
-    public function modelSearch( $query, $map=true ) {
+    public function modelSearch( $query, $map=true, $paginate = 20 ) {
 
         // Validate the query because we depend on the Scout package
         try {
-            $items = $this->model::search($query)->get();
+            $items = $this->model::search($query)->paginate($paginate);
         } catch (\Exception $e) {
             Log::error('Search error: '.$e->getMessage());
 
