@@ -14,6 +14,10 @@
 
         <link href="https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700" rel="stylesheet"/>
 
+        <script>
+            axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').content;
+        </script>
+
         @php /*
         @vite(
             [

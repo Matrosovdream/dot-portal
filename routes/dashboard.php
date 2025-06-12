@@ -32,7 +32,7 @@ Route::group([
     Route::get('/', [HomeController::class, 'index'])->name('home');
 
     // Search
-    Route::get('search', [SearchController::class, 'globalSearchAjax'])->name('global.ajax');
+    Route::post('search', [SearchController::class, 'globalSearchAjax'])->name('search.global.ajax');
 
     // Notifications
     Route::get('notifications', [NotificationsController::class, 'index'])->name('notifications');
