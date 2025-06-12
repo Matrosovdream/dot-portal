@@ -126,8 +126,11 @@ class CompanyHelper {
             $apiData != null
             ) { 
 
-            $records = [];
+            if( count( $apiData['inspection_records'] ) === 0 ) {
+                return null; // No inspection records found
+            }
             
+            $records = [];
             foreach ($apiData['inspection_records'] as $record) {
 
                 $units = $record['units_inspected'] ?? [];
