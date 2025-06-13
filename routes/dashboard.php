@@ -245,9 +245,12 @@ Route::group([
             Route::post('insurance', [VehicleUserController::class, 'updateInsurance'])->name('insurance.update');
             // Inspections
             Route::get('inspections', [VehicleUserController::class, 'inspections'])->name('inspections');
-            Route::post('inspections', [VehicleUserController::class, 'storeInspection'])->name('inspections.store');
-            Route::post('inspections/{inspection_id}', [VehicleUserController::class, 'updateInspection'])->name('inspections.update');
-            Route::delete('inspections/{inspection_id}', [VehicleUserController::class, 'destroyInspection'])->name('inspections.destroy');
+            //Route::post('inspections', [VehicleUserController::class, 'storeInspection'])->name('inspections.store');
+            //Route::post('inspections/{inspection_id}', [VehicleUserController::class, 'updateInspection'])->name('inspections.update');
+            //Route::delete('inspections/{inspection_id}', [VehicleUserController::class, 'destroyInspection'])->name('inspections.destroy');
+
+            // Crashes
+            Route::get('crashes', [VehicleUserController::class, 'crashes'])->name('crashes');
 
             // Driver history
             Route::get('driver-history', [VehicleUserController::class, 'driverHistory'])->name('driverhistory');
