@@ -14,6 +14,7 @@ use App\Repositories\Insurance\InsuranceVehicleRepo;
 use App\Repositories\Vehicle\VehicleInspectionRepo;
 use App\Repositories\Vehicle\VehicleInsuranceRepo;
 use App\Repositories\Vehicle\VehicleInspectionsSaferwebRepo;
+use App\Repositories\Vehicle\VehicleCrashesSaferwebRepo;
 
 
 
@@ -36,6 +37,7 @@ class VehicleRepo extends AbstractRepo
     protected $driverHistoryRepo;
     protected $vehicleInsuranceRepo;
     protected $inspectionsSaferwebRepo;
+    protected $crashesSaferwebRepo;
 
     public function __construct()
     {
@@ -50,6 +52,7 @@ class VehicleRepo extends AbstractRepo
         $this->driverHistoryRepo = new VehicleDriverHistoryRepo();
         $this->vehicleInsuranceRepo = new VehicleInsuranceRepo();
         $this->inspectionsSaferwebRepo = new VehicleInspectionsSaferwebRepo();
+        $this->crashesSaferwebRepo = new VehicleCrashesSaferwebRepo();
 
         // References
         $this->refVehicleUnitTypeRepo = new RefVehicleUnitTypeRepo();
@@ -153,8 +156,20 @@ class VehicleRepo extends AbstractRepo
             return [];
         }
 
-        $inspections = $this->inspectionsSaferwebRepo->getAll(['unit_vin' => $vehicle['vin']], $paginate);
-        return $inspections;
+        $res = $this->inspectionsSaferwebRepo->getAll(['unit_vin' => $vehicle['vin']], $paginate);
+        return $res;
+
+    }
+
+    public function getCrashes( $vehicle_id, $paginate=10 ) {
+
+        $vehicle = $this->getByID($vehicle_id);
+        if( empty($vehicle) ) {
+            return [];
+        }
+
+        $res = $this->crashesSaferwebRepo->getAll(['unit_vin' => $vehicle['vin']], $paginate);
+        return $res;
 
     }
 
