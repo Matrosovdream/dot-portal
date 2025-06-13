@@ -78,10 +78,11 @@ class CompanyHelper {
 
                 $vehicle = $vehicleRepo->getByVIN($record['vehicle']['vin'] ?? null);
 
-                if ( !$vehicle ) { continue; }
+                //if ( !$vehicle ) { continue; }
 
                 $mappedData = [
                     'vehicle_id' => $vehicle['id'],
+                    'unit_vin' => $record['vehicle']['vin'] ?? null,
                     'report_date' => isset($record['report_date']) ? \Carbon\Carbon::parse($record['report_date'])->format('Y-m-d'): null,
                     'report_number' => $record['report_number'] ?? null,
                     'report_sequence_number' => $record['report_sequence_number'] ?? null,
