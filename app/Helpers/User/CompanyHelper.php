@@ -81,7 +81,7 @@ class CompanyHelper {
                 //if ( !$vehicle ) { continue; }
 
                 $mappedData = [
-                    'vehicle_id' => $vehicle['id'],
+                    'vehicle_id' => $vehicle['id'] ?? null,
                     'unit_vin' => $record['vehicle']['vin'] ?? null,
                     'report_date' => isset($record['report_date']) ? \Carbon\Carbon::parse($record['report_date'])->format('Y-m-d'): null,
                     'report_number' => $record['report_number'] ?? null,
