@@ -11,6 +11,7 @@ class VehicleCrashSaferweb extends Model
 
     protected $fillable = [
         'vehicle_id',
+        'unit_vin',
         'report_date',
         'report_number',
         'report_sequence_number',
