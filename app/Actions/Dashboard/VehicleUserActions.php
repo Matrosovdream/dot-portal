@@ -150,13 +150,26 @@ class VehicleUserActions
     {
 
         $vehicle = $this->vehicleRepo->getByID($vehicle_id);
-        $inspections = $this->vehicleRepo->getInspections($vehicle_id);
 
         return [
             'title' => 'Vehicle inspections',
             'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
-            'vehicle' => $vehicle,
-            'inspections' => $inspections,
+            'vehicle' => $this->vehicleRepo->getByID($vehicle_id),
+            'inspections' => $this->vehicleRepo->getInspections($vehicle_id),
+        ];
+
+    }
+
+    public function crashes($vehicle_id)
+    {
+
+        $vehicle = $this->vehicleRepo->getByID($vehicle_id);
+
+        return [
+            'title' => 'Vehicle crashes',
+            'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
+            'vehicle' => $this->vehicleRepo->getByID($vehicle_id),
+            'crashes' => $this->vehicleRepo->getCrashes($vehicle_id),
         ];
 
     }
