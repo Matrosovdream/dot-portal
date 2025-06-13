@@ -15,13 +15,15 @@
 
                 <div id="kt_ecommerce_add_product_options">
 
-                    @include('dashboard.vehicles.partials.inspections-table', ['inspections' => $vehicle['inspections']['items']])
+                    @include('dashboard.vehicles.partials.inspections-table', ['inspections' => $inspections['items']])
 
+                    <!--
                     <div class="form-group mt-5">
                         <button type="button" data-bs-toggle="modal"
                             data-bs-target="#kt_modal_product_form_field_general" class="btn btn-sm btn-light-primary">
                             <i class="ki-duotone ki-plus fs-2"></i>Add another inspection</button>
                     </div>
+                    -->
 
                 </div>
 
