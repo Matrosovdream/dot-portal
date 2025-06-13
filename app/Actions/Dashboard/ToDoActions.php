@@ -24,7 +24,7 @@ class ToDoActions {
         $taskHelper = new CompanyHelper();
         $safer = new SaferwebAPI();
 
-        if( request()->has('update_snapshop')) {
+        if( request()->has('update_snapshot')) {
             $safer = $taskHelper->updateSnapshot(1);
             dd($safer);
         } 
