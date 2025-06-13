@@ -151,11 +151,12 @@ class VehicleUserActions
 
         $vehicle = $this->vehicleRepo->getByID($vehicle_id);
         $inspections = $this->vehicleRepo->getInspections($vehicle_id);
-dd($inspections);
+
         return [
             'title' => 'Vehicle inspections',
             'validation' => $this->vehicleValidation->setData($vehicle)->validateAll(),
-            'vehicle' => $vehicle
+            'vehicle' => $vehicle,
+            'inspections' => $inspections,
         ];
 
     }
