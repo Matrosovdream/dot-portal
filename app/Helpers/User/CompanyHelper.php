@@ -65,16 +65,16 @@ class CompanyHelper {
 
         if ($dotNumber) {
             $apiData = $apiService->getCrashHistory($dotNumber);
+            $apiRecords = $apiData['crash_records'] ?? [];
         } else { return null; }
 
         if ( 
             empty($apiData['error']) &&
-            $apiData != null
+            !empty($apiRecords)
             ) { 
 
             $records = [];
-            
-            foreach ($apiData['crash_records'] as $record) {
+            foreach ($apiRecords as $record) {
 
                 $vehicle = $vehicleRepo->getByVIN($record['vehicle']['vin'] ?? null);
 
