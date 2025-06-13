@@ -26,6 +26,11 @@
             'url' => route('dashboard.vehicles.show.inspections', $vehicle['id']),
             'alert' => $validation['errors']['inspections'] ?? null,
         ],
+        'crashes' => [
+            'title' => 'Crashes',
+            'url' => route('dashboard.vehicles.show.crashes', $vehicle['id']),
+            'alert' => $validation['errors']['crashes'] ?? null,
+        ],
         'driverhistory' => [
             'title' => 'Drivers history',
             'url' => route('dashboard.vehicles.show.driverhistory', $vehicle['id']),
