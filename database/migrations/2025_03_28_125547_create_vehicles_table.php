@@ -88,7 +88,8 @@ return new class extends Migration
         // Vehicle crashes from Saferweb API
         Schema::create('vehicle_crashes_saferweb', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vehicle_id')->on('vehicles');
+            $table->foreignId('vehicle_id')->on('vehicles')->nullable();
+            $table->string('unit_vin')->nullable();
             $table->date('report_date')->nullable();
             $table->string('report_number')->nullable();
             $table->string('report_sequence_number')->nullable();
@@ -103,7 +104,8 @@ return new class extends Migration
         // Vehicle inspections from Saferweb API
         Schema::create('vehicle_inspections_saferweb', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('vehicle_id')->on('vehicles');
+            $table->foreignId('vehicle_id')->on('vehicles')->nullable();
+            $table->string('unit_vin')->nullable();
             $table->integer('unique_id')->nullable();
             $table->date('report_date')->nullable();
             $table->string('report_number')->nullable();
