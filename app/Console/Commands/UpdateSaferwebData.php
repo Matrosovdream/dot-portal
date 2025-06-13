@@ -6,6 +6,7 @@ use Illuminate\Console\Command;
 use App\Mixins\Integrations\SaferwebAPI;
 use App\Jobs\Saferweb\UpdateCompanySnapshot;
 use App\Jobs\Saferweb\UpdateCompanyInspections;
+use App\Jobs\Saferweb\UpdateCompanyCrashes;
 use App\Repositories\User\UserRepo;
 
 
@@ -44,6 +45,10 @@ class UpdateSaferwebData extends Command
             // Company Inspections
             UpdateCompanyInspections::dispatch($companyId)
                 ->delay(now()->addSeconds($delay));   
+
+            // Company Crashes
+            UpdateCompanyCrashes::dispatch($companyId)
+                ->delay(now()->addSeconds($delay));    
 
         }
 
