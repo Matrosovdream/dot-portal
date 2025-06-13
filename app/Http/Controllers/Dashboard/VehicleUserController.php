@@ -103,6 +103,14 @@ class VehicleUserController extends Controller
         );
     }
 
+    public function crashes($vehicle_id)
+    {
+        return view(
+            'dashboard.vehicles.show', 
+            $this->vehicleUserActions->crashes($vehicle_id)
+        );
+    }
+
     public function storeInspection($driver_id, Request $request)
     {
         $validated = $request->validate([
