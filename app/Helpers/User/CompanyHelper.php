@@ -118,7 +118,7 @@ class CompanyHelper {
         $dotNumber = $company['dot_number'] ?? null;
 
         if ($dotNumber) {
-            $apiData = $apiService->getInspectionHistory($dotNumber);
+            $apiData = $apiService->getInspectionHistory($dotNumber); 
             $apiRecords = $apiData['inspection_records'] ?? [];
         } else { return null; }
 
@@ -136,10 +136,11 @@ class CompanyHelper {
 
                 $vehicle = $vehicleRepo->getByVIN($unit['unit_vin'] ?? null);
 
-                if ( !$vehicle ) { continue; }
+                //if ( !$vehicle ) { continue; }
 
                 $mappedData = [
-                    'vehicle_id' => $vehicle['id'],
+                    'vehicle_id' => $vehicle['id'] ?? null,
+                    'unit_vin' => $unit['unit_vin'] ?? null,
                     'unique_id' => $record['unique_id'] ?? null,
                     'report_date' => isset($record['inspection_date']) ? \Carbon\Carbon::parse($record['inspection_date'])->format('Y-m-d'): null,
                     'report_number' => $record['report_number'] ?? null,
