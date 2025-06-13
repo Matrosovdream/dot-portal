@@ -55,7 +55,7 @@ class VehicleInspectionsSaferwebRepo extends AbstractRepo
             'inspection_level' => $item->inspection_level,
             'report_state' => $item->report_state,
             'report_state_id' => $item->report_state_id,
-            'api_data' => $item->api_data,
+            'api_data' => json_decode( $item->api_data, true ),
             'Model' => $item
 
         ];
