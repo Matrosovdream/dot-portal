@@ -11,6 +11,7 @@ class VehicleInspectionSaferweb extends Model
 
     protected $fillable = [
         'vehicle_id',
+        'unit_vin',
         'unique_id',
         'report_date',
         'report_number',
