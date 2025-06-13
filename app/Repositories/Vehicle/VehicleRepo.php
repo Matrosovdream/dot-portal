@@ -13,6 +13,7 @@ use App\Mixins\File\FileStorage;
 use App\Repositories\Insurance\InsuranceVehicleRepo;
 use App\Repositories\Vehicle\VehicleInspectionRepo;
 use App\Repositories\Vehicle\VehicleInsuranceRepo;
+use App\Repositories\Vehicle\VehicleInspectionsSaferwebRepo;
 
 
 
@@ -34,6 +35,7 @@ class VehicleRepo extends AbstractRepo
     protected $inspectionRepo;
     protected $driverHistoryRepo;
     protected $vehicleInsuranceRepo;
+    protected $inspectionsSaferwebRepo;
 
     public function __construct()
     {
@@ -47,6 +49,7 @@ class VehicleRepo extends AbstractRepo
         $this->inspectionRepo = new VehicleInspectionRepo();
         $this->driverHistoryRepo = new VehicleDriverHistoryRepo();
         $this->vehicleInsuranceRepo = new VehicleInsuranceRepo();
+        $this->inspectionsSaferwebRepo = new VehicleInspectionsSaferwebRepo();
 
         // References
         $this->refVehicleUnitTypeRepo = new RefVehicleUnitTypeRepo();
@@ -143,6 +146,18 @@ class VehicleRepo extends AbstractRepo
 
     }
 
+    public function getInspections( $vehicle_id, $paginate=10 ) {
+
+        $vehicle = $this->getByID($vehicle_id);
+        if( empty($vehicle) ) {
+            return [];
+        }
+
+        $inspections = $this->inspectionsSaferwebRepo->getAll(['unit_vin' => $vehicle['vin']], $paginate);
+        return $inspections;
+
+    }
+
     public function addInspection( $vehicle_id, $request, $files=[] ) {
 
         $request['vehicle_id'] = $vehicle_id;
@@ -232,7 +247,7 @@ class VehicleRepo extends AbstractRepo
             'inspectionExpireDate' => $item->inspection_expire_date,
             'profilePhoto' => $this->fileRepo->mapItem( $item['profilePhoto'] ),
             'mvr' => $this->mvrRepo->mapItem( $item->mvr ),
-            'inspections' => $this->inspectionRepo->mapItems( $item->inspections ),
+            //'inspections' => $this->inspectionRepo->mapItems( $item->inspections ),
             'driverHistory' => $this->driverHistoryRepo->mapItems( $item->driverHistory ),
             'insurance' => $this->insuranceRepo->getById($insurance_id),
             'Model' => $item
