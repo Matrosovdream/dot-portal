@@ -2,43 +2,59 @@
 
 namespace App\Observers;
 
-use App\Models\User;
+use App\Models\Vehicle;
+use App\Repositories\User\UserRepo;
+
 
 class VehicleObserver
 {
 
-    public function __construct()
+    public function __construct(
+        protected UserRepo $userRepo
+    )
     {
 
     }
 
 
-    public function created(User $user): void
+    public function created( Vehicle $vehicle ): void
     {
 
         
     }
 
 
-    public function updated(User $user): void
+    public function updated(Vehicle $vehicle): void
+    {
+        $this->updateSaferwebData($vehicle);
+    }
+
+
+    public function deleted( Vehicle $vehicle ): void
     {
         //
     }
 
-
-    public function deleted(User $user): void
+    private function updateSaferwebData( Vehicle $vehicle ): void
     {
-        //
+
+        /*
+        $userData = $this->userRepo->getByID($user->id);
+        dd($userData['Model']->company->id ?? null);
+
+        $companyId = $user->company->id ?? null;
+        if( !$companyId ) { return; }
+            dd($companyId);
+        
+        // Company Inspections
+        UpdateCompanyInspections::dispatch($companyId)
+            ->delay(now()->addSeconds($delay));   
+
+        // Company Crashes
+        UpdateCompanyCrashes::dispatch($companyId)
+            ->delay(now()->addSeconds($delay));    
+        */    
+
     }
 
-
-    public function restored(User $user): void
-    {
-        //
-    }
-
-    public function forceDeleted(User $user): void
-    {
-        //
-    }
 }
