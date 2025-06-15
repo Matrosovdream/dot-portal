@@ -225,12 +225,12 @@
             container.insertAdjacentHTML('beforeend', element);
         });
 
-        if (count > 15) {
+        //if (count > 15) {
             showAll.innerHTML = `
                 <a href="${section.url}" class="btn btn-sm btn-light-primary fw-semibold">
                     Show All
                 </a>
             `;
-        }
+        //}
     }
 </script>
