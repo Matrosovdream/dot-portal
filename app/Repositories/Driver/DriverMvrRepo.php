@@ -1,5 +1,5 @@
 <?php
-namespace App\Repositories\Vehicle;
+namespace App\Repositories\Driver;
 
 use App\Repositories\AbstractRepo;
 use App\Models\DriverMvr;
