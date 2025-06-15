@@ -5,15 +5,47 @@
             <h3 class="fw-bold m-0">MVR</h3>
         </div>
 
+        <a href="{{ route('dashboard.drivers.show.mvr', $driver['id']) }}" class="btn btn-sm btn-primary align-self-center">Edit MVR</a>
+
     </div>
 
     <div class="card-body p-9">
 
         <div class="row mb-7">
-            <label class="col-lg-4 fw-semibold text-muted">Field</label>
+            <label class="col-lg-4 fw-semibold text-muted">Number</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
-                    -
+                    {{ $driver['mvr']['mvr_number'] ?? '-' }}
+                </span>
+            </div>
+        </div>
+
+        <div class="row mb-7">
+            <label class="col-lg-4 fw-semibold text-muted">MVR date</label>
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">
+                    {{ dateFormat( $driver['mvr']['mvr_date'] ?? null ) ?? '-' }}
+                </span>
+            </div>
+        </div>
+
+        <div class="row mb-7">
+            <label class="col-lg-4 fw-semibold text-muted">Uploaded document</label>
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">
+
+                    @php
+                    $file = $driver['mvr']['file'] ?? null;
+                    @endphp
+
+                    @if( $file )
+                        <a href="{{ $file['downloadUrl'] }}">
+                            Download ({{ $file['title'] }})
+                        </a>
+                    @else
+                        -
+                    @endif
+                    
                 </span>
             </div>
         </div>

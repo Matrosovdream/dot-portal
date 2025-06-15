@@ -22,9 +22,9 @@
 
             @include('dashboard.drivers.sections.overview-drugtest')
 
-            @php /*
             @include('dashboard.drivers.sections.overview-mvr')
 
+            @php /*
             @include('dashboard.drivers.sections.overview-clearing')
             */ @endphp
 
@@ -70,6 +70,14 @@
 
         <div id="kt_account_settings_profile_details" class="collapse show">
             @include('dashboard.drivers.sections.drugtest')
+        </div>
+
+    @endif
+
+    @if( request()->routeIs('dashboard.drivers.show.mvr') )
+
+        <div id="kt_account_settings_profile_details" class="collapse show">
+            @include('dashboard.drivers.sections.mvr')
         </div>
 
     @endif

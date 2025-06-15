@@ -31,6 +31,11 @@
             'url' => route('dashboard.drivers.show.drugtest', $driver['id']),
             'alert' => $validation['errors']['drugTest'] ?? null,
         ],
+        'mvr' => [
+            'title' => 'MVR',
+            'url' => route('dashboard.drivers.show.mvr', $driver['id']),
+            'alert' => $validation['errors']['mvr'] ?? null,
+        ],
         /*'logs' => [
             'title' => 'Logs',
             'url' => route('dashboard.drivers.show.logs', $driver['id']),
