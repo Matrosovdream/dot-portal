@@ -392,6 +392,37 @@ class DriverUserActions {
         
     }
 
+    public function mvr($driver_id)
+    {
+
+        $driver = $this->driverRepo->getByID($driver_id);
+
+        return [
+            'title' => 'Driver MVR',
+            'driver' => $driver,
+            'validation' => $this->driverValidation->setData($driver)->validateAll()
+        ];
+
+    }
+
+    public function updateMvr($driver_id, $request)
+    {
+
+        if( isset( $request['mvr_document_remove'] ) ) {
+            // Remove MVR document
+            $this->driverRepo->removeMvrDocument($driver_id);
+        }
+
+        return $this->driverRepo->updateMvr(
+            $driver_id,
+            $request,
+            $files = [
+                'mvr' => "mvr_document"
+            ]
+        );
+
+    }
+
     public function terminateDriver($driver_id)
     {
         return $this->driverHelper->terminate($driver_id);
