@@ -16,9 +16,11 @@
             @include('dashboard.vehicles.sections.overview-vehicle')
         </div>
 
+        @php /*
         <div id="kt_account_settings_profile_details" class="collapse show">
             @include('dashboard.vehicles.sections.overview-mvr')
         </div>
+        */ @endphp
 
         <div id="kt_account_settings_profile_details" class="collapse show">
             @include('dashboard.vehicles.sections.overview-insurance')

@@ -11,11 +11,11 @@
             'url' => route('dashboard.vehicles.show.profile', $vehicle['id']),
             'alert' => $validation['errors']['general'] ?? null,
         ],
-        'mvr' => [
+        /*'mvr' => [
             'title' => 'MVR',
             'url' => route('dashboard.vehicles.show.mvr', $vehicle['id']),
             'alert' => $validation['errors']['mvr'] ?? null,
-        ],
+        ],*/
         'insurance' => [
             'title' => 'Insurance',
             'url' => route('dashboard.vehicles.show.insurance', $vehicle['id']),
