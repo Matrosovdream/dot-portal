@@ -93,4 +93,9 @@ class Driver extends Model
         return $this->hasOne(DriverDrugTest::class);
     }
 
+    public function mvr()
+    {
+        return $this->hasMany(DriverMvr::class);
+    }
+
 }
