@@ -175,7 +175,7 @@
                 const dob = user.birthday ?? 'N/A';
                 const ssn = item.ssn ?? 'N/A';
                 const hireDate = item.hire_date ?? 'N/A';
-                const url = item.showUrl ?? '#';
+                const url = '/dashboard/my-drivers/' + item.id;
 
                 element = `
                     <div class="mb-6">
@@ -190,7 +190,7 @@
             } else if (type === 'vehicles') {
                 const vin = item.vin ?? 'N/A';
                 const number = item.number ?? 'N/A';
-                const url = item.showUrl ?? '#';
+                const url = '/dashboard/vehicles/' + item.id;
 
                 element = `
                     <div class="mb-6">
