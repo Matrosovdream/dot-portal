@@ -67,6 +67,8 @@ Route::group([
             Route::post('medical-card', [DriverController::class, 'updateMedicalCard'])->name('medicalcard.update');
             Route::get('drugtest', [DriverController::class, 'drugtest'])->name('drugtest');
             Route::post('drugtest', [DriverController::class, 'updateDrugtest'])->name('drugtest.update');
+            Route::get('mvr', [DriverController::class, 'mvr'])->name('mvr');
+            Route::post('mvr', [DriverController::class, 'updateMvr'])->name('mvr.update');
             Route::get('logs', [DriverController::class, 'logs'])->name('logs');
         });
     });
@@ -238,8 +240,8 @@ Route::group([
             Route::get('profile', [VehicleUserController::class, 'profile'])->name('profile');
             Route::post('profile', [VehicleUserController::class, 'updateProfile'])->name('profile.update');
             // MVR
-            Route::get('mvr', [VehicleUserController::class, 'mvr'])->name('mvr');
-            Route::post('mvr', [VehicleUserController::class, 'updateMvr'])->name('mvr.update');
+            //Route::get('mvr', [VehicleUserController::class, 'mvr'])->name('mvr');
+            //Route::post('mvr', [VehicleUserController::class, 'updateMvr'])->name('mvr.update');
             // Insurance
             Route::get('insurance', [VehicleUserController::class, 'insurance'])->name('insurance');
             Route::post('insurance', [VehicleUserController::class, 'updateInsurance'])->name('insurance.update');
