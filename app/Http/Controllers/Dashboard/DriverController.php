@@ -227,6 +227,26 @@ class DriverController extends Controller
         return redirect()->back()->with('success', 'License updated successfully');
     }
 
+    public function mvr($driver_id)
+    {
+        return view(
+            'dashboard.drivers.show', 
+            $this->driverUserActions->mvr($driver_id)
+        );
+    }
+
+    public function updateMvr($driver_id, Request $request)
+    {
+        $validated = $request->validate([
+            'mvr_number' => 'required',
+            'mvr_date' => 'required|date',
+            '*_remove' => 'nullable'
+        ]);
+
+        $data = $this->driverUserActions->updateMvr($driver_id, $validated);
+        return redirect()->back()->with('success', 'Vehicle updated successfully');
+    }
+
     public function terminateDriver($driver_id)
     {
         $this->driverUserActions->terminateDriver($driver_id);
