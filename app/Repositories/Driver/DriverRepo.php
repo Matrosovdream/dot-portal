@@ -9,6 +9,7 @@ use App\Repositories\Driver\DriverAddressRepo;
 use App\Repositories\Driver\DriverLicenseRepo;
 use App\Repositories\Driver\DriverMedicalCardRepo;
 use App\Repositories\Driver\DriverDrugTestRepo;
+use App\Repositories\Driver\DriverMvrRepo;
 use App\Repositories\User\UserRepo;
 use App\Repositories\File\FileRepo;
 use App\Mixins\File\FileStorage;
@@ -25,6 +26,7 @@ class DriverRepo extends AbstractRepo
     protected $medicalCardRepo;
     protected $fileRepo;
     protected $drugTestRepo;
+    protected $mvrRepo;
     protected $fileStorage;
 
     protected $fields = [];
@@ -56,6 +58,7 @@ class DriverRepo extends AbstractRepo
         $this->licenseRepo = new DriverLicenseRepo();
         $this->medicalCardRepo = new DriverMedicalCardRepo();
         $this->drugTestRepo = new DriverDrugTestRepo();
+        $this->mvrRepo = new DriverMvrRepo();
         
     }
 
@@ -237,6 +240,56 @@ class DriverRepo extends AbstractRepo
         return $this->mapItem($driver['Model']->fresh());
     }
 
+    public function updateMvr($driver_id, $request, $files=[])
+    {
+
+        $driver = $this->getByID($driver_id);
+
+        if( isset($driver['mvr']) ) {
+            $this->mvrRepo->update( $driver['mvr']['id'], $request );
+        } else {
+            $request['driver_id'] = $driver_id;
+            $this->mvrRepo->create( $request );
+        }
+
+        $driver = $this->getByID($driver_id);
+
+        // Upload files
+        if( isset($files['mvr']) ) {
+            
+            $tags = ['Drive MVR', 'Driver MVR #' . $driver_id];
+
+            $file = $this->fileStorage->uploadFile(
+                $files['mvr'], 
+                'drivers/' . $driver_id . '/mvr',
+                'local',
+                ['tags' => $tags]
+            );
+
+            if( isset($file['file']['id']) ) {
+                $this->mvrRepo->update( $driver['mvr']['id'], ['file_id' => $file['file']['id']]);
+            }
+
+        }
+
+        return $driver['mvr'];
+
+    }
+
+    public function removeMvrDocument( $drive_id ) {
+
+        $driver = $this->getByID($drive_id);
+
+        if( isset($driver['mvr']) && isset($driver['mvr']['file_id']) ) {
+            $this->fileRepo->delete( $driver['mvr']['file_id'] );
+            $this->mvrRepo->update( $driver['mvr']['id'], ['file_id' => null] );
+        }
+
+        return true;
+
+    }
+
+
     public function mapItem($item)
     {
 
@@ -277,6 +330,7 @@ class DriverRepo extends AbstractRepo
             'license' => $this->licenseRepo->mapItem( $item['license'] ),
             'medicalCard' => $this->medicalCardRepo->mapItem( $item['medicalCard'] ),
             'drugTest' => $this->drugTestRepo->mapItem( $item['drugTest'] ),
+            'mvr' => $this->mvrRepo->mapItem( $item->mvr ),
             'profilePhoto' => $this->fileRepo->mapItem( $item['profilePhoto'] )
         ];
 
