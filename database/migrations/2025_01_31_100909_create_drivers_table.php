@@ -80,6 +80,17 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // MVR
+        Schema::create('driver_mvr', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('driver_id')->on('drivers');
+            $table->string('mvr_number')->nullable();
+            $table->date('mvr_date')->nullable();
+            $table->foreignId('file_id')->on('files')->nullable();
+            $table->timestamps();
+        });
+
+
         Schema::create('driver_meta', function (Blueprint $table) {
             $table->id();
             $table->foreignId('item_id')->on('services');
@@ -135,6 +146,7 @@ return new class extends Migration
         Schema::dropIfExists('driver_address');
         Schema::dropIfExists('driver_medical_card');
         Schema::dropIfExists('driver_drug_test');
+        Schema::dropIfExists('driver_mvr');
         Schema::dropIfExists('driver_meta');
         Schema::dropIfExists('driver_history');
         Schema::dropIfExists('ref_driver_type');
