@@ -9,7 +9,8 @@
             <div class="table-responsive">
 
                 @if(count($tasks['items']) == 0)
-                        <h4>No tasks found</h4>
+                    <div class="text-center mt-10">
+                        <h4>No requests found</h4>
                     </div>
                 @else
 
