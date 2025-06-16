@@ -25,6 +25,22 @@ class ToDoController extends Controller
 
     }
 
+    public function company( Request $request )
+    {
+        return view(
+            'dashboard.todo.index', 
+            $this->todoActions->company()
+        );
+    }
+
+    public function driver( Request $request )
+    {
+        return view(
+            'dashboard.todo.index', 
+            $this->todoActions->driver()
+        );
+    }
+
     public function show( $task_id )
     {
         return view(
