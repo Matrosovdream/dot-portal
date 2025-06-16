@@ -62,12 +62,25 @@
 
                                 <tr>
                                     <td>
-                                        <a href="{{ route('dashboard.drivers.show', $driver['id']) }}"
-                                            class="text-gray-800 text-hover-primary fs-5 fw-bold"
-                                            data-kt-ecommerce-product-filter="product_name">
-                                            {{ $driver['user']['firstname'] ?? '' }}
-                                            {{ $driver['user']['lastname'] ?? '' }}
-                                        </a>
+                                        <span class="d-inline-flex align-items-center">
+                                            <a href="{{ route('dashboard.drivers.show', $driver['id']) }}"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold me-1"
+                                                data-kt-ecommerce-product-filter="product_name">
+                                                {{ $driver['user']['firstname'] ?? '' }}
+                                                {{ $driver['user']['lastname'] ?? '' }}
+                                            </a>
+
+                                            @if( 
+                                                isset($validation[ $driver['id'] ]) && 
+                                                !$validation[ $driver['id'] ]['valid'] 
+                                                )    
+                                                <i class="ki-duotone ki-information fs-2x text-warning">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                    <span class="path3"></span>
+                                                </i>
+                                            @endif
+                                        </span>
                                     </td>
                                     <td class="text-center">
                                         {{ $driver['Model']->driverType->title ?? 'N/A' }}

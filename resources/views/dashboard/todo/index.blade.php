@@ -18,6 +18,7 @@
 
                         <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                                 <th class="">Title</th>
+                                <th>Category</th>
                                 <th class=" text-center">Added</th>
                             </tr>
                         </thead>
@@ -28,6 +29,13 @@
                                 <tr>
                                     <td>
                                         {{ $task['title'] ?? '' }}
+                                    </td>
+                                    <td>
+                                        @if(isset($task['category']))
+                                            {{ ucfirst( $task['category'] ) }}
+                                        @else
+                                            <span class="text-muted">No category</span>
+                                        @endif
                                     </td>
                                     <td class="text-center">
                                         {{ dateFormat( $task['Model']->created_at ) }}
