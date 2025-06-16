@@ -57,7 +57,7 @@ class UserAddressRepo extends AbstractRepo
             $item->address1,
             $item->address2,
             $item->city,
-            $item->state->name,
+            $item->state->name ?? '',
             $item->zip,
         ];
 
