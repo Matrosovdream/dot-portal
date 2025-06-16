@@ -51,7 +51,7 @@ class DocumentActions {
 
         // Filter by search form
         if( request()->has('q') ) {
-            $filter['id'] = $this->fileRepo->modelSearch( request()->has('q') );
+            $filter['id'] = $this->fileRepo->modelSearch( request()->input('q') )['Model']->pluck('id')->toArray();
         }
 
         $data = [
