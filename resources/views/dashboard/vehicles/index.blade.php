@@ -67,10 +67,22 @@
 
                                 <tr>
                                     <td>
-                                        <a href="{{ route('dashboard.vehicles.show', $vehicle['id']) }}"
-                                            class="text-gray-800 text-hover-primary fs-5 fw-bold">
-                                            {{ $vehicle['number'] }}
-                                        </a>
+                                        <span class="d-inline-flex align-items-center">
+                                            <a href="{{ route('dashboard.vehicles.show', $vehicle['id']) }}"
+                                                class="text-gray-800 text-hover-primary fs-5 fw-bold me-1">
+                                                {{ $vehicle['number'] }}
+                                            </a>
+                                            @if( 
+                                                isset($validation[ $vehicle['id'] ]) && 
+                                                !$validation[ $vehicle['id'] ]['valid'] 
+                                                )    
+                                                <i class="ki-duotone ki-information fs-2x text-warning">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                    <span class="path3"></span>
+                                                </i>
+                                            @endif
+                                        </span>
                                     </td>
                                     <td>
                                         {{ $vehicle['vin'] }}

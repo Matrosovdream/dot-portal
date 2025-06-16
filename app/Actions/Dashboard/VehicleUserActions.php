@@ -49,8 +49,15 @@ class VehicleUserActions
 
         $vehicles = $this->vehicleRepo->getAll($filter, $paginate = 10);
 
+        // Validate vehicles
+        $validation = [];
+        foreach( $vehicles['items'] as $key => $vehicle ) {
+            $validation[ $vehicle['id'] ] = $this->vehicleValidation->setData($vehicle)->validateAll();
+        }
+
         return [
             'title' => 'My vehicles',
+            'validation' => $validation,
             'vehicles' => $vehicles
         ];
 
@@ -265,7 +272,7 @@ class VehicleUserActions
 
     public function store($request)
     {
-        $request['company_id'] = auth()->user()->id;
+        $request['company_id'] = auth()->user()->company->id ?? '';
         $data = $this->vehicleRepo->create($request);
 
         // Save profile photo from request
