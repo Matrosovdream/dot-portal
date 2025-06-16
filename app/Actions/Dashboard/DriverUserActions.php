@@ -76,7 +76,7 @@ class DriverUserActions {
         // Get drivers by user
         $drivers = $this->driverRepo->getAll( 
             $filter, 
-            $paginate = 10 
+            $paginate = 30
         );
 
         // Validate drivers
@@ -112,7 +112,7 @@ class DriverUserActions {
         // Get drivers by user
         $drivers = $this->driverRepo->getAll( 
             $filter, 
-            $paginate = 10 
+            $paginate = 30
         );
 
         $data = [
