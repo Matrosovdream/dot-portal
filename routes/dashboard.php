@@ -41,6 +41,8 @@ Route::group([
     // To-Do list
     Route::prefix('todo')->name('todo.')->group(function () {
         Route::get('/', [ToDoController::class, 'index'])->name('index');
+        Route::get('/company', [ToDoController::class, 'company'])->name('company');
+        Route::get('/driver', [ToDoController::class, 'driver'])->name('driver');
         Route::get('{task_id}', [ToDoController::class, 'show'])->name('show');
     });
 
