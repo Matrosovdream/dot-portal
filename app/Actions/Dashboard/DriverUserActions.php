@@ -79,9 +79,16 @@ class DriverUserActions {
             $paginate = 10 
         );
 
+        // Validate drivers
+        $validation = [];
+        foreach( $drivers['items'] as $key => $driver ) {
+            $validation[ $driver['id'] ] = $this->driverValidation->setData($driver)->validateAll();
+        }
+
         $data = [
             'title' => 'My drivers',
             'drivers' => $drivers,
+            'validation' => $validation,
             'userSubscription' => $this->userSubRepo->getByUserID(auth()->user()->id),
         ];
 
