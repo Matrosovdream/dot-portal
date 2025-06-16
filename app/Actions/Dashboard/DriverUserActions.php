@@ -66,7 +66,7 @@ class DriverUserActions {
         // Filter by search form
         if( request()->has('q') && !empty(request()->input('q')) ) {
 
-            $drivers = $this->driverRepo->modelSearch( '%'.request()->input('q') .'%', false);
+            $drivers = $this->driverRepo->modelSearch( request()->input('q'), false);
             $driver_ids = $drivers->pluck('id')->toArray();
 
             $filter['id'] = $driver_ids; 
