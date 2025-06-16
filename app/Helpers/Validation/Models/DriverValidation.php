@@ -13,6 +13,7 @@ class DriverValidation extends AbstractValidation {
             'address' => $this->validateAddress(),
             'medicalCard' => $this->validateMedicalCard(),
             'drugTest' => $this->validateDrugTest(),
+            'mvr' => $this->validateMvr(),
         ];
 
         return array_merge(
@@ -67,6 +68,15 @@ class DriverValidation extends AbstractValidation {
 
     }
 
+    public function validateMvr() {
+
+        return $this->getValidationResult(
+            $this->data['mvr'] ?? [], 
+            $this->getFields()['mvr'] ?? []
+        );
+
+    }
+
     // We set all required fields here
     public function getFields() {
 
@@ -113,12 +123,20 @@ class DriverValidation extends AbstractValidation {
             'file_id' => ['title' => 'Drug Test Document', 'required' => true],
         ];
 
+        // MVR
+        $mvr = [
+            'mvr_number' => ['title' => 'MVR number', 'required' => true],
+            'mvr_date' => ['title' => 'MVR date', 'required' => true],
+            'file_id' => ['title' => 'Document', 'required' => true],
+        ];
+
         return [
             'general' => $general,
             'license' => $license,
             'address' => $address,
             'medical_card' => $medical_card,
             'drug_test' => $drug_test,
+            'mvr' => $mvr,
         ];
 
     }
