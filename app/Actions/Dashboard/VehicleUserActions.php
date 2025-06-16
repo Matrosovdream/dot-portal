@@ -35,8 +35,16 @@ class VehicleUserActions
         $filter = [];
 
         // Filter by search form
+        $filter = ['company_id' => auth()->user()->company->id];
+
+        // Filter by search form
         if( request()->has('q') && !empty(request()->input('q')) ) {
-            $filter['search_index'] = '%' . request()->input('q') . '%'; 
+
+            $items = $this->vehicleRepo->modelSearch( request()->input('q'), false);
+            $item_ids = $items->pluck('id')->toArray();
+
+            $filter['id'] = $item_ids; 
+            
         }
 
         $vehicles = $this->vehicleRepo->getAll($filter, $paginate = 10);
