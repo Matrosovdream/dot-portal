@@ -78,6 +78,32 @@ class ToDoActions {
         return $data;
     }
 
+    public function company()
+    {
+        $data = [
+            'title' => 'Company To-Do List',
+            'tasks' => $this->todoRepo->getAll( 
+                ['assigned_to' => auth()->user()->company_id, 'entity' => 'company'],
+                $paginate = 20
+            ),
+        ];
+
+        return $data;
+    }
+
+    public function driver()
+    {
+        $data = [
+            'title' => 'Driver To-Do List',
+            'tasks' => $this->todoRepo->getAll( 
+                ['assigned_to' => auth()->user()->id, 'entity' => 'driver'],
+                $paginate = 20
+            ),
+        ];
+
+        return $data;
+    }
+
     public function show( $task_id )
     {
         $task = $this->todoRepo->getByID( $task_id );
