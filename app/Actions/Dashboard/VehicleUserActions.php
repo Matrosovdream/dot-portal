@@ -47,7 +47,7 @@ class VehicleUserActions
             
         }
 
-        $vehicles = $this->vehicleRepo->getAll($filter, $paginate = 10);
+        $vehicles = $this->vehicleRepo->getAll($filter, $paginate = 30);
 
         // Validate vehicles
         $validation = [];
