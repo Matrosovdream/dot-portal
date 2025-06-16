@@ -9,7 +9,7 @@ class VehicleValidation extends AbstractValidation {
 
         $sections = [
             'general' => $this->validateGeneral(),
-            'mvr' => $this->validateMvr(),
+            //'mvr' => $this->validateMvr(),
             'insurance' => $this->validateInsurance(),
         ];
 
@@ -64,11 +64,11 @@ class VehicleValidation extends AbstractValidation {
         ];
 
         // MVR
-        $mvr = [
+        /*$mvr = [
             'mvr_number' => ['title' => 'MVR number', 'required' => true],
             'mvr_date' => ['title' => 'MVR date', 'required' => true],
             'file_id' => ['title' => 'Document', 'required' => true],
-        ];
+        ];*/
 
         // Insurance
         $insurance = [
@@ -77,7 +77,7 @@ class VehicleValidation extends AbstractValidation {
 
         return [
             'general' => $general,
-            'mvr' => $mvr,
+            //'mvr' => $mvr,
             'insurance' => $insurance,
         ];
 
