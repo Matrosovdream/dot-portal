@@ -53,7 +53,7 @@ class DriverTodoHelper {
             }
 
             $taskSet = [
-                'user_id' => $data['driver']['user_id'],
+                'user_id' => $data['driver']['userCompany']['id'],
                 'assigned_to' => $data['driver']['user_id'],
                 'title' => 'Driver Validation Error for '.$driverTitle,
                 'description' => implode(', ', $errorTitles),
