@@ -23,7 +23,7 @@ class ToDoActions {
 
         $taskHelper = new CompanyHelper();
         $safer = new SaferwebAPI();
-        $driverHelper = app('App\Helpers\DriverHelper');
+        $driverHelper = app('App\Helpers\Driver\DriverTodoHelper');
 
         if( request()->has('update_snapshot')) {
             $safer = $taskHelper->updateSnapshot(1);
