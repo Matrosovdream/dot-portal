@@ -9,7 +9,7 @@ use App\Models\UserTask;
 class UserTaskRepo extends AbstractRepo
 {
 
-    protected $model;
+    public $model;
 
     protected $fields = ['meta'];
 
