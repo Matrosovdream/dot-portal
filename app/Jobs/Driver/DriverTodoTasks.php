@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Contracts\Queue\ShouldBeUnique;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
-use App\Helpers\Driver\DriverHelper;
+use App\Helpers\DriverHelper;
 use Log;
 
 class DriverTodoTasks implements ShouldQueue, ShouldBeUnique
