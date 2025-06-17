@@ -75,7 +75,7 @@ class ToDoActions {
         $data = [
             'title' => 'To-Do List',
             'tasks' => $this->todoRepo->getAll( 
-                ['assigned_to' => auth()->user()->id],
+                ['user_id' => auth()->user()->id],
                 $paginate = 10
             ),
         ];
@@ -88,7 +88,7 @@ class ToDoActions {
         $data = [
             'title' => 'Company To-Do List',
             'tasks' => $this->todoRepo->getAll( 
-                ['assigned_to' => auth()->user()->company_id, 'entity' => 'company'],
+                ['user_id' => auth()->user()->company_id, 'entity' => 'company'],
                 $paginate = 20
             ),
         ];
@@ -101,7 +101,7 @@ class ToDoActions {
         $data = [
             'title' => 'Driver To-Do List',
             'tasks' => $this->todoRepo->getAll( 
-                ['assigned_to' => auth()->user()->id, 'entity' => 'driver'],
+                ['user_id' => auth()->user()->id, 'entity' => 'driver'],
                 $paginate = 20
             ),
         ];
