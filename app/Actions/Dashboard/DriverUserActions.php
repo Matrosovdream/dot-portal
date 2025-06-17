@@ -14,7 +14,7 @@ use App\Repositories\References\RefDriverLicenseEndrsRepo;
 use App\Mixins\File\FileStorage;
 use App\Repositories\User\UserRepo;
 use App\Helpers\Validation\Models\DriverValidation;
-use App\Helpers\DriverHelper;
+use App\Helpers\Driver\DriverHelper;
 
 
 class DriverUserActions {
