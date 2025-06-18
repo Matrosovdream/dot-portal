@@ -21,7 +21,9 @@ class SaferwebActions {
         $items = $this->inspectionsRepo->getAll(
             [
                 'company_id' => $request->user()->company->id ?? null,
-            ]
+            ],
+            $paginate = 30,
+            $sort = ['report_date' => 'desc', 'unit_vin' => 'asc'],
         );
 
         return [
@@ -39,7 +41,7 @@ class SaferwebActions {
                 'company_id' => $request->user()->company->id ?? null,
             ]
         );
-        
+
         return [
             'title' => 'Crashes',
             'items' => $items
