@@ -3,10 +3,13 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
+
 
 class VehicleCrashSaferweb extends Model
 {
     
+    use Searchable;
     protected $table = "vehicle_crashes_saferweb";
 
     protected $fillable = [
@@ -27,6 +30,15 @@ class VehicleCrashSaferweb extends Model
     protected $casts = [
         'api_data' => 'array',
     ];
+
+    public function toSearchableArray()
+    {
+        return [
+            'unit_vin'=> $this->unit_vin,
+            'dot_number'=> $this->dot_number,
+            'report_number'=> $this->report_number,
+        ];
+    }
 
     public function company()
     {
