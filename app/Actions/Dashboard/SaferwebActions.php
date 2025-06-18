@@ -18,13 +18,22 @@ class SaferwebActions {
     public function inspections( $request )
     {
 
-        $items = $this->inspectionsRepo->getAll(
-            [
-                'company_id' => $request->user()->company->id ?? null,
-            ],
-            $paginate = 30,
-            $sort = ['report_date' => 'desc', 'unit_vin' => 'asc'],
-        );
+        $filter = [];
+
+        // Filter by search form
+        $filter = ['company_id' => auth()->user()->company->id];
+
+        // Filter by search form
+        if( request()->has('q') && !empty(request()->input('q')) ) {
+
+            $items = $this->inspectionsRepo->modelSearch( request()->input('q'), false);
+            $item_ids = $items->pluck('id')->toArray();
+
+            $filter['id'] = $item_ids; 
+            
+        }
+
+        $items = $this->inspectionsRepo->getAll($filter, $paginate = 30);
 
         return [
             'title' => 'Inspections',
