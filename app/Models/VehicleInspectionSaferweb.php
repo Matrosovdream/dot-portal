@@ -12,6 +12,8 @@ class VehicleInspectionSaferweb extends Model
     protected $fillable = [
         'vehicle_id',
         'unit_vin',
+        'company_id',
+        'dot_number',
         'unique_id',
         'report_date',
         'report_number',
@@ -25,6 +27,11 @@ class VehicleInspectionSaferweb extends Model
     protected $casts = [
         'api_data' => 'array',
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(UserCompany::class, 'company_id');
+    }
 
     public function vehicle()
     {
