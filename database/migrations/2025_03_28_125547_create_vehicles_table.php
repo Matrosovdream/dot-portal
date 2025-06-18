@@ -90,6 +90,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vehicle_id')->on('vehicles')->nullable();
             $table->string('unit_vin')->nullable();
+            $table->foreignId('company_id')->on('user_company')->nullable();
+            $table->string('dot_number')->nullable();
             $table->date('report_date')->nullable();
             $table->string('report_number')->nullable();
             $table->string('report_sequence_number')->nullable();
@@ -106,6 +108,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('vehicle_id')->on('vehicles')->nullable();
             $table->string('unit_vin')->nullable();
+            $table->foreignId('company_id')->on('user_company')->nullable();
+            $table->string('dot_number')->nullable();
             $table->integer('unique_id')->nullable();
             $table->date('report_date')->nullable();
             $table->string('report_number')->nullable();
