@@ -145,6 +145,27 @@ class CompanyMenu implements InterfaceMenu {
                 'roles' => ['user'],
                 'childs' => $this->getUserRequestGroups(),
             ),
+            // Saferweb menu
+            array(
+                'title' => 'Saferweb',
+                'url' => '',
+                'icon' => 'ki-chart',
+                'roles' => ['user', 'company'],
+                'childs' => array(
+                    array(
+                        'title' => 'Inspections',
+                        'url' => route('dashboard.saferweb.inspections.index'),
+                        'route' => 'dashboard.saferweb.inspections.index',
+                        'roles' => ['user', 'company'],
+                    ),
+                    array(
+                        'title' => 'Crashes',
+                        'url' => route('dashboard.saferweb.crashes.index'),
+                        'route' => 'dashboard.saferweb.crashes.index',
+                        'roles' => ['user', 'company'],
+                    ),
+                ),
+            ),
             array(
                 'title' => 'My cabinet',
                 'url' => '',
