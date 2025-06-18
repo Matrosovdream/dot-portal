@@ -20,7 +20,7 @@
                         </i>
                         <input type="text" name="q" value="{{ request()->q ?? '' }}"
                             data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-12"
-                            placeholder="Find inspections">
+                            placeholder="Find crashes">
                     </div>
 
                     <button type="submit" class="btn btn-primary">Filter</button>
