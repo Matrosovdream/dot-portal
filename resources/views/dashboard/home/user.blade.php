@@ -80,11 +80,9 @@
                             </div>
                         </div>
 
-                        <span class="badge badge-light-success fs-base">
-                            <i class="ki-duotone ki-arrow-up fs-5 text-success ms-n1">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>0%</span>
+                        <a href="{{ route('dashboard.drivers.index') }}" class="btn btn-sm btn-light-primary">
+                            View All
+                        </a>
                     </div>
 
                 </div>
@@ -110,11 +108,9 @@
                             </div>
                         </div>
 
-                        <span class="badge badge-light-success fs-base">
-                            <i class="ki-duotone ki-arrow-up fs-5 text-success ms-n1">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>0%</span>
+                        <a href="{{ route('dashboard.vehicles.index') }}" class="btn btn-sm btn-light-primary">
+                            View All
+                        </a>
                     </div>
 
                 </div>
@@ -140,11 +136,9 @@
                             </div>
                         </div>
 
-                        <span class="badge badge-light-success fs-base">
-                            <i class="ki-duotone ki-arrow-up fs-5 text-success ms-n1">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>0%</span>
+                        <a href="{{ route('dashboard.insurance-vehicles.index') }}" class="btn btn-sm btn-light-primary">
+                            View All
+                        </a>
                     </div>
 
                 </div>
