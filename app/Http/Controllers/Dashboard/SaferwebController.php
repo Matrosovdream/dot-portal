@@ -18,7 +18,7 @@ class SaferwebController extends Controller
 
         return view(
             'dashboard.saferweb.inspections.index', 
-            $this->actions->inspections()
+            $this->actions->inspections( $request )
         );
 
     }
@@ -27,7 +27,7 @@ class SaferwebController extends Controller
     {
         return view(
             'dashboard.saferweb.crashes.index', 
-            $this->actions->crashes()
+            $this->actions->crashes( $request )
         );
     }
 
