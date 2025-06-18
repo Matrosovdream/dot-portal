@@ -48,6 +48,9 @@ class VehicleInspectionsSaferwebRepo extends AbstractRepo
         $res = [
             'id' => $item->id,
             'vehicle_id' => $item->vehicle_id,
+            'unit_vin' => $item->unit_vin,
+            'company_id' => $item->company_id,
+            'dot_number' => $item->dot_number,
             'unique_id'=> $item->unique_id,
             'report_date' => $item->report_date,
             'report_number' => $item->report_number,
