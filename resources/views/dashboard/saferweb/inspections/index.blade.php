@@ -1,0 +1,105 @@
+@extends('dashboard.layouts.app')
+
+
+@section('content')
+
+    <div class="card card-flush">
+
+        <form action="{{ route('dashboard.vehicles.index') }}" method="GET">
+
+            <div class="card-header align-items-center py-5 gap-2 gap-md-5">
+
+                <div class="card-title"></div>
+
+                <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
+
+                    <div class="d-flex align-items-center position-relative my-1">
+                        <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
+                        <input type="text" name="q" value="{{ request()->q ?? '' }}"
+                            data-kt-ecommerce-product-filter="search" class="form-control form-control-solid w-250px ps-12"
+                            placeholder="Find inspections">
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">Filter</button>
+
+                </div>
+            </div>
+
+        </form>
+
+        <div class="card-body pt-0">
+            <div class="table-responsive">
+
+                @if(count($items['items']) == 0)
+
+                    <div class="text-center mt-10">
+                        <h4>No inspections found</h4>
+                    </div>
+
+                @else
+
+                    <table class="table align-middle table-row-dashed fs-6 gy-5" id="kt_ecommerce_products_table">
+                        <thead>
+                            <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
+                                <th class="">Report Number</th>
+                                <th class="">Unit Vin</th>
+                                <th class="">Dot Number</th>
+                                <th class="">Inspection level</th>
+                                <th class="">Report state</th>
+                                <th class="">Date</th>
+                            </tr>
+                        </thead>
+                        <tbody class="fw-semibold text-gray-600">
+
+                            @foreach($items['items'] as $item)
+
+                                <tr>
+
+                                    <td>
+                                        {{ $item['report_number'] }}
+                                    </td>
+
+                                    <td>
+                                        {{ $item['unit_vin'] }}
+                                    </td>
+
+                                    <td>
+                                        {{ $item['dot_number'] }}
+                                    </td>
+
+                                    <td>
+                                        {{ $item['inspection_level'] }}
+                                    </td>
+
+                                    <td>
+                                        {{ $item['report_state'] }}
+                                    </td>
+
+                                    <td>
+                                        {{ dateFormat($item['report_date']) }}
+                                    </td>
+
+                                </tr>
+
+                            @endforeach
+
+                        </tbody>
+                    </table>
+
+                @endif
+
+            </div>
+
+
+            <div id="" class="row">
+                {{ $items['Model']->links('dashboard.includes.pagination.default') }}
+            </div>
+
+        </div>
+
+    </div>
+
+@endsection
