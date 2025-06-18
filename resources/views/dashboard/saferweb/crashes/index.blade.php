@@ -5,7 +5,7 @@
 
     <div class="card card-flush">
 
-        <form action="{{ route('dashboard.saferweb.inspections.index') }}" method="GET">
+        <form action="{{ route('dashboard.saferweb.crashes.index') }}" method="GET">
 
             <div class="card-header align-items-center py-5 gap-2 gap-md-5">
 
@@ -36,7 +36,7 @@
                 @if(count($items['items']) == 0)
 
                     <div class="text-center mt-10">
-                        <h4>No inspections found</h4>
+                        <h4>No crashes found</h4>
                     </div>
 
                 @else
@@ -47,7 +47,6 @@
                                 <th class="">Report Number</th>
                                 <th class="">Unit Vin</th>
                                 <th class="">Dot Number</th>
-                                <th class="">Inspection level</th>
                                 <th class="">Report state</th>
                                 <th class="">Date</th>
                             </tr>
@@ -68,10 +67,6 @@
 
                                     <td>
                                         {{ $item['dot_number'] }}
-                                    </td>
-
-                                    <td>
-                                        {{ $item['inspection_level'] }}
                                     </td>
 
                                     <td>
