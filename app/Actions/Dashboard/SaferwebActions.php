@@ -18,11 +18,15 @@ class SaferwebActions {
     public function inspections( $request )
     {
 
-        $items = $this->inspectionsRepo->getAll();
+        $items = $this->inspectionsRepo->getAll(
+            [
+                'company_id' => $request->user()->company->id ?? null,
+            ]
+        );
 
         return [
             'title' => 'Inspections',
-            'items' => []
+            'items' => $items
         ];
 
     }
@@ -30,8 +34,12 @@ class SaferwebActions {
     public function crashes( $request )
     {
 
-        $items = $this->crashesRepo->getAll();
-
+        $items = $this->crashesRepo->getAll(
+            [
+                'company_id' => $request->user()->company->id ?? null,
+            ]
+        );
+        
         return [
             'title' => 'Crashes',
             'items' => $items
