@@ -21,6 +21,7 @@ use App\Http\Controllers\Dashboard\VehicleUserController;
 use App\Http\Controllers\Dashboard\InsuranceVehicleController;
 use App\Http\Controllers\Dashboard\ToDoController;
 use App\Http\Controllers\Dashboard\SearchController;
+use App\Http\Controllers\Dashboard\SaferwebController;
 
 Route::group([
     'prefix' => 'dashboard',
@@ -165,6 +166,12 @@ Route::group([
 
     // User routes
     Route::middleware(['hasRole:driver,company'])->group(function () {
+
+        // Saferweb
+        Route::prefix('saferweb')->name('saferweb.')->group(function () {
+            Route::get('inspections', [SaferwebController::class, 'inspections'])->name('inspections');
+            Route::get('crashes', [SaferwebController::class, 'crashes'])->name('crashes');
+        });
 
         // Subscription
         Route::prefix('subscription')->name('subscription.')->group(function () {
