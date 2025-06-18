@@ -12,6 +12,8 @@ class VehicleCrashSaferweb extends Model
     protected $fillable = [
         'vehicle_id',
         'unit_vin',
+        'company_id',
+        'dot_number',
         'report_date',
         'report_number',
         'report_sequence_number',
@@ -25,6 +27,11 @@ class VehicleCrashSaferweb extends Model
     protected $casts = [
         'api_data' => 'array',
     ];
+
+    public function company()
+    {
+        return $this->belongsTo(UserCompany::class, 'company_id');
+    }
 
     public function vehicle()
     {
