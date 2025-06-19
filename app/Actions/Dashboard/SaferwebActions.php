@@ -18,26 +18,11 @@ class SaferwebActions {
     public function inspections( $request )
     {
 
-        $filter = [];
-
-        // Filter by search form
-        $filter = ['company_id' => auth()->user()->company->id];
-
-        // Filter by search form
-        if( request()->has('q') && !empty(request()->input('q')) ) {
-
-            $items = $this->inspectionsRepo->modelSearch( request()->input('q'), false);
-            $item_ids = $items->pluck('id')->toArray();
-
-            $filter['id'] = $item_ids; 
-            
-        }
-
-        $items = $this->inspectionsRepo->getAll($filter, $paginate = 30);
+        $filter = $this->prepareSearch($this->inspectionsRepo);
 
         return [
             'title' => 'Inspections',
-            'items' => $items
+            'items' => $this->inspectionsRepo->getAll($filter, $paginate = 30)
         ];
 
     }
@@ -45,28 +30,42 @@ class SaferwebActions {
     public function crashes( $request )
     {
 
-        $filter = [];
+        $filter = $this->prepareSearch($this->crashesRepo);
+
+        return [
+            'title' => 'Crashes',
+            'items' => $this->crashesRepo->getAll($filter, $paginate = 30)
+        ];
+       
+    }
+
+    public function prepareSearch( $model ) {
 
         // Filter by search form
         $filter = ['company_id' => auth()->user()->company->id];
 
-        // Filter by search form
+        // Filter by common search
         if( request()->has('q') && !empty(request()->input('q')) ) {
 
-            $items = $this->crashesRepo->modelSearch( request()->input('q'), false);
+            $items = $model->modelSearch( request()->input('q'), false);
             $item_ids = $items->pluck('id')->toArray();
 
             $filter['id'] = $item_ids; 
             
         }
 
-        $items = $this->crashesRepo->getAll($filter, $paginate = 30);
+        // Filter by date range From
+        if( request()->has('date_from') && !empty(request()->input('date_from')) ) {
+            $filter['report_date'] = request()->input('date_from');
+        }
 
-        return [
-            'title' => 'Crashes',
-            'items' => $items
-        ];
-       
+        // Filter by date range To
+        if( request()->has('date_to') && !empty(request()->input('date_to')) ) {
+            $filter['report_date'] = request()->input('date_to');
+        }
+
+        return $filter;
+
     }
 
 }
