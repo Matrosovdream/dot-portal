@@ -42,27 +42,74 @@ abstract class AbstractRepo
         return $this->mapItem($item);
     }
 
-    public function getAll($filter = [], $paginate = 20, array $sorting = [] )
+    public function getAll($filter = [], $paginate = 20, array $sorting = [])
     {
-        // Iterate over the filter array
         foreach ($filter as $rawKey => $value) {
             // Extract key and optional operator
             preg_match('/^([a-zA-Z0-9_]+)([><!=]{1,2})?$/', $rawKey, $matches);
-        
+
             $key = $matches[1] ?? $rawKey;
             $operator = $matches[2] ?? '=';
-        
-            // If value contains %, treat as LIKE
+
+            // LIKE condition
             if (is_string($value) && strpos($value, '%') !== false) {
                 $operator = 'LIKE';
+                $this->model = $this->model->where($key, $operator, $value);
+                continue;
             }
-        
-            // Apply condition
+
+            // Handle arrays
+            if (is_array($value)) {
+                // Explicit CONDITION (e.g. BETWEEN)
+                if (isset($value['CONDITION'])) {
+                    $condition = strtoupper($value['CONDITION']);
+
+                    switch ($condition) {
+                        case 'BETWEEN':
+                            $range = array_values(array_filter($value, fn($v, $k) => $k !== 'CONDITION', ARRAY_FILTER_USE_BOTH));
+                            if (count($range) === 2) {
+                                $this->model = $this->model->whereBetween($key, [$range[0], $range[1]]);
+                            }
+                            break;
+
+                        case 'IN':
+                            $inValues = array_filter($value, fn($v, $k) => $k !== 'CONDITION', ARRAY_FILTER_USE_BOTH);
+                            $this->model = $this->model->whereIn($key, $inValues);
+                            break;
+
+                        case 'NOT IN':
+                            $notInValues = array_filter($value, fn($v, $k) => $k !== 'CONDITION', ARRAY_FILTER_USE_BOTH);
+                            $this->model = $this->model->whereNotIn($key, $notInValues);
+                            break;
+
+                        case 'NULL':
+                            $this->model = $this->model->whereNull($key);
+                            break;
+
+                        case 'NOT NULL':
+                            $this->model = $this->model->whereNotNull($key);
+                            break;
+
+                        default:
+                            // fallback or skip
+                            break;
+                    }
+
+                    continue; // skip default operator
+                }
+
+                // Default array = IN
+                $value = array_filter($value); // Remove empty values
+                $this->model = $this->model->whereIn($key, $value);
+                continue;
+            }
+
+            // Default: use extracted operator
             $this->model = $this->model->where($key, $operator, $value);
         }
 
-        // Apply sorting
-        if ( count($sorting) > 0) {
+        // Sorting
+        if (count($sorting) > 0) {
             foreach ($sorting as $key => $value) {
                 if (is_array($value)) {
                     $this->model = $this->model->orderBy($key, $value[0], $value[1]);
@@ -71,15 +118,14 @@ abstract class AbstractRepo
                 }
             }
         } else {
-            // Default sorting if none provided
             $this->model = $this->model->orderBy('id', 'desc');
         }
 
-        // Apply pagination
         $items = $this->model->paginate($paginate);
 
         return $this->mapItems($items);
     }
+
 
 
     public function create($data)
