@@ -6,6 +6,9 @@ use App\Repositories\User\UserRepo;
 use App\Repositories\Driver\DriverRepo;
 use App\Repositories\Vehicle\VehicleRepo;
 use App\Repositories\Insurance\InsuranceVehicleRepo;
+use App\Repositories\Vehicle\VehicleInspectionsSaferwebRepo;
+use App\Repositories\Vehicle\VehicleCrashesSaferwebRepo;
+
 
 class HomeUserActions {
 
@@ -13,6 +16,8 @@ class HomeUserActions {
     private $driverRepo;
     private $vehicleRepo;
     private $insuranceRepo;
+    private $inspectionsRepo;
+    private $crashesRepo;
 
     public function __construct()
     {
@@ -20,7 +25,8 @@ class HomeUserActions {
         $this->driverRepo = new DriverRepo;
         $this->vehicleRepo = new VehicleRepo;
         $this->insuranceRepo = new InsuranceVehicleRepo;
-
+        $this->inspectionsRepo = new VehicleInspectionsSaferwebRepo;
+        $this->crashesRepo = new VehicleCrashesSaferwebRepo;
     }
 
     public function index()
@@ -37,13 +43,60 @@ class HomeUserActions {
 
     public function getStats() {
 
+        $user = auth()->user();
+
         $stats = [
-            'drivers' => $this->driverRepo->getCompanyStats( auth()->user()->id ),
-            'vehicles' => $this->vehicleRepo->getCompanyStats( auth()->user()->id ),
-            'insurances' => $this->insuranceRepo->getCompanyStats( auth()->user()->id ),
+            'drivers' => $this->driverRepo->getCompanyStats( $user->id ),
+            'vehicles' => $this->vehicleRepo->getCompanyStats( $user->id ),
+            'insurances' => $this->insuranceRepo->getCompanyStats( $user->id ),
         ];
 
+        if( $user->isCompany() ) {
+
+            $stats['inspections']['last_update'] = dateFormat( date('Y-m-d') );
+            
+            // Inspections today
+            $stats['inspections']['day'] = $this->getSaferwebCount(
+                $this->inspectionsRepo,
+                ['report_date' => date('Y-m-d')]
+            );
+
+            // Inspections this month
+            $stats['inspections']['month'] = $this->getSaferwebCount(
+                $this->inspectionsRepo,
+                ['report_date' => date('Y-m-01')]
+            );
+
+            $stats['crashes']['last_update'] = dateFormat(date('Y-m-d'));
+
+            // Crashes today
+            $stats['crashes']['day'] = $this->getSaferwebCount(
+                $this->crashesRepo,
+                ['report_date' => date('Y-m-d')]
+            );
+
+            // Crashes this month
+            $stats['crashes']['month'] = $this->getSaferwebCount(
+                $this->crashesRepo,
+                ['report_date' => date('Y-m-01')]
+            );
+           
+        }
+
         return $stats;
+
+    }
+
+    public function getSaferwebCount( $repo, $filterSet = [] ) {
+
+        $filter = ['company_id' => auth()->user()->company->id];
+
+        $filter = array_merge($filter, $filterSet);
+
+        return $repo->getAll(
+            $filter,
+            $paginate = 1
+        )['Model']->count();
 
     }
 
