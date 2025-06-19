@@ -45,14 +45,20 @@ abstract class AbstractRepo
     public function getAll($filter = [], $paginate = 20, array $sorting = [] )
     {
         // Iterate over the filter array
-        foreach ($filter as $key => $value) {
+        foreach ($filter as $rawKey => $value) {
+            // Extract key and optional operator
+            preg_match('/^([a-zA-Z0-9_]+)([><!=]{1,2})?$/', $rawKey, $matches);
+        
+            $key = $matches[1] ?? $rawKey;
+            $operator = $matches[2] ?? '=';
+        
+            // If value contains %, treat as LIKE
             if (is_string($value) && strpos($value, '%') !== false) {
-                // If the value contains % signs, treat it as a LIKE query
-                $this->model = $this->model->where($key, 'like', $value);
-            } else {
-                // Otherwise apply the regular equality check
-                $this->model = $this->model->where($key, $value);
+                $operator = 'LIKE';
             }
+        
+            // Apply condition
+            $this->model = $this->model->where($key, $operator, $value);
         }
 
         // Apply sorting
