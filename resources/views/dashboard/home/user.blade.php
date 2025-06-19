@@ -183,7 +183,10 @@
 
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label fw-bold text-gray-900">Daily Updates</span>
-                            <span class="text-gray-500 mt-1 fw-semibold fs-6">Last updated on 02/03/2025</span>
+                            <span class="text-gray-500 mt-1 fw-semibold fs-6">
+                                Last updated on 
+                                {{ $stats['inspections']['last_update'] ?? date('Y-m-d') }}
+                            </span>
                         </h3>
 
                         <div class="card-toolbar">
@@ -196,25 +199,19 @@
                         <div class="d-flex flex-stack">
                             <div class="text-gray-700 fw-semibold fs-6 me-2">Inspections</div>
                             <div class="d-flex align-items-senter">
-                                <span class="text-gray-900 fw-bolder fs-6">-</span>
+                                <span class="text-gray-900 fw-bolder fs-6">
+                                    {{ $stats['inspections']['day'] ?? 0 }}
+                                </span>
                             </div>
                         </div>
                         <div class="separator separator-dashed my-3"></div>
 
                         <div class="d-flex flex-stack">
-                            <div class="text-gray-700 fw-semibold fs-6 me-2">Violations</div>
+                            <div class="text-gray-700 fw-semibold fs-6 me-2">Crashes</div>
                             <div class="d-flex align-items-senter">
-                                <span class="text-gray-900 fw-bolder fs-6">-</span>
-                            </div>
-                        </div>
-                        <div class="separator separator-dashed my-3"></div>
-
-                        <div class="d-flex flex-stack">
-                            <div class="text-gray-700 fw-semibold fs-6 me-2">
-                                Accidents
-                            </div>
-                            <div class="d-flex align-items-senter">
-                                -
+                                <span class="text-gray-900 fw-bolder fs-6">
+                                    {{ $stats['crashes']['day'] ?? 0 }}
+                                </span>
                             </div>
                         </div>
 
@@ -231,7 +228,10 @@
 
                         <h3 class="card-title align-items-start flex-column">
                             <span class="card-label fw-bold text-gray-900">Monthly Updates</span>
-                            <span class="text-gray-500 mt-1 fw-semibold fs-6">Last updated on 02/03/2025</span>
+                            <span class="text-gray-500 mt-1 fw-semibold fs-6">
+                                Last updated on 
+                                {{ $stats['inspections']['last_update'] ?? date('Y-m-d') }}
+                            </span>
                         </h3>
 
                         <div class="card-toolbar">
@@ -244,25 +244,19 @@
                         <div class="d-flex flex-stack">
                             <div class="text-gray-700 fw-semibold fs-6 me-2">Inspections</div>
                             <div class="d-flex align-items-senter">
-                                <span class="text-gray-900 fw-bolder fs-6">5</span>
+                                <span class="text-gray-900 fw-bolder fs-6">
+                                    {{ $stats['inspections']['month'] ?? 0 }}
+                                </span>
                             </div>
                         </div>
                         <div class="separator separator-dashed my-3"></div>
 
                         <div class="d-flex flex-stack">
-                            <div class="text-gray-700 fw-semibold fs-6 me-2">Violations</div>
+                            <div class="text-gray-700 fw-semibold fs-6 me-2">Crashes</div>
                             <div class="d-flex align-items-senter">
-                                <span class="text-gray-900 fw-bolder fs-6">3</span>
-                            </div>
-                        </div>
-                        <div class="separator separator-dashed my-3"></div>
-
-                        <div class="d-flex flex-stack">
-                            <div class="text-gray-700 fw-semibold fs-6 me-2">
-                                Accidents
-                            </div>
-                            <div class="d-flex align-items-senter">
-                                -
+                                <span class="text-gray-900 fw-bolder fs-6">
+                                    {{ $stats['crashes']['month'] ?? 0 }}
+                                </span>
                             </div>
                         </div>
 
