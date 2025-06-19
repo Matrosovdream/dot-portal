@@ -56,12 +56,12 @@ class SaferwebActions {
 
         // Filter by date range From
         if( request()->has('date_from') && !empty(request()->input('date_from')) ) {
-            $filter['report_date'] = request()->input('date_from');
+            $filter['report_date>='] = request()->input('date_from');
         }
 
         // Filter by date range To
         if( request()->has('date_to') && !empty(request()->input('date_to')) ) {
-            $filter['report_date'] = request()->input('date_to');
+            $filter['report_date<='] = request()->input('date_to');
         }
 
         return $filter;
