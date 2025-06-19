@@ -6,12 +6,12 @@
 
         <div class="card-toolbar flex-row-fluid justify-content-end gap-5">
 
-            <div class="col-lg-4 fv-row w-150px">
+            <div class="col-lg-4 fv-row w-200px">
                 <input type="date" name="date_from" class="form-control form-control-lg datepicker"
                     placeholder="Report from" value="{{ request()->date_from ?? '' }}" />
             </div>
 
-            <div class="col-lg-4 fv-row w-150px">
+            <div class="col-lg-4 fv-row w-200px">
                 <input type="date" name="date_to" class="form-control form-control-lg datepicker"
                     placeholder="Report to" value="{{ request()->date_to ?? '' }}" />
             </div>
