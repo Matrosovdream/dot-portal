@@ -166,15 +166,11 @@ abstract class AbstractRepo
             Log::error('Search error: '.$e->getMessage());
 
             // Return an empty collection or null based on your preference
-            if( $map ) {
-                $items = $this->mapItem($items);
-            } else {
-                return new Collection();
-            }
+            return new Collection();
 
         }
         
-        if ($map) {
+        if ( $map && isset($items) ) {
             return $this->mapItems($items);
         } else {
             return $items;
