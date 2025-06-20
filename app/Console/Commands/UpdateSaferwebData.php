@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
-use App\Mixins\Integrations\SaferwebAPI;
 use App\Jobs\Saferweb\UpdateCompanySnapshot;
 use App\Jobs\Saferweb\UpdateCompanyInspections;
 use App\Jobs\Saferweb\UpdateCompanyCrashes;
