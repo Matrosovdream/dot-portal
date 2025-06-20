@@ -137,7 +137,7 @@ class CompanyHelper {
                 $unit = $units[0] ?? null;
                 if ( !$unit ) { continue; }
 
-                $vehicle = $vehicleRepo->getByVIN($unit['unit_vin'] ?? null);
+                //$vehicle = $vehicleRepo->getByVIN($unit['unit_vin'] ?? null);
 
                 //if ( !$vehicle ) { continue; }
 
@@ -152,10 +152,11 @@ class CompanyHelper {
                     'inspection_level' => $record['inspection_level'] ?? null,
                     'report_state' => $record['report_state'] ?? null,
                     'report_state_id' => null,
-                    'api_data' => json_encode($record),
+                    'api_data' => json_encode($record, true),
                 ];
+
                 // Unique by report_number
-                $records[ $record['report_number'] ] = $mappedData;
+                $records[ $record['unique_id'] ] = $mappedData;
 
             }
 
