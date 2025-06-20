@@ -11,7 +11,7 @@ use App\Repositories\User\UserRepo;
 
 class UpdateSaferwebData extends Command
 {
-    protected $signature = 'saferweb:update {--chunk=100} {--delay=2}';
+    protected $signature = 'saferweb:update {user_id?} {--chunk=100} {--delay=2}';
 
     protected $description = 'Update users DOT info from SaferWeb API';
     protected UserRepo $userRepo;
@@ -27,8 +27,14 @@ class UpdateSaferwebData extends Command
     {
         $chunkSize = (int)$this->option('chunk');
         $delay = (int)$this->option('delay');
+        $userId = $this->argument('user_id') ?? null;
 
-        $users = $this->userRepo->getAll([], $paginate = 1000);
+        $filter = [];
+        if ($userId) {
+            $filter['id'] = $userId;
+        }
+
+        $users = $this->userRepo->getAll($filter, $paginate = 1000);
 
         foreach ($users['items'] as $user) {
 
