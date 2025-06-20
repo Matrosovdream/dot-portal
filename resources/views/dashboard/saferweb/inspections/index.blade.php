@@ -72,7 +72,7 @@
 
 
             <div id="" class="row">
-                {{ $items['Model']->links('dashboard.includes.pagination.default') }}
+                {{ $items['Model']->appends(request()->query())->links('dashboard.includes.pagination.default') }}
             </div>
 
         </div>
