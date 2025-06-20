@@ -8,7 +8,7 @@ use App\Models\VehicleInspectionSaferweb;
 class VehicleInspectionsSaferwebRepo extends AbstractRepo
 {
 
-    protected $model;
+    public $model;
 
     protected $fileRepo;
 

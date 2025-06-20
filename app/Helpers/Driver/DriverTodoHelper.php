@@ -3,13 +3,16 @@
 namespace App\Helpers\Driver;
 
 use App\Repositories\Driver\DriverRepo;
+use App\Helpers\Validation\Models\DriverValidation;
+use App\Repositories\User\UserTaskRepo;
+
 
 class DriverTodoHelper {
 
     public function addTodoTasks(array $filter = []): void
     {
         $driverRepo = app(DriverRepo::class);
-        $driverValidation = app('App\Helpers\Validation\Models\DriverValidation');
+        $driverValidation = app(DriverValidation::class);
 
         // Get all drivers based on the filter
         $drivers = $driverRepo->getAll($filter, $paginate = 100000);
@@ -39,7 +42,7 @@ class DriverTodoHelper {
 
     public function addTodoTask( $data ) {
 
-        $taskRepo = app('App\Repositories\User\UserTaskRepo');
+        $taskRepo = app(UserTaskRepo::class);
 
         // Loop through errors
         $errorSets = [];
@@ -70,20 +73,26 @@ class DriverTodoHelper {
         }
 
         foreach( $errorSets as $taskSet ) {
-            
-            // If the task already exists, skip it
-            $exists = $taskRepo->getAll([
+
+            $sett = [
                 'user_id' => $taskSet['user_id'],
                 'subcategory' => $taskSet['subcategory'],
                 'entity' => $taskSet['entity'],
                 'entity_id' => $taskSet['entity_id'],
-            ]);
-            echo $exists['items']->count() . ' tasks found for ' . $taskSet['title'] . '<br/>';
+            ];
+            
+            // If the task already exists, skip it
+            $exists = $taskRepo->getAll($sett);
 
             if( $exists['items']->isEmpty() ) {
+                
+                echo $exists['items']->count() . ' tasks found for ' . $taskSet['title'] . '<br/>';
+                dd($sett);
+                
                 // Add a task for each error
-                $taskRepo->create($taskSet);
-            }
+                //$taskRepo->create($taskSet);
+                
+            } 
 
         }
 
