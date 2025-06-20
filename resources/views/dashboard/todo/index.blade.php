@@ -52,7 +52,7 @@
             </div>
 
             <div id="" class="row">
-                {{ $tasks['Model']->links('dashboard.includes.pagination.default') }}
+                {{ $tasks['Model']->appends(request()->query())->links('dashboard.includes.pagination.default') }}
             </div>
 
         </div>

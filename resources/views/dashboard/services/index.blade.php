@@ -123,7 +123,7 @@
 
 
             <div id="" class="row">
-                {{ $services['Model']->links('dashboard.includes.pagination.default') }}
+                {{ $services['Model']->appends(request()->query())->links('dashboard.includes.pagination.default') }}
             </div>
 
         </div>
