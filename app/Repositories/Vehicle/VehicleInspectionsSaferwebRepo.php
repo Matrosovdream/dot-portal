@@ -19,6 +19,7 @@ class VehicleInspectionsSaferwebRepo extends AbstractRepo
         $this->model = new VehicleInspectionSaferweb();
     }
 
+    /*
     public function syncItems($vehicle_id, $data)
     {
         if (empty($data)) return;
@@ -27,15 +28,16 @@ class VehicleInspectionsSaferwebRepo extends AbstractRepo
             $this->sync($vehicle_id, $item);
         }
     }
+    */
 
-    public function sync($vehicle_id, $data) 
+    public function syncItems($vehicle_id, $data)
     {
-
         if (empty($data)) return;
 
-        return $this->model->updateOrCreate(
-            ['vehicle_id' => $data['vehicle_id'], 'report_number' => $data['report_number']],
-            $data
+        // Run batch upsert
+        $this->model->upsert(
+            $data,
+            ['unique_id'], // Unique constraints
         );
 
     }
@@ -58,7 +60,7 @@ class VehicleInspectionsSaferwebRepo extends AbstractRepo
             'inspection_level' => $item->inspection_level,
             'report_state' => $item->report_state,
             'report_state_id' => $item->report_state_id,
-            'api_data' => json_decode( $item->api_data, true ),
+            //'api_data' => json_decode( $item->api_data, true ),
             'Model' => $item
 
         ];
