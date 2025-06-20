@@ -76,7 +76,7 @@ class CompanyHelper {
             $records = [];
             foreach ($apiRecords as $record) {
 
-                $vehicle = $vehicleRepo->getByVIN($record['vehicle']['vin'] ?? null);
+                //$vehicle = $vehicleRepo->getByVIN($record['vehicle']['vin'] ?? null);
 
                 //if ( !$vehicle ) { continue; }
 
@@ -100,6 +100,9 @@ class CompanyHelper {
             }
 
             $crashesRepo->syncItems($company_id, $records);
+
+            // Update Searchable Index
+            $crashesRepo->model->searchable();
 
             return $records;
 

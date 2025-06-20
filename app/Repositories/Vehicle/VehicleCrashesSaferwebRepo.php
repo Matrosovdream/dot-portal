@@ -8,7 +8,7 @@ use App\Models\VehicleCrashSaferweb;
 class VehicleCrashesSaferwebRepo extends AbstractRepo
 {
 
-    protected $model;
+    public $model;
 
     protected $fileRepo;
 
