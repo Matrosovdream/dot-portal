@@ -162,6 +162,9 @@ class CompanyHelper {
 
             $inspRepo->syncItems($company_id, $records);
 
+            // Update Searchable Index
+            $inspRepo->model->searchable();
+
             return $records;
 
         } else {
