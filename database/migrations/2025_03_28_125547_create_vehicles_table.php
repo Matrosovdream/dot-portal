@@ -93,7 +93,7 @@ return new class extends Migration
             $table->foreignId('company_id')->on('user_company')->nullable();
             $table->string('dot_number')->nullable();
             $table->date('report_date')->nullable();
-            $table->string('report_number')->nullable();
+            $table->string('report_number')->unique()->nullable();
             $table->string('report_sequence_number')->nullable();
             $table->string('report_state')->nullable();
             $table->foreignId('report_state_id')->on('ref_country_states')->nullable();
@@ -110,7 +110,7 @@ return new class extends Migration
             $table->string('unit_vin')->nullable();
             $table->foreignId('company_id')->on('user_company')->nullable();
             $table->string('dot_number')->nullable();
-            $table->integer('unique_id')->nullable();
+            $table->integer('unique_id')->unique()->nullable();
             $table->date('report_date')->nullable();
             $table->string('report_number')->nullable();
             $table->string('report_sequence_number')->nullable();
