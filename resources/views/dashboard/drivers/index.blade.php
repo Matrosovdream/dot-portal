@@ -163,7 +163,7 @@
             </div>
 
             <div id="" class="row">
-                {{ $drivers['Model']->links('dashboard.includes.pagination.default') }}
+                {{ $drivers['Model']->appends(request()->query())->links('dashboard.includes.pagination.default') }}
             </div>
 
         </div>

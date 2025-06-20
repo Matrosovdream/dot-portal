@@ -122,7 +122,7 @@
 
 
         <div id="" class="row">
-            {{ $insurances['Model']->links('dashboard.includes.pagination.default') }}
+            {{ $insurances['Model']->appends(request()->query())->links('dashboard.includes.pagination.default') }}
         </div>
 
     </div>

@@ -114,7 +114,7 @@
 
 
             <div id="" class="row">
-                {{ $groups['Model']->links('dashboard.includes.pagination.default') }}
+                {{ $groups['Model']->appends(request()->query())->links('dashboard.includes.pagination.default') }}
             </div>
 
         </div>

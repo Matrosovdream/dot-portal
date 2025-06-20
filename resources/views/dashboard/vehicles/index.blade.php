@@ -145,7 +145,7 @@
 
 
             <div id="" class="row">
-                {{ $vehicles['Model']->links('dashboard.includes.pagination.default') }}
+                {{ $vehicles['Model']->appends(request()->query())->links('dashboard.includes.pagination.default') }}
             </div>
 
         </div>
