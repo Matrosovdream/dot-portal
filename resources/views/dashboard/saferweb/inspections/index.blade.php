@@ -70,7 +70,6 @@
 
             </div>
 
-
             <div id="" class="row">
                 {{ $items['Model']->appends(request()->query())->links('dashboard.includes.pagination.default') }}
             </div>
