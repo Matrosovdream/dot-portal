@@ -23,7 +23,7 @@ class ExpirationHelper
                 $models[$key]['items'] = $items;
             }
         }
-dd($models['insurance_vehicle']['items']);
+
         return $expiredItems;
 
     }
