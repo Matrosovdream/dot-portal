@@ -24,6 +24,7 @@ class ToDoActions {
         $taskHelper = new CompanyHelper();
         $safer = new SaferwebAPI();
         $driverHelper = app('App\Helpers\Driver\DriverTodoHelper');
+        $expHelper = app('App\Helpers\Expiration\ExpirationHelper');
 
         if( request()->has('update_snapshot')) {
             $safer = $taskHelper->updateSnapshot(1);
@@ -69,6 +70,10 @@ class ToDoActions {
         if( request()->has('driver-todo') ) {
             $tasks = $driverHelper->addTodoTasks();
             dd($safer);
+        }
+        if( request()->has('expired') ) {
+            $items = $expHelper->getExpiredItems();
+            dd($items);
         }
        
 
