@@ -31,12 +31,19 @@ class HomeUserActions {
 
     public function index()
     {
+
+        $user = auth()->user();
+
         $data = [
             'title' => 'Services list',
             'user' => $this->userRepo->getById( auth()->user()->id ),
             'stats' => $this->getStats(),
-            'services' => Service::paginate(10)
+            'services' => Service::paginate(10),
         ];
+
+        if( $user->isCompany() ) {
+            $data['company']['saferweb'] = $this->userRepo->getCompanySaferweb( $user->id );
+        }
 
         return $data;
     }
