@@ -46,6 +46,15 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // CDL License
+        Schema::create('driver_cdl_license', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('driver_id')->on('drivers');
+            $table->string('license_number')->nullable();
+            $table->date('expiration_date')->nullable();
+            $table->foreignId('file_id')->on('files')->nullable();
+            $table->timestamps();
+        });
 
         Schema::create('driver_address', function (Blueprint $table) {
             $table->id();
@@ -89,7 +98,6 @@ return new class extends Migration
             $table->foreignId('file_id')->on('files')->nullable();
             $table->timestamps();
         });
-
 
         Schema::create('driver_meta', function (Blueprint $table) {
             $table->id();
@@ -143,6 +151,7 @@ return new class extends Migration
         Schema::dropIfExists('drivers');
         Schema::dropIfExists('driver_documents');
         Schema::dropIfExists('driver_license');
+        Schema::dropIfExists('driver_cdl_license');
         Schema::dropIfExists('driver_address');
         Schema::dropIfExists('driver_medical_card');
         Schema::dropIfExists('driver_drug_test');
