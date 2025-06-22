@@ -18,6 +18,7 @@ class UserRepo extends AbstractRepo
     private $userCompanyRepo;
     private $userPaymentCardRepo;
     private $metaRepo;
+    private $companySaferwebRepo;
 
     protected $model;
 
@@ -33,6 +34,7 @@ class UserRepo extends AbstractRepo
         $this->userCompanyRepo = new UserCompanyRepo();
         $this->userPaymentCardRepo = new UserPaymentCardRepo();
         $this->metaRepo = new UserMetaRepo();
+        $this->companySaferwebRepo = new CompanySaferwebRepo();
     }
 
     // Set password random beforeCreate
@@ -48,6 +50,12 @@ class UserRepo extends AbstractRepo
     public function getByEmail($email)
     {
         return $this->model->where('email', $email)->first();
+    }
+
+    public function getCompanySaferweb( $user_id ) {
+
+        return $this->companySaferwebRepo->getByUserId( $user_id );
+
     }
 
     public function mapItem($item)
