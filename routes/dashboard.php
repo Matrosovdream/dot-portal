@@ -65,7 +65,7 @@ Route::group([
             Route::get('license', [DriverController::class, 'license'])->name('license');
             Route::post('license', [DriverController::class, 'updateLicense'])->name('license.update');
             Route::get('cdl-license', [DriverController::class, 'cdlLicense'])->name('cdl-license');
-            Route::post('cdl-license', [DriverController::class, 'updateCdlLicense'])->name('cdl-icense.update');
+            Route::post('cdl-license', [DriverController::class, 'updateCdlLicense'])->name('cdl-license.update');
             Route::get('address', [DriverController::class, 'address'])->name('address');
             Route::post('address', [DriverController::class, 'updateAddress'])->name('address.update');
             Route::get('medical-card', [DriverController::class, 'medicalCard'])->name('medicalcard');

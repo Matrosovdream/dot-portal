@@ -37,7 +37,7 @@ class DriverCdlLicenseRepo extends AbstractRepo
             'id' => $item->id,
             'driver_id' => $item->driver_id,
             'license_number' => $item->mvr_number,
-            'expiration_date' => $item->mvr_date,
+            'expiration_date' => $item->expiration_date,
             'file_id' => $item->file_id,
             'file' => $this->fileRepo->mapItem($item->file),
             'Model' => $item
