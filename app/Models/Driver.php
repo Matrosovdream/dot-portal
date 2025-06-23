@@ -73,6 +73,11 @@ class Driver extends Model
         return $this->hasOne(DriverLicense::class);
     }
 
+    public function cdlLicense()
+    {
+        return $this->hasOne(DriverCdlLicense::class);
+    }
+
     public function medicalCard()
     {
         return $this->hasOne(DriverMedicalCard::class);
