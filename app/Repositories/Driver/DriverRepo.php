@@ -23,6 +23,7 @@ class DriverRepo extends AbstractRepo
     protected $documentRepo;
     protected $addressRepo;
     protected $licenseRepo;
+    protected $cdlLicenseRepo;
     protected $medicalCardRepo;
     protected $fileRepo;
     protected $drugTestRepo;
@@ -56,6 +57,7 @@ class DriverRepo extends AbstractRepo
         $this->documentRepo = new DriverDocumentRepo();
         $this->addressRepo = new DriverAddressRepo();
         $this->licenseRepo = new DriverLicenseRepo();
+        $this->cdlLicenseRepo = new DriverCdlLicenseRepo();
         $this->medicalCardRepo = new DriverMedicalCardRepo();
         $this->drugTestRepo = new DriverDrugTestRepo();
         $this->mvrRepo = new DriverMvrRepo();
@@ -287,6 +289,11 @@ class DriverRepo extends AbstractRepo
 
         return true;
 
+    }
+
+    public function getCdlLicense($driver_id)
+    {
+        return $this->cdlLicenseRepo->getByDriverID($driver_id);
     }
 
 
