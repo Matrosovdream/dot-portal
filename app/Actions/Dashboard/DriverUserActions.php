@@ -278,6 +278,64 @@ class DriverUserActions {
         return $data;
     }
 
+    public function cdlLicense($driver_id)
+    {
+        $driver = $this->driverRepo->getByID($driver_id);
+        $driver['cdlLicense'] = $this->driverRepo->getCdlLicense($driver_id);
+
+        $data = [
+            'title' => 'Driver license',
+            'driver' => $driver,
+            'validation' => $this->driverValidation->setData($driver)->validateAll(),
+            'references' => $this->getReferences()
+        ];
+
+        return $data;
+    }
+
+    public function updateCdlLicense($driver_id, $request)
+    {
+
+        $driver = $this->driverRepo->getByID($driver_id);
+
+        // Driver document from request
+        $tags = ['driver license'];
+
+        $file = $this->fileStorage->uploadFile(
+            'license_file', 
+            'drivers/' . $driver_id . '/cdl-license',
+            'local',
+            ['tags' => $tags]
+        );
+
+        if( isset($file['file']['id']) ) {
+
+            // Add document, in our case license            
+            $this->driverRepo->addDocument(
+                $driver_id, 
+                $file['file'], 
+                'license',
+                $removeOld = true
+            );
+
+        }
+
+        if( isset( $request['license_file_remove'] ) ) {
+            // Remove old document
+            $this->driverRepo->removeDocument($driver_id, 'license');
+        }
+
+        // If isset license
+        if ( $driver['license'] ) {
+            $data = $this->driverLicenseRepo->update($driver['license']['id'], $request);
+        } else {
+            $request['driver_id'] = $driver_id;
+            $data = $this->driverLicenseRepo->create($request);
+        }
+
+        return $data;
+    }
+
     public function address($driver_id)
     {
         $driver = $this->driverRepo->getByID($driver_id);

@@ -50,6 +50,14 @@
 
     @endif
 
+    @if( request()->routeIs('dashboard.drivers.show.cdl-license') )
+
+        <div id="kt_account_settings_profile_details" class="collapse show">
+            @include('dashboard.drivers.sections.cdl-license')
+        </div>
+
+    @endif
+
     @if( request()->routeIs('dashboard.drivers.show.address') )
 
         <div id="kt_account_settings_profile_details" class="collapse show">
