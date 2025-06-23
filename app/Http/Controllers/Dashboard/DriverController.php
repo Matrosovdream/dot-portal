@@ -159,6 +159,26 @@ class DriverController extends Controller
         return redirect()->back()->with('success', 'License updated successfully');
     }
 
+    public function cdlLicense($driver_id)
+    {
+        return view(
+            'dashboard.drivers.show', 
+            $this->driverUserActions->cdlLicense($driver_id)
+        );
+    }
+
+    public function updateCdlLicense($driver_id, Request $request)
+    {
+
+        $validated = $request->validate([
+            'expiration_date' => 'nullable',
+            '*_remove' => 'nullable', 
+        ]);
+
+        $data = $this->driverUserActions->updateCdlLicense($driver_id, $validated);
+        return redirect()->back()->with('success', 'License updated successfully');
+    }
+
     public function medicalCard($driver_id)
     {
         return view(
