@@ -18,6 +18,8 @@
 
             @include('dashboard.drivers.sections.overview-license')
 
+            @include('dashboard.drivers.sections.overview-cdl-license')
+
             @include('dashboard.drivers.sections.overview-medical')
 
             @include('dashboard.drivers.sections.overview-drugtest')
