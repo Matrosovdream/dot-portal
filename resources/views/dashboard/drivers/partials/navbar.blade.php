@@ -16,6 +16,11 @@
             'url' => route('dashboard.drivers.show.license', $driver['id']),
             'alert' => $validation['errors']['license'] ?? null,
         ],
+        'cdl_license' => [
+            'title' => 'CDL license',
+            'url' => route('dashboard.drivers.show.cdl-license', $driver['id']),
+            'alert' => $validation['errors']['cdl_license'] ?? null,
+        ],
         'address' => [
             'title' => 'Address',
             'url' => route('dashboard.drivers.show.address', $driver['id']),
