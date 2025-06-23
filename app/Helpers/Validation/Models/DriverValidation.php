@@ -10,6 +10,7 @@ class DriverValidation extends AbstractValidation {
         $sections = [
             'general' => $this->validateGeneral(),
             'license' => $this->validateLicense(),
+            'cdlLicense' => $this->validateCdlLicense(),
             'address' => $this->validateAddress(),
             'medicalCard' => $this->validateMedicalCard(),
             'drugTest' => $this->validateDrugTest(),
@@ -37,6 +38,15 @@ class DriverValidation extends AbstractValidation {
         return $this->getValidationResult(
             $this->data['license'] ?? [], 
             $this->getFields()['license'] ?? []
+        );
+
+    }
+
+    public function validateCdlLicense() {
+
+        return $this->getValidationResult(
+            $this->data['cdlLicense'] ?? [], 
+            $this->getFields()['cdl_license'] ?? []
         );
 
     }
@@ -100,6 +110,13 @@ class DriverValidation extends AbstractValidation {
             //'document_id' => ['title' => 'License Document', 'required' => true],
         ];
 
+        // CDL License
+        $cdlLicense = [
+            'license_number' => ['title' => 'License Number', 'required' => true],
+            'expiration_date' => ['title' => 'License Expiration Date', 'required' => true],
+            'file_id' => ['title' => 'Document', 'required' => true],
+        ];
+
         // Address
         $address = [
             'address1' => ['title' => 'Address 1', 'required' => true],
@@ -133,6 +150,7 @@ class DriverValidation extends AbstractValidation {
         return [
             'general' => $general,
             'license' => $license,
+            'cdl_license' => $cdlLicense,
             'address' => $address,
             'medical_card' => $medical_card,
             'drug_test' => $drug_test,
