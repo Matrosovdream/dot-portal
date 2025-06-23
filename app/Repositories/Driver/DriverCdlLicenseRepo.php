@@ -9,7 +9,7 @@ use App\Repositories\File\FileRepo;
 class DriverCdlLicenseRepo extends AbstractRepo
 {
 
-    protected $model;
+    public $model;
 
     protected $fileRepo;
 
@@ -20,6 +20,12 @@ class DriverCdlLicenseRepo extends AbstractRepo
         $this->model = new DriverCdlLicense();
 
         $this->fileRepo = new FileRepo();
+    }
+
+    public function getByDriverId($driverId)
+    {
+        $item = $this->model->where('driver_id', $driverId)->first();
+        return $this->mapItem($item);
     }
 
     public function mapItem($item)
