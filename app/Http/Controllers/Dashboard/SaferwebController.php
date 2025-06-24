@@ -23,11 +23,27 @@ class SaferwebController extends Controller
 
     }
 
+    public function inspectionsShow( $inspection_id, Request $request )
+    { 
+        return view(
+            'dashboard.saferweb.inspections.show', 
+            $this->actions->inspectionsShow( $inspection_id, $request )
+        );
+    }
+
     public function crashes( Request $request )
     {
         return view(
             'dashboard.saferweb.crashes.index', 
             $this->actions->crashes( $request )
+        );
+    }
+
+    public function crashesShow( $crash_id, Request $request )
+    {
+        return view(
+            'dashboard.saferweb.crashes.show', 
+            $this->actions->crashesShow( $crash_id, $request )
         );
     }
 
