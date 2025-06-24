@@ -3,6 +3,7 @@ namespace App\Actions\Dashboard;
 
 use App\Repositories\Driver\DriverRepo;
 use App\Repositories\Driver\DriverLicenseRepo;
+use App\Repositories\Driver\DriverCdlLicenseRepo;
 use App\Repositories\Driver\DriverAddressRepo;
 use App\Repositories\Driver\DriverMedicalCardRepo;
 use App\Repositories\Driver\DriverDrugTestRepo;
@@ -21,6 +22,7 @@ class DriverUserActions {
 
     private $driverRepo;
     private $driverLicenseRepo;
+    private $driverCdlLicenseRepo;
     private $driverAddressRepo;
     private $driverMedicalCardRepo;
     private $driverDrugTestRepo;
@@ -38,6 +40,7 @@ class DriverUserActions {
     {
         $this->driverRepo = new DriverRepo();
         $this->driverLicenseRepo = new DriverLicenseRepo();
+        $this->driverCdlLicenseRepo = new DriverCdlLicenseRepo();
         $this->driverAddressRepo = new DriverAddressRepo();
         $this->driverMedicalCardRepo = new DriverMedicalCardRepo();
         $this->driverDrugTestRepo = new DriverDrugTestRepo();
@@ -298,42 +301,21 @@ class DriverUserActions {
 
         $driver = $this->driverRepo->getByID($driver_id);
 
-        // Driver document from request
-        $tags = ['driver license'];
-
-        $file = $this->fileStorage->uploadFile(
-            'license_file', 
-            'drivers/' . $driver_id . '/cdl-license',
-            'local',
-            ['tags' => $tags]
-        );
-
-        if( isset($file['file']['id']) ) {
-
-            // Add document, in our case license            
-            $this->driverRepo->addDocument(
-                $driver_id, 
-                $file['file'], 
-                'license',
-                $removeOld = true
-            );
-
-        }
-
-        if( isset( $request['license_file_remove'] ) ) {
+        if( 
+            isset( $request['license_file_remove'] ) &&
+            isset( $driver['cdlLicense']['id'] )
+            ) {
             // Remove old document
-            $this->driverRepo->removeDocument($driver_id, 'license');
+            $this->driverCdlLicenseRepo->removeDocument( $driver['cdlLicense']['id'] );
         }
 
-        // If isset license
-        if ( $driver['license'] ) {
-            $data = $this->driverLicenseRepo->update($driver['license']['id'], $request);
-        } else {
-            $request['driver_id'] = $driver_id;
-            $data = $this->driverLicenseRepo->create($request);
-        }
-
-        return $data;
+        return $this->driverRepo->updateCdlLicense(
+            $driver_id, 
+            $request,
+            $files = [
+                'license_file' => 'license_file'
+            ]
+        );
     }
 
     public function address($driver_id)
