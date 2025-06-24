@@ -470,11 +470,6 @@ class DriverUserActions {
 
     }
 
-    public function terminateDriver($driver_id)
-    {
-        return $this->driverHelper->terminate($driver_id);
-    }
-
     public function logs($driver_id)
     {
         $driver = $this->driverRepo->getByID($driver_id);
@@ -486,6 +481,27 @@ class DriverUserActions {
         ];
 
         return $data;
+    }
+
+    public function todo($driver_id, $request)
+    {
+        $driver = $this->driverRepo->getByID($driver_id);
+
+        // Validate driver
+        $validation = $this->driverValidation->setData($driver)->validateAll();
+        $validation['task'] = 'Field is empty';
+
+        return [
+            'title' => 'Driver todo',
+            'driver' => $driver,
+            'validation' => $validation,
+            'references' => $this->getReferences()
+        ];
+    }
+
+    public function terminateDriver($driver_id)
+    {
+        return $this->driverHelper->terminate($driver_id);
     }
 
     public function saveProfilePhoto($driver_id)
