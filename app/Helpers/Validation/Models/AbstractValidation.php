@@ -89,4 +89,14 @@ class AbstractValidation
         return $this; // To make calls chainable
     }
 
+    private function getFields() {
+        // This method should be implemented in the child classes to return the fields for validation
+        return [];
+    }
+
+    private function getTabs() {
+        // This method should be implemented in the child classes to return the tabs for validation
+        return [];
+    }
+
 }
