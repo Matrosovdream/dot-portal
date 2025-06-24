@@ -41,6 +41,11 @@
             'url' => route('dashboard.drivers.show.mvr', $driver['id']),
             'alert' => $validation['errors']['mvr'] ?? null,
         ],
+        'todo' => [
+            'title' => 'To Do',
+            'url' => route('dashboard.drivers.show.todo', $driver['id']),
+            'alert' => $validation['valid'] ?? null,
+        ],
         /*'logs' => [
             'title' => 'Logs',
             'url' => route('dashboard.drivers.show.logs', $driver['id']),
