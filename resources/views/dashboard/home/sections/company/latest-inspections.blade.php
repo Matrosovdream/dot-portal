@@ -2,12 +2,12 @@
 
     <div class="card-header pt-5">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bold text-gray-800">Latest crashes</span>
+            <span class="card-label fw-bold text-gray-800">Latest inspections</span>
             <span class="text-gray-500 pt-1 fw-semibold fs-6">comment here</span>
         </h3>
 
         <div class="card-toolbar">
-            <a href="{{ route('dashboard.saferweb.crashes.index') }}" class="btn btn-sm btn-light">
+            <a href="{{ route('dashboard.saferweb.inspections.index') }}" class="btn btn-sm btn-light">
                 View all
             </a>
         </div>
@@ -50,7 +50,7 @@
                                 </span>
                             </td>
                             <td class="text-end" colspan="2">
-                                <a href="{{ route('dashboard.saferweb.crashes.show', $item['id']) }}" class="btn btn-sm btn-light-primary">
+                                <a href="{{ route('dashboard.saferweb.inspections.show', $item['id']) }}" class="btn btn-sm btn-light-primary">
                                     View
                                 </a>
                             </td>
