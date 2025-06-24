@@ -21,6 +21,19 @@
             <div class="row mb-6">
 
                 <label class="col-lg-4 col-form-label required fw-semibold fs-6">
+                    License number
+                </label>
+
+                <div class="col-lg-4 fv-row">
+                    <input type="text" name="license_number" class="form-control form-control-lg form-control-solid"
+                        placeholder="License number" value="{{ $driver['cdlLicense']['license_number'] ?? '' }}" />
+                </div>
+
+            </div>
+
+            <div class="row mb-6">
+
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">
                     Expiration date
                 </label>
 
