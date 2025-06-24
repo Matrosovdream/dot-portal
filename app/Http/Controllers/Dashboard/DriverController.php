@@ -172,6 +172,7 @@ class DriverController extends Controller
 
         $validated = $request->validate([
             'expiration_date' => 'nullable',
+            'license_number' => 'nullable',
             '*_remove' => 'nullable', 
         ]);
 
