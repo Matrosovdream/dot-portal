@@ -21,6 +21,7 @@ class DriverValidation extends AbstractValidation {
             $this->checkSections($sections),
             [
                 'percent' => $this->calcPercent($sections),
+                'tabs' => $this->getTabs()
             ]
         );
     }
@@ -155,6 +156,34 @@ class DriverValidation extends AbstractValidation {
             'medical_card' => $medical_card,
             'drug_test' => $drug_test,
             'mvr' => $mvr,
+        ];
+
+    }
+
+    private function getTabs() {
+
+        return [
+            'general' => [
+                'title' => 'General',
+            ],
+            'license' => [
+                'title' => 'License',
+            ],
+            'cdlLicense' => [
+                'title' => 'CDL License',
+            ],
+            'address' => [
+                'title' => 'Address',
+            ],
+            'medicalCard' => [
+                'title' => 'Medical Card',
+            ],
+            'drugTest' => [
+                'title' => 'Drug Test',
+            ],
+            'mvr' => [
+                'title' => 'MVR',
+            ],
         ];
 
     }
