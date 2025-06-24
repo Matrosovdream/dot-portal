@@ -38,7 +38,7 @@ class HomeUserActions {
             'title' => 'Services list',
             'user' => $this->userRepo->getById( auth()->user()->id ),
             'stats' => $this->getStats(),
-            'saferwebLatest' => $this->getLatestSaferweb( $user->company->id ?? $user->id, 2 ),
+            'saferwebLatest' => $this->getLatestSaferweb( $user->company->id ?? $user->id, 5 ),
             'services' => Service::paginate(10),
         ];
 
