@@ -54,7 +54,7 @@ class HomeUserActions {
 
         $stats = [
             'drivers' => $this->driverRepo->getCompanyStats( $user->id ),
-            'vehicles' => $this->vehicleRepo->getCompanyStats( $user->id ),
+            'vehicles' => $this->vehicleRepo->getCompanyStats( $user->company->id ?? $user->id ),
             'insurances' => $this->insuranceRepo->getCompanyStats( $user->id ),
         ];
 
