@@ -275,17 +275,19 @@
 
             <div class="col-xl-6 mb-5 mb-xl-10">
 
-                @php /*
                 @include('dashboard.home.sections.company.latest-inspections', [
                     'data' => $saferwebLatest['inspections'] ?? [],
                 ])
-                */ @endphp    
+
+            </div>    
+
+            <div class="col-xl-6 mb-5 mb-xl-10">
 
                 @include('dashboard.home.sections.company.latest-crashes', [
                     'data' => $saferwebLatest['crashes'] ?? [],
-                ])
+                ])    
 
-            </div>    
+            </div>
 
         </div>
 
