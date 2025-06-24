@@ -282,4 +282,12 @@ class DriverController extends Controller
         );
     }
 
+    public function todo($driver_id, Request $request)
+    {
+        return view(
+            'dashboard.drivers.show', 
+            $this->driverUserActions->todo($driver_id, $request->all() )
+        );
+    }
+
 }
