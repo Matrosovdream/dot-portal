@@ -74,6 +74,7 @@ Route::group([
             Route::post('drugtest', [DriverController::class, 'updateDrugtest'])->name('drugtest.update');
             Route::get('mvr', [DriverController::class, 'mvr'])->name('mvr');
             Route::post('mvr', [DriverController::class, 'updateMvr'])->name('mvr.update');
+            Route::get('todo', [DriverController::class, 'todo'])->name('todo');
             Route::get('logs', [DriverController::class, 'logs'])->name('logs');
         });
     });
