@@ -44,88 +44,88 @@ abstract class AbstractRepo
 
     public function getAll($filter = [], $paginate = 20, array $sorting = [])
     {
-        foreach ($filter as $rawKey => $value) {
-            // Extract key and optional operator
-            preg_match('/^([a-zA-Z0-9_]+)([><!=]{1,2})?$/', $rawKey, $matches);
 
+        $query = $this->model->with($this->withRelations);
+
+        foreach ($filter as $rawKey => $value) {
+            preg_match('/^([a-zA-Z0-9_]+)([><!=]{1,2})?$/', $rawKey, $matches);
             $key = $matches[1] ?? $rawKey;
             $operator = $matches[2] ?? '=';
 
-            // LIKE condition
-            if (is_string($value) && strpos($value, '%') !== false) {
-                $operator = 'LIKE';
-                $this->model = $this->model->where($key, $operator, $value);
-                continue;
-            }
+            // Handle explicit CONDITION array
+            if (is_array($value) && isset($value['CONDITION'])) {
+                $condition = strtoupper($value['CONDITION']);
+                $filtered = array_filter($value, fn($v, $k) => $k !== 'CONDITION', ARRAY_FILTER_USE_BOTH);
 
-            // Handle arrays
-            if (is_array($value)) {
-                // Explicit CONDITION (e.g. BETWEEN)
-                if (isset($value['CONDITION'])) {
-                    $condition = strtoupper($value['CONDITION']);
+                switch ($condition) {
+                    case 'BETWEEN':
+                        if (count($filtered) === 2) {
+                            $query->whereBetween($key, array_values($filtered));
+                        }
+                        break;
 
-                    switch ($condition) {
-                        case 'BETWEEN':
-                            $range = array_values(array_filter($value, fn($v, $k) => $k !== 'CONDITION', ARRAY_FILTER_USE_BOTH));
-                            if (count($range) === 2) {
-                                $this->model = $this->model->whereBetween($key, [$range[0], $range[1]]);
-                            }
-                            break;
+                    case 'IN':
+                        $query->whereIn($key, array_values($filtered));
+                        break;
 
-                        case 'IN':
-                            $inValues = array_filter($value, fn($v, $k) => $k !== 'CONDITION', ARRAY_FILTER_USE_BOTH);
-                            $this->model = $this->model->whereIn($key, $inValues);
-                            break;
+                    case 'NOT IN':
+                        $query->whereNotIn($key, array_values($filtered));
+                        break;
 
-                        case 'NOT IN':
-                            $notInValues = array_filter($value, fn($v, $k) => $k !== 'CONDITION', ARRAY_FILTER_USE_BOTH);
-                            $this->model = $this->model->whereNotIn($key, $notInValues);
-                            break;
+                    case 'NULL':
+                        $query->whereNull($key);
+                        break;
 
-                        case 'NULL':
-                            $this->model = $this->model->whereNull($key);
-                            break;
+                    case 'NOT NULL':
+                        $query->whereNotNull($key);
+                        break;
 
-                        case 'NOT NULL':
-                            $this->model = $this->model->whereNotNull($key);
-                            break;
-
-                        default:
-                            // fallback or skip
-                            break;
-                    }
-
-                    continue; // skip default operator
+                    default:
+                        break; // skip unsupported
                 }
 
-                // Default array = IN
-                $value = array_filter($value); // Remove empty values
-                $this->model = $this->model->whereIn($key, $value);
                 continue;
             }
 
-            // Default: use extracted operator
-            $this->model = $this->model->where($key, $operator, $value);
+            // LIKE operator for strings with %
+            if (is_string($value) && strpos($value, '%') !== false) {
+                $query->where($key, 'LIKE', $value);
+            }
+            // IN by default for arrays
+            elseif (is_array($value)) {
+                $query->whereIn($key, array_filter($value));
+            }
+            // Normal operator
+            else {
+                $query->where($key, $operator, $value);
+            }
         }
 
         // Sorting
-        if (count($sorting) > 0) {
-            foreach ($sorting as $key => $value) {
-                if (is_array($value)) {
-                    $this->model = $this->model->orderBy($key, $value[0], $value[1]);
+        if (!empty($sorting)) {
+            foreach ($sorting as $column => $direction) {
+                if (is_array($direction)) {
+                    $query->orderBy($column, $direction[0], $direction[1]);
                 } else {
-                    $this->model = $this->model->orderBy($key, $value);
+                    $query->orderBy($column, $direction);
                 }
             }
         } else {
-            $this->model = $this->model->orderBy('id', 'desc');
+            $query->orderBy('id', 'desc');
         }
 
-        $items = $this->model->paginate($paginate);
+        // Capture SQL + bindings
+        $sql = $query->toSql();
+        $bindings = $query->getBindings();
+        $compiledSql = vsprintf(str_replace('?', "'%s'", $sql), $bindings);
 
-        return $this->mapItems($items);
+        $items = $query->paginate($paginate);
+
+        return array_merge(
+            $this->mapItems($items),
+            ['Query' => [ 'sql' => $compiledSql ]]
+        );
     }
-
 
 
     public function create($data)
