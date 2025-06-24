@@ -173,7 +173,9 @@ Route::group([
         // Saferweb
         Route::prefix('saferweb')->name('saferweb.')->group(function () {
             Route::get('inspections', [SaferwebController::class, 'inspections'])->name('inspections.index');
+            Route::get('inspections/{inspection_id}', [SaferwebController::class, 'inspectionsShow'])->name('inspections.show');
             Route::get('crashes', [SaferwebController::class, 'crashes'])->name('crashes.index');
+            Route::get('crashes/{crash_id}', [SaferwebController::class, 'crashesShow'])->name('crashes.show');
         });
 
         // Subscription
