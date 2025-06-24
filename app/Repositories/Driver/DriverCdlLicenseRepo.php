@@ -28,6 +28,24 @@ class DriverCdlLicenseRepo extends AbstractRepo
         return $this->mapItem($item);
     }
 
+    public function removeDocument($license_id)
+    {
+
+        $license = $this->getById($license_id);
+        $file = $license['file'] ?? null;
+        if( empty($file) ) {
+            return;
+        }
+    
+        // Remove from model
+        $license['Model']->file_id = null;
+        $license['Model']->save();
+
+        // Remove from file repo
+        $this->fileRepo->delete($file['id']);
+
+    }
+
     public function mapItem($item)
     {
 
