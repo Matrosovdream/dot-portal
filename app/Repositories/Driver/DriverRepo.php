@@ -224,6 +224,42 @@ class DriverRepo extends AbstractRepo
 
     }
 
+    public function updateCdlLicense($driver_id, $request, $files=[])
+    {
+
+        $driver = $this->getByID($driver_id);
+
+        if( isset($driver['cdlLicense']) ) {
+            $this->cdlLicenseRepo->update( $driver['cdlLicense']['id'], $request );
+        } else {
+            $request['driver_id'] = $driver_id;
+            $this->cdlLicenseRepo->create( $request );
+        }
+
+        $vehicle = $this->getByID($driver_id);
+
+        // Upload files
+        if( isset($files['license_file']) ) {
+            
+            $tags = ['Driver CDL License', 'Driver CDL License #' . $driver_id];
+
+            $file = $this->fileStorage->uploadFile(
+                $files['license_file'], 
+                'drivers/' . $driver_id . '/cdl_license',
+                'local',
+                ['tags' => $tags]
+            );
+
+            if( isset($file['file']['id']) ) {
+                $this->cdlLicenseRepo->update( $vehicle['cdlLicense']['id'], ['file_id' => $file['file']['id']]);
+            }
+
+        }
+
+        return $vehicle['cdlLicense'];
+
+    }
+
     public function countDriversByCompany($company_id)
     {
         return $this->model
