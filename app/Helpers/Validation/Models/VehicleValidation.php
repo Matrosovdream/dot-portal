@@ -17,6 +17,7 @@ class VehicleValidation extends AbstractValidation {
             $this->checkSections($sections),
             [
                 'percent' => $this->calcPercent($sections),
+                'tabs' => $this->getTabs()
             ]
         );
 
@@ -79,6 +80,22 @@ class VehicleValidation extends AbstractValidation {
             'general' => $general,
             //'mvr' => $mvr,
             'insurance' => $insurance,
+        ];
+
+    }
+
+    private function getTabs() {
+
+        return [
+            'general' => [
+                'title' => 'General',
+            ],
+            'mvr' => [
+                'title' => 'MVR',
+            ],
+            'insurance' => [
+                'title' => 'Insurance',
+            ],
         ];
 
     }
