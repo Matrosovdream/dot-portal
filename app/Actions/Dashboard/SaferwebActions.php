@@ -29,7 +29,7 @@ class SaferwebActions {
 
     public function inspectionsShow( $inspection_id, $request )
     {
-
+dd($this->inspectionsRepo->getById($inspection_id));
         return [
             'title' => 'Inspection Details',
             'inspection' => $this->inspectionsRepo->getById($inspection_id),
