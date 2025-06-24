@@ -14,6 +14,15 @@
     <div class="card-body p-9">
 
         <div class="row mb-7">
+            <label class="col-lg-4 fw-semibold text-muted">License number</label>
+            <div class="col-lg-8">
+                <span class="fw-bold fs-6 text-gray-800">
+                    {{ $driver['cdlLicense']['license_number'] ?? '-' }}
+                </span>
+            </div>
+        </div>
+
+        <div class="row mb-7">
             <label class="col-lg-4 fw-semibold text-muted">Expiration date</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
