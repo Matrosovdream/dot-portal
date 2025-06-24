@@ -38,6 +38,7 @@ class HomeUserActions {
             'title' => 'Services list',
             'user' => $this->userRepo->getById( auth()->user()->id ),
             'stats' => $this->getStats(),
+            'saferwebLatest' => $this->getLatestSaferweb( $user->company->id ?? $user->id, 2 ),
             'services' => Service::paginate(10),
         ];
 
@@ -93,6 +94,29 @@ class HomeUserActions {
         return $stats;
 
     }
+
+    public function getLatestSaferweb( $company_id, $limit = 2 ) {
+
+        // Get latest inspections
+        $inspections = $this->inspectionsRepo->getAll(
+            ['company_id' => $company_id],
+            $paginate = $limit,
+            ['report_date' => 'desc']
+        );
+
+        // Get latest crashes
+        $crashes = $this->crashesRepo->getAll(
+            ['company_id' => $company_id],
+            $paginate = $limit,
+            ['report_date' => 'desc']
+        );
+
+        return [
+            'inspections' => $inspections,
+            'crashes' => $crashes
+        ];
+
+    } 
 
     public function getSaferwebCount( $repo, $filterSet = [] ) {
 
