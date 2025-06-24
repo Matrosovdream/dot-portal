@@ -27,6 +27,16 @@ class SaferwebActions {
 
     }
 
+    public function inspectionsShow( $inspection_id, $request )
+    {
+
+        return [
+            'title' => 'Inspection Details',
+            'inspection' => $this->inspectionsRepo->getById($inspection_id),
+        ];
+    
+    }
+
     public function crashes( $request )
     {
 
@@ -37,6 +47,16 @@ class SaferwebActions {
             'items' => $this->crashesRepo->getAll($filter, $paginate = 30)
         ];
        
+    }
+
+    public function crashesShow( $crash_id, $request )
+    {
+
+        return [
+            'title' => 'Crash Details',
+            'crash' => $this->crashesRepo->getById($crash_id),
+        ];
+    
     }
 
     public function prepareSearch( $model ) {
