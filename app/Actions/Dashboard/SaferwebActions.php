@@ -29,10 +29,10 @@ class SaferwebActions {
 
     public function inspectionsShow( $inspection_id, $request )
     {
-dd($this->inspectionsRepo->getById($inspection_id));
+
         return [
             'title' => 'Inspection Details',
-            'inspection' => $this->inspectionsRepo->getById($inspection_id),
+            'data' => $this->inspectionsRepo->getById($inspection_id),
         ];
     
     }
@@ -52,9 +52,14 @@ dd($this->inspectionsRepo->getById($inspection_id));
     public function crashesShow( $crash_id, $request )
     {
 
+        if( request()->has('lg') ) {
+            $data = $this->crashesRepo->getById($crash_id);
+            dd($data);
+        }
+
         return [
             'title' => 'Crash Details',
-            'crash' => $this->crashesRepo->getById($crash_id),
+            'data' => $this->crashesRepo->getById($crash_id),
         ];
     
     }
