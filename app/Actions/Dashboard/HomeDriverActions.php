@@ -18,7 +18,6 @@ class HomeDriverActions {
         $data = [
             'title' => 'My dashboard',
             'user' => $this->userRepo->getById(auth()->user()->id),
-            'services' => Service::paginate(10)
         ];
 
         return $data;
