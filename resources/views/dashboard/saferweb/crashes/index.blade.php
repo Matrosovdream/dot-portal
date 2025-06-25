@@ -26,6 +26,7 @@
                                 <th class="">Dot Number</th>
                                 <th class="">Report state</th>
                                 <th class="">Date</th>
+                                <th class=""></th>
                             </tr>
                         </thead>
                         <tbody class="fw-semibold text-gray-600">
@@ -52,6 +53,12 @@
 
                                     <td>
                                         {{ dateFormat($item['report_date']) }}
+                                    </td>
+
+                                    <td>
+                                        <a href="{{ route('dashboard.saferweb.crashes.show', $item['id']) }}" class="btn btn-sm btn-light-primary">
+                                            View
+                                        </a>
                                     </td>
 
                                 </tr>
