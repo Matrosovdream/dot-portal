@@ -30,6 +30,11 @@ class SaferwebActions {
     public function inspectionsShow( $inspection_id, $request )
     {
 
+        if( request()->has('lg') ) {
+            $data = $this->inspectionsRepo->getById($inspection_id);
+            dd($data);
+        }
+
         return [
             'title' => 'Inspection Details',
             'data' => $this->inspectionsRepo->getById($inspection_id),
@@ -51,11 +56,6 @@ class SaferwebActions {
 
     public function crashesShow( $crash_id, $request )
     {
-
-        if( request()->has('lg') ) {
-            $data = $this->crashesRepo->getById($crash_id);
-            dd($data);
-        }
 
         return [
             'title' => 'Crash Details',
