@@ -16,6 +16,12 @@
 
             @include('dashboard.saferweb.crashes.sections.overview-profile')
 
+            @include('dashboard.saferweb.crashes.sections.overview-vehicle')
+
+            @include('dashboard.saferweb.crashes.sections.overview-inspection')
+
+            @include('dashboard.saferweb.crashes.sections.overview-conditions')
+
         </div>
 
     @endif
