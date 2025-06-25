@@ -54,7 +54,7 @@
                             <div class="text-gray-700 fw-semibold fs-6 me-2">Last MCS-150 date</div>
                             <div class="d-flex align-items-senter">
                                 <span class="text-gray-900 fw-bolder fs-6">
-                                    @if( $company['saferweb']['latest_update'] )
+                                    @if( isset( $company['saferweb']['latest_update'] ) )
                                         {{ dateFormat( $company['saferweb']['latest_update'] ) }}
                                     @else
                                         -
