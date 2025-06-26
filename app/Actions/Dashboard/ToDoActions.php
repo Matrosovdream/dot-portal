@@ -5,6 +5,7 @@ use App\Mixins\Integrations\SaferwebAPI;
 use App\Models\Service;
 use App\Repositories\User\UserTaskRepo;
 use App\Helpers\User\CompanyHelper;
+use App\Helpers\User\UserTaskHelper;
 
 
 
@@ -23,9 +24,7 @@ class ToDoActions {
 
         $taskHelper = new CompanyHelper();
         $safer = new SaferwebAPI();
-        $driverHelper = app('App\Helpers\Driver\DriverTodoHelper');
-        $expHelper = app('App\Helpers\Expiration\ExpirationHelper');
-        $userTaskHelper = app('App\Helpers\UserTaskHelper');
+        $userTaskHelper = app('App\Helpers\User\UserTaskHelper');
 
         if( request()->has('update_snapshot')) {
             $safer = $taskHelper->updateSnapshot(1);
@@ -68,15 +67,10 @@ class ToDoActions {
             $safer = $safer->getHistoryAll($dotNumber)['violation_records'];
             dd($safer);
         }
-        if( request()->has('driver-todo') ) {
-            $tasks = $driverHelper->addTodoTasks();
-            dd($safer);
-        }
-        if( request()->has('expired-todo') ) {
-            $items = $userTaskHelper->addExpireDocumentTasks();
+        if( request()->has('tasks') ) {
+            $items = $userTaskHelper->updateUserTasks( 3 );
             dd($items);
         }
-       
 
         $data = [
             'title' => 'To-Do List',
