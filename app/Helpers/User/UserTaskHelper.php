@@ -80,4 +80,10 @@ class UserTaskHelper {
 
     }
 
+    private function prepareUniqueCode( $data ) {
+
+        return implode('_', $data);
+
+    }
+
 }
