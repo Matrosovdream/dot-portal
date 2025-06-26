@@ -161,6 +161,7 @@ return new class extends Migration
         // User tasks
         Schema::create('user_tasks', function (Blueprint $table) {
             $table->id();
+            $table->string('unique_code')->unique();
             $table->foreignId('user_id')->on('users');
             $table->foreignId('assigned_to')->on('users')->nullable();
             $table->string('title')->nullable();
