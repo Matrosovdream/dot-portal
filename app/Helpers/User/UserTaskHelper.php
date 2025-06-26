@@ -16,6 +16,18 @@ class UserTaskHelper {
 
     }
 
+    public function updateVehicleTasks() {
+
+        $invalidItems = $this->validateModelRecords(
+            app('App\Repositories\Vehicle\VehicleRepo'),
+            app('App\Helpers\Validation\Models\VehicleValidation'),
+            10000
+        );
+
+        dd($invalidItems);
+
+    }
+
     public function validateModelRecords( $modelRepo, $validationHelper, $limit = 10000 ) {
 
         $items = $modelRepo->getAll([], $limit)['items'];
