@@ -68,8 +68,12 @@ class ToDoActions {
             dd($safer);
         }
         if( request()->has('tasks') ) {
-            $items = $userTaskHelper->updateDriverTasks();
-            dd($items);
+            $itemsDriver = $userTaskHelper->updateDriverTasks();
+            $itemsVehicle = $userTaskHelper->updateVehicleTasks();
+            dd(
+                $itemsDriver, 
+                $itemsVehicle
+            );
         }
 
         $data = [
