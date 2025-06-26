@@ -13,6 +13,7 @@ class UserTask extends Model
     protected $table = "user_tasks";
     
     protected $fillable = [
+        'unique_code',
         'user_id',
         'assigned_to',
         'title',
