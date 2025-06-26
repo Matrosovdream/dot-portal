@@ -4,16 +4,25 @@ namespace App\Helpers\User;
 
 class UserTaskHelper {
 
-    public function updateUserTasks() {
-
-        $driverRepo = app('App\Repositories\Driver\DriverRepo');
+    public function updateDriverTasks() {
         
-        $items = $driverRepo->getAll([], 10000)['items'];
+        $invalidItems = $this->validateModelRecords(
+            app('App\Repositories\Driver\DriverRepo'),
+            app('App\Helpers\Validation\Models\DriverValidation'),
+            10000
+        );
+
+        dd($invalidItems);
+
+    }
+
+    public function validateModelRecords( $modelRepo, $validationHelper, $limit = 10000 ) {
+
+        $items = $modelRepo->getAll([], $limit)['items'];
 
         $invalidItems = [];
         foreach( $items as $key=>$item ) {
 
-            $validationHelper = app('App\Helpers\Validation\Models\DriverValidation');
             $validation = $validationHelper->setData($item)->validateAll();
 
             if( $validation['valid'] ) {
@@ -25,7 +34,7 @@ class UserTaskHelper {
 
         }
 
-        dd($invalidItems);
+        return $invalidItems;
 
     }
 
