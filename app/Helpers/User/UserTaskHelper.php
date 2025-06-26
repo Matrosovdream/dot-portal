@@ -12,21 +12,51 @@ class UserTaskHelper {
             10000
         );
 
-        dd($invalidItems);
+        $tasks = [];
+        foreach( $invalidItems as $key=>$item ) {
+
+            $tabsRef = $item['Validation']['tabs'];
+
+            foreach( $item['Validation']['errors'] as $tabCode=>$tabs ) {
+
+                $tabTitle = $tabsRef[$tabCode]['title'] ?? '';
+
+                $uniques = [
+                    'validation', // Task type
+                    'driver', // Model
+                    $item['id'], // Element ID
+                    strtolower($tabCode) // Tab code
+                ];
+                $uniqueCode = $this->prepareUniqueCode($uniques);
+
+                $tasks[$uniqueCode] = [
+                    'unique_code' => $uniqueCode,
+                    'user_id' => $item['user']['id'] ?? null,
+                    'assigned_to' => $item['user']['id'] ?? null,
+                    'title' => 'Driver #'.$item['id'].' Validation Error: '.$tabTitle,
+                    'description' => 'Driver #'.$item['id'].' has validation errors in tab: '.$tabTitle,
+                    'category' => 'driver',
+                    'subcategory' => $tabTitle,
+                    'status' => 'open',
+                    'due_date' => now()->addDays(7),
+                    'priority' => 'normal',
+                    'link' => 'dashboard/drivers/'.$item['id'],
+                    'entity' => 'driver',
+                    'entity_id' => $item['id'],
+                ];
+
+            }
+
+        }
+
+        // Add into DB
+        $this->syncTasks($tasks);
+
+        return $tasks;
 
     }
 
-    public function updateVehicleTasks() {
 
-        $invalidItems = $this->validateModelRecords(
-            app('App\Repositories\Vehicle\VehicleRepo'),
-            app('App\Helpers\Validation\Models\VehicleValidation'),
-            10000
-        );
-
-        dd($invalidItems);
-
-    }
 
     public function validateModelRecords( $modelRepo, $validationHelper, $limit = 10000 ) {
 
@@ -49,7 +79,5 @@ class UserTaskHelper {
         return $invalidItems;
 
     }
-
-
 
 }
