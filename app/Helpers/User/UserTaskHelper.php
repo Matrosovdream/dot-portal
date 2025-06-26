@@ -16,6 +16,7 @@ class UserTaskHelper {
         foreach( $invalidItems as $key=>$item ) {
 
             $tabsRef = $item['Validation']['tabs'];
+            $item['user']['id'] = 3;
 
             foreach( $item['Validation']['errors'] as $tabCode=>$tabs ) {
 
@@ -68,6 +69,7 @@ class UserTaskHelper {
         foreach( $invalidItems as $key=>$item ) {
 
             $tabsRef = $item['Validation']['tabs'];
+            $item['driver']['user_id'] = 3;
 
             foreach( $item['Validation']['errors'] as $tabCode=>$tabs ) {
 
