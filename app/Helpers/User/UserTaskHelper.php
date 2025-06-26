@@ -80,6 +80,22 @@ class UserTaskHelper {
 
     }
 
+    private function syncTasks( $tasks ) {
+
+        if( empty($tasks) ) {
+            return;
+        }
+
+        $taskRepo = app('App\Repositories\User\UserTaskRepo');
+
+        // Mass update by unique code Upsert
+        $taskRepo->model->upsert(
+            $tasks,
+            ['unique_code'],
+        );
+
+    }
+
     private function prepareUniqueCode( $data ) {
 
         return implode('_', $data);
