@@ -31,7 +31,10 @@ class SearchActions {
         ];
 
         foreach ($models as $key => $modelData) {
-            $res = $modelData['repo']->modelSearch($request['q'], true, 25) ?? [];
+            $res = $modelData['repo']->modelSearch($request['q'], true, 25);
+            if (empty($res)) {
+                continue; // Skip if no results found
+            }
             $count = $res['Model']->count();
 
             // We don't need model here
