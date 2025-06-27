@@ -153,7 +153,7 @@ class UserTaskHelper {
                     'user_id' => 3,
                     'assigned_to' => 3,
                     'title' => $modelTitle.' #'.$item['id'].' Expiration Alert: '.$modelData['title'],
-                    //'description' => 'Vehicle #'.$item['id'].' has validation errors in tab: '.$tabTitle,
+                    'description' => '',
                     'category' => $modelData['entity'],
                     'subcategory' => $modelData['title'],
                     'status' => 'open',
