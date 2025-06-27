@@ -4,6 +4,7 @@ namespace App\Console\Commands\Todo;
 
 use Illuminate\Console\Command;
 use App\Helpers\User\UserTaskHelper;
+use Log;
 
 class UpdateVehicleTasks extends Command
 {
@@ -21,7 +22,7 @@ class UpdateVehicleTasks extends Command
         $items = $taskHelper->updateVehicleTasks();
 
         // Log the number of tasks created
-        $this->info('Vehicle tasks updated: ' . count($items));
+        Log::info('Vehicle tasks updated: ' . count($items));
 
     }
 }

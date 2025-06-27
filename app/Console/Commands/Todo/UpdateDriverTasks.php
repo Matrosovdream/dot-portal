@@ -4,6 +4,7 @@ namespace App\Console\Commands\Todo;
 
 use Illuminate\Console\Command;
 use App\Helpers\User\UserTaskHelper;
+use Log;
 
 class UpdateDriverTasks extends Command
 {
@@ -21,7 +22,7 @@ class UpdateDriverTasks extends Command
         $items = $taskHelper->updateDriverTasks();
 
         // Log the number of tasks created
-        $this->info('Driver tasks updated: ' . count($items));
+        Log::info('Driver tasks updated: ' . count($items));
 
     }
 }
