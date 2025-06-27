@@ -62,7 +62,7 @@
 
                                     <td>
                                         <a href="{{ route('dashboard.saferweb.inspections.show', $item['id']) }}" class="btn btn-sm btn-light-primary">
-                                            View
+                                            <i class="fa fa-eye"></i> View
                                         </a>
                                     </td>
 
