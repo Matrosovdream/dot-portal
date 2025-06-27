@@ -41,7 +41,7 @@ class UserTaskHelper {
                     'status' => 'open',
                     'due_date' => now()->addDays(7),
                     'priority' => 'normal',
-                    'link' => 'dashboard/drivers/'.$item['id'],
+                    'link' => route('dashboard.drivers.show', $item['id']),
                     'entity' => 'driver',
                     'entity_id' => $item['id'],
                 ];
@@ -94,7 +94,7 @@ class UserTaskHelper {
                     'status' => 'open',
                     'due_date' => now()->addDays(7),
                     'priority' => 'normal',
-                    'link' => 'dashboard/vehicles/'.$item['id'],
+                    'link' => route('dashboard.vehicles.show', $item['id']),
                     'entity' => 'vehicle',
                     'entity_id' => $item['id'],
                 ];
@@ -107,28 +107,6 @@ class UserTaskHelper {
         $this->syncTasks($tasks);
 
         return $tasks;
-
-    }
-
-    public function validateModelRecords( $modelRepo, $validationHelper, $limit = 10000 ) {
-
-        $items = $modelRepo->getAll([], $limit)['items'];
-
-        $invalidItems = [];
-        foreach( $items as $key=>$item ) {
-
-            $validation = $validationHelper->setData($item)->validateAll();
-
-            if( $validation['valid'] ) {
-                continue;
-            }
-
-            $invalidItems[$key] = $item;
-            $invalidItems[$key]['Validation'] = $validation;
-
-        }
-
-        return $invalidItems;
 
     }
 
@@ -159,6 +137,17 @@ class UserTaskHelper {
                 ];
                 $uniqueCode = $this->prepareUniqueCode($uniques);
 
+                $link = '';
+                switch( $modelData['entity'] ) {
+                    case 'driver':
+                        $link = route('dashboard.drivers.show', $item['id']);
+                        break;
+                    case 'vehicle':
+                        $link = route('dashboard.vehicles.show', $item['id']);
+                        break;
+                    // Add more cases as needed for other entities
+                }
+
                 $tasks[$uniqueCode] = [
                     'unique_code' => $uniqueCode,
                     'user_id' => 3,
@@ -170,7 +159,7 @@ class UserTaskHelper {
                     'status' => 'open',
                     'due_date' => now()->addDays(7),
                     'priority' => 'normal',
-                    'link' => 'dashboard/vehicles/'.$item['id'],
+                    'link' => $link,
                     'entity' => $modelData['entity'],
                     'entity_id' => $item['id'],
                 ];
@@ -182,6 +171,28 @@ class UserTaskHelper {
         $this->syncTasks($tasks);
 
         return $tasks;
+
+    }
+
+    public function validateModelRecords( $modelRepo, $validationHelper, $limit = 10000 ) {
+
+        $items = $modelRepo->getAll([], $limit)['items'];
+
+        $invalidItems = [];
+        foreach( $items as $key=>$item ) {
+
+            $validation = $validationHelper->setData($item)->validateAll();
+
+            if( $validation['valid'] ) {
+                continue;
+            }
+
+            $invalidItems[$key] = $item;
+            $invalidItems[$key]['Validation'] = $validation;
+
+        }
+
+        return $invalidItems;
 
     }
 
