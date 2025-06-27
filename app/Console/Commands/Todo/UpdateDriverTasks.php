@@ -21,8 +21,19 @@ class UpdateDriverTasks extends Command
         // Update driver tasks
         $items = $taskHelper->updateDriverTasks();
 
-        // Log the number of tasks created
-        Log::info('Driver tasks updated: ' . count($items));
+        // Messaging
+        $text = 'Driver tasks updated: ' . count($items);
+        $this->log( $text );
 
     }
+
+    protected function log($text)
+    {
+        // Output the text to the console
+        $this->info($text);
+
+        // Log 
+        Log::info($text);
+    }
+
 }
