@@ -132,6 +132,59 @@ class UserTaskHelper {
 
     }
 
+    public function updateExpireTasks() {
+
+        $expHelper = app('App\Helpers\Expiration\ExpirationHelper');
+
+        // Get all expired items
+        $models = $expHelper->getExpiredItems();
+
+        $tasks = [];
+        foreach( $models as $modelData ) {
+
+            // Loop through each model and its items
+            $modelTitle = ucfirst( $modelData['entity'] );
+            $items = $modelData['items'];
+            $tabCode = $modelData['field'];
+
+            foreach( $items as $item ) {
+
+                $item['user_id'] = 3;
+            
+                $uniques = [
+                    'expiration', // Task type
+                    $modelData['entity'], // Model
+                    $item['id'], // Element ID
+                    strtolower($tabCode) // Tab code
+                ];
+                $uniqueCode = $this->prepareUniqueCode($uniques);
+
+                $tasks[$uniqueCode] = [
+                    'unique_code' => $uniqueCode,
+                    'user_id' => 3,
+                    'assigned_to' => 3,
+                    'title' => $modelTitle.' #'.$item['id'].' Expiration Alert: '.$modelData['title'],
+                    //'description' => 'Vehicle #'.$item['id'].' has validation errors in tab: '.$tabTitle,
+                    'category' => $modelData['entity'],
+                    'subcategory' => $modelData['title'],
+                    'status' => 'open',
+                    'due_date' => now()->addDays(7),
+                    'priority' => 'normal',
+                    'link' => 'dashboard/vehicles/'.$item['id'],
+                    'entity' => $modelData['entity'],
+                    'entity_id' => $item['id'],
+                ];
+
+            }
+        }
+
+        // Add into DB
+        $this->syncTasks($tasks);
+
+        return $tasks;
+
+    }
+
     private function syncTasks( $tasks ) {
 
         if( empty($tasks) ) {
