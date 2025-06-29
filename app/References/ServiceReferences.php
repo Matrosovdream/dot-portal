@@ -10,12 +10,14 @@ class ServiceReferences {
                 'id' => 1,
                 'name' => 'MCS-150',
                 'path' => 'forms.request.mcs150',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\MscForm',
                 'fields' => []
             ],
             2 => [
                 'id' => 2,
                 'name' => 'UCR',
                 'path' => 'forms.request.ucr',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\UcrForm',
                 'fields' => [
                     'range_of_units' => ['title' => 'Range of units', 'type' => 'text', 'required' => true],
                     'date_of_birth' => ['title' => 'Date of birth', 'type' => 'date', 'required' => true],
@@ -26,18 +28,21 @@ class ServiceReferences {
                 'id' => 3,
                 'name' => 'Road Taxes',
                 'path' => 'forms.request.road-taxes',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\RoadTaxesForm',
                 'fields' => []
             ],
             4 => [
                 'id' => 4,
                 'name' => 'IFTA',
                 'path' => 'forms.request.ifta',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\IftaForm',
                 'fields' => []
             ],
             5 => [
                 'id' => 5,
                 'name' => 'IRP',
                 'path' => 'forms.request.irp',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\IrpForm',
                 'fields' => []
             ],
         ];
