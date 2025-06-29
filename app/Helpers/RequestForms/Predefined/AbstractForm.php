@@ -13,6 +13,21 @@ class AbstractForm
         
     }
 
+    protected function getCountryStates()
+    {
+        $statesRepo = new RefCountryStateRepo();
+        $states = $statesRepo->getAll();
 
+        $list = [];
+        foreach ($states as $state) {
+            $list[] = [
+                'value' => $state['id'],
+                'title' => $state['name']
+            ];
+        }
+
+        return $list;
+
+    }
 
 }
