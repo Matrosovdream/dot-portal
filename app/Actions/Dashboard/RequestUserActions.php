@@ -72,7 +72,17 @@ class RequestUserActions {
 
         // Get form path for predefined forms
         if( $service['form_type'] == 'predefined' ) {
-            $formPath = $this->serviceRef->getPredefinedForms()[ $service['form_id'] ]['path'] ?? null;
+
+            $predefinedForm =  $this->serviceRef->getPredefinedForms()[ $service['form_id'] ];
+
+            $formPath = $predefinedForm['path'] ?? null;
+            $formClass = $predefinedForm['classProcess'] ?? null;
+
+            if( $formClass ) {
+                $refsClass = new $formClass();
+                $formRefs = $refsClass->getReferences();
+            }
+            
         }
 
         // Get referencences and prepare data
@@ -91,6 +101,7 @@ class RequestUserActions {
             'group' => $group,
             'service' => $service,
             'formPath' => $formPath ?? null,
+            'formRefs' => $formRefs ?? [],
             'references' => $references,
         ];
 
