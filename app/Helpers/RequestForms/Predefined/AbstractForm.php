@@ -19,7 +19,7 @@ class AbstractForm
         $states = $statesRepo->getAll();
 
         $list = [];
-        foreach ($states as $state) {
+        foreach ($states['items'] as $state) {
             $list[] = [
                 'value' => $state['id'],
                 'title' => $state['name']
