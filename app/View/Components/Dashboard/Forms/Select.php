@@ -19,11 +19,22 @@ class Select extends Component
         public ?string $label,
         public ?string $note,
         public ?string $description,
+        public ?string $template = 'default',
     )
     { }
 
     public function render(): View|Closure|string
     {
-        return view('components.dashboard.forms.select');
+
+        return view($this->templates()[$this->template] ?? 'components.dashboard.forms.select');
     }
+
+    private function templates()
+    {
+        return [
+            'default' => 'components.dashboard.forms.select',
+            'inline' => 'components.dashboard.forms.select-inline',
+        ];
+    }
+
 }
