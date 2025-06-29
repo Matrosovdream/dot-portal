@@ -19,15 +19,8 @@
         <label class="col-lg-4 col-form-label fw-semibold fs-6">Change Type</label>
         <div class="col-lg-4 fv-row">
 
-            @php
-                $changeTypes = [
-                    'keep' => 'Keep same',
-                    'change' => 'Make changes'
-                ];
-            @endphp
-
           <select name="fields[change_type]" id="changeType" class="form-select form-select-lg form-select-solid">
-            @foreach($changeTypes as $value => $label)
+            @foreach($refs['change_type'] as $value => $label)
               <option 
                 value="{{ $value }}" 
                 {{ (isset($values['change_type']) && $values['change_type'] === $value) ? 'selected' : '' }}>
@@ -108,12 +101,7 @@
             <x-select 
                 inputName="fields[business_address_state]"
                 label="Select a State"
-                :options="[
-                    ['value' => 'NY', 'title' => 'New York'],
-                    ['value' => 'CA', 'title' => 'California'],
-                    ['value' => 'TX', 'title' => 'Texas'],
-                    ['value' => 'FL', 'title' => 'Florida'],
-                ]"
+                :options="$refs['country_state']"
                 value="{{ $values['business_address_state'] ?? '' }}"
                 :multiple=false
                 :required=true
@@ -184,12 +172,7 @@
             <x-select 
                 inputName="fields[mailing_address_state]"
                 label="Select a State"
-                :options="[
-                    ['value' => 'NY', 'title' => 'New York'],
-                    ['value' => 'CA', 'title' => 'California'],
-                    ['value' => 'TX', 'title' => 'Texas'],
-                    ['value' => 'FL', 'title' => 'Florida'],
-                ]"
+                :options="$refs['country_state']"
                 value="{{ $values['mailing_address_state'] ?? '' }}"
                 :multiple=false
                 :required=true
@@ -264,10 +247,7 @@
             <x-select 
                 inputName="fields[operation_type]"
                 label="Operation Type"
-                :options="[
-                    ['value' => 'interstate', 'title' => 'Interstate'],
-                    ['value' => 'intrastate', 'title' => 'Intrastate'],
-                ]"
+                :options="$refs['operation_type']"
                 value="{{ $values['operation_type'] ?? '' }}"
                 :multiple=false
                 :required=true
@@ -281,12 +261,7 @@
             <x-select 
                 inputName="fields[cargo_type]"
                 label="Cargo Type"
-                :options="[
-                    ['value' => 'general', 'title' => 'General Freight'],
-                    ['value' => 'hazardous', 'title' => 'Hazardous Materials'],
-                    ['value' => 'household', 'title' => 'Household Goods'],
-                    ['value' => 'passenger', 'title' => 'Passenger'],
-                ]"
+                :options="$refs['cargo_type']"
                 value="{{ $values['cargo_type'] ?? '' }}"
                 :multiple=false
                 :required=true
