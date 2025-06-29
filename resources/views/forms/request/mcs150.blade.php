@@ -16,23 +16,22 @@
   
       <!-- Change Type -->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fw-semibold fs-6">Change Type</label>
-        <div class="col-lg-4 fv-row">
 
-          <select name="fields[change_type]" id="changeType" class="form-select form-select-lg form-select-solid">
-            @foreach($refs['change_type'] as $value => $label)
-              <option 
-                value="{{ $value }}" 
-                {{ (isset($values['change_type']) && $values['change_type'] === $value) ? 'selected' : '' }}>
-                {{ $label }}
-              </option>
-            @endforeach
-          </select>
-        </div>
+        <x-select 
+          inputName="fields[change_type]"
+          inputId="changeType"
+          label="Change Type"
+          :options="$formRefs['change_type']['options']"
+          value="{{ isset( $values['change_type'] ) ?? '' }}"
+          :multiple=false
+          :required=true
+          template="inline"
+        />
+
       </div>
   
       <!-- Editable Fields -->
-      <div id="editableFields" style="display: block;">
+      <div id="editableFields" style="display: none;">
 
         <div class="separator mb-8"></div>
 
@@ -101,7 +100,7 @@
             <x-select 
                 inputName="fields[business_address_state]"
                 label="Select a State"
-                :options="$refs['country_state']"
+                :options="$formRefs['country_state']['options']"
                 value="{{ $values['business_address_state'] ?? '' }}"
                 :multiple=false
                 :required=true
@@ -172,7 +171,7 @@
             <x-select 
                 inputName="fields[mailing_address_state]"
                 label="Select a State"
-                :options="$refs['country_state']"
+                :options="$formRefs['country_state']['options']"
                 value="{{ $values['mailing_address_state'] ?? '' }}"
                 :multiple=false
                 :required=true
@@ -247,7 +246,7 @@
             <x-select 
                 inputName="fields[operation_type]"
                 label="Operation Type"
-                :options="$refs['operation_type']"
+                :options="$formRefs['operation_type']['options']"
                 value="{{ $values['operation_type'] ?? '' }}"
                 :multiple=false
                 :required=true
@@ -261,7 +260,7 @@
             <x-select 
                 inputName="fields[cargo_type]"
                 label="Cargo Type"
-                :options="$refs['cargo_type']"
+                :options="$formRefs['cargo_type']['options']"
                 value="{{ $values['cargo_type'] ?? '' }}"
                 :multiple=false
                 :required=true
