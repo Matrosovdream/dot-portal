@@ -3,7 +3,14 @@
       <div class="row mb-6">
         <label class="col-lg-4 col-form-label fw-semibold fs-6">PIN</label>
         <div class="col-lg-4 fv-row">
-          <input type="text" name="pin" class="form-control form-control-lg form-control-solid" placeholder="PIN">
+          <input 
+            type="text" 
+            name="pin" 
+            class="form-control form-control-lg form-control-solid" 
+            placeholder="PIN"
+            name="fields[pin]"
+            value="{{ $values['pin'] ?? '' }}"
+            >
         </div>
       </div>
   
@@ -11,15 +18,28 @@
       <div class="row mb-6">
         <label class="col-lg-4 col-form-label fw-semibold fs-6">Change Type</label>
         <div class="col-lg-4 fv-row">
-          <select name="change_type" id="changeType" class="form-select form-select-lg form-select-solid">
-            <option value="keep">Keep same</option>
-            <option value="change">Make changes</option>
+
+            @php
+                $changeTypes = [
+                    'keep' => 'Keep same',
+                    'change' => 'Make changes'
+                ];
+            @endphp
+
+          <select name="fields[change_type]" id="changeType" class="form-select form-select-lg form-select-solid">
+            @foreach($changeTypes as $value => $label)
+              <option 
+                value="{{ $value }}" 
+                {{ (isset($values['change_type']) && $values['change_type'] === $value) ? 'selected' : '' }}>
+                {{ $label }}
+              </option>
+            @endforeach
           </select>
         </div>
       </div>
   
       <!-- Editable Fields -->
-      <div id="editableFields" style="display: none;">
+      <div id="editableFields" style="display: block;">
 
         <div class="separator mb-8"></div>
 
@@ -29,7 +49,13 @@
         <div class="row mb-6">
             <label class="col-lg-4 col-form-label fw-semibold fs-6">EIN</label>
             <div class="col-lg-4 fv-row">
-                <input type="text" name="ein" class="form-control form-control-lg form-control-solid" placeholder="EIN">
+                <input 
+                    type="text" 
+                    class="form-control form-control-lg form-control-solid" 
+                    placeholder="EIN"
+                    name="fields[ein]"
+                    value="{{ $values['ein'] ?? '' }}"
+                    />
             </div>
         </div>
 
@@ -41,39 +67,71 @@
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">Address 1</label>
           <div class="col-lg-4 fv-row">
-            <input type="text" name="business_address1" class="form-control form-control-lg form-control-solid" placeholder="Address 1">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Address 1"
+                name="fields[business_address1]" 
+                value="{{ $values['business_address1'] ?? '' }}"
+                />
           </div>
         </div>
   
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">Address 2</label>
           <div class="col-lg-4 fv-row">
-            <input type="text" name="business_address2" class="form-control form-control-lg form-control-solid" placeholder="Address 2">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Address 2"
+                name="business_address2" 
+                value="{{ $values['business_address2'] ?? '' }}"
+                />
           </div>
         </div>
   
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">City</label>
           <div class="col-lg-4 fv-row">
-            <input type="text" name="business_city" class="form-control form-control-lg form-control-solid" placeholder="City">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="City"
+                name="business_address_city" 
+                value="{{ $values['business_address_city'] ?? '' }}"
+                />
           </div>
         </div>
   
         <div class="row mb-6">
-          <label class="col-lg-4 col-form-label fw-semibold fs-6">State</label>
-          <div class="col-lg-4 fv-row">
-            <select name="business_state" class="form-select form-select-lg form-select-solid">
-              <option value="">Select a State</option>
-              <option value="NY">New York</option>
-              <option value="CA">California</option>
-            </select>
-          </div>
+
+            <x-select 
+                inputName="fields[business_address_state]"
+                label="Select a State"
+                :options="[
+                    ['value' => 'NY', 'title' => 'New York'],
+                    ['value' => 'CA', 'title' => 'California'],
+                    ['value' => 'TX', 'title' => 'Texas'],
+                    ['value' => 'FL', 'title' => 'Florida'],
+                ]"
+                value="{{ $values['business_address_state'] ?? '' }}"
+                :multiple=false
+                :required=true
+                template="inline"
+            />
+
         </div>
   
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">Zip Code</label>
           <div class="col-lg-4 fv-row">
-            <input type="text" name="business_zip" class="form-control form-control-lg form-control-solid" placeholder="Zip Code">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Zip Code"
+                name="business_address_zip" 
+                value="{{ $values['business_address_zip'] ?? '' }}"
+                />
           </div>
         </div>
 
@@ -85,39 +143,71 @@
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">Address 1</label>
           <div class="col-lg-4 fv-row">
-            <input type="text" name="mailing_address1" class="form-control form-control-lg form-control-solid" placeholder="Address 1">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Address 1"
+                name="fields[mailing_address1]" 
+                value="{{ $values['mailing_address1'] ?? '' }}"
+                />
           </div>
         </div>
   
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">Address 2</label>
           <div class="col-lg-4 fv-row">
-            <input type="text" name="mailing_address2" class="form-control form-control-lg form-control-solid" placeholder="Address 2">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Address 2"
+                name="mailing_address2" 
+                value="{{ $values['mailing_address2'] ?? '' }}"
+                />
           </div>
         </div>
   
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">City</label>
           <div class="col-lg-4 fv-row">
-            <input type="text" name="mailing_city" class="form-control form-control-lg form-control-solid" placeholder="City">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="City"
+                name="mailing_address_city" 
+                value="{{ $values['mailing_address_city'] ?? '' }}"
+                />
           </div>
         </div>
   
         <div class="row mb-6">
-          <label class="col-lg-4 col-form-label fw-semibold fs-6">State</label>
-          <div class="col-lg-4 fv-row">
-            <select name="mailing_state" class="form-select form-select-lg form-select-solid">
-              <option value="">Select a State</option>
-              <option value="TX">Texas</option>
-              <option value="FL">Florida</option>
-            </select>
-          </div>
+
+            <x-select 
+                inputName="fields[mailing_address_state]"
+                label="Select a State"
+                :options="[
+                    ['value' => 'NY', 'title' => 'New York'],
+                    ['value' => 'CA', 'title' => 'California'],
+                    ['value' => 'TX', 'title' => 'Texas'],
+                    ['value' => 'FL', 'title' => 'Florida'],
+                ]"
+                value="{{ $values['mailing_address_state'] ?? '' }}"
+                :multiple=false
+                :required=true
+                template="inline"
+            />
+
         </div>
   
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">Zip Code</label>
           <div class="col-lg-4 fv-row">
-            <input type="text" name="mailing_zip" class="form-control form-control-lg form-control-solid" placeholder="Zip Code">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Zip Code"
+                name="mailing_address_zip" 
+                value="{{ $values['mailing_address_zip'] ?? '' }}"
+                />
           </div>
         </div>
 
@@ -129,21 +219,38 @@
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">Name</label>
           <div class="col-lg-4 fv-row">
-            <input type="text" name="contact_name" class="form-control form-control-lg form-control-solid" placeholder="Contact Name">
+            <input 
+                type="text" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Contact Name"
+                name="fields[contact_name]" 
+                value="{{ $values['contact_name'] ?? '' }}"
+                />
           </div>
         </div>
   
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">Phone</label>
           <div class="col-lg-4 fv-row">
-            <input type="tel" name="contact_phone" class="form-control form-control-lg form-control-solid" placeholder="Phone Number">
+            <input 
+                type="tel" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Phone Number"
+                name="fields[contact_phone]" 
+                value="{{ $values['contact_phone'] ?? '' }}"
+                />
           </div>
         </div>
   
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">Email</label>
           <div class="col-lg-4 fv-row">
-            <input type="email" name="contact_email" class="form-control form-control-lg form-control-solid" placeholder="Email Address">
+            <input 
+                type="email" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Email Address"
+                name="fields[contact_email]" 
+                value="{{ $values['contact_email'] ?? '' }}">
           </div>
         </div>
 
@@ -153,27 +260,50 @@
         <h5 class="mt-10 mb-5">Operation Info</h5>
   
         <div class="row mb-6">
-          <label class="col-lg-4 col-form-label fw-semibold fs-6">Operation Type</label>
-          <div class="col-lg-4 fv-row">
-            <select name="operation_type" class="form-select form-select-lg form-select-solid">
-              <option value="">Select Type</option>
-              <option value="interstate">Interstate</option>
-              <option value="intrastate">Intrastate</option>
-            </select>
-          </div>
+          
+            <x-select 
+                inputName="fields[operation_type]"
+                label="Operation Type"
+                :options="[
+                    ['value' => 'interstate', 'title' => 'Interstate'],
+                    ['value' => 'intrastate', 'title' => 'Intrastate'],
+                ]"
+                value="{{ $values['operation_type'] ?? '' }}"
+                :multiple=false
+                :required=true
+                template="inline"
+            />
+            
         </div>
   
         <div class="row mb-6">
-          <label class="col-lg-4 col-form-label fw-semibold fs-6">Cargo Type</label>
-          <div class="col-lg-4 fv-row">
-            <input type="text" name="cargo_type" class="form-control form-control-lg form-control-solid" placeholder="Cargo Type">
-          </div>
+          
+            <x-select 
+                inputName="fields[cargo_type]"
+                label="Cargo Type"
+                :options="[
+                    ['value' => 'general', 'title' => 'General Freight'],
+                    ['value' => 'hazardous', 'title' => 'Hazardous Materials'],
+                    ['value' => 'household', 'title' => 'Household Goods'],
+                    ['value' => 'passenger', 'title' => 'Passenger'],
+                ]"
+                value="{{ $values['cargo_type'] ?? '' }}"
+                :multiple=false
+                :required=true
+                template="inline"
+            />
+            
         </div>
   
         <div class="row mb-6">
           <label class="col-lg-4 col-form-label fw-semibold fs-6">Mileage</label>
           <div class="col-lg-4 fv-row">
-            <input type="number" name="mileage" class="form-control form-control-lg form-control-solid" placeholder="Mileage">
+            <input 
+                type="number" 
+                class="form-control form-control-lg form-control-solid" 
+                placeholder="Mileage"
+                name="fields[mileage]"
+                value="{{ $values['mileage'] ?? '' }}">
           </div>
         </div>
   
@@ -184,8 +314,6 @@
     document.addEventListener('DOMContentLoaded', function () {
       const changeType = document.getElementById('changeType');
       const editableFields = document.getElementById('editableFields');
-      const fileInput = document.getElementById('profile_photo_file');
-      const dropzone = document.getElementById('kt_ecommerce_add_profile_photo');
   
       changeType.addEventListener('change', function () {
         editableFields.style.display = this.value === 'change' ? 'block' : 'none';
@@ -194,25 +322,7 @@
       dropzone.addEventListener('click', function (e) {
         if (!e.target.closest('button')) fileInput.click();
       });
-  
-      fileInput.addEventListener('change', function () {
-        const file = fileInput.files[0];
-        document.querySelectorAll('.file-preview').forEach(el => el.remove());
-        if (!file) return;
-  
-        const previewContainer = document.createElement('div');
-        previewContainer.className = 'file-preview mt-4';
-  
-        if (file.type.startsWith('image/')) {
-          const img = document.createElement('img');
-          img.src = URL.createObjectURL(file);
-          img.style.maxWidth = '100%';
-          img.onload = () => URL.revokeObjectURL(img.src);
-          previewContainer.appendChild(img);
-        }
-  
-        dropzone.appendChild(previewContainer);
-      });
+
     });
   </script>
   
