@@ -17,6 +17,7 @@
       <!-- Change Type -->
       <div class="row mb-6">
 
+        @php /*
         <x-select 
           inputName="fields[change_type]"
           inputId="changeType"
@@ -27,6 +28,15 @@
           :required=true
           template="inline"
         />
+        */ @endphp
+
+        <label class="col-lg-4 col-form-label fw-semibold fs-6">Change Type</label>
+        <div class="col-lg-4 fv-row">
+          <select name="change_type" id="changeType" class="form-select form-select-lg form-select-solid">
+            <option value="keep">Keep same</option>
+            <option value="change">Make changes</option>
+          </select>
+        </div>
 
       </div>
   
@@ -291,6 +301,7 @@
   
       changeType.addEventListener('change', function () {
         editableFields.style.display = this.value === 'change' ? 'block' : 'none';
+        console.log('Change Type:', this.value);  
       });
   
       dropzone.addEventListener('click', function (e) {
