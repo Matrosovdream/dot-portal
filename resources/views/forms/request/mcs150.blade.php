@@ -32,7 +32,7 @@
 
         <label class="col-lg-4 col-form-label fw-semibold fs-6">Change Type</label>
         <div class="col-lg-4 fv-row">
-          <select name="change_type" id="changeType" class="form-select form-select-lg form-select-solid">
+          <select name="fields[change_type]" id="changeType" class="form-select form-select-lg form-select-solid">
             <option value="keep">Keep same</option>
             <option value="change">Make changes</option>
           </select>
@@ -300,14 +300,20 @@
       const editableFields = document.getElementById('editableFields');
   
       changeType.addEventListener('change', function () {
-        editableFields.style.display = this.value === 'change' ? 'block' : 'none';
-        console.log('Change Type:', this.value);  
+        checkEditable();
       });
-  
+
+      // Check on page load
+      checkEditable();
+      
       dropzone.addEventListener('click', function (e) {
         if (!e.target.closest('button')) fileInput.click();
       });
 
     });
+
+    function checkEditable() {
+      editableFields.style.display = changeType.value === 'change' ? 'block' : 'none';
+    }
   </script>
   
