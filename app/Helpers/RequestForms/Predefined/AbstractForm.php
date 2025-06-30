@@ -3,6 +3,7 @@
 namespace App\Helpers\RequestForms\Predefined;
 
 use App\Repositories\References\RefCountryStateRepo;
+use App\Repositories\Vehicle\VehicleRepo;
 
 class AbstractForm
 {
@@ -28,6 +29,24 @@ class AbstractForm
 
         return $list;
 
+    }
+
+    protected function getVehicles($filter = [])
+    {
+        $vehicles = new VehicleRepo();
+
+        $vehiclesList = $vehicles->getAll($filter, 1000);
+        
+        $list = [];
+        foreach ($vehiclesList['items'] as $vehicle) {
+            $list[] = [
+                'value' => $vehicle['id'],
+                'title' => "VIN #".$vehicle['vin']
+            ];      
+        }
+
+        return $list;
+        
     }
 
 }
