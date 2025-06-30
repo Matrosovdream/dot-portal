@@ -49,4 +49,14 @@ class AbstractForm
         
     }
 
+    protected function getQuarterPeriods()
+    {
+        return [
+            ['value' => '1', 'title' => 'January - March'],
+            ['value' => '2', 'title' => 'April - June'],
+            ['value' => '3', 'title' => 'July - September'],
+            ['value' => '4', 'title' => 'October - December'],
+        ];
+    }
+
 }
