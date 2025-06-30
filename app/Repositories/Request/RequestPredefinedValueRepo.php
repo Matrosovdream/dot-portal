@@ -36,7 +36,10 @@ class RequestPredefinedValueRepo extends AbstractRepo
         $fieldData = $fields[$field_code] ?? null;
 
         // Upload file handling
-        if( $fieldData['type'] == 'file' ) { 
+        if( 
+            isset($fieldData['type']) &&
+            $fieldData['type'] == 'file' 
+            ) { 
             $file = $this->uploadFile(
                 $request_id,
                 'fields.'.$field_code,
