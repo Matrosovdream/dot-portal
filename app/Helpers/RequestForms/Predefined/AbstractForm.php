@@ -38,6 +38,29 @@ class AbstractForm
         ];
     }
 
+    /**
+     * Validate the request form data
+     *
+     * @return array
+    */
+    public function validateFormData( $requestData )
+    {
+        $errors = [];
+
+        // Check required fields
+        foreach ($this->formFields as $field => $options) {
+            if (
+                isset($options['required']) && 
+                $options['required'] && 
+                empty($requestData[$field])
+                ) {
+                $errors[$field] = 'The '.$options['label'].' field is required.';
+            }
+        }
+
+        return $errors;
+    }
+
     protected function getCountryStates()
     {
         $statesRepo = new RefCountryStateRepo();
