@@ -6,18 +6,13 @@ use App\Helpers\RequestForms\Predefined\AbstractForm;
 
 class IftaForm extends AbstractForm
 {
-    protected $formName = 'mcs150';
+    protected $formName = 'ifta';
 
-    protected $formTitle = 'MCS-150';
+    protected $formTitle = 'IFTA';
 
-    protected $formDescription = 'MCS-150 is a form used by the Federal Motor Carrier Safety Administration (FMCSA) to collect information from motor carriers about their operations, including the type of cargo they transport, the number of vehicles they operate, and their safety performance.';
+    protected $formDescription = '';
 
-    protected $formFields = [
-        'operation_type',
-        'cargo_type',
-        'mileage',
-        'contact_email',
-    ];
+    protected $formFields = [];
 
     public function __construct()
     {
@@ -47,36 +42,22 @@ class IftaForm extends AbstractForm
     public function getReferences() {
 
         $fields = [
-            'change_type' => [
-                'type' => 'select',
-                'label' => 'Change Type',
-                'options' => [
-                    ['value' => 'keep', 'title' => 'Keep same'],
-                    ['value' => 'change', 'title' => 'Change information'],
-                ],
-            ],
-            'operation_type' => [
-                'type' => 'select',
-                'label' => 'Operation Type',
-                'options' => [
-                    ['value' => 'interstate', 'title' => 'Interstate'],
-                    ['value' => 'intrastate', 'title' => 'Intrastate'],
-                ],
-            ],
-            'cargo_type' => [
-                'type' => 'select',
-                'label' => 'Cargo Type',
-                'options' => [
-                    ['value' => 'general', 'title' => 'General Freight'],
-                    ['value' => 'hazardous', 'title' => 'Hazardous Materials'],
-                    ['value' => 'household', 'title' => 'Household Goods'],
-                    ['value' => 'passenger', 'title' => 'Passenger'],
-                ],
-            ],
             'country_state' => [
                 'type' => 'select',
                 'label' => 'State',
                 'options' => $this->getCountryStates(),
+            ],
+            'vehicles' => [
+                'type' => 'select',
+                'label' => 'Vehicles',
+                'options' => $this->getVehicles(
+                    ['company_id' => auth()->user()->company->id ?? null]
+                ), 
+            ],
+            'filing_period' => [
+                'type' => 'select',
+                'label' => 'Filing Period',
+                'options' => $this->getQuarterPeriods(),
             ],
         ];
 
