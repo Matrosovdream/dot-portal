@@ -12,10 +12,10 @@
 
 <div class="row mb-6">
     <x-select 
-        inputName="fields[vehicle]"
+        inputName="fields[vehicle_id]"
         label="Choose Vehicle"
         :options="$formRefs['vehicles']['options']"
-        value="{{ $values['vehicles'] ?? '' }}"
+        value="{{ $values['vehicle_id'] ?? '' }}"
         :multiple=false
         :required=true
         template="inline"

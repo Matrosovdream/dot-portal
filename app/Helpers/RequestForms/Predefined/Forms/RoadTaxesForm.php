@@ -8,6 +8,18 @@ class RoadTaxesForm extends AbstractForm
 {
     protected $formName = 'road-taxes';
     protected $formTitle = 'Road Taxes';
+    protected $formFields = [
+        'query_type' => [
+            'type' => 'select',
+            'label' => 'Query Type',
+            'required' => true,
+        ],
+        'vehicle_id' => [
+            'type' => 'select',
+            'label' => 'Vehicle',
+            'required' => true,
+        ],
+    ];
 
     public function getReferences() {
 
