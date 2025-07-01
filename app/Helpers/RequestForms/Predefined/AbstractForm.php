@@ -49,6 +49,24 @@ class AbstractForm
         
     }
 
+    protected function getDrivers($filter = [])
+    {
+        $drivers = new \App\Repositories\Driver\DriverRepo();
+
+        $driversList = $drivers->getAll($filter, 1000);
+        
+        $list = [];
+        foreach ($driversList['items'] as $driver) {
+            $list[] = [
+                'value' => $driver['id'],
+                'title' => $driver['first_name'].' '.$driver['last_name']. ' ('.$driver['email'].')'
+            ];      
+        }
+
+        return $list;
+        
+    }
+
     protected function getQuarterPeriods()
     {
         return [
