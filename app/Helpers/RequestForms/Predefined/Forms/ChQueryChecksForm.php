@@ -16,7 +16,7 @@ class ChQueryChecksForm extends AbstractForm
                 'type' => 'select',
                 'label' => 'Driver',
                 'options' => $this->getDrivers(
-                    ['company_id' => auth()->user()->company->id ?? null]
+                    ['company_id' => auth()->user()->id ?? null]
                 ), 
             ],
         ];
