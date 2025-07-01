@@ -134,6 +134,27 @@ class RequestUserActions {
 
         $service = $this->serviceRepo->getBySlug($serviceslug);
 
+        // Get form path for predefined forms
+        if( $service['form_type'] == 'predefined' ) {
+
+            $predefinedForm =  $this->serviceRef->getPredefinedForms()[ $service['form_id'] ];
+
+            $formClass = $predefinedForm['classProcess'] ?? null;
+
+            if( $formClass ) {
+                $refsClass = new $formClass();
+                $errors = $refsClass->validateFormData( $request->fields );
+                if( !empty($errors) ) {
+                    return [
+                        'error' => true,
+                        'message' => 'Form validation failed',
+                        'errors' => $errors,
+                    ];
+                }
+            }
+            
+        }
+
         // Create request
         $requestPayload = [
             'user_id' => auth()->user()->id,
