@@ -15,10 +15,10 @@
   
   <div class="row mb-6">
     <x-select 
-        inputName="fields[country_state]"
+        inputName="fields[country_state_id]"
         label="State"
         :options="$formRefs['country_state']['options']"
-        value="{{ $values['country_state'] ?? '' }}"
+        value="{{ $values['country_state_id'] ?? '' }}"
         :multiple=false
         :required=true
         template="inline"
@@ -27,11 +27,11 @@
 
   <div class="row mb-6">
     <x-select 
-      inputName="fields[vehicles]"
+      inputName="fields[vehicle_id]"
       label="Choose Vehicle"
       inputId="vehicles1"
       :options="$formRefs['vehicles']['options']"
-      value="{{ $values['vehicles'] ?? '' }}"
+      value="{{ $values['vehicle_id'] ?? '' }}"
       :multiple=false
       :required=true
       template="inline"
@@ -56,11 +56,11 @@
 
   <div class="row mb-6">
     <x-select 
-      inputName="fields[vehicles]"
+      inputName="fields[vehicle_id]"
       inputId="vehicles2"
       label="Choose Vehicle"
       :options="$formRefs['vehicles']['options']"
-      value="{{ $values['vehicles'] ?? '' }}"
+      value="{{ $values['vehicle_id'] ?? '' }}"
       :multiple=false
       :required=true
       template="inline"
