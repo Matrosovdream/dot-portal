@@ -8,6 +8,18 @@ class UcrForm extends AbstractForm
 {
     protected $formName = 'ucr';
     protected $formTitle = 'UCR';
+    protected $formFields = [
+        'range_units' => [
+            'type' => 'select',
+            'label' => 'Range of Units',
+            'required' => true,
+        ],
+        'permit_year' => [
+            'type' => 'select',
+            'label' => 'Permit Year',
+            'required' => true,
+        ],
+    ];
 
     public function getReferences() {
 
