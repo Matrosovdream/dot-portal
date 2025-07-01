@@ -78,6 +78,29 @@ class ServiceSeeder extends Seeder
                 'form_type' => 'predefined',
                 'form_id' => 5, 
             ],
+            [
+                'name' => 'Clearing House New Driver / Company Registration', 
+                'slug' => 'ch-new-driver', 
+                'description' => '', 
+                'is_paid' => false,
+                'price' => 0, 
+                'status_id' => 1, 
+                'group_id' => 1,
+                'form_type' => 'predefined',
+                'form_id' => 6, 
+            ],
+            [
+                'name' => 'Clearing House Query Checks', 
+                'slug' => 'ch-query-checks', 
+                'description' => '', 
+                'is_paid' => false,
+                'price' => 0, 
+                'status_id' => 1, 
+                'group_id' => 1,
+                'form_type' => 'predefined',
+                'form_id' => 7, 
+            ],
+
         ];
         
         foreach ($services as $service) {
