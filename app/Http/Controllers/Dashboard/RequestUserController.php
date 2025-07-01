@@ -48,7 +48,12 @@ class RequestUserController extends Controller
 
     public function storeRequest($groupslug, $serviceslug, Request $request)
     {
-        $data = $this->RequestUserActions->storeRequest($groupslug, $serviceslug, $request);
+        $res = $this->RequestUserActions->storeRequest($groupslug, $serviceslug, $request);
+
+        if( isset($res['error']) ) {
+            return redirect()->back()->withErrors([ $res['errors'] ]);
+        }
+
         return redirect()->route('dashboard.servicerequest.history.index');
     }
 
