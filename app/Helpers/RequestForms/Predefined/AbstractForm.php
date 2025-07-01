@@ -7,11 +7,35 @@ use App\Repositories\Vehicle\VehicleRepo;
 
 class AbstractForm
 {
-    
 
-    public function __construct()
+    protected $formName = '';
+    protected $formTitle = '';
+    protected $formDescription = '';
+    protected $formFields = [];
+
+    /**
+     * Get the references for the form fields.
+     *
+     * @return array
+    */
+    public function getReferences()
     {
-        
+        return [];
+    }
+
+    /**
+     * Get the form data.
+     *
+     * @return array
+    */
+    public function getFormData()
+    {
+        return [
+            'formName' => $this->formName,
+            'formTitle' => $this->formTitle,
+            'formDescription' => $this->formDescription,
+            'formFields' => $this->formFields,
+        ];
     }
 
     protected function getCountryStates()
