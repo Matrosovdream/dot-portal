@@ -6,7 +6,7 @@
         <div class="col-lg-4 fv-row">
           <select name="fields[change_type]" id="changeType" class="form-select form-select-lg form-select-solid">
             <option value="new">New</option>
-            <option value="renewel">Renewel</option>
+            <option value="renewal">Renewal</option>
           </select>
         </div>
 
@@ -14,10 +14,10 @@
 
       <div class="row mb-6">
           <x-select 
-              inputName="fields[vehicle]"
+              inputName="fields[vehicle_id]"
               label="Choose Vehicle"
               :options="$formRefs['vehicles']['options']"
-              value="{{ $values['vehicles'] ?? '' }}"
+              value="{{ $values['vehicle_id'] ?? '' }}"
               :multiple=false
               :required=true
               template="inline"
@@ -29,10 +29,10 @@
 
         <div class="row mb-6">
           <x-select 
-              inputName="fields[country_state]"
+              inputName="fields[country_state_id]"
               label="State"
               :options="$formRefs['country_state']['options']"
-              value="{{ $values['country_state'] ?? '' }}"
+              value="{{ $values['country_state_id'] ?? '' }}"
               :multiple=false
               :required=true
               template="inline"
