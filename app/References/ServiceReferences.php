@@ -49,14 +49,14 @@ class ServiceReferences {
                 'id' => 6,
                 'name' => 'Clearing House New Driver',
                 'path' => 'forms.request.ch-new-driver',
-                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\ChNewDriverForm.php',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\ChNewDriverForm',
                 'fields' => []
             ],
             7 => [
                 'id' => 7,
                 'name' => 'Clearing House Query Checks',
                 'path' => 'forms.request.ch-query-checks',
-                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\ChQueryChecksForm.php',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\ChQueryChecksForm',
                 'fields' => []
             ],
         ];
