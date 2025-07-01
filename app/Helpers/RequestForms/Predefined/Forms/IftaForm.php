@@ -7,38 +7,8 @@ use App\Helpers\RequestForms\Predefined\AbstractForm;
 class IftaForm extends AbstractForm
 {
     protected $formName = 'ifta';
-
     protected $formTitle = 'IFTA';
 
-    protected $formDescription = '';
-
-    protected $formFields = [];
-
-    public function __construct()
-    {
-        
-    }
-
-    /**
-     * Get the form data.
-     *
-     * @return array
-     */
-    public function getFormData()
-    {
-        return [
-            'formName' => $this->formName,
-            'formTitle' => $this->formTitle,
-            'formDescription' => $this->formDescription,
-            'formFields' => $this->formFields,
-        ];
-    }
-
-    /**
-     * Get the references for the form fields.
-     *
-     * @return array
-     */
     public function getReferences() {
 
         $fields = [
