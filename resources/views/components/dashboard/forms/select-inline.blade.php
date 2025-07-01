@@ -16,7 +16,6 @@
         data-placeholder="{{ $label }}"
         name="{{ $inputName }}{{ $multiple ? '[]' : '' }}"
         id="{{ $inputId ?? $inputName }}"
-        {{ $required ? 'required' : '' }}
         {{ $multiple ? 'multiple' : '' }}
     >
     <option selected disabled></option>
