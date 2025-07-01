@@ -78,12 +78,12 @@ class AbstractForm
         $drivers = new \App\Repositories\Driver\DriverRepo();
 
         $driversList = $drivers->getAll($filter, 1000);
-        
+
         $list = [];
         foreach ($driversList['items'] as $driver) {
             $list[] = [
                 'value' => $driver['id'],
-                'title' => $driver['first_name'].' '.$driver['last_name']. ' ('.$driver['email'].')'
+                'title' => $driver['firstname'].' '.$driver['lastname']
             ];      
         }
 
