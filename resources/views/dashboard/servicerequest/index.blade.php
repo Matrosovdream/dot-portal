@@ -6,7 +6,7 @@
 
 @section('content')
 
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-5 g-4">
+    <div class="row">
 
         @if(count($services['items']) == 0)
             <div class="text-center mt-10">
@@ -16,8 +16,8 @@
 
             @foreach($services['items'] as $service)
 
-                <div class="col">
-                    <div class="card card-flush flex-row-fluid p-0 pb-0 mh-300px">
+                <div class="col col-md-4 mb-4">
+                    <div class="card card-flush flex-row-fluid p-0 pb-0 mh-400px">
 
                         <div class="card-body text-center">
 
