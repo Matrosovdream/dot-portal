@@ -7,38 +7,8 @@ use App\Helpers\RequestForms\Predefined\AbstractForm;
 class IrpForm extends AbstractForm
 {
     protected $formName = 'IRP';
-
     protected $formTitle = 'irp';
 
-    protected $formDescription = '';
-
-    protected $formFields = [];
-
-    public function __construct()
-    {
-        
-    }
-
-    /**
-     * Get the form data.
-     *
-     * @return array
-     */
-    public function getFormData()
-    {
-        return [
-            'formName' => $this->formName,
-            'formTitle' => $this->formTitle,
-            'formDescription' => $this->formDescription,
-            'formFields' => $this->formFields,
-        ];
-    }
-
-    /**
-     * Get the references for the form fields.
-     *
-     * @return array
-     */
     public function getReferences() {
 
         $fields = [
