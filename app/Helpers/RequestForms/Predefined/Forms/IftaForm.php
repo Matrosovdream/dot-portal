@@ -12,25 +12,25 @@ class IftaForm extends AbstractForm
         'request_type' => [
             'type' => 'select',
             'label' => 'Request Type',
-            'options' => [
-                'reg' => 'Registration',
-                'quarterly_filing' => 'Quarterly Filing',
-            ],
+            'reference' => 'request_type',
             'required' => true,
         ],
         'country_state_id' => [
             'type' => 'select',
             'label' => 'State',
+            'reference' => 'country_state',
             'required' => true,
         ],
         'vehicle_id' => [
             'type' => 'select',
             'label' => 'Vehicle',
+            'reference' => 'vehicles',
             'required' => true,
         ],
         'filing_period' => [
             'type' => 'select',
             'label' => 'Filing Period',
+            'reference' => 'filing_period',
         ],
     ];
 
@@ -81,7 +81,7 @@ class IftaForm extends AbstractForm
             ],
         ];
 
-        return $fields;
+        return $this->prepareReferences($fields);
 
     }
 
