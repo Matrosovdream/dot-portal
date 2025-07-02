@@ -61,6 +61,16 @@ class AbstractForm
         return $errors;
     }
 
+    /**
+     * Get the form fields.
+     *
+     * @return array
+    */
+    public function getFormFields()
+    {   
+        return $this->formFields;
+    }
+
     protected function getCountryStates()
     {
         $statesRepo = new RefCountryStateRepo();
