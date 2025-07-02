@@ -53,6 +53,12 @@ class RequestPredefinedValueRepo extends AbstractRepo
             $data->request_id = $request_id;
             $data->field_code = $field_code;
             $data->value = $value;
+
+            // If it's an array, convert to string
+            if (is_array($value)) {
+                $data->value = implode(',', $value);    
+            }
+
             $data->save();
         } else {
             $data['Model']->value = $value;
@@ -104,6 +110,16 @@ class RequestPredefinedValueRepo extends AbstractRepo
 
         return null;
 
+    }
+
+    public function beforeCreate($data)
+    {
+        // Loop and if it's an array, convert to string
+        foreach ($data as $key => $value) {
+            if (is_array($value)) {
+                $data[$key] = implode(',', $value); 
+            }
+        }
     }
 
     public function mapItem($item)  
