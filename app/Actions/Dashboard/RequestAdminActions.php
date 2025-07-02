@@ -47,6 +47,7 @@ class RequestAdminActions {
     public function show($request_id)
     {
         $request = $this->requestRepo->getById($request_id);
+        $service = $request['service'] ?? [];
         $payments = $this->userPaymentHistoryRepo->getAll( ['request_id' => $request_id], $paginate = 1000 );
 
         if( !$request ) { return false;}
@@ -62,10 +63,26 @@ class RequestAdminActions {
             'references' => $this->getReferences( $request['user']['id'] ?? null )
         ];
 
-        if( $request['service']['form_type'] == 'predefined' ) {
-            $data['predefinedForm'] = $this->serviceRef->getPredefinedForms()[ $request['service']['form_id'] ];
-            $data['predefinedValues'] = $request['predefinedValues'] ?? [];
-        }
+                // Get form path for predefined forms
+                if( $service['form_type'] == 'predefined' ) {
+
+                    $predefinedForm =  $this->serviceRef->getPredefinedForms()[ $service['form_id'] ];
+        
+                    $formPath = $predefinedForm['path'] ?? null;
+                    $formClass = $predefinedForm['classProcess'] ?? null;
+        
+                    if( $formClass ) {
+                        $refsClass = new $formClass();
+                        $formRefs = $refsClass->getReferences();
+                    }
+        
+                    // Prepare values for predefined form
+                    $data['formFields'] = $refsClass->getFormFields();
+                    $data['formFields'] = $refsClass->matchFieldValues( $request['predefinedValues'] ?? [] );
+                    $data['formRefs'] = $formRefs ?? [];
+                    $data['formPath'] = $formPath;
+                    
+                }
 
         return $data;
 
