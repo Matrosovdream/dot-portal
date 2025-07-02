@@ -221,14 +221,20 @@ class AbstractForm
             ['value' => '4', 'title' => 'October - December'],
         ];
 
+        return $this->setArrayKeys($list);
+    }
+
+    private function setArrayKeys($list, $key='value')
+    {
         // set key as value
         $newList = [];
         foreach ($list as $key => $item) {
-            $newList[$item['value']] = $item;
+
+            $key = $item[$key] ?? $key;
+            $newList[ $key ] = $item;
         }
 
         return $newList;
-
     }
 
 }
