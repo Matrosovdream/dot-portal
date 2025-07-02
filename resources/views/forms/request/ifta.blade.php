@@ -4,8 +4,8 @@
   <label class="col-lg-4 col-form-label fw-semibold fs-6">Change Type</label>
   <div class="col-lg-4 fv-row">
     <select name="fields[request_type]" id="requestType" class="form-select form-select-lg form-select-solid">
-      <option value="reg">Registration</option>
-      <option value="quarterly_filing">Quarterly Filing</option>
+      <option value="reg" @if( old('fields.request_type') == 'reg' ) selected @endif>Registration</option>
+      <option value="quarterly_filing" @if( old('fields.request_type') == 'quarterly_filing' ) selected @endif>Quarterly Filing</option>
     </select>
   </div>
 
