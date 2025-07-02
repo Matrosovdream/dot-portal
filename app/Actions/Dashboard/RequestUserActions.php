@@ -82,6 +82,20 @@ class RequestUserActions {
                 $refsClass = new $formClass();
                 $formRefs = $refsClass->getReferences();
             }
+
+            // Prepare values for predefined form
+            $formFields = $refsClass->getFormFields();
+
+            // Loop through and if old() exists, set it
+            foreach( $formFields as $key => $field ) {
+                $oldFields = old('fields');
+                if( is_array($oldFields) && array_key_exists($key, $oldFields) ) {
+                    $values[$key] = $oldFields[$key];
+                } else {
+                    $values[$key] = $field['value'] ?? null;
+                }
+            }
+     
             
         }
 
@@ -102,6 +116,7 @@ class RequestUserActions {
             'service' => $service,
             'formPath' => $formPath ?? null,
             'formRefs' => $formRefs ?? [],
+            'values' => $values ?? [],
             'references' => $references,
         ];
 
@@ -152,7 +167,7 @@ class RequestUserActions {
                     ];
                 }
             }
-            
+
         }
 
         // Create request
