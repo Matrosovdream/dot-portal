@@ -12,11 +12,13 @@ class RoadTaxesForm extends AbstractForm
         'query_type' => [
             'type' => 'select',
             'label' => 'Query Type',
+            'reference' => 'query_type',
             'required' => true,
         ],
         'vehicle_id' => [
             'type' => 'select',
             'label' => 'Vehicle',
+            'reference' => 'vehicles',
             'required' => true,
         ],
     ];
@@ -41,7 +43,7 @@ class RoadTaxesForm extends AbstractForm
             ],
         ];
 
-        return $fields;
+        return $this->prepareReferences($fields);
 
     }
 

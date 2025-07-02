@@ -8,6 +8,20 @@ class ChQueryChecksForm extends AbstractForm
 {
     protected $formName = 'clearinghouse_query_checks';
     protected $formTitle = 'Clearing House Query Checks';
+    protected $formFields = [
+        'query_amount' => [
+            'type' => 'number',
+            'label' => 'Query Amount',
+            'required' => true,
+        ],
+        'drivers' => [
+            'type' => 'select',
+            'label' => 'Driver',
+            'reference' => 'drivers',
+            'required' => true,
+            'multiple' => true,
+        ],
+    ];
 
     public function getReferences() {
 
