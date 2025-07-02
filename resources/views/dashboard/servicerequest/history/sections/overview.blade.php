@@ -17,10 +17,6 @@
 
         @if( $formType == 'custom' )
 
-            @php
-                //dd($request['fieldValues']['items']);
-            @endphp
-
             @foreach( $request['fieldValues']['items'] as $item )
 
                 <div class="row mb-7">
@@ -49,16 +45,11 @@
 
         @elseif( $formType == 'predefined' )
 
-            @foreach( $request['predefinedValues']['items'] as $item )
-
-                @php
-                    $field = $predefinedForm['fields'][ $item['field_code'] ] ?? null;
-                    if( !$field ) continue;
-                @endphp
+            @foreach( $formFields as $slug=>$field )
 
                 <div class="row mb-7">
                     <label class="col-lg-4 fw-semibold text-muted">
-                        {{ $field['title'] }}
+                        {{ $field['label'] }}
                     </label>
                     <div class="col-lg-8">
                         <span class="fw-bold fs-6 text-gray-800">
@@ -70,7 +61,7 @@
                                 />
                                 
                             @else
-                                {{ $item['value'] ?? '-' }}
+                                {{ $field['value'] ?? '-' }}
                             @endif
                         </span>
                     </div>

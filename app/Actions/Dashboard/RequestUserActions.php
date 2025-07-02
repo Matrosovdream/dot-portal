@@ -208,8 +208,20 @@ class RequestUserActions {
         ];
 
         if( $request['service']['form_type'] == 'predefined' ) {
-            $data['predefinedForm'] = $this->serviceRef->getPredefinedForms()[ $request['service']['form_id'] ];
+
+            $predefinedForm =  $this->serviceRef->getPredefinedForms()[ $request['service']['form_id'] ];
+
+            $data['predefinedForm'] = $predefinedForm;
             $data['predefinedValues'] = $request['predefinedValues'] ?? [];
+
+            $formClass = $predefinedForm['classProcess'] ?? null;
+            if( $formClass ) {
+                $refsClass = new $formClass();
+
+                $data['formFields'] = $refsClass->getFormFields();
+                $data['formFields'] = $refsClass->matchFieldValues( $request['predefinedValues'] ?? [] );
+            }
+
         }
 
         return $data;
