@@ -61,7 +61,13 @@
                                 />
                                 
                             @else
-                                {{ $field['value'] ?? '-' }}
+
+                                @if( is_array( $field['value'] ) )
+                                    {{ implode( ', ', $field['value'] ) }}
+                                @else 
+                                    {{ $field['value'] ?? '-' }}
+                                @endif
+
                             @endif
                         </span>
                     </div>
