@@ -12,11 +12,20 @@
 
     <div class="row mb-5">
 
-        @foreach($service['formFields']['items'] as $field)
+        @if( $formType == 'custom' )
 
-            @include('dashboard.servicerequest.includes.form-field', ['field' => $field])
+            @foreach($service['formFields']['items'] as $field)
 
-        @endforeach
+                @include('dashboard.servicerequest.includes.form-field', ['field' => $field])
+
+            @endforeach
+
+        @elseif( $formType == 'predefined' && isset($formPath) && !empty($formPath) )
+
+            {{-- Predefined Form --}}
+            @include( $formPath )
+
+        @endif
 
     </div>
 
