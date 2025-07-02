@@ -71,6 +71,71 @@ class AbstractForm
         return $this->formFields;
     }
 
+    /**
+     * Match the field values with the request data.
+     *
+     * @param array $requestData
+     * @return array
+    */
+    public function matchFieldValues( $values )
+    {
+
+        $fields = $this->getFormFields();
+        $references = $this->getReferences();
+        $values = $values['Mapped'];
+
+        foreach ( $fields as $slug => $field ) {
+
+            $value = '';
+
+            if ( isset($values[$slug]) ) {
+                $value = $values[$slug];
+            } else {
+                $value = '';
+            }
+
+            // If it's a reference field then set value
+            if( isset($field['reference']) ) {
+                $options = $references[ $field['reference'] ] ?? null;
+
+                $fields[$slug]['valueRef'] = $value;
+                $value = $options['options'][$value]['title'] ?? null;
+                
+            }
+            
+            $fields[$slug]['value'] = $value;
+
+        } 
+
+        return $fields;
+
+    }
+
+    /**
+     * Prepare references for the form fields.
+     *
+     * @param array $refs
+     * @return array
+    */
+    protected function prepareReferences( $refs )
+    {
+
+        // Loop throug each item, take options loop and set key as value
+        foreach ($refs as $key => $ref) {
+            if (isset($ref['options']) && is_array($ref['options'])) {
+
+                $newOptions = [];
+                foreach ($ref['options'] as $option) {
+                    $newOptions[$option['value']] = $option;
+                }
+                $refs[$key]['options'] = $newOptions;
+
+            }
+        }
+
+        return $refs;
+    }
+
     protected function getCountryStates()
     {
         $statesRepo = new RefCountryStateRepo();
