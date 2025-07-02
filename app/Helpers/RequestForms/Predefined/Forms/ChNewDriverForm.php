@@ -9,6 +9,16 @@ class ChNewDriverForm extends AbstractForm
     protected $formName = 'clearinghouse_new_driver';
     protected $formTitle = 'Clearing House New Driver / Company Registration';
 
+    protected $formFields = [
+        'drivers' => [
+            'type' => 'select',
+            'label' => 'Driver',
+            'reference' => 'drivers',
+            'required' => true,
+            'multiple' => true,
+        ],
+    ];
+
     public function getReferences() {
 
         $fields = [
