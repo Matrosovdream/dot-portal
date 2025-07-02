@@ -72,7 +72,7 @@
                 type="text" 
                 class="form-control form-control-lg form-control-solid" 
                 placeholder="Address 2"
-                name="business_address2" 
+                name="fields[business_address2]" 
                 value="{{ $values['business_address2'] ?? '' }}"
                 />
           </div>
@@ -85,7 +85,7 @@
                 type="text" 
                 class="form-control form-control-lg form-control-solid" 
                 placeholder="City"
-                name="business_address_city" 
+                name="fields[business_address_city]" 
                 value="{{ $values['business_address_city'] ?? '' }}"
                 />
           </div>
@@ -112,7 +112,7 @@
                 type="text" 
                 class="form-control form-control-lg form-control-solid" 
                 placeholder="Zip Code"
-                name="business_address_zip" 
+                name="fields[business_address_zip]" 
                 value="{{ $values['business_address_zip'] ?? '' }}"
                 />
           </div>
@@ -143,7 +143,7 @@
                 type="text" 
                 class="form-control form-control-lg form-control-solid" 
                 placeholder="Address 2"
-                name="mailing_address2" 
+                name="fields[mailing_address2]" 
                 value="{{ $values['mailing_address2'] ?? '' }}"
                 />
           </div>
@@ -156,7 +156,7 @@
                 type="text" 
                 class="form-control form-control-lg form-control-solid" 
                 placeholder="City"
-                name="mailing_address_city" 
+                name="fields[mailing_address_city]" 
                 value="{{ $values['mailing_address_city'] ?? '' }}"
                 />
           </div>
@@ -165,10 +165,10 @@
         <div class="row mb-6">
 
             <x-select 
-                inputName="fields[mailing_address_state]"
+                inputName="fields[mailing_address_state_id]"
                 label="Select a State"
                 :options="$formRefs['country_state']['options']"
-                value="{{ $values['mailing_address_state'] ?? '' }}"
+                value="{{ $values['mailing_address_state_id'] ?? '' }}"
                 :multiple=false
                 :required=true
                 template="inline"
@@ -183,7 +183,7 @@
                 type="text" 
                 class="form-control form-control-lg form-control-solid" 
                 placeholder="Zip Code"
-                name="mailing_address_zip" 
+                name="fields[mailing_address_zip]" 
                 value="{{ $values['mailing_address_zip'] ?? '' }}"
                 />
           </div>
