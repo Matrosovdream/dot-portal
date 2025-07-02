@@ -222,10 +222,12 @@ class AbstractForm
         ];
 
         // set key as value
+        $newList = [];
         foreach ($list as $key => $item) {
-            $list[$item['value']] = $item;
-            unset($list[$key]); 
+            $newList[$item['value']] = $item;
         }
+
+        return $newList;
 
     }
 
