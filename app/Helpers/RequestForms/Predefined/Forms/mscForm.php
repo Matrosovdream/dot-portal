@@ -17,6 +17,7 @@ class MscForm extends AbstractForm
         'change_type' => [
             'type' => 'select',
             'label' => 'Change Type',
+            'reference' => 'change_type',
             'required' => true,
         ],
         'ein' => [
@@ -44,6 +45,7 @@ class MscForm extends AbstractForm
         'business_address_state_id' => [
             'type' => 'select',
             'label' => 'Business Address State',
+            'reference' => 'country_state',
             'required' => false,
         ],
         'business_address_zip' => [
@@ -71,6 +73,7 @@ class MscForm extends AbstractForm
         'mailing_address_state_id' => [
             'type' => 'select',
             'label' => 'Mailing Address State',
+            'reference' => 'country_state',
             'required' => false,
         ],
         'mailing_address_zip' => [          
@@ -100,11 +103,13 @@ class MscForm extends AbstractForm
         'operation_type' => [
             'type' => 'select',
             'label' => 'Operation Type',
+            'reference' => 'operation_type',
             'required' => false,
         ],
         'cargo_type' => [
             'type' => 'select',
             'label' => 'Cargo Type',
+            'reference' => 'cargo_type',
             'required' => false,     
         ],
         'mileage' => [
@@ -153,7 +158,7 @@ class MscForm extends AbstractForm
 
     public function getReferences() {
 
-        $fields = [
+        $refs = [
             'change_type' => [
                 'type' => 'select',
                 'label' => 'Change Type',
@@ -187,7 +192,7 @@ class MscForm extends AbstractForm
             ],
         ];
 
-        return $fields;
+        return $this->prepareReferences( $refs );
 
     }
 
