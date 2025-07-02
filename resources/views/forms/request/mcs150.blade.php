@@ -1,11 +1,10 @@
 
       <!-- PIN -->
       <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fw-semibold fs-6">PIN</label>
+        <label class="col-lg-4 col-form-label fw-semibold fs-6 required">PIN</label>
         <div class="col-lg-4 fv-row">
           <input 
             type="text" 
-            name="pin" 
             class="form-control form-control-lg form-control-solid" 
             placeholder="PIN"
             name="fields[pin]"
@@ -17,24 +16,11 @@
       <!-- Change Type -->
       <div class="row mb-6">
 
-        @php /*
-        <x-select 
-          inputName="fields[change_type]"
-          inputId="changeType"
-          label="Change Type"
-          :options="$formRefs['change_type']['options']"
-          value="{{ isset( $values['change_type'] ) ?? '' }}"
-          :multiple=false
-          :required=true
-          template="inline"
-        />
-        */ @endphp
-
-        <label class="col-lg-4 col-form-label fw-semibold fs-6">Change Type</label>
+        <label class="col-lg-4 col-form-label fw-semibold fs-6 required">Change Type</label>
         <div class="col-lg-4 fv-row">
           <select name="fields[change_type]" id="changeType" class="form-select form-select-lg form-select-solid">
-            <option value="keep">Keep same</option>
-            <option value="change">Make changes</option>
+            <option value="keep" @if( old('fields.change_type') == 'keep' ) selected @endif>Keep same</option>
+            <option value="change" @if( old('fields.change_type') == 'change' ) selected @endif>Make changes</option>
           </select>
         </div>
 
@@ -108,10 +94,10 @@
         <div class="row mb-6">
 
             <x-select 
-                inputName="fields[business_address_state]"
+                inputName="fields[business_address_state_id]"
                 label="Select a State"
                 :options="$formRefs['country_state']['options']"
-                value="{{ $values['business_address_state'] ?? '' }}"
+                value="{{ $values['business_address_state_id'] ?? '' }}"
                 :multiple=false
                 :required=true
                 template="inline"
