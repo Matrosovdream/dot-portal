@@ -26,10 +26,10 @@
                         @include('dashboard.servicerequest.includes.form-field', ['field' => $data])
                     @endforeach
 
-                @elseif( $formType == 'predefined' && isset($predefinedForm) && !empty($predefinedForm) )
+                @elseif( $formType == 'predefined' )
         
                     {{-- Predefined Form --}}
-                    @include( $predefinedForm['path'], ['values' => $predefinedValues['Mapped']] )
+                    @include( $formPath )
 
                 @endif
         

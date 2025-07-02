@@ -50,34 +50,35 @@
 
         @elseif( $formType == 'predefined' )
 
-            @foreach( $request['predefinedValues']['items'] as $item )
+        @foreach( $formFields as $slug=>$field )
 
-                @php
-                    $field = $predefinedForm['fields'][ $item['field_code'] ] ?? null;
-                    if( !$field ) continue;
-                @endphp
+            <div class="row mb-7">
+                <label class="col-lg-4 fw-semibold text-muted">
+                    {{ $field['label'] }}
+                </label>
+                <div class="col-lg-8">
+                    <span class="fw-bold fs-6 text-gray-800">
+                        @if( $field['type'] == 'file' )
 
-                <div class="row mb-7">
-                    <label class="col-lg-4 fw-semibold text-muted">
-                        {{ $field['title'] }}
-                    </label>
-                    <div class="col-lg-8">
-                        <span class="fw-bold fs-6 text-gray-800">
-                            @if( $field['type'] == 'file' )
+                            <x-file-download
+                                :fileId="$item['value']"
+                                :isPreview="true"
+                            />
+                            
+                        @else
 
-                                <x-file-download
-                                    :fileId="$item['value']"
-                                    :isPreview="true"
-                                />
-                                
-                            @else
-                                {{ $item['value'] ?? '-' }}
+                            @if( is_array( $field['value'] ) )
+                                {{ implode( ', ', $field['value'] ) }}
+                            @else 
+                                {{ $field['value'] ?? '-' }}
                             @endif
-                        </span>
-                    </div>
-                </div>
 
-            @endforeach
+                        @endif
+                    </span>
+                </div>
+            </div>
+
+        @endforeach
 
         @endif
 
