@@ -2,6 +2,18 @@
       <!-- Change Type -->
       <div class="row mb-6">
 
+        @php /*
+        <x-select 
+              inputName="fields[change_type]"
+              label="Change Type"
+              :options="$formRefs['change_type']['options']"
+              value="{{ $values['change_type'] ?? '' }}"
+              :multiple=false
+              :required=true
+              template="inline"
+        />
+        */ @endphp
+
         <label class="col-lg-4 col-form-label fw-semibold fs-6">Change Type</label>
         <div class="col-lg-4 fv-row">
           <select name="fields[change_type]" id="changeType" class="form-select form-select-lg form-select-solid">

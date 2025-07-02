@@ -51,6 +51,14 @@ class IrpForm extends AbstractForm
     public function getReferences() {
 
         $fields = [
+            'change_type' => [
+                'type' => 'select',
+                'label' => 'Change Type',
+                'options' => [
+                    ['value' => 'new', 'title' => 'New'],
+                    ['value' => 'renewal', 'title' => 'Renewal'],
+                ],
+            ],
             'country_state' => [
                 'type' => 'select',
                 'label' => 'State',
