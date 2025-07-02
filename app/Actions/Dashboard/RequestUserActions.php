@@ -95,7 +95,6 @@ class RequestUserActions {
                     $values[$key] = $field['value'] ?? null;
                 }
             }
-     
             
         }
 
