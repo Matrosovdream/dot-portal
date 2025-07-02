@@ -94,15 +94,38 @@ class AbstractForm
                 $value = '';
             }
 
+            // If the field is multiple then parse by comma
+            if ( isset($field['multiple']) && $field['multiple'] ) {
+                $value = explode(',', $value);
+                $value = array_map('trim', $value);
+                // Remove empty values
+                $value = array_filter($value, function($v) {
+                    return !empty($v) && $v !== null;
+                });
+            }
+
             // If it's a reference field then set value
             if( isset($field['reference']) ) {
+
                 $options = $references[ $field['reference'] ] ?? null;
 
-                $fields[$slug]['valueRef'] = $value;
-                $value = $options['options'][$value]['title'] ?? null;
+                if( is_array($value) ) {
+
+                    foreach ($value as $key => $val) {
+                        if (isset($options['options'][$val])) {
+                            $value[$key] = $options['options'][$val]['title'] ?? null;
+                        } else {
+                            $value[$key] = null;
+                        }
+                    }
+
+                } else {
+                    $fields[$slug]['valueRef'] = $value;
+                    $value = $options['options'][$value]['title'] ?? null;
+                }
                 
             }
-            
+
             $fields[$slug]['value'] = $value;
 
         } 
@@ -143,7 +166,7 @@ class AbstractForm
 
         $list = [];
         foreach ($states['items'] as $state) {
-            $list[] = [
+            $list[ $state['id'] ] = [
                 'value' => $state['id'],
                 'title' => $state['name']
             ];
@@ -161,7 +184,7 @@ class AbstractForm
         
         $list = [];
         foreach ($vehiclesList['items'] as $vehicle) {
-            $list[] = [
+            $list[ $vehicle['id'] ] = [
                 'value' => $vehicle['id'],
                 'title' => "VIN #".$vehicle['vin']
             ];      
@@ -179,7 +202,7 @@ class AbstractForm
 
         $list = [];
         foreach ($driversList['items'] as $driver) {
-            $list[] = [
+            $list[ $driver['id'] ] = [
                 'value' => $driver['id'],
                 'title' => $driver['firstname'].' '.$driver['lastname']
             ];      
@@ -191,12 +214,19 @@ class AbstractForm
 
     protected function getQuarterPeriods()
     {
-        return [
+        $list = [
             ['value' => '1', 'title' => 'January - March'],
             ['value' => '2', 'title' => 'April - June'],
             ['value' => '3', 'title' => 'July - September'],
             ['value' => '4', 'title' => 'October - December'],
         ];
+
+        // set key as value
+        foreach ($list as $key => $item) {
+            $list[$item['value']] = $item;
+            unset($list[$key]); 
+        }
+
     }
 
 }
