@@ -119,6 +119,38 @@ class MscForm extends AbstractForm
         ],
     ];
 
+    protected $fieldDependencies = [
+        'change_type' => [
+            'keep' => [
+                'show' => [
+                    'pin',
+                    'change_type',
+                ]
+            ],
+            'change' => [
+                'show' => [
+                    'pin',
+                    'change_type',
+                    'ein',
+                    'business_address1',
+                    'business_address_city',
+                    'business_address_state_id',
+                    'business_address_zip',
+                    'mailing_address1',
+                    'mailing_address_city',
+                    'mailing_address_state_id',
+                    'mailing_address_zip',
+                    'contact_name',
+                    'contact_phone',
+                    'contact_email',
+                    'operation_type',
+                    'cargo_type',
+                    'mileage',
+                ],
+            ],
+        ],
+    ];
+
     public function validateFormData($requestData) {
         
         $errors = parent::validateFormData($requestData);
