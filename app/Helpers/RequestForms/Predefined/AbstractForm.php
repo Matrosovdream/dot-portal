@@ -12,6 +12,7 @@ class AbstractForm
     protected $formTitle = '';
     protected $formDescription = '';
     protected $formFields = [];
+    protected $requestData = [];
 
     /**
      * Get the references for the form fields.
@@ -235,6 +236,17 @@ class AbstractForm
         }
 
         return $newList;
+    }
+
+    /**
+     * Set the request data.
+     *
+     * @param array $requestData
+     * @return $this
+    */
+    public function setRequestData($requestData)
+    {
+        return $this->requestData = $requestData;
     }
 
 }
