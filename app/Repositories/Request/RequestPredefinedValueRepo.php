@@ -48,16 +48,16 @@ class RequestPredefinedValueRepo extends AbstractRepo
             $value = $file['id'] ?? null;
         }
 
+        // If it's an array, convert to string
+        if (is_array($value)) {
+            $value = implode(',', $value);    
+        }
+
         if (empty($data)) {
             $data = $this->model->newInstance();
             $data->request_id = $request_id;
             $data->field_code = $field_code;
             $data->value = $value;
-
-            // If it's an array, convert to string
-            if (is_array($value)) {
-                $data->value = implode(',', $value);    
-            }
 
             $data->save();
         } else {
