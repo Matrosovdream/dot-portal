@@ -7,7 +7,6 @@
     </label>
 @endif
 
-
 <div class="col-lg-4 fv-row">
     <select 
         class="form-select form-select-lg form-select-solid"
@@ -18,7 +17,11 @@
         id="{{ $inputId ?? $inputName }}"
         {{ $multiple ? 'multiple' : '' }}
     >
-    <option selected disabled></option>
+
+        @if( !$multiple )
+            <option selected disabled></option>
+        @endif
+
         @foreach($options as $option)
             <option 
                 value="{{ $option['value'] }}" 
