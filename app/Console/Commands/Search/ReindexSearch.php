@@ -8,6 +8,7 @@ use App\Models\File;
 use App\Models\Vehicle;
 use App\Models\InsuranceVehicle;
 use App\Models\VehicleCrashSaferweb;
+use App\Models\VehicleInspectionSaferweb;
 
 class ReindexSearch extends Command
 {
@@ -38,6 +39,7 @@ class ReindexSearch extends Command
             Vehicle::class,
             InsuranceVehicle::class,
             VehicleCrashSaferweb::class,
+            VehicleInspectionSaferweb::class
         ];
     }
 
