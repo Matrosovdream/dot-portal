@@ -73,7 +73,7 @@ class RequestAdminActions {
         
                     if( $formClass ) {
                         $refsClass = new $formClass();
-                        $refsClass->setRequestData( $request );
+                        $refsClass->setRequestData( $request['predefinedValues'] );
                         $formRefs = $refsClass->getReferences();
                     }
         

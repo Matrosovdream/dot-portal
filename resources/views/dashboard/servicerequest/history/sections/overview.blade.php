@@ -47,6 +47,10 @@
 
             @foreach( $formFields as $slug=>$field )
 
+                @if( isset($field['hidden']) && $field['hidden'] )
+                    @continue
+                @endif
+
                 <div class="row mb-7">
                     <label class="col-lg-4 fw-semibold text-muted">
                         {{ $field['label'] }}
