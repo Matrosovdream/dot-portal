@@ -79,6 +79,7 @@ class RequestAdminActions {
                     // Prepare values for predefined form
                     $data['formFields'] = $refsClass->getFormFields();
                     $data['formFields'] = $refsClass->matchFieldValues( $request['predefinedValues'] ?? [] );
+                    $data['formValues'] = $request['predefinedValues']['Mapped'] ?? [];
                     $data['formRefs'] = $formRefs ?? [];
                     $data['formPath'] = $formPath;
                     
