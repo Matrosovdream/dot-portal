@@ -15,7 +15,11 @@
         {{ $required ? 'required' : '' }}
         {{ $multiple ? 'multiple' : '' }}
     >
-        <option selected disabled></option>
+
+        @if( !$multiple )
+            <option selected disabled></option>
+        @endif
+
         @foreach($options as $option)
             <option 
                 value="{{ $option['value'] }}" 
