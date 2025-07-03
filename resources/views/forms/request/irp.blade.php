@@ -17,8 +17,8 @@
         <label class="col-lg-4 col-form-label fw-semibold fs-6">Change Type</label>
         <div class="col-lg-4 fv-row">
           <select name="fields[change_type]" id="changeType" class="form-select form-select-lg form-select-solid">
-            <option value="new" @if( old('fields.change_type') == 'new' ) selected @endif>New</option>
-            <option value="renewal" @if( old('fields.change_type') == 'renewal' ) selected @endif>Renewal</option>
+            <option value="new" @if( $values['change_type'] == 'new' ) selected @endif>New</option>
+            <option value="renewal" @if( $values['change_type'] == 'renewal' ) selected @endif>Renewal</option>
           </select>
         </div>
 
