@@ -26,12 +26,27 @@ class ChNewDriverForm extends AbstractForm
                 'type' => 'select',
                 'label' => 'Driver',
                 'options' => $this->getDrivers(
-                    ['company_id' => auth()->user()->id ?? null]
+                    $this->prepareDriversFilter()
                 ), 
             ],
         ];
 
         return $fields;
+
+    }
+
+    private function prepareDriversFilter() {
+
+        $requestData = $this->requestData;
+
+        // Vehicle filter based on request data or user company
+        if( isset( $requestData['id'] ) ) {
+            $vehicleFilter = ['company_id' => $requestData['user']['id']];
+        } else {
+            $vehicleFilter = ['company_id' => auth()->user()->id ?? null];
+        }
+
+        return $vehicleFilter;
 
     }
 

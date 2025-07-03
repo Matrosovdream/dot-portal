@@ -67,13 +67,26 @@ class IrpForm extends AbstractForm
             'vehicles' => [
                 'type' => 'select',
                 'label' => 'Vehicles',
-                'options' => $this->getVehicles(
-                    ['company_id' => auth()->user()->company->id ?? null]
-                ), 
+                'options' => $this->getVehicles( $this->prepareVehiclesFilter() ),  
             ],
         ];
 
         return $fields;
+
+    }
+
+    private function prepareVehiclesFilter() {
+
+        $requestData = $this->requestData;
+
+        // Vehicle filter based on request data or user company
+        if( isset( $requestData['id'] ) ) {
+            $vehicleFilter = ['company_id' => $requestData['user']['company']['id']];
+        } else {
+            $vehicleFilter = ['company_id' => auth()->user()->company->id ?? null];
+        }
+
+        return $vehicleFilter;
 
     }
 

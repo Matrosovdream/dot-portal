@@ -246,7 +246,7 @@ class AbstractForm
     */
     public function setRequestData($requestData)
     {
-        return $this->requestData = $requestData;
+        $this->requestData = $requestData;
     }
 
 }
