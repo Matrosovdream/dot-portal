@@ -112,6 +112,8 @@ class AbstractForm
 
                 if( is_array($value) ) {
 
+                    $fields[$slug]['valueRef'] = $value;
+
                     foreach ($value as $key => $val) {
                         if (isset($options['options'][$val])) {
                             $value[$key] = $options['options'][$val]['title'] ?? null;
