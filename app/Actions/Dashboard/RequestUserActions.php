@@ -217,6 +217,7 @@ class RequestUserActions {
             $formClass = $predefinedForm['classProcess'] ?? null;
             if( $formClass ) {
                 $refsClass = new $formClass();
+                $refsClass->setRequestData( $data['predefinedValues'] );
 
                 $data['formFields'] = $refsClass->getFormFields();
                 $data['formFields'] = $refsClass->matchFieldValues( $request['predefinedValues'] ?? [] );
