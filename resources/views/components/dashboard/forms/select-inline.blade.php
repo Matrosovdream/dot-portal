@@ -9,7 +9,7 @@
 
 
 <div class="col-lg-4 fv-row">
-    <select
+    <select 
         class="form-select form-select-lg form-select-solid"
         data-control="select2"
         data-hide-search="true"
@@ -20,7 +20,14 @@
     >
     <option selected disabled></option>
         @foreach($options as $option)
-            <option value="{{ $option['value'] }}" @if($value == $option['value']) selected @endif>
+            <option 
+                value="{{ $option['value'] }}" 
+                @if($multiple)
+                    @if(in_array($option['value'], $values)) selected @endif
+                @else   
+                    @if($value == $option['value']) selected @endif
+                @endif
+                >
                 {{ $option['title'] }}
             </option>
         @endforeach

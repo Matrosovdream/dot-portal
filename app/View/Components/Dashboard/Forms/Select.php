@@ -13,6 +13,7 @@ class Select extends Component
         public string $inputName,
         public ?string $inputId,
         public ?string $value,
+        public ?array $values,
         public ?array $options,
         public ?bool $multiple,
         public ?bool $required,
@@ -21,12 +22,24 @@ class Select extends Component
         public ?string $description,
         public ?string $template = 'default',
     )
-    { }
+    { 
+
+        // Process multiple values if applicable
+        $this->processMultiple();
+
+    }
 
     public function render(): View|Closure|string
     {
 
         return view($this->templates()[$this->template] ?? 'components.dashboard.forms.select');
+    }
+
+    private function processMultiple()
+    {
+        if ($this->multiple) {
+            $this->values = explode(',', $this->value ?? '');
+        } 
     }
 
     private function templates()
