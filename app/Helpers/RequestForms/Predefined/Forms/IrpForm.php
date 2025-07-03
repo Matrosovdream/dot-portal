@@ -13,16 +13,19 @@ class IrpForm extends AbstractForm
         'change_type' => [
             'type' => 'select',
             'label' => 'Change Type',
+            'reference' => 'change_type',
             'required' => true,
         ],
         'country_state_id' => [
             'type' => 'select',
             'label' => 'State',
+            'reference' => 'country_state',
             'required' => true,
         ],
         'vehicle_id' => [
             'type' => 'select',
             'label' => 'Vehicle',
+            'reference' => 'vehicles',
             'required' => true,
         ],
     ];
@@ -71,7 +74,7 @@ class IrpForm extends AbstractForm
             ],
         ];
 
-        return $fields;
+        return $this->prepareReferences( $fields );
 
     }
 
