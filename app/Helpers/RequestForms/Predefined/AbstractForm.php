@@ -12,6 +12,7 @@ class AbstractForm
     protected $formTitle = '';
     protected $formDescription = '';
     protected $formFields = [];
+    protected $fieldDependencies = [];
     protected $requestData = [];
 
     /**
@@ -69,7 +70,50 @@ class AbstractForm
     */
     public function getFormFields()
     {   
-        return $this->formFields;
+
+        $fields = $this->formFields;
+
+        // Process field dependencies if they exist
+        $fields = $this->processFieldDependencies();
+
+        return $fields;
+    }
+
+    protected function processFieldDependencies()
+    {
+
+        $fields = $this->formFields;
+        $dependencies = $this->fieldDependencies;
+        $values = $this->requestData['Mapped'] ?? [];
+
+        foreach( $fields as $key=>$field ) {
+
+            $ruleIsset = $dependencies[$key] ?? null;
+            $value = $values[$key] ?? null;
+            $valueRule = $ruleIsset[$value] ?? null;
+
+            if( 
+                $ruleIsset &&
+                $valueRule
+                ) {
+
+                if( isset( $valueRule['show'] ) ) {
+                    foreach( $fields as $key2=>$field2 ) {
+                        // If in array $valueRule['show'] then set hidden to false else set hidden to true
+                        if( in_array($key2, $valueRule['show']) ) {
+                            $fields[$key2]['hidden'] = false;
+                        } else {
+                            $fields[$key2]['hidden'] = true;        
+                        }
+                    }
+                }
+
+            }
+
+        }
+
+        return $fields;
+        
     }
 
     /**
