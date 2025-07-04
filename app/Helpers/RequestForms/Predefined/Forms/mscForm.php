@@ -228,5 +228,53 @@ class MscForm extends AbstractForm
 
     }
 
+    public function prefillValues( $user_id = null ) {
+
+        $dataSet = [];
+
+        if( !$user_id ) {
+            $user_id = auth()->id();
+        }
+
+        $companyRepo = app()->make('App\Repositories\User\UserCompanyRepo');
+        $userRepo = app()->make('App\Repositories\User\UserRepo');
+
+        $company = $companyRepo->getByUserID( $user_id );
+        $user = $userRepo->getByID( $user_id );
+
+        // Main Company Information
+        $companyInfo = [
+            'contact_name' => $company['name'] ?? '',
+            'contact_phone' => $company['phone'] ?? '',
+            'contact_email' => $user['email'] ?? '',
+        ];
+
+        // Business Address
+        $address = $company['addresses']['business'] ?? [];
+        $businessAddress = [
+            'business_address1' => $address['address1'] ?? '',
+            'business_address2' => $address['address2'] ?? '',
+            'business_address_city' => $address['city'] ?? '',      
+            'business_address_state_id' => $address['state_id'] ?? '',
+            'business_address_zip' => $address['zip'] ?? '',
+        ];
+
+        // Mailing Address
+        $address = $company['addresses']['mailing'] ?? [];
+        $mailingAddress = [
+            'mailing_address1' => $address['address1'] ?? '',
+            'mailing_address2' => $address['address2'] ?? '',
+            'mailing_address_city' => $address['city'] ?? '',
+            'mailing_address_state_id' => $address['state_id'] ?? '',       
+            'mailing_address_zip' => $address['zip'] ?? '',
+        ];
+
+
+        $dataSet = array_merge($companyInfo, $businessAddress, $mailingAddress);
+
+        return $dataSet;
+
+    }
+
 
 }
