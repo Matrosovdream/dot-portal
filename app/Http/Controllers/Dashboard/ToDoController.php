@@ -33,6 +33,14 @@ class ToDoController extends Controller
         );
     }
 
+    public function vehicle( Request $request )
+    {
+        return view(
+            'dashboard.todo.index', 
+            $this->todoActions->vehicle()
+        );
+    }
+
     public function driver( Request $request )
     {
         return view(

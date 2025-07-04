@@ -100,6 +100,20 @@ class ToDoActions {
         return $data;
     }
 
+    public function vehicle()
+    {
+        $data = [
+            'title' => 'Vehicle To-Do List',
+            'tasks' => $this->todoRepo->getAll( 
+                ['user_id' => auth()->user()->id, 'entity' => 'vehicle'],
+                $paginate = 20
+            ),
+        ];
+
+        return $data;
+    }
+
+
     public function driver()
     {
         $data = [
