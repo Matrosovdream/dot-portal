@@ -51,6 +51,12 @@ class CompanyMenu implements InterfaceMenu {
                         'roles' => ['driver', 'company'],
                     ),
                     array(
+                        'title' => 'Vehicle tasks',
+                        'url' => route('dashboard.todo.vehicle'),
+                        'route' => 'dashboard.todo.vehicle',
+                        'roles' => ['driver', 'company'],
+                    ),
+                    array(
                         'title' => 'Driver tasks',
                         'url' => route('dashboard.todo.driver'),
                         'route' => 'dashboard.todo.driver',
