@@ -11,7 +11,7 @@
             aria-labelledby="kt_billing_all">
             <div class="table-responsive">
 
-                @if(isset($paymentHistory))
+                @if( isset($paymentHistory['items']) && count($paymentHistory['items']) > 0 )
 
                     <table class="table table-row-bordered align-middle gy-4 gs-9">
                         <thead class="border-bottom border-gray-200 fs-6 text-gray-600 fw-bold bg-light bg-opacity-75">
@@ -52,7 +52,7 @@
                 @else
 
                     <div class="text-center py-2">
-                        <div class="text-gray-600 fs-2 fw-bold mb-5">No payments found</div>
+                        <div class="fs-3 fw-bold mb-5">No payments found</div>
                     </div>
 
                 @endif
