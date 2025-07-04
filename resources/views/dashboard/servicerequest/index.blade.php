@@ -31,7 +31,7 @@
                                         {{ $service['name'] }}
                                     </span>
                                     <span class="text-gray-500 fw-semibold d-block fs-6 mt-n1">
-                                        {{ $service['description'] }}
+
                                     </span>
                                 </div>
 
