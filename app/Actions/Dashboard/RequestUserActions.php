@@ -86,16 +86,26 @@ class RequestUserActions {
             // Prepare values for predefined form
             $formFields = $refsClass->getFormFields();
 
+            // Prefill values if exists
+            $prefilledValues = $refsClass->prefillValues();
+
             // Loop through and if old() exists, set it
             foreach( $formFields as $key => $field ) {
                 $oldFields = old('fields');
-                if( is_array($oldFields) && array_key_exists($key, $oldFields) ) {
+                if( 
+                    is_array($oldFields) && 
+                    array_key_exists($key, $oldFields) 
+                    ) {
                     $values[$key] = $oldFields[$key];
+                } elseif(
+                    isset( $prefilledValues[$key] ) 
+                    ) {
+                    $values[$key] = $prefilledValues[$key];
                 } else {
-                    $values[$key] = $field['value'] ?? null;
+                    $values[$key] = $field['default'] ?? null;
                 }
             }
-            
+              
         }
 
         // Get referencences and prepare data
