@@ -295,4 +295,19 @@ class AbstractForm
         $this->requestData = $requestData;
     }
 
+    /**
+     * Prefill fields based on the request data or other criteria.
+     *
+     * This method can be overridden in child classes to provide specific prefill logic.
+     *
+     * @return array
+    */
+    public function prefillValues()
+    {
+        // This method can be overridden in child classes to prefill fields
+        // based on the request data or other criteria.
+        // For example, it can fetch user-specific data to prefill the form.
+        return [];
+    }
+
 }
