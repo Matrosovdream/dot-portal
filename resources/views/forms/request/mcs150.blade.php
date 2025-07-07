@@ -26,10 +26,6 @@
 
       </div>
 
-      @php
-        //dd($values);
-      @endphp
-  
       <!-- Editable Fields -->
       <div id="editableFields" style="display: none;">
 
