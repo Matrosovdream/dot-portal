@@ -67,8 +67,9 @@ class RequestUserActions {
             $services = $this->serviceRepo->getByGroupID($group['id']);
         }
 
-        // Service
+        // Service, User
         $service = $this->serviceRepo->getBySlug($serviceslug);
+        $user = $this->userRepo->getByID( auth()->user()->id );
 
         // Get form path for predefined forms
         if( $service['form_type'] == 'predefined' ) {
@@ -124,11 +125,17 @@ class RequestUserActions {
             'title' => 'Services of ' . $groupslug,
             'group' => $group,
             'service' => $service,
+            'user' => $user,
+            'company' => $user['company'] ?? null,
             'formPath' => $formPath ?? null,
             'formRefs' => $formRefs ?? [],
             'values' => $values ?? [],
             'references' => $references,
         ];
+
+        if( request()->has('ff') ) {
+            dd($data['company']['saferweb']);
+        }
 
         return $data;
 
