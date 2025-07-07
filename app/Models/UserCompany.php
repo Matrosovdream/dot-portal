@@ -46,4 +46,10 @@ class UserCompany extends Model
         return $this->addresses()->where('type', 'mailing');
     }
 
+    // Get saferweb information
+    public function saferweb()
+    {
+        return $this->hasOne(CompanySaferweb::class, 'company_id'); 
+    }
+
 }
