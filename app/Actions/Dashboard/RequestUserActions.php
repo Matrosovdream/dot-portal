@@ -91,7 +91,8 @@ class RequestUserActions {
 
             // Loop through and if old() exists, set it
             foreach( $formFields as $key => $field ) {
-                $oldFields = old('fields');
+                $oldFields = old('fields'); 
+                
                 if( 
                     is_array($oldFields) && 
                     array_key_exists($key, $oldFields) 
@@ -105,7 +106,7 @@ class RequestUserActions {
                     $values[$key] = $field['default'] ?? null;
                 }
             }
-              
+
         }
 
         // Get referencences and prepare data
