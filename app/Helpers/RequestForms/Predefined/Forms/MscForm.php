@@ -20,6 +20,14 @@ class MscForm extends AbstractForm
             'reference' => 'change_type',
             'required' => true,
         ],
+
+        // Main info
+        'main_info_toggle' => [
+            'type' => 'checkbox',
+            'label' => 'Main Information',
+            //'default' => true,
+            'section' => 'main-info',
+        ],
         'ein' => [
             'type' => 'text',
             'label' => 'EIN',
@@ -27,6 +35,12 @@ class MscForm extends AbstractForm
         ],
 
         // Business address fields
+        'business_address_toggle' => [
+            'type' => 'checkbox',
+            'label' => 'Business Address',
+            //'default' => true,
+            'section' => 'business-address',
+        ],
         'business_address1' => [
             'type' => 'text',
             'label' => 'Business Address 1',
@@ -55,6 +69,12 @@ class MscForm extends AbstractForm
         ],
 
         // Mailing address fields
+        'mailing_address_toggle' => [
+            'type' => 'checkbox',
+            'label' => 'Mailing Address',
+            //'default' => true,
+            'section' => 'mailing-address',
+        ],
         'mailing_address1' => [
             'type' => 'text',
             'label' => 'Mailing Address 1',
@@ -82,7 +102,13 @@ class MscForm extends AbstractForm
             'required' => false,
         ],
 
-        // Contant information fields
+        // Contact information fields
+        'contact_info_toggle' => [
+            'type' => 'checkbox',
+            'label' => 'Contact Information',
+            //'default' => true,
+            'section' => 'contact-info',
+        ],
         'contact_name' => [
             'type' => 'text',
             'label' => 'Contact Name',
@@ -100,6 +126,12 @@ class MscForm extends AbstractForm
         ],
 
         // Operation information fields
+        'operation_info_toggle' => [
+            'type' => 'checkbox',
+            'label' => 'Operation Information',
+            //'default' => true,
+            'section' => 'operation-info',
+        ],
         'operation_type' => [
             'type' => 'select',
             'label' => 'Operation Type',
