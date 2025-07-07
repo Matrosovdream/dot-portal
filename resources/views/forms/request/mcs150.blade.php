@@ -13,10 +13,6 @@
         </div>
       </div>
 
-      @php
-        $values['change_type'] = 'change'; 
-      @endphp
-  
       <!-- Change Type -->
       <div class="row mb-6">
 
@@ -37,7 +33,7 @@
 
         <!-- Main Info -->
         <div class="d-flex align-items-center justify-content-between mb-5">
-          <h5 class="mb-0">Main Info</h5>
+          <h5>Main Info</h5>
           <label class="form-check form-switch mb-0">
             <input 
               type="checkbox" 
@@ -64,84 +60,99 @@
               </div>
           </div>
 
-          <div class="separator mb-8"></div>
-    
-          <!-- Business Address -->
-          <h5 class="mt-10 mb-5">Business Address</h5>
-    
-          <div class="row mb-6">
-            <label class="col-lg-4 col-form-label fw-semibold fs-6">Address 1</label>
-            <div class="col-lg-4 fv-row">
-              <input 
-                  type="text" 
-                  class="form-control form-control-lg form-control-solid" 
-                  placeholder="Address 1"
-                  name="fields[business_address1]" 
-                  value="{{ $values['business_address1'] ?? '' }}"
-                  />
-            </div>
-          </div>
-    
-          <div class="row mb-6">
-            <label class="col-lg-4 col-form-label fw-semibold fs-6">Address 2</label>
-            <div class="col-lg-4 fv-row">
-              <input 
-                  type="text" 
-                  class="form-control form-control-lg form-control-solid" 
-                  placeholder="Address 2"
-                  name="fields[business_address2]" 
-                  value="{{ $values['business_address2'] ?? '' }}"
-                  />
-            </div>
-          </div>
-    
-          <div class="row mb-6">
-            <label class="col-lg-4 col-form-label fw-semibold fs-6">City</label>
-            <div class="col-lg-4 fv-row">
-              <input 
-                  type="text" 
-                  class="form-control form-control-lg form-control-solid" 
-                  placeholder="City"
-                  name="fields[business_address_city]" 
-                  value="{{ $values['business_address_city'] ?? '' }}"
-                  />
-            </div>
-          </div>
-    
-          <div class="row mb-6">
-
-              <x-select 
-                  inputName="fields[business_address_state_id]"
-                  label="Select a State"
-                  :options="$formRefs['country_state']['options']"
-                  value="{{ $values['business_address_state_id'] ?? '' }}"
-                  :multiple=false
-                  :required=true
-                  template="inline"
-              />
-
-          </div>
-    
-          <div class="row mb-6">
-            <label class="col-lg-4 col-form-label fw-semibold fs-6">Zip Code</label>
-            <div class="col-lg-4 fv-row">
-              <input 
-                  type="text" 
-                  class="form-control form-control-lg form-control-solid" 
-                  placeholder="Zip Code"
-                  name="fields[business_address_zip]" 
-                  value="{{ $values['business_address_zip'] ?? '' }}"
-                  />
-            </div>
-          </div>
-
         </div> <!-- End Main Info Section -->
 
         <div class="separator mb-8"></div>
+
+                 <!-- Business address -->
+                <div class="d-flex align-items-center justify-content-between mb-5">
+                  <h5>Business address</h5>
+                  <label class="form-check form-switch mb-0">
+                    <input 
+                      type="checkbox" 
+                      class="form-check-input section-toggle" 
+                      data-section="business-address" 
+                      id="businessAddressToggle" 
+                      checked
+                      >
+                  </label>
+                </div>
+
+                <div class="toggle-section" id="section-business-address">
+    
+                  <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-semibold fs-6">Address 1</label>
+                    <div class="col-lg-4 fv-row">
+                      <input 
+                          type="text" 
+                          class="form-control form-control-lg form-control-solid" 
+                          placeholder="Address 1"
+                          name="fields[business_address1]" 
+                          value="{{ $values['business_address1'] ?? '' }}"
+                          />
+                    </div>
+                  </div>
+            
+                  <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-semibold fs-6">Address 2</label>
+                    <div class="col-lg-4 fv-row">
+                      <input 
+                          type="text" 
+                          class="form-control form-control-lg form-control-solid" 
+                          placeholder="Address 2"
+                          name="fields[business_address2]" 
+                          value="{{ $values['business_address2'] ?? '' }}"
+                          />
+                    </div>
+                  </div>
+            
+                  <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-semibold fs-6">City</label>
+                    <div class="col-lg-4 fv-row">
+                      <input 
+                          type="text" 
+                          class="form-control form-control-lg form-control-solid" 
+                          placeholder="City"
+                          name="fields[business_address_city]" 
+                          value="{{ $values['business_address_city'] ?? '' }}"
+                          />
+                    </div>
+                  </div>
+            
+                  <div class="row mb-6">
+        
+                      <x-select 
+                          inputName="fields[business_address_state_id]"
+                          label="Select a State"
+                          :options="$formRefs['country_state']['options']"
+                          value="{{ $values['business_address_state_id'] ?? '' }}"
+                          :multiple=false
+                          :required=true
+                          template="inline"
+                      />
+        
+                  </div>
+            
+                  <div class="row mb-6">
+                    <label class="col-lg-4 col-form-label fw-semibold fs-6">Zip Code</label>
+                    <div class="col-lg-4 fv-row">
+                      <input 
+                          type="text" 
+                          class="form-control form-control-lg form-control-solid" 
+                          placeholder="Zip Code"
+                          name="fields[business_address_zip]" 
+                          value="{{ $values['business_address_zip'] ?? '' }}"
+                          />
+                    </div>
+                  </div>
+
+                </div> <!-- End Business Address Section -->
+
+        <div class="separator mb-8"></div>        
   
         <!-- Mailing Address -->
         <div class="d-flex align-items-center justify-content-between mb-5">
-          <h5 class="mb-0">Mailing Address</h5>
+          <h5>Mailing Address</h5>
           <label class="form-check form-switch mb-0">
             <input 
               id="mailingAddressToggle"
