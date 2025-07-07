@@ -3,7 +3,8 @@ namespace App\Repositories\User;
 
 use App\Repositories\AbstractRepo;
 use App\Models\UserCompany;
-use App\Repositories\References\RefCountryStateRepo;
+use App\Repositories\User\UserCompanyAddressRepo;
+use App\Repositories\User\CompanySaferwebRepo;
 
 
 
@@ -18,9 +19,13 @@ class UserCompanyRepo extends AbstractRepo
 
     protected $withRelations = [];
 
+    protected $saferwebRepo;
+
     public function __construct()
     {
         $this->model = new UserCompany();
+
+        $this->saferwebRepo = new CompanySaferwebRepo();
 
         // References
         $this->userCompanyAddressRepo = new UserCompanyAddressRepo();
@@ -46,6 +51,7 @@ class UserCompanyRepo extends AbstractRepo
             'dot_number' => $item->dot_number,
             'mc_number' => $item->mc_number,
             'addresses' => $addresses,
+            'saferweb' => $this->saferwebRepo->mapItem( $item->saferweb ),
             'Model' => $item
         ];
 
