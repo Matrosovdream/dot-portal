@@ -25,6 +25,10 @@
         </div>
 
       </div>
+
+      @php
+        //dd($values);
+      @endphp
   
       <!-- Editable Fields -->
       <div id="editableFields" style="display: none;">
@@ -36,10 +40,13 @@
           <h5>Main Info</h5>
           <label class="form-check form-switch mb-0">
             <input 
+              name="fields[main_info_toggle]"
               type="checkbox" 
               class="form-check-input section-toggle" 
               data-section="main-info" 
-              checked
+              id="mainInfoToggle" 
+              value="1"
+              @if( $values['main_info_toggle'] == 1 ) checked @endif
               >
           </label>
         </div>
@@ -69,11 +76,13 @@
                   <h5>Business address</h5>
                   <label class="form-check form-switch mb-0">
                     <input 
+                      name="fields[business_address_toggle]"
                       type="checkbox" 
+                      value="1"
                       class="form-check-input section-toggle" 
                       data-section="business-address" 
                       id="businessAddressToggle" 
-                      checked
+                      @if( $values['business_address_toggle'] == 1 ) checked @endif
                       >
                   </label>
                 </div>
@@ -156,10 +165,12 @@
           <label class="form-check form-switch mb-0">
             <input 
               id="mailingAddressToggle"
+              name="fields[mailing_address_toggle]"
+              value="1"
               type="checkbox" 
               class="form-check-input section-toggle" 
               data-section="mailing-address" 
-              checked
+              @if( $values['mailing_address_toggle'] == 1 ) checked @endif
               >
           </label>
         </div>
@@ -242,10 +253,12 @@
           <label class="form-check form-switch mb-0">
             <input 
               id="contactInfoToggle"
+              name="fields[contact_info_toggle]"
+              value="1"
               type="checkbox" 
               class="form-check-input section-toggle" 
               data-section="contact-info" 
-              checked
+              @if( $values['contact_info_toggle'] == 1 ) checked @endif
               >
           </label>
         </div>
@@ -299,10 +312,13 @@
           <h5 class="">Operation Info</h5>
           <label class="form-check form-switch mb-0">
             <input 
+              id="operationInfoToggle"
+              name="fields[operation_info_toggle]"
+              value="1"
               type="checkbox" 
               class="form-check-input section-toggle" 
               data-section="operation-info" 
-              checked
+              @if( $values['operation_info_toggle'] == 1 ) checked @endif
               >
           </label>
         </div>
