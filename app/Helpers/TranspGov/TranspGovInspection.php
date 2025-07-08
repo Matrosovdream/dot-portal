@@ -5,7 +5,7 @@ namespace App\Helpers\TranspGov;
 class TranspGovInspection extends TranspGovAbstract {
 
     protected $api;
-    protected $apiRoute = 'company.snapshot';
+    protected $apiRoute = 'inspection.history';
 
     public function getItemsByDot(array $usdots, int $paginate = 10000)
     {
@@ -16,7 +16,7 @@ class TranspGovInspection extends TranspGovAbstract {
             'operator' => 'IN'
         ];
 
-        return $this->retrieveItems( $filter, $paginate, $groupBy = 'dot_number' );
+        return $this->retrieveItems( $filter, $paginate );
 
     } 
 
