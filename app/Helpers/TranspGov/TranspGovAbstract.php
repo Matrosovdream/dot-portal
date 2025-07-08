@@ -6,8 +6,8 @@ class TranspGovAbstract {
 
     protected $api;
     protected $apiRoute = '';
-
     protected $paginateDefault = 10000; 
+    public $mapWithModel = false;
     
     public function __construct() {
         
@@ -15,7 +15,9 @@ class TranspGovAbstract {
 
     }
 
-    public function mapItemsForModel( array $items ) {}
+    public function mapItemsForModel( array $items ) {
+        return $items;
+    }
 
     public function getItemsByDot(array $usdots, int $paginate = 10000, $groupBy = null)
     {
@@ -36,8 +38,13 @@ class TranspGovAbstract {
 
         $items = $this->api->request( $this->apiRoute );
 
+        // If mapping to model is enabled, map items
+        if ( $this->mapWithModel ) {
+            $items = $this->mapItemsForModel($items);
+        }
+
         // Group items if groupBy is specified
-        if ($groupBy) {
+        if ( $groupBy ) {
             $items = $this->groupBy($items, $groupBy);
         }
 
