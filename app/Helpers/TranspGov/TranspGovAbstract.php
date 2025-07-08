@@ -22,4 +22,15 @@ class TranspGovAbstract {
 
     }
 
+    protected function groupBy(array $items, string $groupBy): array
+    {
+        $grouped = [];
+        foreach ($items as $item) {
+            if (isset($item[$groupBy])) {
+                $grouped[$item[$groupBy]][] = $item;
+            }
+        }
+        return $grouped;
+    }
+
 }
