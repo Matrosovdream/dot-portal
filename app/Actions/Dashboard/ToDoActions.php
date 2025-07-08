@@ -1,6 +1,9 @@
 <?php
 namespace App\Actions\Dashboard;
 
+use App\Helpers\TranspGov\TranspGovSnapshot;
+use App\Helpers\TranspGov\TranspGovInspection;
+use App\Helpers\TranspGov\TranspGovCrash;
 use App\Mixins\Integrations\SaferwebAPI;
 use App\Models\Service;
 use App\Repositories\User\UserTaskRepo;
@@ -74,6 +77,33 @@ class ToDoActions {
             dd(
                 vars: $itemsExpired
             );
+        }
+
+        if( request()->has('snapshots') ) {
+
+            $transportGov = new TranspGovSnapshot();
+            $items = $transportGov->getItemsByDot(
+                [363, 44, 64, 111, 113]
+            );
+            dd($items);
+        }
+
+        if( request()->has('inspections') ) {
+
+            $transportGov = new TranspGovInspection();
+            $items = $transportGov->getItemsByDot(
+                [363, 44, 64, 111, 113]
+            );
+            dd($items);
+        }
+
+        if( request()->has('crashes') ) {
+
+            $transportGov = new TranspGovCrash();
+            $items = $transportGov->getItemsByDot(
+                [363, 44, 64, 111, 113]
+            );
+            dd($items);
         }
 
         $data = [
