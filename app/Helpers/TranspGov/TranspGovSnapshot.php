@@ -2,11 +2,11 @@
 
 namespace App\Helpers\TranspGov;
 
-class TranspGovSnapshot {
+class TranspGovSnapshot extends TranspGovAbstract {
 
     protected $api;
     protected $apiRoute = 'company.snapshot';
-    protected $paginateDefault = 10000;
+    protected $paginateDefault = 10000; 
     
 
     public function __construct() {
@@ -24,18 +24,8 @@ class TranspGovSnapshot {
             'operator' => 'IN'
         ];
 
-        return $this->retrieveItems( $filter, $paginate );
+        return $this->retrieveItems( $filter, $paginate, $groupBy = 'dot_number' );
 
     } 
-
-    public function retrieveItems( array $filter=[], $paginate=10000 ) {
-
-        $this->api->setFilter( $filter );
-
-        $items = $this->api->request( $this->apiRoute );
-
-        dd($items);
-
-    }
 
 }
