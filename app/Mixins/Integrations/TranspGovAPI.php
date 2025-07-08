@@ -67,8 +67,6 @@ class TranspGovAPI {
             ->timeout(30)
             ->get($url);
 
-            // $this->prepareFilter( $this->filter ) 
-
             if ($response->status() === 200) {
                 return $response->json();
             } else {
@@ -78,13 +76,11 @@ class TranspGovAPI {
                     'message' => $response->json('message') ?? $response->body(),
                 ];
 
-                /*
-                Log::error('Transportation Government error', [
+                Log::error($this->apiTitle.' Error', [
                     'url' => $endpoint,
                     'status' => $error['status'],
                     'message' => $error['message'],
                 ]);
-                */
 
                 return $error;
             }
