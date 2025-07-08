@@ -7,6 +7,14 @@ class TranspGovAbstract {
     protected $api;
     protected $apiRoute = '';
 
+    protected $paginateDefault = 10000; 
+    
+    public function __construct() {
+        
+        $this->api = app('App\Mixins\Integrations\TranspGovAPI');
+
+    }
+
     public function retrieveItems( array $filter=[], $paginate=10000, $groupBy = '' ) {
 
         $this->api->setFilter( $filter );
