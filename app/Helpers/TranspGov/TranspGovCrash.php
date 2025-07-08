@@ -19,7 +19,7 @@ class TranspGovCrash extends TranspGovAbstract {
                 'report_state' => $item['report_state'] ?? null,
                 'total_injuries' => $item['injuries'] ?? null,
                 'total_fatalities' => $item['fatalities'] ?? null,
-                'api_date' => $item
+                'api_data' => $item
             ];
             
             $itemsNew[] = $itemNew;
