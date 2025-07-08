@@ -63,4 +63,17 @@ class TranspGovAbstract {
         return $grouped;
     }
 
+    protected function parseDate(string $dateString) {
+        // Check if date is exactly 8 digits long
+        if (preg_match('/^\d{8}$/', $dateString)) {
+            $year = substr($dateString, 0, 4);
+            $month = substr($dateString, 4, 2);
+            $day = substr($dateString, 6, 2);
+    
+            return "$year/$month/$day";
+        }
+    
+        return null; // Invalid format
+    }
+
 }
