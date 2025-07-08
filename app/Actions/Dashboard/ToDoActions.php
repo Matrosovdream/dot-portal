@@ -83,7 +83,9 @@ class ToDoActions {
 
             $transportGov = new TranspGovSnapshot();
             $items = $transportGov->getItemsByDot(
-                [363, 44, 64, 111, 113]
+                [363, 44, 64, 111, 113],
+                1000,
+                'dot_number'
             );
             dd($items);
         }
@@ -92,7 +94,9 @@ class ToDoActions {
 
             $transportGov = new TranspGovInspection();
             $items = $transportGov->getItemsByDot(
-                [363, 44, 64, 111, 113]
+                [363, 44, 64, 111, 113],
+                1000,
+                'dot_number'
             );
             dd($items);
         }
@@ -101,7 +105,9 @@ class ToDoActions {
 
             $transportGov = new TranspGovCrash();
             $items = $transportGov->getItemsByDot(
-                [363, 44, 64, 111, 113]
+                [363, 44, 64, 111, 113],
+                1000,
+                'dot_number'
             );
             dd($items);
         }
