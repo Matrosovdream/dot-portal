@@ -12,6 +12,8 @@ class TranspGovAPI {
     protected $baseUrl = 'https://data.transportation.gov/resource/';
     protected $routes = [
         'company.snapshot' => 'az4n-8mr2.json',
+        'inspection.history' => 'fx4q-ay7w.json',
+        'crash.history' => 'aayw-vxb3.json',
     ];
     public $filter = [];
 
@@ -33,6 +35,12 @@ class TranspGovAPI {
             
             switch ( $value['operator'] ?? '' ) {
                 case 'IN':
+                    
+                    // Add '' to each value for SQL IN clause
+                    $value['value'] = array_map(function($item) {
+                        return "'".addslashes($item)."'";
+                    }, $value['value']);
+
                     $prepared[$key] = $key. ' IN ('.implode(',', $value['value']).')';
                     break;
                 default:
