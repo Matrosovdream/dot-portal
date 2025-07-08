@@ -6,14 +6,6 @@ class TranspGovSnapshot extends TranspGovAbstract {
 
     protected $api;
     protected $apiRoute = 'company.snapshot';
-    protected $paginateDefault = 10000; 
-    
-
-    public function __construct() {
-        
-        $this->api = app('App\Mixins\Integrations\TranspGovAPI');
-
-    }
 
     public function getItemsByDot(array $usdots, int $paginate = 10000)
     {
