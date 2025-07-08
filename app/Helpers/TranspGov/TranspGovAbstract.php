@@ -63,17 +63,26 @@ class TranspGovAbstract {
         return $grouped;
     }
 
-    protected function parseDate(string $dateString) {
-        // Check if date is exactly 8 digits long
-        if (preg_match('/^\d{8}$/', $dateString)) {
-            $year = substr($dateString, 0, 4);
-            $month = substr($dateString, 4, 2);
-            $day = substr($dateString, 6, 2);
-    
-            return "$year/$month/$day";
+    protected function parseDate( string $dateString = '' ){
+
+        if (empty($dateString)) {
+            return null; // Return null if the date string is empty
         }
-    
-        return null; // Invalid format
+
+        // Extract only the first 8 digits
+        if (preg_match('/^(\d{8})/', $dateString, $matches)) {
+            $rawDate = $matches[1];
+            $year = substr($rawDate, 0, 4);
+            $month = substr($rawDate, 4, 2);
+            $day = substr($rawDate, 6, 2);
+
+            // Validate as a real date
+            if (checkdate((int)$month, (int)$day, (int)$year)) {
+                return "$year/$month/$day";
+            }
+        }
+
+        return null; // Invalid or unparseable format
     }
 
 }
