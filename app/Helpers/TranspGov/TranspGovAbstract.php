@@ -15,6 +15,19 @@ class TranspGovAbstract {
 
     }
 
+    public function getItemsByDot(array $usdots, int $paginate = 10000, $groupBy = null)
+    {
+
+        $filter = [];
+        $filter['dot_number'] = [
+            'value' => $usdots,
+            'operator' => 'IN'
+        ];
+
+        return $this->retrieveItems( $filter, $paginate, $groupBy );
+
+    } 
+
     public function retrieveItems( array $filter=[], $paginate=10000, $groupBy = '' ) {
 
         $this->api->setFilter( $filter );
