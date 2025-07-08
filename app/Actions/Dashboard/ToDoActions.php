@@ -82,6 +82,8 @@ class ToDoActions {
         if( request()->has('snapshots') ) {
 
             $transportGov = new TranspGovSnapshot();
+            $transportGov->mapWithModel = true; // Enable mapping to model
+
             $items = $transportGov->getItemsByDot(
                 [363, 44, 64, 111, 113],
                 1000,
@@ -93,6 +95,8 @@ class ToDoActions {
         if( request()->has('inspections') ) {
 
             $transportGov = new TranspGovInspection();
+            $transportGov->mapWithModel = true; // Enable mapping to model
+
             $items = $transportGov->getItemsByDot(
                 [363, 44, 64, 111, 113],
                 1000,
@@ -104,6 +108,8 @@ class ToDoActions {
         if( request()->has('crashes') ) {
 
             $transportGov = new TranspGovCrash();
+            $transportGov->mapWithModel = true; // Enable mapping to model
+            
             $items = $transportGov->getItemsByDot(
                 [363, 44, 64, 111, 113],
                 1000,
