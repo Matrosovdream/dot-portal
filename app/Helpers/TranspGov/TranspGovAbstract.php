@@ -15,6 +15,8 @@ class TranspGovAbstract {
 
     }
 
+    public function mapItemsForModel( array $items ) {}
+
     public function getItemsByDot(array $usdots, int $paginate = 10000, $groupBy = null)
     {
 
