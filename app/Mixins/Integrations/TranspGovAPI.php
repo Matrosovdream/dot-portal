@@ -55,10 +55,17 @@ class TranspGovAPI {
 
     }
 
-    public function request(string $endpoint): array|null
+    public function request(string $endpoint, int $paginate=1000): array|null
     {
 
-        $url = $this->baseUrl . $this->routes[ $endpoint ] . '?' . $this->prepareFilter($this->filter);
+        // Prepare URL
+        $urlsParts = [
+            $this->baseUrl,
+            $this->routes[ $endpoint ] ?? '',
+            '?' . $this->prepareFilter($this->filter),
+            '&$limit=' . $paginate,
+        ];
+        $url = implode('', $urlsParts);
 
         try {
             $response = Http::withHeaders([

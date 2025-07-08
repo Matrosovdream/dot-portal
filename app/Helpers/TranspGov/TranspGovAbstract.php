@@ -36,7 +36,7 @@ class TranspGovAbstract {
 
         $this->api->setFilter( $filter );
 
-        $items = $this->api->request( $this->apiRoute );
+        $items = $this->api->request( $this->apiRoute, $paginate );
 
         // If mapping to model is enabled, map items
         if ( $this->mapWithModel ) {
