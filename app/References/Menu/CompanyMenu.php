@@ -19,7 +19,7 @@ class CompanyMenu implements InterfaceMenu {
         return array(
             array(
                 'title' => 'Notifications',
-                'url' => '',
+                'url' => route('dashboard.notifications'),
                 'icon' => 'ki-notification',
                 'roles' => ['user'],
                 /*'childs' => array(
@@ -68,7 +68,7 @@ class CompanyMenu implements InterfaceMenu {
             ),
             array(
                 'title' => 'Documents',
-                'url' => '',
+                'url' => route('dashboard.documents.index'),
                 'icon' => 'ki-document',
                 'roles' => ['user', 'manager', 'admin'],
                 /*'childs' => array(
@@ -82,7 +82,7 @@ class CompanyMenu implements InterfaceMenu {
             ),
             array(
                 'title' => 'Drivers',
-                'url' => '',
+                'url' => route('dashboard.drivers.index'),
                 'icon' => 'ki-user',
                 'roles' => ['user', 'manager', 'admin'],
                 /*'childs' => array(
@@ -108,7 +108,7 @@ class CompanyMenu implements InterfaceMenu {
             ),
             array(
                 'title' => 'Vehicles',
-                'url' => '',
+                'url' => route('dashboard.vehicles.index'),
                 'icon' => 'ki-car',
                 'roles' => ['user', 'manager', 'admin'],
                 /*'childs' => array(
