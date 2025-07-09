@@ -3,6 +3,8 @@
 <!-- Content -->
 @section('content')
 
+    @include('dashboard.todo.partials.navbar')
+
     <div class="card card-flush">
 
         <div class="card-body pt-0">
