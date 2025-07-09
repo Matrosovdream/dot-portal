@@ -24,4 +24,11 @@
 
     @endif
 
+    <a 
+        href="{{ route('dashboard.drivers.terminated') }}" 
+        class="btn btn-sm fw-bold btn-secondary" 
+        >
+        Terminated Drivers
+    </a> 
+
 @endsection
