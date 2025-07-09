@@ -124,6 +124,7 @@ class ToDoActions {
                 ['user_id' => auth()->user()->id],
                 $paginate = 10
             ),
+            'topMenu' => $this->getTopMenu(),
         ];
 
         return $data;
@@ -137,6 +138,7 @@ class ToDoActions {
                 ['user_id' => auth()->user()->company_id, 'entity' => 'company'],
                 $paginate = 20
             ),
+            'topMenu' => $this->getTopMenu(),
         ];
 
         return $data;
@@ -150,6 +152,7 @@ class ToDoActions {
                 ['user_id' => auth()->user()->id, 'entity' => 'vehicle'],
                 $paginate = 20
             ),
+            'topMenu' => $this->getTopMenu(),
         ];
 
         return $data;
@@ -164,6 +167,7 @@ class ToDoActions {
                 ['user_id' => auth()->user()->id, 'entity' => 'driver'],
                 $paginate = 20
             ),
+            'topMenu' => $this->getTopMenu(),
         ];
 
         return $data;
@@ -181,6 +185,33 @@ class ToDoActions {
             'title' => 'Task Details #' . $task['id'],
             'task' => $task,
         ];
+    }
+
+    protected function getTopMenu() {
+
+        return [
+                        array(
+                            'title' => 'All tasks',
+                            'url' => route('dashboard.todo.index'),
+                            'route' => 'dashboard.todo.index',
+                        ),
+                        array(
+                            'title' => 'Company tasks',
+                            'url' => route('dashboard.todo.company'),
+                            'route' => 'dashboard.todo.company',
+                        ),
+                        array(
+                            'title' => 'Vehicle tasks',
+                            'url' => route('dashboard.todo.vehicle'),
+                            'route' => 'dashboard.todo.vehicle',
+                        ),
+                        array(
+                            'title' => 'Driver tasks',
+                            'url' => route('dashboard.todo.driver'),
+                            'route' => 'dashboard.todo.driver',
+                        ),
+        ];
+
     }
 
 }
