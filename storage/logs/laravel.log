@@ -3618,3 +3618,1505 @@
 #71 /var/www/public/index.php(17): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
 #72 {main}
 "} 
+[2025-07-09 15:20:08] local.ERROR: Trying to access array offset on null (View: /var/www/resources/views/dashboard/profile/sections/driver-license.blade.php) (View: /var/www/resources/views/dashboard/profile/sections/driver-license.blade.php) {"userId":4,"exception":"[object] (Illuminate\\View\\ViewException(code: 0): Trying to access array offset on null (View: /var/www/resources/views/dashboard/profile/sections/driver-license.blade.php) (View: /var/www/resources/views/dashboard/profile/sections/driver-license.blade.php) at /var/www/storage/framework/views/0f69719299b2a25125b690fc3c0f4c95.php:16)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(60): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(Illuminate\\View\\ViewException), 0)
+#1 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/var/www/storag...', Array)
+#2 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/var/www/resour...', Array)
+#3 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#4 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#5 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(79): Illuminate\\View\\View->render()
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(920): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#8 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(887): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#9 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#11 /var/www/app/Http/Middleware/hasRole.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#12 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): App\\Http\\Middleware\\hasRole->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'driver', 'company')
+#13 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#15 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#16 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(64): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#19 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php(88): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#21 /var/www/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#22 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#25 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(75): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#32 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(786): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#33 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(750): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#34 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(739): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#35 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(201): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#36 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#37 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#54 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#55 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#56 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#57 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#58 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#59 /var/www/public/index.php(17): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#60 {main}
+
+[previous exception] [object] (Illuminate\\View\\ViewException(code: 0): Trying to access array offset on null (View: /var/www/resources/views/dashboard/profile/sections/driver-license.blade.php) at /var/www/storage/framework/views/0f69719299b2a25125b690fc3c0f4c95.php:16)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(60): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(ErrorException), 2)
+#1 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/var/www/storag...', Array)
+#2 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/var/www/resour...', Array)
+#3 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#4 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#5 /var/www/storage/framework/views/fc47f78bdb308937010c7fdc1e1abbfb.php(55): Illuminate\\View\\View->render()
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(123): require('/var/www/storag...')
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#8 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('/var/www/storag...', Array)
+#9 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/var/www/storag...', Array)
+#10 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/var/www/resour...', Array)
+#11 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#12 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#13 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(79): Illuminate\\View\\View->render()
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#15 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(920): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#16 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(887): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#19 /var/www/app/Http/Middleware/hasRole.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): App\\Http\\Middleware\\hasRole->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'driver', 'company')
+#21 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#22 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 /var/www/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(64): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php(88): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /var/www/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#33 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(75): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#37 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#38 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#39 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#40 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(786): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#41 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(750): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#42 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(739): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#43 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(201): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#44 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#45 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#54 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#55 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#56 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#57 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#58 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#59 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#60 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#61 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#62 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#63 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#64 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#65 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#66 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#67 /var/www/public/index.php(17): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#68 {main}
+
+[previous exception] [object] (ErrorException(code: 0): Trying to access array offset on null at /var/www/storage/framework/views/0f69719299b2a25125b690fc3c0f4c95.php:16)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(256): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Trying to acces...', '/var/www/storag...', 16)
+#1 /var/www/storage/framework/views/0f69719299b2a25125b690fc3c0f4c95.php(16): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'Trying to acces...', '/var/www/storag...', 16)
+#2 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(123): require('/var/www/storag...')
+#3 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#4 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('/var/www/storag...', Array)
+#5 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/var/www/storag...', Array)
+#6 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/var/www/resour...', Array)
+#7 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#8 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#9 /var/www/storage/framework/views/fc47f78bdb308937010c7fdc1e1abbfb.php(55): Illuminate\\View\\View->render()
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(123): require('/var/www/storag...')
+#11 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#12 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('/var/www/storag...', Array)
+#13 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/var/www/storag...', Array)
+#14 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/var/www/resour...', Array)
+#15 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#16 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(79): Illuminate\\View\\View->render()
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#19 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(920): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#20 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(887): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#21 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#22 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#23 /var/www/app/Http/Middleware/hasRole.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): App\\Http\\Middleware\\hasRole->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'driver', 'company')
+#25 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /var/www/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(64): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php(88): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /var/www/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#37 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#38 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#39 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(75): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#44 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(786): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#45 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(750): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#46 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(739): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#47 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(201): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#48 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#49 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#54 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#55 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#56 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#57 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#58 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#59 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#60 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#61 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#62 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#63 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#64 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#65 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#66 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#68 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#69 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#70 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#71 /var/www/public/index.php(17): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#72 {main}
+"} 
+[2025-07-09 15:48:18] local.ERROR: Trying to access array offset on null (View: /var/www/resources/views/dashboard/profile/sections/driver-license.blade.php) (View: /var/www/resources/views/dashboard/profile/sections/driver-license.blade.php) {"userId":4,"exception":"[object] (Illuminate\\View\\ViewException(code: 0): Trying to access array offset on null (View: /var/www/resources/views/dashboard/profile/sections/driver-license.blade.php) (View: /var/www/resources/views/dashboard/profile/sections/driver-license.blade.php) at /var/www/storage/framework/views/0f69719299b2a25125b690fc3c0f4c95.php:16)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(60): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(Illuminate\\View\\ViewException), 0)
+#1 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/var/www/storag...', Array)
+#2 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/var/www/resour...', Array)
+#3 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#4 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#5 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(79): Illuminate\\View\\View->render()
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(920): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#8 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(887): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#9 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#11 /var/www/app/Http/Middleware/hasRole.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#12 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): App\\Http\\Middleware\\hasRole->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'driver', 'company')
+#13 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#15 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#16 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(64): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#19 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php(88): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#21 /var/www/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#22 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#25 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#26 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#27 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#28 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(75): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#29 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#30 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#31 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#32 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(786): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#33 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(750): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#34 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(739): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#35 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(201): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#36 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#37 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#38 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#39 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#40 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#41 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#44 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#45 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#54 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#55 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#56 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#57 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#58 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#59 /var/www/public/index.php(17): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#60 {main}
+
+[previous exception] [object] (Illuminate\\View\\ViewException(code: 0): Trying to access array offset on null (View: /var/www/resources/views/dashboard/profile/sections/driver-license.blade.php) at /var/www/storage/framework/views/0f69719299b2a25125b690fc3c0f4c95.php:16)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(60): Illuminate\\View\\Engines\\CompilerEngine->handleViewException(Object(ErrorException), 2)
+#1 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/var/www/storag...', Array)
+#2 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/var/www/resour...', Array)
+#3 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#4 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#5 /var/www/storage/framework/views/fc47f78bdb308937010c7fdc1e1abbfb.php(55): Illuminate\\View\\View->render()
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(123): require('/var/www/storag...')
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#8 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('/var/www/storag...', Array)
+#9 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/var/www/storag...', Array)
+#10 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/var/www/resour...', Array)
+#11 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#12 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#13 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(79): Illuminate\\View\\View->render()
+#14 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#15 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(920): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#16 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(887): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#19 /var/www/app/Http/Middleware/hasRole.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#20 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): App\\Http\\Middleware\\hasRole->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'driver', 'company')
+#21 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#22 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#23 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#25 /var/www/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(64): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php(88): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /var/www/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#33 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#34 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#35 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#36 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(75): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#37 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#38 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#39 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#40 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(786): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#41 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(750): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#42 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(739): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#43 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(201): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#44 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#45 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#46 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#47 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#48 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#49 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#50 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#51 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#52 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#54 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#55 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#56 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#57 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#58 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#59 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#60 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#61 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#62 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#63 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#64 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#65 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#66 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#67 /var/www/public/index.php(17): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#68 {main}
+
+[previous exception] [object] (ErrorException(code: 0): Trying to access array offset on null at /var/www/storage/framework/views/0f69719299b2a25125b690fc3c0f4c95.php:16)
+[stacktrace]
+#0 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(256): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->handleError(2, 'Trying to acces...', '/var/www/storag...', 16)
+#1 /var/www/storage/framework/views/0f69719299b2a25125b690fc3c0f4c95.php(16): Illuminate\\Foundation\\Bootstrap\\HandleExceptions->Illuminate\\Foundation\\Bootstrap\\{closure}(2, 'Trying to acces...', '/var/www/storag...', 16)
+#2 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(123): require('/var/www/storag...')
+#3 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#4 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('/var/www/storag...', Array)
+#5 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/var/www/storag...', Array)
+#6 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/var/www/resour...', Array)
+#7 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#8 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#9 /var/www/storage/framework/views/fc47f78bdb308937010c7fdc1e1abbfb.php(55): Illuminate\\View\\View->render()
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(123): require('/var/www/storag...')
+#11 /var/www/vendor/laravel/framework/src/Illuminate/Filesystem/Filesystem.php(124): Illuminate\\Filesystem\\Filesystem::Illuminate\\Filesystem\\{closure}()
+#12 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(58): Illuminate\\Filesystem\\Filesystem->getRequire('/var/www/storag...', Array)
+#13 /var/www/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(75): Illuminate\\View\\Engines\\PhpEngine->evaluatePath('/var/www/storag...', Array)
+#14 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(209): Illuminate\\View\\Engines\\CompilerEngine->get('/var/www/resour...', Array)
+#15 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(192): Illuminate\\View\\View->getContents()
+#16 /var/www/vendor/laravel/framework/src/Illuminate/View/View.php(161): Illuminate\\View\\View->renderContents()
+#17 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(79): Illuminate\\View\\View->render()
+#18 /var/www/vendor/laravel/framework/src/Illuminate/Http/Response.php(35): Illuminate\\Http\\Response->setContent(Object(Illuminate\\View\\View))
+#19 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(920): Illuminate\\Http\\Response->__construct(Object(Illuminate\\View\\View), 200, Array)
+#20 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(887): Illuminate\\Routing\\Router::toResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#21 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Routing\\Router->prepareResponse(Object(Illuminate\\Http\\Request), Object(Illuminate\\View\\View))
+#22 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Routing\\Router->Illuminate\\Routing\\{closure}(Object(Illuminate\\Http\\Request))
+#23 /var/www/app/Http/Middleware/hasRole.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#24 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): App\\Http\\Middleware\\hasRole->handle(Object(Illuminate\\Http\\Request), Object(Closure), 'driver', 'company')
+#25 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#26 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#27 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Middleware/SubstituteBindings.php(51): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#28 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Routing\\Middleware\\SubstituteBindings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#29 /var/www/vendor/laravel/framework/src/Illuminate/Auth/Middleware/Authenticate.php(64): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#30 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Auth\\Middleware\\Authenticate->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#31 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/VerifyCsrfToken.php(88): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#32 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\VerifyCsrfToken->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#33 /var/www/vendor/laravel/framework/src/Illuminate/View/Middleware/ShareErrorsFromSession.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#34 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\View\\Middleware\\ShareErrorsFromSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#35 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(121): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#36 /var/www/vendor/laravel/framework/src/Illuminate/Session/Middleware/StartSession.php(64): Illuminate\\Session\\Middleware\\StartSession->handleStatefulRequest(Object(Illuminate\\Http\\Request), Object(Illuminate\\Session\\Store), Object(Closure))
+#37 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Session\\Middleware\\StartSession->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#38 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/AddQueuedCookiesToResponse.php(37): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#39 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\AddQueuedCookiesToResponse->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#40 /var/www/vendor/laravel/framework/src/Illuminate/Cookie/Middleware/EncryptCookies.php(75): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#41 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Cookie\\Middleware\\EncryptCookies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#42 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#43 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(807): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#44 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(786): Illuminate\\Routing\\Router->runRouteWithinStack(Object(Illuminate\\Routing\\Route), Object(Illuminate\\Http\\Request))
+#45 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(750): Illuminate\\Routing\\Router->runRoute(Object(Illuminate\\Http\\Request), Object(Illuminate\\Routing\\Route))
+#46 /var/www/vendor/laravel/framework/src/Illuminate/Routing/Router.php(739): Illuminate\\Routing\\Router->dispatchToRoute(Object(Illuminate\\Http\\Request))
+#47 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(201): Illuminate\\Routing\\Router->dispatch(Object(Illuminate\\Http\\Request))
+#48 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(170): Illuminate\\Foundation\\Http\\Kernel->Illuminate\\Foundation\\Http\\{closure}(Object(Illuminate\\Http\\Request))
+#49 /var/www/vendor/barryvdh/laravel-debugbar/src/Middleware/InjectDebugbar.php(66): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#50 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Barryvdh\\Debugbar\\Middleware\\InjectDebugbar->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#51 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#52 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/ConvertEmptyStringsToNull.php(31): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#53 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#54 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TransformsRequest.php(21): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#55 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/TrimStrings.php(51): Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#56 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\TrimStrings->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#57 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/ValidatePostSize.php(27): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#58 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\ValidatePostSize->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#59 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/PreventRequestsDuringMaintenance.php(110): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#60 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#61 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/HandleCors.php(49): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#62 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\HandleCors->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#63 /var/www/vendor/laravel/framework/src/Illuminate/Http/Middleware/TrustProxies.php(58): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#64 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Http\\Middleware\\TrustProxies->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#65 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Middleware/InvokeDeferredCallbacks.php(22): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#66 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(209): Illuminate\\Foundation\\Http\\Middleware\\InvokeDeferredCallbacks->handle(Object(Illuminate\\Http\\Request), Object(Closure))
+#67 /var/www/vendor/laravel/framework/src/Illuminate/Pipeline/Pipeline.php(127): Illuminate\\Pipeline\\Pipeline->Illuminate\\Pipeline\\{closure}(Object(Illuminate\\Http\\Request))
+#68 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(176): Illuminate\\Pipeline\\Pipeline->then(Object(Closure))
+#69 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Http/Kernel.php(145): Illuminate\\Foundation\\Http\\Kernel->sendRequestThroughRouter(Object(Illuminate\\Http\\Request))
+#70 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1220): Illuminate\\Foundation\\Http\\Kernel->handle(Object(Illuminate\\Http\\Request))
+#71 /var/www/public/index.php(17): Illuminate\\Foundation\\Application->handleRequest(Object(Illuminate\\Http\\Request))
+#72 {main}
+"} 
+[2025-07-09 15:51:39] local.INFO: Updating company snapshot for company ID: 1  
+[2025-07-09 15:51:39] local.INFO: Company snapshot updated successfully for company ID: 1  
+[2025-07-09 15:51:39] local.INFO: Updating company inspections for company ID: 1  
+[2025-07-09 15:51:41] local.INFO: Company inspections updated successfully for company ID: 1  
+[2025-07-09 15:51:41] local.INFO: Updating company crashes for company ID: 1  
+[2025-07-09 15:51:41] local.INFO: Company crashes updated successfully for company ID: 1  
+[2025-07-09 15:51:41] local.INFO: Updating company snapshot for company ID: 2  
+[2025-07-09 15:51:41] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6500","status":400,"message":"The USDOT number 6500 was not found, or is marked inactive."} 
+[2025-07-09 15:51:41] local.INFO: No data Company snapshot found for company ID: 2  
+[2025-07-09 15:51:41] local.INFO: Updating company inspections for company ID: 2  
+[2025-07-09 15:51:41] local.INFO: No data Company inspections found for company ID: 2  
+[2025-07-09 15:51:41] local.INFO: Updating company crashes for company ID: 2  
+[2025-07-09 15:51:42] local.INFO: No data Company crashes found for company ID: 2  
+[2025-07-09 15:51:42] local.INFO: Updating company snapshot for company ID: 3  
+[2025-07-09 15:51:42] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6501","status":400,"message":"The USDOT number 6501 was not found, or is marked inactive."} 
+[2025-07-09 15:51:42] local.INFO: No data Company snapshot found for company ID: 3  
+[2025-07-09 15:51:42] local.INFO: Updating company inspections for company ID: 3  
+[2025-07-09 15:51:42] local.INFO: No data Company inspections found for company ID: 3  
+[2025-07-09 15:51:42] local.INFO: Updating company crashes for company ID: 3  
+[2025-07-09 15:51:42] local.INFO: No data Company crashes found for company ID: 3  
+[2025-07-09 15:51:42] local.INFO: Updating company snapshot for company ID: 4  
+[2025-07-09 15:51:43] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6502","status":400,"message":"The USDOT number 6502 was not found, or is marked inactive."} 
+[2025-07-09 15:51:43] local.INFO: No data Company snapshot found for company ID: 4  
+[2025-07-09 15:51:43] local.INFO: Updating company inspections for company ID: 4  
+[2025-07-09 15:51:43] local.INFO: No data Company inspections found for company ID: 4  
+[2025-07-09 15:51:43] local.INFO: Updating company crashes for company ID: 4  
+[2025-07-09 15:51:43] local.INFO: No data Company crashes found for company ID: 4  
+[2025-07-09 15:51:43] local.INFO: Updating company snapshot for company ID: 5  
+[2025-07-09 15:51:44] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6503","status":400,"message":"The USDOT number 6503 was not found, or is marked inactive."} 
+[2025-07-09 15:51:44] local.INFO: No data Company snapshot found for company ID: 5  
+[2025-07-09 15:51:44] local.INFO: Updating company inspections for company ID: 5  
+[2025-07-09 15:51:44] local.INFO: No data Company inspections found for company ID: 5  
+[2025-07-09 15:51:44] local.INFO: Updating company crashes for company ID: 5  
+[2025-07-09 15:51:44] local.INFO: No data Company crashes found for company ID: 5  
+[2025-07-09 15:51:44] local.INFO: Updating company snapshot for company ID: 6  
+[2025-07-09 15:51:45] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6504","status":400,"message":"The USDOT number 6504 was not found, or is marked inactive."} 
+[2025-07-09 15:51:45] local.INFO: No data Company snapshot found for company ID: 6  
+[2025-07-09 15:51:45] local.INFO: Updating company inspections for company ID: 6  
+[2025-07-09 15:51:45] local.INFO: No data Company inspections found for company ID: 6  
+[2025-07-09 15:51:45] local.INFO: Updating company crashes for company ID: 6  
+[2025-07-09 15:51:45] local.INFO: No data Company crashes found for company ID: 6  
+[2025-07-09 15:51:45] local.INFO: Updating company snapshot for company ID: 7  
+[2025-07-09 15:51:45] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6505","status":400,"message":"The USDOT number 6505 was not found, or is marked inactive."} 
+[2025-07-09 15:51:45] local.INFO: No data Company snapshot found for company ID: 7  
+[2025-07-09 15:51:45] local.INFO: Updating company inspections for company ID: 7  
+[2025-07-09 15:51:46] local.INFO: No data Company inspections found for company ID: 7  
+[2025-07-09 15:51:46] local.INFO: Updating company crashes for company ID: 7  
+[2025-07-09 15:51:46] local.INFO: No data Company crashes found for company ID: 7  
+[2025-07-09 15:51:46] local.INFO: Updating company snapshot for company ID: 8  
+[2025-07-09 15:51:46] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6506","status":400,"message":"The USDOT number 6506 was not found, or is marked inactive."} 
+[2025-07-09 15:51:46] local.INFO: No data Company snapshot found for company ID: 8  
+[2025-07-09 15:51:46] local.INFO: Updating company inspections for company ID: 8  
+[2025-07-09 15:51:46] local.INFO: No data Company inspections found for company ID: 8  
+[2025-07-09 15:51:46] local.INFO: Updating company crashes for company ID: 8  
+[2025-07-09 15:51:47] local.INFO: No data Company crashes found for company ID: 8  
+[2025-07-09 15:51:47] local.INFO: Updating company snapshot for company ID: 9  
+[2025-07-09 15:51:47] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6507","status":400,"message":"The USDOT number 6507 was not found, or is marked inactive."} 
+[2025-07-09 15:51:47] local.INFO: No data Company snapshot found for company ID: 9  
+[2025-07-09 15:51:47] local.INFO: Updating company inspections for company ID: 9  
+[2025-07-09 15:51:47] local.INFO: No data Company inspections found for company ID: 9  
+[2025-07-09 15:51:47] local.INFO: Updating company crashes for company ID: 9  
+[2025-07-09 15:51:47] local.INFO: No data Company crashes found for company ID: 9  
+[2025-07-09 15:51:47] local.INFO: Updating company snapshot for company ID: 10  
+[2025-07-09 15:51:48] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6508","status":400,"message":"The USDOT number 6508 was not found, or is marked inactive."} 
+[2025-07-09 15:51:48] local.INFO: No data Company snapshot found for company ID: 10  
+[2025-07-09 15:51:48] local.INFO: Updating company inspections for company ID: 10  
+[2025-07-09 15:51:48] local.INFO: No data Company inspections found for company ID: 10  
+[2025-07-09 15:51:48] local.INFO: Updating company crashes for company ID: 10  
+[2025-07-09 15:51:48] local.INFO: No data Company crashes found for company ID: 10  
+[2025-07-09 15:51:48] local.INFO: Updating company snapshot for company ID: 11  
+[2025-07-09 15:51:49] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6509","status":400,"message":"The USDOT number 6509 was not found, or is marked inactive."} 
+[2025-07-09 15:51:49] local.INFO: No data Company snapshot found for company ID: 11  
+[2025-07-09 15:51:49] local.INFO: Updating company inspections for company ID: 11  
+[2025-07-09 15:51:49] local.INFO: No data Company inspections found for company ID: 11  
+[2025-07-09 15:51:49] local.INFO: Updating company crashes for company ID: 11  
+[2025-07-09 15:51:49] local.INFO: No data Company crashes found for company ID: 11  
+[2025-07-09 15:51:49] local.INFO: Updating company snapshot for company ID: 12  
+[2025-07-09 15:51:49] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6510","status":400,"message":"The USDOT number 6510 was not found, or is marked inactive."} 
+[2025-07-09 15:51:49] local.INFO: No data Company snapshot found for company ID: 12  
+[2025-07-09 15:51:49] local.INFO: Updating company inspections for company ID: 12  
+[2025-07-09 15:51:50] local.INFO: No data Company inspections found for company ID: 12  
+[2025-07-09 15:51:50] local.INFO: Updating company crashes for company ID: 12  
+[2025-07-09 15:51:50] local.INFO: No data Company crashes found for company ID: 12  
+[2025-07-09 15:51:50] local.INFO: Updating company snapshot for company ID: 13  
+[2025-07-09 15:51:50] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6511","status":400,"message":"The USDOT number 6511 was not found, or is marked inactive."} 
+[2025-07-09 15:51:50] local.INFO: No data Company snapshot found for company ID: 13  
+[2025-07-09 15:51:50] local.INFO: Updating company inspections for company ID: 13  
+[2025-07-09 15:51:50] local.INFO: No data Company inspections found for company ID: 13  
+[2025-07-09 15:51:50] local.INFO: Updating company crashes for company ID: 13  
+[2025-07-09 15:51:51] local.INFO: No data Company crashes found for company ID: 13  
+[2025-07-09 15:51:51] local.INFO: Updating company snapshot for company ID: 14  
+[2025-07-09 15:51:51] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6512","status":400,"message":"The USDOT number 6512 was not found, or is marked inactive."} 
+[2025-07-09 15:51:51] local.INFO: No data Company snapshot found for company ID: 14  
+[2025-07-09 15:51:51] local.INFO: Updating company inspections for company ID: 14  
+[2025-07-09 15:51:51] local.INFO: No data Company inspections found for company ID: 14  
+[2025-07-09 15:51:51] local.INFO: Updating company crashes for company ID: 14  
+[2025-07-09 15:51:51] local.INFO: No data Company crashes found for company ID: 14  
+[2025-07-09 15:51:51] local.INFO: Updating company snapshot for company ID: 15  
+[2025-07-09 15:51:52] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6513","status":400,"message":"The USDOT number 6513 was not found, or is marked inactive."} 
+[2025-07-09 15:51:52] local.INFO: No data Company snapshot found for company ID: 15  
+[2025-07-09 15:51:52] local.INFO: Updating company inspections for company ID: 15  
+[2025-07-09 15:51:52] local.INFO: No data Company inspections found for company ID: 15  
+[2025-07-09 15:51:52] local.INFO: Updating company crashes for company ID: 15  
+[2025-07-09 15:51:52] local.INFO: No data Company crashes found for company ID: 15  
+[2025-07-09 15:51:52] local.INFO: Updating company snapshot for company ID: 16  
+[2025-07-09 15:51:53] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6514","status":400,"message":"The USDOT number 6514 was not found, or is marked inactive."} 
+[2025-07-09 15:51:53] local.INFO: No data Company snapshot found for company ID: 16  
+[2025-07-09 15:51:53] local.INFO: Updating company inspections for company ID: 16  
+[2025-07-09 15:51:53] local.INFO: No data Company inspections found for company ID: 16  
+[2025-07-09 15:51:53] local.INFO: Updating company crashes for company ID: 16  
+[2025-07-09 15:51:53] local.INFO: No data Company crashes found for company ID: 16  
+[2025-07-09 15:51:53] local.INFO: Updating company snapshot for company ID: 17  
+[2025-07-09 15:51:54] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6515","status":400,"message":"The USDOT number 6515 was not found, or is marked inactive."} 
+[2025-07-09 15:51:54] local.INFO: No data Company snapshot found for company ID: 17  
+[2025-07-09 15:51:54] local.INFO: Updating company inspections for company ID: 17  
+[2025-07-09 15:51:54] local.INFO: No data Company inspections found for company ID: 17  
+[2025-07-09 15:51:54] local.INFO: Updating company crashes for company ID: 17  
+[2025-07-09 15:51:54] local.INFO: No data Company crashes found for company ID: 17  
+[2025-07-09 15:51:54] local.INFO: Updating company snapshot for company ID: 18  
+[2025-07-09 15:51:55] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6516","status":400,"message":"The USDOT number 6516 was not found, or is marked inactive."} 
+[2025-07-09 15:51:55] local.INFO: No data Company snapshot found for company ID: 18  
+[2025-07-09 15:51:55] local.INFO: Updating company inspections for company ID: 18  
+[2025-07-09 15:51:55] local.INFO: No data Company inspections found for company ID: 18  
+[2025-07-09 15:51:55] local.INFO: Updating company crashes for company ID: 18  
+[2025-07-09 15:51:55] local.INFO: No data Company crashes found for company ID: 18  
+[2025-07-09 15:51:55] local.INFO: Updating company snapshot for company ID: 19  
+[2025-07-09 15:51:55] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6517","status":400,"message":"The USDOT number 6517 was not found, or is marked inactive."} 
+[2025-07-09 15:51:55] local.INFO: No data Company snapshot found for company ID: 19  
+[2025-07-09 15:51:55] local.INFO: Updating company inspections for company ID: 19  
+[2025-07-09 15:51:56] local.INFO: No data Company inspections found for company ID: 19  
+[2025-07-09 15:51:56] local.INFO: Updating company crashes for company ID: 19  
+[2025-07-09 15:51:56] local.INFO: No data Company crashes found for company ID: 19  
+[2025-07-09 15:51:56] local.INFO: Updating company snapshot for company ID: 20  
+[2025-07-09 15:51:56] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6518","status":400,"message":"The USDOT number 6518 was not found, or is marked inactive."} 
+[2025-07-09 15:51:56] local.INFO: No data Company snapshot found for company ID: 20  
+[2025-07-09 15:51:56] local.INFO: Updating company inspections for company ID: 20  
+[2025-07-09 15:51:57] local.INFO: No data Company inspections found for company ID: 20  
+[2025-07-09 15:51:57] local.INFO: Updating company crashes for company ID: 20  
+[2025-07-09 15:51:57] local.INFO: No data Company crashes found for company ID: 20  
+[2025-07-09 15:51:57] local.INFO: Updating company snapshot for company ID: 21  
+[2025-07-09 15:51:57] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6519","status":400,"message":"The USDOT number 6519 was not found, or is marked inactive."} 
+[2025-07-09 15:51:57] local.INFO: No data Company snapshot found for company ID: 21  
+[2025-07-09 15:51:57] local.INFO: Updating company inspections for company ID: 21  
+[2025-07-09 15:51:58] local.INFO: No data Company inspections found for company ID: 21  
+[2025-07-09 15:51:58] local.INFO: Updating company crashes for company ID: 21  
+[2025-07-09 15:51:58] local.INFO: No data Company crashes found for company ID: 21  
+[2025-07-09 15:51:58] local.INFO: Updating company snapshot for company ID: 22  
+[2025-07-09 15:51:58] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6520","status":400,"message":"The USDOT number 6520 was not found, or is marked inactive."} 
+[2025-07-09 15:51:58] local.INFO: No data Company snapshot found for company ID: 22  
+[2025-07-09 15:51:58] local.INFO: Updating company inspections for company ID: 22  
+[2025-07-09 15:51:59] local.INFO: No data Company inspections found for company ID: 22  
+[2025-07-09 15:51:59] local.INFO: Updating company crashes for company ID: 22  
+[2025-07-09 15:51:59] local.INFO: No data Company crashes found for company ID: 22  
+[2025-07-09 15:51:59] local.INFO: Updating company snapshot for company ID: 23  
+[2025-07-09 15:51:59] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6521","status":400,"message":"The USDOT number 6521 was not found, or is marked inactive."} 
+[2025-07-09 15:51:59] local.INFO: No data Company snapshot found for company ID: 23  
+[2025-07-09 15:51:59] local.INFO: Updating company inspections for company ID: 23  
+[2025-07-09 15:52:00] local.INFO: No data Company inspections found for company ID: 23  
+[2025-07-09 15:52:00] local.INFO: Updating company crashes for company ID: 23  
+[2025-07-09 15:52:00] local.INFO: No data Company crashes found for company ID: 23  
+[2025-07-09 15:52:00] local.INFO: Updating company snapshot for company ID: 24  
+[2025-07-09 15:52:00] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6522","status":400,"message":"The USDOT number 6522 was not found, or is marked inactive."} 
+[2025-07-09 15:52:00] local.INFO: No data Company snapshot found for company ID: 24  
+[2025-07-09 15:52:00] local.INFO: Updating company inspections for company ID: 24  
+[2025-07-09 15:52:01] local.INFO: No data Company inspections found for company ID: 24  
+[2025-07-09 15:52:01] local.INFO: Updating company crashes for company ID: 24  
+[2025-07-09 15:52:01] local.INFO: No data Company crashes found for company ID: 24  
+[2025-07-09 15:52:01] local.INFO: Updating company snapshot for company ID: 25  
+[2025-07-09 15:52:02] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6523","status":400,"message":"The USDOT number 6523 was not found, or is marked inactive."} 
+[2025-07-09 15:52:02] local.INFO: No data Company snapshot found for company ID: 25  
+[2025-07-09 15:52:02] local.INFO: Updating company inspections for company ID: 25  
+[2025-07-09 15:52:02] local.INFO: No data Company inspections found for company ID: 25  
+[2025-07-09 15:52:02] local.INFO: Updating company crashes for company ID: 25  
+[2025-07-09 15:52:02] local.INFO: No data Company crashes found for company ID: 25  
+[2025-07-09 15:52:02] local.INFO: Updating company snapshot for company ID: 26  
+[2025-07-09 15:52:03] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6524","status":400,"message":"The USDOT number 6524 was not found, or is marked inactive."} 
+[2025-07-09 15:52:03] local.INFO: No data Company snapshot found for company ID: 26  
+[2025-07-09 15:52:03] local.INFO: Updating company inspections for company ID: 26  
+[2025-07-09 15:52:03] local.INFO: No data Company inspections found for company ID: 26  
+[2025-07-09 15:52:03] local.INFO: Updating company crashes for company ID: 26  
+[2025-07-09 15:52:03] local.INFO: No data Company crashes found for company ID: 26  
+[2025-07-09 15:52:03] local.INFO: Updating company snapshot for company ID: 27  
+[2025-07-09 15:52:04] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6525","status":400,"message":"The USDOT number 6525 was not found, or is marked inactive."} 
+[2025-07-09 15:52:04] local.INFO: No data Company snapshot found for company ID: 27  
+[2025-07-09 15:52:04] local.INFO: Updating company inspections for company ID: 27  
+[2025-07-09 15:52:04] local.INFO: No data Company inspections found for company ID: 27  
+[2025-07-09 15:52:04] local.INFO: Updating company crashes for company ID: 27  
+[2025-07-09 15:52:04] local.INFO: No data Company crashes found for company ID: 27  
+[2025-07-09 15:52:04] local.INFO: Updating company snapshot for company ID: 28  
+[2025-07-09 15:52:05] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6526","status":400,"message":"The USDOT number 6526 was not found, or is marked inactive."} 
+[2025-07-09 15:52:05] local.INFO: No data Company snapshot found for company ID: 28  
+[2025-07-09 15:52:05] local.INFO: Updating company inspections for company ID: 28  
+[2025-07-09 15:52:05] local.INFO: No data Company inspections found for company ID: 28  
+[2025-07-09 15:52:05] local.INFO: Updating company crashes for company ID: 28  
+[2025-07-09 15:52:05] local.INFO: No data Company crashes found for company ID: 28  
+[2025-07-09 15:52:05] local.INFO: Updating company snapshot for company ID: 29  
+[2025-07-09 15:52:06] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6527","status":400,"message":"The USDOT number 6527 was not found, or is marked inactive."} 
+[2025-07-09 15:52:06] local.INFO: No data Company snapshot found for company ID: 29  
+[2025-07-09 15:52:06] local.INFO: Updating company inspections for company ID: 29  
+[2025-07-09 15:52:06] local.INFO: No data Company inspections found for company ID: 29  
+[2025-07-09 15:52:06] local.INFO: Updating company crashes for company ID: 29  
+[2025-07-09 15:52:06] local.INFO: No data Company crashes found for company ID: 29  
+[2025-07-09 15:52:06] local.INFO: Updating company snapshot for company ID: 30  
+[2025-07-09 15:52:07] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6528","status":400,"message":"The USDOT number 6528 was not found, or is marked inactive."} 
+[2025-07-09 15:52:07] local.INFO: No data Company snapshot found for company ID: 30  
+[2025-07-09 15:52:07] local.INFO: Updating company inspections for company ID: 30  
+[2025-07-09 15:52:07] local.INFO: No data Company inspections found for company ID: 30  
+[2025-07-09 15:52:07] local.INFO: Updating company crashes for company ID: 30  
+[2025-07-09 15:52:07] local.INFO: No data Company crashes found for company ID: 30  
+[2025-07-09 15:52:07] local.INFO: Updating company snapshot for company ID: 31  
+[2025-07-09 15:52:08] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6529","status":400,"message":"The USDOT number 6529 was not found, or is marked inactive."} 
+[2025-07-09 15:52:08] local.INFO: No data Company snapshot found for company ID: 31  
+[2025-07-09 15:52:08] local.INFO: Updating company inspections for company ID: 31  
+[2025-07-09 15:52:08] local.INFO: No data Company inspections found for company ID: 31  
+[2025-07-09 15:52:08] local.INFO: Updating company crashes for company ID: 31  
+[2025-07-09 15:52:08] local.INFO: No data Company crashes found for company ID: 31  
+[2025-07-09 15:52:08] local.INFO: Updating company snapshot for company ID: 32  
+[2025-07-09 15:52:09] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6530","status":400,"message":"The USDOT number 6530 was not found, or is marked inactive."} 
+[2025-07-09 15:52:09] local.INFO: No data Company snapshot found for company ID: 32  
+[2025-07-09 15:52:09] local.INFO: Updating company inspections for company ID: 32  
+[2025-07-09 15:52:09] local.INFO: No data Company inspections found for company ID: 32  
+[2025-07-09 15:52:09] local.INFO: Updating company crashes for company ID: 32  
+[2025-07-09 15:52:09] local.INFO: No data Company crashes found for company ID: 32  
+[2025-07-09 15:52:09] local.INFO: Updating company snapshot for company ID: 33  
+[2025-07-09 15:52:10] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6531","status":400,"message":"The USDOT number 6531 was not found, or is marked inactive."} 
+[2025-07-09 15:52:10] local.INFO: No data Company snapshot found for company ID: 33  
+[2025-07-09 15:52:10] local.INFO: Updating company inspections for company ID: 33  
+[2025-07-09 15:52:10] local.INFO: No data Company inspections found for company ID: 33  
+[2025-07-09 15:52:10] local.INFO: Updating company crashes for company ID: 33  
+[2025-07-09 15:52:10] local.INFO: No data Company crashes found for company ID: 33  
+[2025-07-09 15:52:10] local.INFO: Updating company snapshot for company ID: 34  
+[2025-07-09 15:52:11] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6532","status":400,"message":"The USDOT number 6532 was not found, or is marked inactive."} 
+[2025-07-09 15:52:11] local.INFO: No data Company snapshot found for company ID: 34  
+[2025-07-09 15:52:11] local.INFO: Updating company inspections for company ID: 34  
+[2025-07-09 15:52:11] local.INFO: No data Company inspections found for company ID: 34  
+[2025-07-09 15:52:11] local.INFO: Updating company crashes for company ID: 34  
+[2025-07-09 15:52:11] local.INFO: No data Company crashes found for company ID: 34  
+[2025-07-09 15:52:11] local.INFO: Updating company snapshot for company ID: 35  
+[2025-07-09 15:52:12] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6533","status":400,"message":"The USDOT number 6533 was not found, or is marked inactive."} 
+[2025-07-09 15:52:12] local.INFO: No data Company snapshot found for company ID: 35  
+[2025-07-09 15:52:12] local.INFO: Updating company inspections for company ID: 35  
+[2025-07-09 15:52:12] local.INFO: No data Company inspections found for company ID: 35  
+[2025-07-09 15:52:12] local.INFO: Updating company crashes for company ID: 35  
+[2025-07-09 15:52:12] local.INFO: No data Company crashes found for company ID: 35  
+[2025-07-09 15:52:12] local.INFO: Updating company snapshot for company ID: 36  
+[2025-07-09 15:52:13] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6534","status":400,"message":"The USDOT number 6534 was not found, or is marked inactive."} 
+[2025-07-09 15:52:13] local.INFO: No data Company snapshot found for company ID: 36  
+[2025-07-09 15:52:13] local.INFO: Updating company inspections for company ID: 36  
+[2025-07-09 15:52:13] local.INFO: No data Company inspections found for company ID: 36  
+[2025-07-09 15:52:13] local.INFO: Updating company crashes for company ID: 36  
+[2025-07-09 15:52:13] local.INFO: No data Company crashes found for company ID: 36  
+[2025-07-09 15:52:13] local.INFO: Updating company snapshot for company ID: 37  
+[2025-07-09 15:52:14] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6535","status":400,"message":"The USDOT number 6535 was not found, or is marked inactive."} 
+[2025-07-09 15:52:14] local.INFO: No data Company snapshot found for company ID: 37  
+[2025-07-09 15:52:14] local.INFO: Updating company inspections for company ID: 37  
+[2025-07-09 15:52:14] local.INFO: No data Company inspections found for company ID: 37  
+[2025-07-09 15:52:14] local.INFO: Updating company crashes for company ID: 37  
+[2025-07-09 15:52:14] local.INFO: No data Company crashes found for company ID: 37  
+[2025-07-09 15:52:14] local.INFO: Updating company snapshot for company ID: 38  
+[2025-07-09 15:52:15] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6536","status":400,"message":"The USDOT number 6536 was not found, or is marked inactive."} 
+[2025-07-09 15:52:15] local.INFO: No data Company snapshot found for company ID: 38  
+[2025-07-09 15:52:15] local.INFO: Updating company inspections for company ID: 38  
+[2025-07-09 15:52:15] local.INFO: No data Company inspections found for company ID: 38  
+[2025-07-09 15:52:15] local.INFO: Updating company crashes for company ID: 38  
+[2025-07-09 15:52:15] local.INFO: No data Company crashes found for company ID: 38  
+[2025-07-09 15:52:15] local.INFO: Updating company snapshot for company ID: 39  
+[2025-07-09 15:52:16] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6537","status":400,"message":"The USDOT number 6537 was not found, or is marked inactive."} 
+[2025-07-09 15:52:16] local.INFO: No data Company snapshot found for company ID: 39  
+[2025-07-09 15:52:16] local.INFO: Updating company inspections for company ID: 39  
+[2025-07-09 15:52:16] local.INFO: No data Company inspections found for company ID: 39  
+[2025-07-09 15:52:16] local.INFO: Updating company crashes for company ID: 39  
+[2025-07-09 15:52:16] local.INFO: No data Company crashes found for company ID: 39  
+[2025-07-09 15:52:16] local.INFO: Updating company snapshot for company ID: 40  
+[2025-07-09 15:52:16] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6538","status":400,"message":"The USDOT number 6538 was not found, or is marked inactive."} 
+[2025-07-09 15:52:16] local.INFO: No data Company snapshot found for company ID: 40  
+[2025-07-09 15:52:16] local.INFO: Updating company inspections for company ID: 40  
+[2025-07-09 15:52:17] local.INFO: No data Company inspections found for company ID: 40  
+[2025-07-09 15:52:17] local.INFO: Updating company crashes for company ID: 40  
+[2025-07-09 15:52:17] local.INFO: No data Company crashes found for company ID: 40  
+[2025-07-09 15:52:17] local.INFO: Updating company snapshot for company ID: 41  
+[2025-07-09 15:52:17] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6539","status":400,"message":"The USDOT number 6539 was not found, or is marked inactive."} 
+[2025-07-09 15:52:17] local.INFO: No data Company snapshot found for company ID: 41  
+[2025-07-09 15:52:17] local.INFO: Updating company inspections for company ID: 41  
+[2025-07-09 15:52:18] local.INFO: No data Company inspections found for company ID: 41  
+[2025-07-09 15:52:18] local.INFO: Updating company crashes for company ID: 41  
+[2025-07-09 15:52:18] local.INFO: No data Company crashes found for company ID: 41  
+[2025-07-09 15:52:18] local.INFO: Updating company snapshot for company ID: 42  
+[2025-07-09 15:52:18] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6540","status":400,"message":"The USDOT number 6540 was not found, or is marked inactive."} 
+[2025-07-09 15:52:18] local.INFO: No data Company snapshot found for company ID: 42  
+[2025-07-09 15:52:18] local.INFO: Updating company inspections for company ID: 42  
+[2025-07-09 15:52:19] local.INFO: No data Company inspections found for company ID: 42  
+[2025-07-09 15:52:19] local.INFO: Updating company crashes for company ID: 42  
+[2025-07-09 15:52:19] local.INFO: No data Company crashes found for company ID: 42  
+[2025-07-09 15:52:19] local.INFO: Updating company snapshot for company ID: 43  
+[2025-07-09 15:52:19] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6541","status":400,"message":"The USDOT number 6541 was not found, or is marked inactive."} 
+[2025-07-09 15:52:19] local.INFO: No data Company snapshot found for company ID: 43  
+[2025-07-09 15:52:19] local.INFO: Updating company inspections for company ID: 43  
+[2025-07-09 15:52:20] local.INFO: No data Company inspections found for company ID: 43  
+[2025-07-09 15:52:20] local.INFO: Updating company crashes for company ID: 43  
+[2025-07-09 15:52:20] local.INFO: No data Company crashes found for company ID: 43  
+[2025-07-09 15:52:20] local.INFO: Updating company snapshot for company ID: 44  
+[2025-07-09 15:52:20] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6542","status":400,"message":"The USDOT number 6542 was not found, or is marked inactive."} 
+[2025-07-09 15:52:20] local.INFO: No data Company snapshot found for company ID: 44  
+[2025-07-09 15:52:20] local.INFO: Updating company inspections for company ID: 44  
+[2025-07-09 15:52:21] local.INFO: No data Company inspections found for company ID: 44  
+[2025-07-09 15:52:21] local.INFO: Updating company crashes for company ID: 44  
+[2025-07-09 15:52:21] local.INFO: No data Company crashes found for company ID: 44  
+[2025-07-09 15:52:21] local.INFO: Updating company snapshot for company ID: 45  
+[2025-07-09 15:52:21] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6543","status":400,"message":"The USDOT number 6543 was not found, or is marked inactive."} 
+[2025-07-09 15:52:21] local.INFO: No data Company snapshot found for company ID: 45  
+[2025-07-09 15:52:21] local.INFO: Updating company inspections for company ID: 45  
+[2025-07-09 15:52:21] local.INFO: No data Company inspections found for company ID: 45  
+[2025-07-09 15:52:21] local.INFO: Updating company crashes for company ID: 45  
+[2025-07-09 15:52:22] local.INFO: No data Company crashes found for company ID: 45  
+[2025-07-09 15:52:22] local.INFO: Updating company snapshot for company ID: 46  
+[2025-07-09 15:52:22] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6544","status":400,"message":"The USDOT number 6544 was not found, or is marked inactive."} 
+[2025-07-09 15:52:22] local.INFO: No data Company snapshot found for company ID: 46  
+[2025-07-09 15:52:22] local.INFO: Updating company inspections for company ID: 46  
+[2025-07-09 15:52:22] local.INFO: No data Company inspections found for company ID: 46  
+[2025-07-09 15:52:22] local.INFO: Updating company crashes for company ID: 46  
+[2025-07-09 15:52:23] local.INFO: No data Company crashes found for company ID: 46  
+[2025-07-09 15:52:23] local.INFO: Updating company snapshot for company ID: 47  
+[2025-07-09 15:52:23] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6545","status":400,"message":"The USDOT number 6545 was not found, or is marked inactive."} 
+[2025-07-09 15:52:23] local.INFO: No data Company snapshot found for company ID: 47  
+[2025-07-09 15:52:23] local.INFO: Updating company inspections for company ID: 47  
+[2025-07-09 15:52:23] local.INFO: No data Company inspections found for company ID: 47  
+[2025-07-09 15:52:23] local.INFO: Updating company crashes for company ID: 47  
+[2025-07-09 15:52:23] local.INFO: No data Company crashes found for company ID: 47  
+[2025-07-09 15:52:23] local.INFO: Updating company snapshot for company ID: 48  
+[2025-07-09 15:52:24] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6546","status":400,"message":"The USDOT number 6546 was not found, or is marked inactive."} 
+[2025-07-09 15:52:24] local.INFO: No data Company snapshot found for company ID: 48  
+[2025-07-09 15:52:24] local.INFO: Updating company inspections for company ID: 48  
+[2025-07-09 15:52:24] local.INFO: No data Company inspections found for company ID: 48  
+[2025-07-09 15:52:24] local.INFO: Updating company crashes for company ID: 48  
+[2025-07-09 15:52:24] local.INFO: No data Company crashes found for company ID: 48  
+[2025-07-09 15:52:24] local.INFO: Updating company snapshot for company ID: 49  
+[2025-07-09 15:52:25] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6547","status":400,"message":"The USDOT number 6547 was not found, or is marked inactive."} 
+[2025-07-09 15:52:25] local.INFO: No data Company snapshot found for company ID: 49  
+[2025-07-09 15:52:25] local.INFO: Updating company inspections for company ID: 49  
+[2025-07-09 15:52:25] local.INFO: No data Company inspections found for company ID: 49  
+[2025-07-09 15:52:25] local.INFO: Updating company crashes for company ID: 49  
+[2025-07-09 15:52:25] local.INFO: No data Company crashes found for company ID: 49  
+[2025-07-09 15:52:25] local.INFO: Updating company snapshot for company ID: 50  
+[2025-07-09 15:52:25] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6548","status":400,"message":"The USDOT number 6548 was not found, or is marked inactive."} 
+[2025-07-09 15:52:25] local.INFO: No data Company snapshot found for company ID: 50  
+[2025-07-09 15:52:25] local.INFO: Updating company inspections for company ID: 50  
+[2025-07-09 15:52:26] local.INFO: No data Company inspections found for company ID: 50  
+[2025-07-09 15:52:26] local.INFO: Updating company crashes for company ID: 50  
+[2025-07-09 15:52:26] local.INFO: No data Company crashes found for company ID: 50  
+[2025-07-09 15:52:26] local.INFO: Updating company snapshot for company ID: 51  
+[2025-07-09 15:52:26] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6549","status":400,"message":"The USDOT number 6549 was not found, or is marked inactive."} 
+[2025-07-09 15:52:26] local.INFO: No data Company snapshot found for company ID: 51  
+[2025-07-09 15:52:26] local.INFO: Updating company inspections for company ID: 51  
+[2025-07-09 15:52:26] local.INFO: No data Company inspections found for company ID: 51  
+[2025-07-09 15:52:26] local.INFO: Updating company crashes for company ID: 51  
+[2025-07-09 15:52:27] local.INFO: No data Company crashes found for company ID: 51  
+[2025-07-09 15:52:27] local.INFO: Updating company snapshot for company ID: 52  
+[2025-07-09 15:52:27] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6550","status":400,"message":"The USDOT number 6550 was not found, or is marked inactive."} 
+[2025-07-09 15:52:27] local.INFO: No data Company snapshot found for company ID: 52  
+[2025-07-09 15:52:27] local.INFO: Updating company inspections for company ID: 52  
+[2025-07-09 15:52:27] local.INFO: No data Company inspections found for company ID: 52  
+[2025-07-09 15:52:27] local.INFO: Updating company crashes for company ID: 52  
+[2025-07-09 15:52:27] local.INFO: No data Company crashes found for company ID: 52  
+[2025-07-09 15:52:27] local.INFO: Updating company snapshot for company ID: 53  
+[2025-07-09 15:52:28] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6551","status":400,"message":"The USDOT number 6551 was not found, or is marked inactive."} 
+[2025-07-09 15:52:28] local.INFO: No data Company snapshot found for company ID: 53  
+[2025-07-09 15:52:28] local.INFO: Updating company inspections for company ID: 53  
+[2025-07-09 15:52:28] local.INFO: No data Company inspections found for company ID: 53  
+[2025-07-09 15:52:28] local.INFO: Updating company crashes for company ID: 53  
+[2025-07-09 15:52:28] local.INFO: No data Company crashes found for company ID: 53  
+[2025-07-09 15:52:28] local.INFO: Updating company snapshot for company ID: 54  
+[2025-07-09 15:52:29] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6552","status":400,"message":"The USDOT number 6552 was not found, or is marked inactive."} 
+[2025-07-09 15:52:29] local.INFO: No data Company snapshot found for company ID: 54  
+[2025-07-09 15:52:29] local.INFO: Updating company inspections for company ID: 54  
+[2025-07-09 15:52:29] local.INFO: No data Company inspections found for company ID: 54  
+[2025-07-09 15:52:29] local.INFO: Updating company crashes for company ID: 54  
+[2025-07-09 15:52:29] local.INFO: No data Company crashes found for company ID: 54  
+[2025-07-09 15:52:29] local.INFO: Updating company snapshot for company ID: 55  
+[2025-07-09 15:52:29] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6553","status":400,"message":"The USDOT number 6553 was not found, or is marked inactive."} 
+[2025-07-09 15:52:29] local.INFO: No data Company snapshot found for company ID: 55  
+[2025-07-09 15:52:30] local.INFO: Updating company inspections for company ID: 55  
+[2025-07-09 15:52:30] local.INFO: No data Company inspections found for company ID: 55  
+[2025-07-09 15:52:30] local.INFO: Updating company crashes for company ID: 55  
+[2025-07-09 15:52:30] local.INFO: No data Company crashes found for company ID: 55  
+[2025-07-09 15:52:30] local.INFO: Updating company snapshot for company ID: 56  
+[2025-07-09 15:52:30] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6554","status":400,"message":"The USDOT number 6554 was not found, or is marked inactive."} 
+[2025-07-09 15:52:30] local.INFO: No data Company snapshot found for company ID: 56  
+[2025-07-09 15:52:30] local.INFO: Updating company inspections for company ID: 56  
+[2025-07-09 15:52:31] local.INFO: No data Company inspections found for company ID: 56  
+[2025-07-09 15:52:31] local.INFO: Updating company crashes for company ID: 56  
+[2025-07-09 15:52:31] local.INFO: No data Company crashes found for company ID: 56  
+[2025-07-09 15:52:31] local.INFO: Updating company snapshot for company ID: 57  
+[2025-07-09 15:52:31] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6555","status":400,"message":"The USDOT number 6555 was not found, or is marked inactive."} 
+[2025-07-09 15:52:31] local.INFO: No data Company snapshot found for company ID: 57  
+[2025-07-09 15:52:31] local.INFO: Updating company inspections for company ID: 57  
+[2025-07-09 15:52:32] local.INFO: No data Company inspections found for company ID: 57  
+[2025-07-09 15:52:32] local.INFO: Updating company crashes for company ID: 57  
+[2025-07-09 15:52:32] local.INFO: No data Company crashes found for company ID: 57  
+[2025-07-09 15:52:32] local.INFO: Updating company snapshot for company ID: 58  
+[2025-07-09 15:52:32] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6556","status":400,"message":"The USDOT number 6556 was not found, or is marked inactive."} 
+[2025-07-09 15:52:32] local.INFO: No data Company snapshot found for company ID: 58  
+[2025-07-09 15:52:32] local.INFO: Updating company inspections for company ID: 58  
+[2025-07-09 15:52:32] local.INFO: No data Company inspections found for company ID: 58  
+[2025-07-09 15:52:32] local.INFO: Updating company crashes for company ID: 58  
+[2025-07-09 15:52:33] local.INFO: No data Company crashes found for company ID: 58  
+[2025-07-09 15:52:33] local.INFO: Updating company snapshot for company ID: 59  
+[2025-07-09 15:52:33] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6557","status":400,"message":"The USDOT number 6557 was not found, or is marked inactive."} 
+[2025-07-09 15:52:33] local.INFO: No data Company snapshot found for company ID: 59  
+[2025-07-09 15:52:33] local.INFO: Updating company inspections for company ID: 59  
+[2025-07-09 15:52:33] local.INFO: No data Company inspections found for company ID: 59  
+[2025-07-09 15:52:33] local.INFO: Updating company crashes for company ID: 59  
+[2025-07-09 15:52:34] local.INFO: No data Company crashes found for company ID: 59  
+[2025-07-09 15:52:34] local.INFO: Updating company snapshot for company ID: 60  
+[2025-07-09 15:52:34] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6558","status":400,"message":"The USDOT number 6558 was not found, or is marked inactive."} 
+[2025-07-09 15:52:34] local.INFO: No data Company snapshot found for company ID: 60  
+[2025-07-09 15:52:34] local.INFO: Updating company inspections for company ID: 60  
+[2025-07-09 15:52:34] local.INFO: No data Company inspections found for company ID: 60  
+[2025-07-09 15:52:34] local.INFO: Updating company crashes for company ID: 60  
+[2025-07-09 15:52:34] local.INFO: No data Company crashes found for company ID: 60  
+[2025-07-09 15:52:34] local.INFO: Updating company snapshot for company ID: 61  
+[2025-07-09 15:52:35] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6559","status":400,"message":"The USDOT number 6559 was not found, or is marked inactive."} 
+[2025-07-09 15:52:35] local.INFO: No data Company snapshot found for company ID: 61  
+[2025-07-09 15:52:35] local.INFO: Updating company inspections for company ID: 61  
+[2025-07-09 15:52:35] local.INFO: No data Company inspections found for company ID: 61  
+[2025-07-09 15:52:35] local.INFO: Updating company crashes for company ID: 61  
+[2025-07-09 15:52:35] local.INFO: No data Company crashes found for company ID: 61  
+[2025-07-09 15:52:35] local.INFO: Updating company snapshot for company ID: 62  
+[2025-07-09 15:52:36] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6560","status":400,"message":"The USDOT number 6560 was not found, or is marked inactive."} 
+[2025-07-09 15:52:36] local.INFO: No data Company snapshot found for company ID: 62  
+[2025-07-09 15:52:36] local.INFO: Updating company inspections for company ID: 62  
+[2025-07-09 15:52:36] local.INFO: No data Company inspections found for company ID: 62  
+[2025-07-09 15:52:36] local.INFO: Updating company crashes for company ID: 62  
+[2025-07-09 15:52:36] local.INFO: No data Company crashes found for company ID: 62  
+[2025-07-09 15:52:36] local.INFO: Updating company snapshot for company ID: 63  
+[2025-07-09 15:52:36] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6561","status":400,"message":"The USDOT number 6561 was not found, or is marked inactive."} 
+[2025-07-09 15:52:36] local.INFO: No data Company snapshot found for company ID: 63  
+[2025-07-09 15:52:36] local.INFO: Updating company inspections for company ID: 63  
+[2025-07-09 15:52:37] local.INFO: No data Company inspections found for company ID: 63  
+[2025-07-09 15:52:37] local.INFO: Updating company crashes for company ID: 63  
+[2025-07-09 15:52:37] local.INFO: No data Company crashes found for company ID: 63  
+[2025-07-09 15:52:37] local.INFO: Updating company snapshot for company ID: 64  
+[2025-07-09 15:52:37] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6562","status":400,"message":"The USDOT number 6562 was not found, or is marked inactive."} 
+[2025-07-09 15:52:37] local.INFO: No data Company snapshot found for company ID: 64  
+[2025-07-09 15:52:37] local.INFO: Updating company inspections for company ID: 64  
+[2025-07-09 15:52:37] local.INFO: No data Company inspections found for company ID: 64  
+[2025-07-09 15:52:37] local.INFO: Updating company crashes for company ID: 64  
+[2025-07-09 15:52:38] local.INFO: No data Company crashes found for company ID: 64  
+[2025-07-09 15:52:38] local.INFO: Updating company snapshot for company ID: 65  
+[2025-07-09 15:52:38] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6563","status":400,"message":"The USDOT number 6563 was not found, or is marked inactive."} 
+[2025-07-09 15:52:38] local.INFO: No data Company snapshot found for company ID: 65  
+[2025-07-09 15:52:38] local.INFO: Updating company inspections for company ID: 65  
+[2025-07-09 15:52:38] local.INFO: No data Company inspections found for company ID: 65  
+[2025-07-09 15:52:38] local.INFO: Updating company crashes for company ID: 65  
+[2025-07-09 15:52:39] local.INFO: No data Company crashes found for company ID: 65  
+[2025-07-09 15:52:39] local.INFO: Updating company snapshot for company ID: 66  
+[2025-07-09 15:52:39] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6564","status":400,"message":"The USDOT number 6564 was not found, or is marked inactive."} 
+[2025-07-09 15:52:39] local.INFO: No data Company snapshot found for company ID: 66  
+[2025-07-09 15:52:39] local.INFO: Updating company inspections for company ID: 66  
+[2025-07-09 15:52:39] local.INFO: No data Company inspections found for company ID: 66  
+[2025-07-09 15:52:39] local.INFO: Updating company crashes for company ID: 66  
+[2025-07-09 15:52:39] local.INFO: No data Company crashes found for company ID: 66  
+[2025-07-09 15:52:39] local.INFO: Updating company snapshot for company ID: 67  
+[2025-07-09 15:52:40] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6565","status":400,"message":"The USDOT number 6565 was not found, or is marked inactive."} 
+[2025-07-09 15:52:40] local.INFO: No data Company snapshot found for company ID: 67  
+[2025-07-09 15:52:40] local.INFO: Updating company inspections for company ID: 67  
+[2025-07-09 15:52:40] local.INFO: No data Company inspections found for company ID: 67  
+[2025-07-09 15:52:40] local.INFO: Updating company crashes for company ID: 67  
+[2025-07-09 15:52:40] local.INFO: No data Company crashes found for company ID: 67  
+[2025-07-09 15:52:40] local.INFO: Updating company snapshot for company ID: 68  
+[2025-07-09 15:52:41] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6566","status":400,"message":"The USDOT number 6566 was not found, or is marked inactive."} 
+[2025-07-09 15:52:41] local.INFO: No data Company snapshot found for company ID: 68  
+[2025-07-09 15:52:41] local.INFO: Updating company inspections for company ID: 68  
+[2025-07-09 15:52:41] local.INFO: No data Company inspections found for company ID: 68  
+[2025-07-09 15:52:41] local.INFO: Updating company crashes for company ID: 68  
+[2025-07-09 15:52:41] local.INFO: No data Company crashes found for company ID: 68  
+[2025-07-09 15:52:41] local.INFO: Updating company snapshot for company ID: 69  
+[2025-07-09 15:52:42] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6567","status":400,"message":"The USDOT number 6567 was not found, or is marked inactive."} 
+[2025-07-09 15:52:42] local.INFO: No data Company snapshot found for company ID: 69  
+[2025-07-09 15:52:42] local.INFO: Updating company inspections for company ID: 69  
+[2025-07-09 15:52:42] local.INFO: No data Company inspections found for company ID: 69  
+[2025-07-09 15:52:42] local.INFO: Updating company crashes for company ID: 69  
+[2025-07-09 15:52:42] local.INFO: No data Company crashes found for company ID: 69  
+[2025-07-09 15:52:42] local.INFO: Updating company snapshot for company ID: 70  
+[2025-07-09 15:52:43] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6568","status":400,"message":"The USDOT number 6568 was not found, or is marked inactive."} 
+[2025-07-09 15:52:43] local.INFO: No data Company snapshot found for company ID: 70  
+[2025-07-09 15:52:43] local.INFO: Updating company inspections for company ID: 70  
+[2025-07-09 15:52:43] local.INFO: No data Company inspections found for company ID: 70  
+[2025-07-09 15:52:43] local.INFO: Updating company crashes for company ID: 70  
+[2025-07-09 15:52:43] local.INFO: No data Company crashes found for company ID: 70  
+[2025-07-09 15:52:43] local.INFO: Updating company snapshot for company ID: 71  
+[2025-07-09 15:52:43] local.INFO: Company snapshot updated successfully for company ID: 71  
+[2025-07-09 15:52:43] local.INFO: Updating company inspections for company ID: 71  
+[2025-07-09 15:52:44] local.INFO: Company inspections updated successfully for company ID: 71  
+[2025-07-09 15:52:44] local.INFO: Updating company crashes for company ID: 71  
+[2025-07-09 15:52:44] local.INFO: No data Company crashes found for company ID: 71  
+[2025-07-09 15:52:44] local.INFO: Updating company snapshot for company ID: 72  
+[2025-07-09 15:52:44] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6570","status":400,"message":"The USDOT number 6570 was not found, or is marked inactive."} 
+[2025-07-09 15:52:44] local.INFO: No data Company snapshot found for company ID: 72  
+[2025-07-09 15:52:44] local.INFO: Updating company inspections for company ID: 72  
+[2025-07-09 15:52:45] local.INFO: No data Company inspections found for company ID: 72  
+[2025-07-09 15:52:45] local.INFO: Updating company crashes for company ID: 72  
+[2025-07-09 15:52:45] local.INFO: No data Company crashes found for company ID: 72  
+[2025-07-09 15:52:45] local.INFO: Updating company snapshot for company ID: 73  
+[2025-07-09 15:52:45] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6571","status":400,"message":"The USDOT number 6571 was not found, or is marked inactive."} 
+[2025-07-09 15:52:45] local.INFO: No data Company snapshot found for company ID: 73  
+[2025-07-09 15:52:45] local.INFO: Updating company inspections for company ID: 73  
+[2025-07-09 15:52:45] local.INFO: No data Company inspections found for company ID: 73  
+[2025-07-09 15:52:45] local.INFO: Updating company crashes for company ID: 73  
+[2025-07-09 15:52:46] local.INFO: No data Company crashes found for company ID: 73  
+[2025-07-09 15:52:46] local.INFO: Updating company snapshot for company ID: 74  
+[2025-07-09 15:52:46] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6572","status":400,"message":"The USDOT number 6572 was not found, or is marked inactive."} 
+[2025-07-09 15:52:46] local.INFO: No data Company snapshot found for company ID: 74  
+[2025-07-09 15:52:46] local.INFO: Updating company inspections for company ID: 74  
+[2025-07-09 15:52:46] local.INFO: No data Company inspections found for company ID: 74  
+[2025-07-09 15:52:46] local.INFO: Updating company crashes for company ID: 74  
+[2025-07-09 15:52:47] local.INFO: No data Company crashes found for company ID: 74  
+[2025-07-09 15:52:47] local.INFO: Updating company snapshot for company ID: 75  
+[2025-07-09 15:52:47] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6573","status":400,"message":"The USDOT number 6573 was not found, or is marked inactive."} 
+[2025-07-09 15:52:47] local.INFO: No data Company snapshot found for company ID: 75  
+[2025-07-09 15:52:47] local.INFO: Updating company inspections for company ID: 75  
+[2025-07-09 15:52:47] local.INFO: No data Company inspections found for company ID: 75  
+[2025-07-09 15:52:47] local.INFO: Updating company crashes for company ID: 75  
+[2025-07-09 15:52:48] local.INFO: No data Company crashes found for company ID: 75  
+[2025-07-09 15:52:48] local.INFO: Updating company snapshot for company ID: 76  
+[2025-07-09 15:52:48] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6574","status":400,"message":"The USDOT number 6574 was not found, or is marked inactive."} 
+[2025-07-09 15:52:48] local.INFO: No data Company snapshot found for company ID: 76  
+[2025-07-09 15:52:48] local.INFO: Updating company inspections for company ID: 76  
+[2025-07-09 15:52:48] local.INFO: No data Company inspections found for company ID: 76  
+[2025-07-09 15:52:48] local.INFO: Updating company crashes for company ID: 76  
+[2025-07-09 15:52:48] local.INFO: No data Company crashes found for company ID: 76  
+[2025-07-09 15:52:48] local.INFO: Updating company snapshot for company ID: 77  
+[2025-07-09 15:52:49] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6575","status":400,"message":"The USDOT number 6575 was not found, or is marked inactive."} 
+[2025-07-09 15:52:49] local.INFO: No data Company snapshot found for company ID: 77  
+[2025-07-09 15:52:49] local.INFO: Updating company inspections for company ID: 77  
+[2025-07-09 15:52:49] local.INFO: No data Company inspections found for company ID: 77  
+[2025-07-09 15:52:49] local.INFO: Updating company crashes for company ID: 77  
+[2025-07-09 15:52:49] local.INFO: No data Company crashes found for company ID: 77  
+[2025-07-09 15:52:49] local.INFO: Updating company snapshot for company ID: 78  
+[2025-07-09 15:52:50] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6576","status":400,"message":"The USDOT number 6576 was not found, or is marked inactive."} 
+[2025-07-09 15:52:50] local.INFO: No data Company snapshot found for company ID: 78  
+[2025-07-09 15:52:50] local.INFO: Updating company inspections for company ID: 78  
+[2025-07-09 15:52:50] local.INFO: No data Company inspections found for company ID: 78  
+[2025-07-09 15:52:50] local.INFO: Updating company crashes for company ID: 78  
+[2025-07-09 15:52:50] local.INFO: No data Company crashes found for company ID: 78  
+[2025-07-09 15:52:50] local.INFO: Updating company snapshot for company ID: 79  
+[2025-07-09 15:52:51] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6577","status":400,"message":"The USDOT number 6577 was not found, or is marked inactive."} 
+[2025-07-09 15:52:51] local.INFO: No data Company snapshot found for company ID: 79  
+[2025-07-09 15:52:51] local.INFO: Updating company inspections for company ID: 79  
+[2025-07-09 15:52:51] local.INFO: No data Company inspections found for company ID: 79  
+[2025-07-09 15:52:51] local.INFO: Updating company crashes for company ID: 79  
+[2025-07-09 15:52:51] local.INFO: No data Company crashes found for company ID: 79  
+[2025-07-09 15:52:51] local.INFO: Updating company snapshot for company ID: 80  
+[2025-07-09 15:52:51] local.INFO: Company snapshot updated successfully for company ID: 80  
+[2025-07-09 15:52:51] local.INFO: Updating company inspections for company ID: 80  
+[2025-07-09 15:52:52] local.INFO: Company inspections updated successfully for company ID: 80  
+[2025-07-09 15:52:52] local.INFO: Updating company crashes for company ID: 80  
+[2025-07-09 15:52:52] local.INFO: Company crashes updated successfully for company ID: 80  
+[2025-07-09 15:52:52] local.INFO: Updating company snapshot for company ID: 81  
+[2025-07-09 15:52:52] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6579","status":400,"message":"The USDOT number 6579 was not found, or is marked inactive."} 
+[2025-07-09 15:52:52] local.INFO: No data Company snapshot found for company ID: 81  
+[2025-07-09 15:52:52] local.INFO: Updating company inspections for company ID: 81  
+[2025-07-09 15:52:53] local.INFO: No data Company inspections found for company ID: 81  
+[2025-07-09 15:52:53] local.INFO: Updating company crashes for company ID: 81  
+[2025-07-09 15:52:53] local.INFO: No data Company crashes found for company ID: 81  
+[2025-07-09 15:52:53] local.INFO: Updating company snapshot for company ID: 82  
+[2025-07-09 15:52:53] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6580","status":400,"message":"The USDOT number 6580 was not found, or is marked inactive."} 
+[2025-07-09 15:52:53] local.INFO: No data Company snapshot found for company ID: 82  
+[2025-07-09 15:52:53] local.INFO: Updating company inspections for company ID: 82  
+[2025-07-09 15:52:54] local.INFO: No data Company inspections found for company ID: 82  
+[2025-07-09 15:52:54] local.INFO: Updating company crashes for company ID: 82  
+[2025-07-09 15:52:54] local.INFO: No data Company crashes found for company ID: 82  
+[2025-07-09 15:52:54] local.INFO: Updating company snapshot for company ID: 83  
+[2025-07-09 15:52:54] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6581","status":400,"message":"The USDOT number 6581 was not found, or is marked inactive."} 
+[2025-07-09 15:52:54] local.INFO: No data Company snapshot found for company ID: 83  
+[2025-07-09 15:52:54] local.INFO: Updating company inspections for company ID: 83  
+[2025-07-09 15:52:55] local.INFO: No data Company inspections found for company ID: 83  
+[2025-07-09 15:52:55] local.INFO: Updating company crashes for company ID: 83  
+[2025-07-09 15:52:55] local.INFO: No data Company crashes found for company ID: 83  
+[2025-07-09 15:52:55] local.INFO: Updating company snapshot for company ID: 84  
+[2025-07-09 15:52:55] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6582","status":400,"message":"The USDOT number 6582 was not found, or is marked inactive."} 
+[2025-07-09 15:52:55] local.INFO: No data Company snapshot found for company ID: 84  
+[2025-07-09 15:52:55] local.INFO: Updating company inspections for company ID: 84  
+[2025-07-09 15:52:55] local.INFO: No data Company inspections found for company ID: 84  
+[2025-07-09 15:52:55] local.INFO: Updating company crashes for company ID: 84  
+[2025-07-09 15:52:56] local.INFO: No data Company crashes found for company ID: 84  
+[2025-07-09 15:52:56] local.INFO: Updating company snapshot for company ID: 85  
+[2025-07-09 15:52:56] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6583","status":400,"message":"The USDOT number 6583 was not found, or is marked inactive."} 
+[2025-07-09 15:52:56] local.INFO: No data Company snapshot found for company ID: 85  
+[2025-07-09 15:52:56] local.INFO: Updating company inspections for company ID: 85  
+[2025-07-09 15:52:56] local.INFO: No data Company inspections found for company ID: 85  
+[2025-07-09 15:52:56] local.INFO: Updating company crashes for company ID: 85  
+[2025-07-09 15:52:57] local.INFO: No data Company crashes found for company ID: 85  
+[2025-07-09 15:52:57] local.INFO: Updating company snapshot for company ID: 86  
+[2025-07-09 15:52:57] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6584","status":400,"message":"The USDOT number 6584 was not found, or is marked inactive."} 
+[2025-07-09 15:52:57] local.INFO: No data Company snapshot found for company ID: 86  
+[2025-07-09 15:52:57] local.INFO: Updating company inspections for company ID: 86  
+[2025-07-09 15:52:57] local.INFO: No data Company inspections found for company ID: 86  
+[2025-07-09 15:52:57] local.INFO: Updating company crashes for company ID: 86  
+[2025-07-09 15:52:57] local.INFO: No data Company crashes found for company ID: 86  
+[2025-07-09 15:52:57] local.INFO: Updating company snapshot for company ID: 87  
+[2025-07-09 15:52:58] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6585","status":400,"message":"The USDOT number 6585 was not found, or is marked inactive."} 
+[2025-07-09 15:52:58] local.INFO: No data Company snapshot found for company ID: 87  
+[2025-07-09 15:52:58] local.INFO: Updating company inspections for company ID: 87  
+[2025-07-09 15:52:58] local.INFO: No data Company inspections found for company ID: 87  
+[2025-07-09 15:52:58] local.INFO: Updating company crashes for company ID: 87  
+[2025-07-09 15:52:58] local.INFO: No data Company crashes found for company ID: 87  
+[2025-07-09 15:52:58] local.INFO: Updating company snapshot for company ID: 88  
+[2025-07-09 15:52:59] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6586","status":400,"message":"The USDOT number 6586 was not found, or is marked inactive."} 
+[2025-07-09 15:52:59] local.INFO: No data Company snapshot found for company ID: 88  
+[2025-07-09 15:52:59] local.INFO: Updating company inspections for company ID: 88  
+[2025-07-09 15:52:59] local.INFO: No data Company inspections found for company ID: 88  
+[2025-07-09 15:52:59] local.INFO: Updating company crashes for company ID: 88  
+[2025-07-09 15:52:59] local.INFO: No data Company crashes found for company ID: 88  
+[2025-07-09 15:52:59] local.INFO: Updating company snapshot for company ID: 89  
+[2025-07-09 15:53:00] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6587","status":400,"message":"The USDOT number 6587 was not found, or is marked inactive."} 
+[2025-07-09 15:53:00] local.INFO: No data Company snapshot found for company ID: 89  
+[2025-07-09 15:53:00] local.INFO: Updating company inspections for company ID: 89  
+[2025-07-09 15:53:00] local.INFO: No data Company inspections found for company ID: 89  
+[2025-07-09 15:53:00] local.INFO: Updating company crashes for company ID: 89  
+[2025-07-09 15:53:00] local.INFO: No data Company crashes found for company ID: 89  
+[2025-07-09 15:53:00] local.INFO: Updating company snapshot for company ID: 90  
+[2025-07-09 15:53:01] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6588","status":400,"message":"The USDOT number 6588 was not found, or is marked inactive."} 
+[2025-07-09 15:53:01] local.INFO: No data Company snapshot found for company ID: 90  
+[2025-07-09 15:53:01] local.INFO: Updating company inspections for company ID: 90  
+[2025-07-09 15:53:01] local.INFO: No data Company inspections found for company ID: 90  
+[2025-07-09 15:53:01] local.INFO: Updating company crashes for company ID: 90  
+[2025-07-09 15:53:01] local.INFO: No data Company crashes found for company ID: 90  
+[2025-07-09 15:53:01] local.INFO: Updating company snapshot for company ID: 91  
+[2025-07-09 15:53:02] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6589","status":400,"message":"The USDOT number 6589 was not found, or is marked inactive."} 
+[2025-07-09 15:53:02] local.INFO: No data Company snapshot found for company ID: 91  
+[2025-07-09 15:53:02] local.INFO: Updating company inspections for company ID: 91  
+[2025-07-09 15:53:02] local.INFO: No data Company inspections found for company ID: 91  
+[2025-07-09 15:53:02] local.INFO: Updating company crashes for company ID: 91  
+[2025-07-09 15:53:02] local.INFO: No data Company crashes found for company ID: 91  
+[2025-07-09 15:53:02] local.INFO: Updating company snapshot for company ID: 92  
+[2025-07-09 15:53:02] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6590","status":400,"message":"The USDOT number 6590 was not found, or is marked inactive."} 
+[2025-07-09 15:53:02] local.INFO: No data Company snapshot found for company ID: 92  
+[2025-07-09 15:53:02] local.INFO: Updating company inspections for company ID: 92  
+[2025-07-09 15:53:03] local.INFO: No data Company inspections found for company ID: 92  
+[2025-07-09 15:53:03] local.INFO: Updating company crashes for company ID: 92  
+[2025-07-09 15:53:03] local.INFO: No data Company crashes found for company ID: 92  
+[2025-07-09 15:53:03] local.INFO: Updating company snapshot for company ID: 93  
+[2025-07-09 15:53:03] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6591","status":400,"message":"The USDOT number 6591 was not found, or is marked inactive."} 
+[2025-07-09 15:53:03] local.INFO: No data Company snapshot found for company ID: 93  
+[2025-07-09 15:53:03] local.INFO: Updating company inspections for company ID: 93  
+[2025-07-09 15:53:03] local.INFO: No data Company inspections found for company ID: 93  
+[2025-07-09 15:53:03] local.INFO: Updating company crashes for company ID: 93  
+[2025-07-09 15:53:04] local.INFO: No data Company crashes found for company ID: 93  
+[2025-07-09 15:53:04] local.INFO: Updating company snapshot for company ID: 94  
+[2025-07-09 15:53:04] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6592","status":400,"message":"The USDOT number 6592 was not found, or is marked inactive."} 
+[2025-07-09 15:53:04] local.INFO: No data Company snapshot found for company ID: 94  
+[2025-07-09 15:53:04] local.INFO: Updating company inspections for company ID: 94  
+[2025-07-09 15:53:04] local.INFO: No data Company inspections found for company ID: 94  
+[2025-07-09 15:53:04] local.INFO: Updating company crashes for company ID: 94  
+[2025-07-09 15:53:05] local.INFO: No data Company crashes found for company ID: 94  
+[2025-07-09 15:53:05] local.INFO: Updating company snapshot for company ID: 95  
+[2025-07-09 15:53:05] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6593","status":400,"message":"The USDOT number 6593 was not found, or is marked inactive."} 
+[2025-07-09 15:53:05] local.INFO: No data Company snapshot found for company ID: 95  
+[2025-07-09 15:53:05] local.INFO: Updating company inspections for company ID: 95  
+[2025-07-09 15:53:05] local.INFO: No data Company inspections found for company ID: 95  
+[2025-07-09 15:53:05] local.INFO: Updating company crashes for company ID: 95  
+[2025-07-09 15:53:05] local.INFO: No data Company crashes found for company ID: 95  
+[2025-07-09 15:53:05] local.INFO: Updating company snapshot for company ID: 96  
+[2025-07-09 15:53:06] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6594","status":400,"message":"The USDOT number 6594 was not found, or is marked inactive."} 
+[2025-07-09 15:53:06] local.INFO: No data Company snapshot found for company ID: 96  
+[2025-07-09 15:53:06] local.INFO: Updating company inspections for company ID: 96  
+[2025-07-09 15:53:06] local.INFO: No data Company inspections found for company ID: 96  
+[2025-07-09 15:53:06] local.INFO: Updating company crashes for company ID: 96  
+[2025-07-09 15:53:06] local.INFO: No data Company crashes found for company ID: 96  
+[2025-07-09 15:53:06] local.INFO: Updating company snapshot for company ID: 97  
+[2025-07-09 15:53:07] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6595","status":400,"message":"The USDOT number 6595 was not found, or is marked inactive."} 
+[2025-07-09 15:53:07] local.INFO: No data Company snapshot found for company ID: 97  
+[2025-07-09 15:53:07] local.INFO: Updating company inspections for company ID: 97  
+[2025-07-09 15:53:07] local.INFO: No data Company inspections found for company ID: 97  
+[2025-07-09 15:53:07] local.INFO: Updating company crashes for company ID: 97  
+[2025-07-09 15:53:07] local.INFO: No data Company crashes found for company ID: 97  
+[2025-07-09 15:53:07] local.INFO: Updating company snapshot for company ID: 98  
+[2025-07-09 15:53:08] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6596","status":400,"message":"The USDOT number 6596 was not found, or is marked inactive."} 
+[2025-07-09 15:53:08] local.INFO: No data Company snapshot found for company ID: 98  
+[2025-07-09 15:53:08] local.INFO: Updating company inspections for company ID: 98  
+[2025-07-09 15:53:08] local.INFO: No data Company inspections found for company ID: 98  
+[2025-07-09 15:53:08] local.INFO: Updating company crashes for company ID: 98  
+[2025-07-09 15:53:08] local.INFO: No data Company crashes found for company ID: 98  
+[2025-07-09 15:53:08] local.INFO: Updating company snapshot for company ID: 99  
+[2025-07-09 15:53:09] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6597","status":400,"message":"The USDOT number 6597 was not found, or is marked inactive."} 
+[2025-07-09 15:53:09] local.INFO: No data Company snapshot found for company ID: 99  
+[2025-07-09 15:53:09] local.INFO: Updating company inspections for company ID: 99  
+[2025-07-09 15:53:09] local.INFO: No data Company inspections found for company ID: 99  
+[2025-07-09 15:53:09] local.INFO: Updating company crashes for company ID: 99  
+[2025-07-09 15:53:09] local.INFO: No data Company crashes found for company ID: 99  
+[2025-07-09 15:53:09] local.INFO: Updating company snapshot for company ID: 100  
+[2025-07-09 15:53:10] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6598","status":400,"message":"The USDOT number 6598 was not found, or is marked inactive."} 
+[2025-07-09 15:53:10] local.INFO: No data Company snapshot found for company ID: 100  
+[2025-07-09 15:53:10] local.INFO: Updating company inspections for company ID: 100  
+[2025-07-09 15:53:10] local.INFO: No data Company inspections found for company ID: 100  
+[2025-07-09 15:53:10] local.INFO: Updating company crashes for company ID: 100  
+[2025-07-09 15:53:10] local.INFO: No data Company crashes found for company ID: 100  
+[2025-07-09 15:53:10] local.INFO: Updating company snapshot for company ID: 101  
+[2025-07-09 15:53:11] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6599","status":400,"message":"The USDOT number 6599 was not found, or is marked inactive."} 
+[2025-07-09 15:53:11] local.INFO: No data Company snapshot found for company ID: 101  
+[2025-07-09 15:53:11] local.INFO: Updating company inspections for company ID: 101  
+[2025-07-09 15:53:11] local.INFO: No data Company inspections found for company ID: 101  
+[2025-07-09 15:53:11] local.INFO: Updating company crashes for company ID: 101  
+[2025-07-09 15:53:11] local.INFO: No data Company crashes found for company ID: 101  
+[2025-07-09 15:53:11] local.INFO: Updating company snapshot for company ID: 102  
+[2025-07-09 15:53:11] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6600","status":400,"message":"The USDOT number 6600 was not found, or is marked inactive."} 
+[2025-07-09 15:53:11] local.INFO: No data Company snapshot found for company ID: 102  
+[2025-07-09 15:53:11] local.INFO: Updating company inspections for company ID: 102  
+[2025-07-09 15:53:12] local.INFO: No data Company inspections found for company ID: 102  
+[2025-07-09 15:53:12] local.INFO: Updating company crashes for company ID: 102  
+[2025-07-09 15:53:12] local.INFO: No data Company crashes found for company ID: 102  
+[2025-07-09 15:53:12] local.INFO: Updating company snapshot for company ID: 103  
+[2025-07-09 15:53:12] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6601","status":400,"message":"The USDOT number 6601 was not found, or is marked inactive."} 
+[2025-07-09 15:53:12] local.INFO: No data Company snapshot found for company ID: 103  
+[2025-07-09 15:53:12] local.INFO: Updating company inspections for company ID: 103  
+[2025-07-09 15:53:13] local.INFO: No data Company inspections found for company ID: 103  
+[2025-07-09 15:53:13] local.INFO: Updating company crashes for company ID: 103  
+[2025-07-09 15:53:13] local.INFO: No data Company crashes found for company ID: 103  
+[2025-07-09 15:53:13] local.INFO: Updating company snapshot for company ID: 104  
+[2025-07-09 15:53:13] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6602","status":400,"message":"The USDOT number 6602 was not found, or is marked inactive."} 
+[2025-07-09 15:53:13] local.INFO: No data Company snapshot found for company ID: 104  
+[2025-07-09 15:53:13] local.INFO: Updating company inspections for company ID: 104  
+[2025-07-09 15:53:13] local.INFO: No data Company inspections found for company ID: 104  
+[2025-07-09 15:53:13] local.INFO: Updating company crashes for company ID: 104  
+[2025-07-09 15:53:14] local.INFO: No data Company crashes found for company ID: 104  
+[2025-07-09 15:53:14] local.INFO: Updating company snapshot for company ID: 105  
+[2025-07-09 15:53:14] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6603","status":400,"message":"The USDOT number 6603 was not found, or is marked inactive."} 
+[2025-07-09 15:53:14] local.INFO: No data Company snapshot found for company ID: 105  
+[2025-07-09 15:53:14] local.INFO: Updating company inspections for company ID: 105  
+[2025-07-09 15:53:14] local.INFO: No data Company inspections found for company ID: 105  
+[2025-07-09 15:53:14] local.INFO: Updating company crashes for company ID: 105  
+[2025-07-09 15:53:15] local.INFO: No data Company crashes found for company ID: 105  
+[2025-07-09 15:53:15] local.INFO: Updating company snapshot for company ID: 106  
+[2025-07-09 15:53:15] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6604","status":400,"message":"The USDOT number 6604 was not found, or is marked inactive."} 
+[2025-07-09 15:53:15] local.INFO: No data Company snapshot found for company ID: 106  
+[2025-07-09 15:53:15] local.INFO: Updating company inspections for company ID: 106  
+[2025-07-09 15:53:15] local.INFO: No data Company inspections found for company ID: 106  
+[2025-07-09 15:53:15] local.INFO: Updating company crashes for company ID: 106  
+[2025-07-09 15:53:15] local.INFO: No data Company crashes found for company ID: 106  
+[2025-07-09 15:53:15] local.INFO: Updating company snapshot for company ID: 107  
+[2025-07-09 15:53:16] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6605","status":400,"message":"The USDOT number 6605 was not found, or is marked inactive."} 
+[2025-07-09 15:53:16] local.INFO: No data Company snapshot found for company ID: 107  
+[2025-07-09 15:53:16] local.INFO: Updating company inspections for company ID: 107  
+[2025-07-09 15:53:16] local.INFO: No data Company inspections found for company ID: 107  
+[2025-07-09 15:53:16] local.INFO: Updating company crashes for company ID: 107  
+[2025-07-09 15:53:16] local.INFO: No data Company crashes found for company ID: 107  
+[2025-07-09 15:53:16] local.INFO: Updating company snapshot for company ID: 108  
+[2025-07-09 15:53:17] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6606","status":400,"message":"The USDOT number 6606 was not found, or is marked inactive."} 
+[2025-07-09 15:53:17] local.INFO: No data Company snapshot found for company ID: 108  
+[2025-07-09 15:53:17] local.INFO: Updating company inspections for company ID: 108  
+[2025-07-09 15:53:17] local.INFO: No data Company inspections found for company ID: 108  
+[2025-07-09 15:53:17] local.INFO: Updating company crashes for company ID: 108  
+[2025-07-09 15:53:17] local.INFO: No data Company crashes found for company ID: 108  
+[2025-07-09 15:53:17] local.INFO: Updating company snapshot for company ID: 109  
+[2025-07-09 15:53:18] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6607","status":400,"message":"The USDOT number 6607 was not found, or is marked inactive."} 
+[2025-07-09 15:53:18] local.INFO: No data Company snapshot found for company ID: 109  
+[2025-07-09 15:53:18] local.INFO: Updating company inspections for company ID: 109  
+[2025-07-09 15:53:18] local.INFO: Company inspections updated successfully for company ID: 109  
+[2025-07-09 15:53:18] local.INFO: Updating company crashes for company ID: 109  
+[2025-07-09 15:53:18] local.INFO: No data Company crashes found for company ID: 109  
+[2025-07-09 15:53:18] local.INFO: Updating company snapshot for company ID: 110  
+[2025-07-09 15:53:19] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6608","status":400,"message":"The USDOT number 6608 was not found, or is marked inactive."} 
+[2025-07-09 15:53:19] local.INFO: No data Company snapshot found for company ID: 110  
+[2025-07-09 15:53:19] local.INFO: Updating company inspections for company ID: 110  
+[2025-07-09 15:53:19] local.INFO: No data Company inspections found for company ID: 110  
+[2025-07-09 15:53:19] local.INFO: Updating company crashes for company ID: 110  
+[2025-07-09 15:53:19] local.INFO: No data Company crashes found for company ID: 110  
+[2025-07-09 15:53:19] local.INFO: Updating company snapshot for company ID: 111  
+[2025-07-09 15:53:20] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6609","status":400,"message":"The USDOT number 6609 was not found, or is marked inactive."} 
+[2025-07-09 15:53:20] local.INFO: No data Company snapshot found for company ID: 111  
+[2025-07-09 15:53:20] local.INFO: Updating company inspections for company ID: 111  
+[2025-07-09 15:53:20] local.INFO: No data Company inspections found for company ID: 111  
+[2025-07-09 15:53:20] local.INFO: Updating company crashes for company ID: 111  
+[2025-07-09 15:53:20] local.INFO: No data Company crashes found for company ID: 111  
+[2025-07-09 15:53:20] local.INFO: Updating company snapshot for company ID: 112  
+[2025-07-09 15:53:21] local.INFO: Company snapshot updated successfully for company ID: 112  
+[2025-07-09 15:53:21] local.INFO: Updating company inspections for company ID: 112  
+[2025-07-09 15:53:21] local.INFO: Company inspections updated successfully for company ID: 112  
+[2025-07-09 15:53:21] local.INFO: Updating company crashes for company ID: 112  
+[2025-07-09 15:53:21] local.INFO: Company crashes updated successfully for company ID: 112  
+[2025-07-09 15:53:21] local.INFO: Updating company snapshot for company ID: 113  
+[2025-07-09 15:53:22] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6611","status":400,"message":"The USDOT number 6611 was not found, or is marked inactive."} 
+[2025-07-09 15:53:22] local.INFO: No data Company snapshot found for company ID: 113  
+[2025-07-09 15:53:22] local.INFO: Updating company inspections for company ID: 113  
+[2025-07-09 15:53:22] local.INFO: No data Company inspections found for company ID: 113  
+[2025-07-09 15:53:22] local.INFO: Updating company crashes for company ID: 113  
+[2025-07-09 15:53:22] local.INFO: No data Company crashes found for company ID: 113  
+[2025-07-09 15:53:22] local.INFO: Updating company snapshot for company ID: 114  
+[2025-07-09 15:53:23] local.INFO: Company snapshot updated successfully for company ID: 114  
+[2025-07-09 15:53:23] local.INFO: Updating company inspections for company ID: 114  
+[2025-07-09 15:53:23] local.INFO: Company inspections updated successfully for company ID: 114  
+[2025-07-09 15:53:23] local.INFO: Updating company crashes for company ID: 114  
+[2025-07-09 15:53:24] local.INFO: Company crashes updated successfully for company ID: 114  
+[2025-07-09 15:53:24] local.INFO: Updating company snapshot for company ID: 115  
+[2025-07-09 15:53:24] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6613","status":400,"message":"The USDOT number 6613 was not found, or is marked inactive."} 
+[2025-07-09 15:53:24] local.INFO: No data Company snapshot found for company ID: 115  
+[2025-07-09 15:53:24] local.INFO: Updating company inspections for company ID: 115  
+[2025-07-09 15:53:24] local.INFO: No data Company inspections found for company ID: 115  
+[2025-07-09 15:53:24] local.INFO: Updating company crashes for company ID: 115  
+[2025-07-09 15:53:25] local.INFO: No data Company crashes found for company ID: 115  
+[2025-07-09 15:53:25] local.INFO: Updating company snapshot for company ID: 116  
+[2025-07-09 15:53:25] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6614","status":400,"message":"The USDOT number 6614 was not found, or is marked inactive."} 
+[2025-07-09 15:53:25] local.INFO: No data Company snapshot found for company ID: 116  
+[2025-07-09 15:53:25] local.INFO: Updating company inspections for company ID: 116  
+[2025-07-09 15:53:25] local.INFO: No data Company inspections found for company ID: 116  
+[2025-07-09 15:53:25] local.INFO: Updating company crashes for company ID: 116  
+[2025-07-09 15:53:25] local.INFO: No data Company crashes found for company ID: 116  
+[2025-07-09 15:53:25] local.INFO: Updating company snapshot for company ID: 117  
+[2025-07-09 15:53:26] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6615","status":400,"message":"The USDOT number 6615 was not found, or is marked inactive."} 
+[2025-07-09 15:53:26] local.INFO: No data Company snapshot found for company ID: 117  
+[2025-07-09 15:53:26] local.INFO: Updating company inspections for company ID: 117  
+[2025-07-09 15:53:26] local.INFO: No data Company inspections found for company ID: 117  
+[2025-07-09 15:53:26] local.INFO: Updating company crashes for company ID: 117  
+[2025-07-09 15:53:26] local.INFO: No data Company crashes found for company ID: 117  
+[2025-07-09 15:53:26] local.INFO: Updating company snapshot for company ID: 118  
+[2025-07-09 15:53:27] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6616","status":400,"message":"The USDOT number 6616 was not found, or is marked inactive."} 
+[2025-07-09 15:53:27] local.INFO: No data Company snapshot found for company ID: 118  
+[2025-07-09 15:53:27] local.INFO: Updating company inspections for company ID: 118  
+[2025-07-09 15:53:27] local.INFO: No data Company inspections found for company ID: 118  
+[2025-07-09 15:53:27] local.INFO: Updating company crashes for company ID: 118  
+[2025-07-09 15:53:27] local.INFO: No data Company crashes found for company ID: 118  
+[2025-07-09 15:53:27] local.INFO: Updating company snapshot for company ID: 119  
+[2025-07-09 15:53:28] local.INFO: Company snapshot updated successfully for company ID: 119  
+[2025-07-09 15:53:28] local.INFO: Updating company inspections for company ID: 119  
+[2025-07-09 15:53:28] local.INFO: Company inspections updated successfully for company ID: 119  
+[2025-07-09 15:53:28] local.INFO: Updating company crashes for company ID: 119  
+[2025-07-09 15:53:28] local.INFO: Company crashes updated successfully for company ID: 119  
+[2025-07-09 15:53:28] local.INFO: Updating company snapshot for company ID: 120  
+[2025-07-09 15:53:29] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6618","status":400,"message":"The USDOT number 6618 was not found, or is marked inactive."} 
+[2025-07-09 15:53:29] local.INFO: No data Company snapshot found for company ID: 120  
+[2025-07-09 15:53:29] local.INFO: Updating company inspections for company ID: 120  
+[2025-07-09 15:53:29] local.INFO: No data Company inspections found for company ID: 120  
+[2025-07-09 15:53:29] local.INFO: Updating company crashes for company ID: 120  
+[2025-07-09 15:53:29] local.INFO: No data Company crashes found for company ID: 120  
+[2025-07-09 15:53:29] local.INFO: Updating company snapshot for company ID: 121  
+[2025-07-09 15:53:30] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6619","status":400,"message":"The USDOT number 6619 was not found, or is marked inactive."} 
+[2025-07-09 15:53:30] local.INFO: No data Company snapshot found for company ID: 121  
+[2025-07-09 15:53:30] local.INFO: Updating company inspections for company ID: 121  
+[2025-07-09 15:53:30] local.INFO: No data Company inspections found for company ID: 121  
+[2025-07-09 15:53:30] local.INFO: Updating company crashes for company ID: 121  
+[2025-07-09 15:53:30] local.INFO: No data Company crashes found for company ID: 121  
+[2025-07-09 15:53:30] local.INFO: Updating company snapshot for company ID: 122  
+[2025-07-09 15:53:31] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6620","status":400,"message":"The USDOT number 6620 was not found, or is marked inactive."} 
+[2025-07-09 15:53:31] local.INFO: No data Company snapshot found for company ID: 122  
+[2025-07-09 15:53:31] local.INFO: Updating company inspections for company ID: 122  
+[2025-07-09 15:53:31] local.INFO: No data Company inspections found for company ID: 122  
+[2025-07-09 15:53:31] local.INFO: Updating company crashes for company ID: 122  
+[2025-07-09 15:53:31] local.INFO: No data Company crashes found for company ID: 122  
+[2025-07-09 15:53:31] local.INFO: Updating company snapshot for company ID: 123  
+[2025-07-09 15:53:32] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6621","status":400,"message":"The USDOT number 6621 was not found, or is marked inactive."} 
+[2025-07-09 15:53:32] local.INFO: No data Company snapshot found for company ID: 123  
+[2025-07-09 15:53:32] local.INFO: Updating company inspections for company ID: 123  
+[2025-07-09 15:53:32] local.INFO: No data Company inspections found for company ID: 123  
+[2025-07-09 15:53:32] local.INFO: Updating company crashes for company ID: 123  
+[2025-07-09 15:53:32] local.INFO: No data Company crashes found for company ID: 123  
+[2025-07-09 15:53:32] local.INFO: Updating company snapshot for company ID: 124  
+[2025-07-09 15:53:32] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6622","status":400,"message":"The USDOT number 6622 was not found, or is marked inactive."} 
+[2025-07-09 15:53:32] local.INFO: No data Company snapshot found for company ID: 124  
+[2025-07-09 15:53:32] local.INFO: Updating company inspections for company ID: 124  
+[2025-07-09 15:53:33] local.INFO: No data Company inspections found for company ID: 124  
+[2025-07-09 15:53:33] local.INFO: Updating company crashes for company ID: 124  
+[2025-07-09 15:53:33] local.INFO: No data Company crashes found for company ID: 124  
+[2025-07-09 15:53:33] local.INFO: Updating company snapshot for company ID: 125  
+[2025-07-09 15:53:33] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6623","status":400,"message":"The USDOT number 6623 was not found, or is marked inactive."} 
+[2025-07-09 15:53:33] local.INFO: No data Company snapshot found for company ID: 125  
+[2025-07-09 15:53:33] local.INFO: Updating company inspections for company ID: 125  
+[2025-07-09 15:53:34] local.INFO: No data Company inspections found for company ID: 125  
+[2025-07-09 15:53:34] local.INFO: Updating company crashes for company ID: 125  
+[2025-07-09 15:53:35] local.INFO: No data Company crashes found for company ID: 125  
+[2025-07-09 15:53:35] local.INFO: Updating company snapshot for company ID: 126  
+[2025-07-09 15:53:35] local.INFO: Company snapshot updated successfully for company ID: 126  
+[2025-07-09 15:53:35] local.INFO: Updating company inspections for company ID: 126  
+[2025-07-09 15:53:36] local.INFO: Company inspections updated successfully for company ID: 126  
+[2025-07-09 15:53:36] local.INFO: Updating company crashes for company ID: 126  
+[2025-07-09 15:53:36] local.INFO: No data Company crashes found for company ID: 126  
+[2025-07-09 15:53:36] local.INFO: Updating company snapshot for company ID: 127  
+[2025-07-09 15:53:36] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6625","status":400,"message":"The USDOT number 6625 was not found, or is marked inactive."} 
+[2025-07-09 15:53:36] local.INFO: No data Company snapshot found for company ID: 127  
+[2025-07-09 15:53:36] local.INFO: Updating company inspections for company ID: 127  
+[2025-07-09 15:53:37] local.INFO: No data Company inspections found for company ID: 127  
+[2025-07-09 15:53:37] local.INFO: Updating company crashes for company ID: 127  
+[2025-07-09 15:53:37] local.INFO: No data Company crashes found for company ID: 127  
+[2025-07-09 15:53:37] local.INFO: Updating company snapshot for company ID: 128  
+[2025-07-09 15:53:37] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6626","status":400,"message":"The USDOT number 6626 was not found, or is marked inactive."} 
+[2025-07-09 15:53:37] local.INFO: No data Company snapshot found for company ID: 128  
+[2025-07-09 15:53:37] local.INFO: Updating company inspections for company ID: 128  
+[2025-07-09 15:53:37] local.INFO: No data Company inspections found for company ID: 128  
+[2025-07-09 15:53:37] local.INFO: Updating company crashes for company ID: 128  
+[2025-07-09 15:53:38] local.INFO: No data Company crashes found for company ID: 128  
+[2025-07-09 15:53:38] local.INFO: Updating company snapshot for company ID: 129  
+[2025-07-09 15:53:38] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6627","status":400,"message":"The USDOT number 6627 was not found, or is marked inactive."} 
+[2025-07-09 15:53:38] local.INFO: No data Company snapshot found for company ID: 129  
+[2025-07-09 15:53:38] local.INFO: Updating company inspections for company ID: 129  
+[2025-07-09 15:53:38] local.INFO: No data Company inspections found for company ID: 129  
+[2025-07-09 15:53:38] local.INFO: Updating company crashes for company ID: 129  
+[2025-07-09 15:53:39] local.INFO: No data Company crashes found for company ID: 129  
+[2025-07-09 15:53:39] local.INFO: Updating company snapshot for company ID: 130  
+[2025-07-09 15:53:39] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6628","status":400,"message":"The USDOT number 6628 was not found, or is marked inactive."} 
+[2025-07-09 15:53:39] local.INFO: No data Company snapshot found for company ID: 130  
+[2025-07-09 15:53:39] local.INFO: Updating company inspections for company ID: 130  
+[2025-07-09 15:53:39] local.INFO: No data Company inspections found for company ID: 130  
+[2025-07-09 15:53:39] local.INFO: Updating company crashes for company ID: 130  
+[2025-07-09 15:53:39] local.INFO: No data Company crashes found for company ID: 130  
+[2025-07-09 15:53:39] local.INFO: Updating company snapshot for company ID: 131  
+[2025-07-09 15:53:40] local.INFO: Company snapshot updated successfully for company ID: 131  
+[2025-07-09 15:53:40] local.INFO: Updating company inspections for company ID: 131  
+[2025-07-09 15:53:40] local.INFO: Company inspections updated successfully for company ID: 131  
+[2025-07-09 15:53:40] local.INFO: Updating company crashes for company ID: 131  
+[2025-07-09 15:53:41] local.INFO: Company crashes updated successfully for company ID: 131  
+[2025-07-09 15:53:41] local.INFO: Updating company snapshot for company ID: 132  
+[2025-07-09 15:53:41] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6630","status":400,"message":"The USDOT number 6630 was not found, or is marked inactive."} 
+[2025-07-09 15:53:41] local.INFO: No data Company snapshot found for company ID: 132  
+[2025-07-09 15:53:41] local.INFO: Updating company inspections for company ID: 132  
+[2025-07-09 15:53:41] local.INFO: No data Company inspections found for company ID: 132  
+[2025-07-09 15:53:41] local.INFO: Updating company crashes for company ID: 132  
+[2025-07-09 15:53:41] local.INFO: No data Company crashes found for company ID: 132  
+[2025-07-09 15:53:41] local.INFO: Updating company snapshot for company ID: 133  
+[2025-07-09 15:53:42] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6631","status":400,"message":"The USDOT number 6631 was not found, or is marked inactive."} 
+[2025-07-09 15:53:42] local.INFO: No data Company snapshot found for company ID: 133  
+[2025-07-09 15:53:42] local.INFO: Updating company inspections for company ID: 133  
+[2025-07-09 15:53:42] local.INFO: No data Company inspections found for company ID: 133  
+[2025-07-09 15:53:42] local.INFO: Updating company crashes for company ID: 133  
+[2025-07-09 15:53:42] local.INFO: No data Company crashes found for company ID: 133  
+[2025-07-09 15:53:42] local.INFO: Updating company snapshot for company ID: 134  
+[2025-07-09 15:53:43] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6632","status":400,"message":"The USDOT number 6632 was not found, or is marked inactive."} 
+[2025-07-09 15:53:43] local.INFO: No data Company snapshot found for company ID: 134  
+[2025-07-09 15:53:43] local.INFO: Updating company inspections for company ID: 134  
+[2025-07-09 15:53:43] local.INFO: No data Company inspections found for company ID: 134  
+[2025-07-09 15:53:43] local.INFO: Updating company crashes for company ID: 134  
+[2025-07-09 15:53:43] local.INFO: No data Company crashes found for company ID: 134  
+[2025-07-09 15:53:43] local.INFO: Updating company snapshot for company ID: 135  
+[2025-07-09 15:53:44] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6633","status":400,"message":"The USDOT number 6633 was not found, or is marked inactive."} 
+[2025-07-09 15:53:44] local.INFO: No data Company snapshot found for company ID: 135  
+[2025-07-09 15:53:44] local.INFO: Updating company inspections for company ID: 135  
+[2025-07-09 15:53:44] local.INFO: No data Company inspections found for company ID: 135  
+[2025-07-09 15:53:44] local.INFO: Updating company crashes for company ID: 135  
+[2025-07-09 15:53:44] local.INFO: No data Company crashes found for company ID: 135  
+[2025-07-09 15:53:44] local.INFO: Updating company snapshot for company ID: 136  
+[2025-07-09 15:53:44] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6634","status":400,"message":"The USDOT number 6634 was not found, or is marked inactive."} 
+[2025-07-09 15:53:44] local.INFO: No data Company snapshot found for company ID: 136  
+[2025-07-09 15:53:44] local.INFO: Updating company inspections for company ID: 136  
+[2025-07-09 15:53:45] local.INFO: No data Company inspections found for company ID: 136  
+[2025-07-09 15:53:45] local.INFO: Updating company crashes for company ID: 136  
+[2025-07-09 15:53:45] local.INFO: No data Company crashes found for company ID: 136  
+[2025-07-09 15:53:45] local.INFO: Updating company snapshot for company ID: 137  
+[2025-07-09 15:53:45] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6635","status":400,"message":"The USDOT number 6635 was not found, or is marked inactive."} 
+[2025-07-09 15:53:45] local.INFO: No data Company snapshot found for company ID: 137  
+[2025-07-09 15:53:45] local.INFO: Updating company inspections for company ID: 137  
+[2025-07-09 15:53:45] local.INFO: No data Company inspections found for company ID: 137  
+[2025-07-09 15:53:45] local.INFO: Updating company crashes for company ID: 137  
+[2025-07-09 15:53:46] local.INFO: No data Company crashes found for company ID: 137  
+[2025-07-09 15:53:46] local.INFO: Updating company snapshot for company ID: 138  
+[2025-07-09 15:53:46] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6636","status":400,"message":"The USDOT number 6636 was not found, or is marked inactive."} 
+[2025-07-09 15:53:46] local.INFO: No data Company snapshot found for company ID: 138  
+[2025-07-09 15:53:46] local.INFO: Updating company inspections for company ID: 138  
+[2025-07-09 15:53:46] local.INFO: No data Company inspections found for company ID: 138  
+[2025-07-09 15:53:46] local.INFO: Updating company crashes for company ID: 138  
+[2025-07-09 15:53:46] local.INFO: No data Company crashes found for company ID: 138  
+[2025-07-09 15:53:46] local.INFO: Updating company snapshot for company ID: 139  
+[2025-07-09 15:53:47] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6637","status":400,"message":"The USDOT number 6637 was not found, or is marked inactive."} 
+[2025-07-09 15:53:47] local.INFO: No data Company snapshot found for company ID: 139  
+[2025-07-09 15:53:47] local.INFO: Updating company inspections for company ID: 139  
+[2025-07-09 15:53:47] local.INFO: No data Company inspections found for company ID: 139  
+[2025-07-09 15:53:47] local.INFO: Updating company crashes for company ID: 139  
+[2025-07-09 15:53:47] local.INFO: No data Company crashes found for company ID: 139  
+[2025-07-09 15:53:47] local.INFO: Updating company snapshot for company ID: 140  
+[2025-07-09 15:53:48] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6638","status":400,"message":"The USDOT number 6638 was not found, or is marked inactive."} 
+[2025-07-09 15:53:48] local.INFO: No data Company snapshot found for company ID: 140  
+[2025-07-09 15:53:48] local.INFO: Updating company inspections for company ID: 140  
+[2025-07-09 15:53:48] local.INFO: No data Company inspections found for company ID: 140  
+[2025-07-09 15:53:48] local.INFO: Updating company crashes for company ID: 140  
+[2025-07-09 15:53:48] local.INFO: No data Company crashes found for company ID: 140  
+[2025-07-09 15:53:48] local.INFO: Updating company snapshot for company ID: 141  
+[2025-07-09 15:53:49] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6639","status":400,"message":"The USDOT number 6639 was not found, or is marked inactive."} 
+[2025-07-09 15:53:49] local.INFO: No data Company snapshot found for company ID: 141  
+[2025-07-09 15:53:49] local.INFO: Updating company inspections for company ID: 141  
+[2025-07-09 15:53:49] local.INFO: No data Company inspections found for company ID: 141  
+[2025-07-09 15:53:49] local.INFO: Updating company crashes for company ID: 141  
+[2025-07-09 15:53:49] local.INFO: No data Company crashes found for company ID: 141  
+[2025-07-09 15:53:49] local.INFO: Updating company snapshot for company ID: 142  
+[2025-07-09 15:53:50] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6640","status":400,"message":"The USDOT number 6640 was not found, or is marked inactive."} 
+[2025-07-09 15:53:50] local.INFO: No data Company snapshot found for company ID: 142  
+[2025-07-09 15:53:50] local.INFO: Updating company inspections for company ID: 142  
+[2025-07-09 15:53:50] local.INFO: No data Company inspections found for company ID: 142  
+[2025-07-09 15:53:50] local.INFO: Updating company crashes for company ID: 142  
+[2025-07-09 15:53:50] local.INFO: No data Company crashes found for company ID: 142  
+[2025-07-09 15:53:50] local.INFO: Updating company snapshot for company ID: 143  
+[2025-07-09 15:53:50] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6641","status":400,"message":"The USDOT number 6641 was not found, or is marked inactive."} 
+[2025-07-09 15:53:50] local.INFO: No data Company snapshot found for company ID: 143  
+[2025-07-09 15:53:51] local.INFO: Updating company inspections for company ID: 143  
+[2025-07-09 15:53:51] local.INFO: No data Company inspections found for company ID: 143  
+[2025-07-09 15:53:51] local.INFO: Updating company crashes for company ID: 143  
+[2025-07-09 15:53:51] local.INFO: No data Company crashes found for company ID: 143  
+[2025-07-09 15:53:51] local.INFO: Updating company snapshot for company ID: 144  
+[2025-07-09 15:53:51] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6642","status":400,"message":"The USDOT number 6642 was not found, or is marked inactive."} 
+[2025-07-09 15:53:51] local.INFO: No data Company snapshot found for company ID: 144  
+[2025-07-09 15:53:51] local.INFO: Updating company inspections for company ID: 144  
+[2025-07-09 15:53:52] local.INFO: No data Company inspections found for company ID: 144  
+[2025-07-09 15:53:52] local.INFO: Updating company crashes for company ID: 144  
+[2025-07-09 15:53:52] local.INFO: No data Company crashes found for company ID: 144  
+[2025-07-09 15:53:52] local.INFO: Updating company snapshot for company ID: 145  
+[2025-07-09 15:53:52] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6643","status":400,"message":"The USDOT number 6643 was not found, or is marked inactive."} 
+[2025-07-09 15:53:52] local.INFO: No data Company snapshot found for company ID: 145  
+[2025-07-09 15:53:52] local.INFO: Updating company inspections for company ID: 145  
+[2025-07-09 15:53:52] local.INFO: No data Company inspections found for company ID: 145  
+[2025-07-09 15:53:52] local.INFO: Updating company crashes for company ID: 145  
+[2025-07-09 15:53:53] local.INFO: No data Company crashes found for company ID: 145  
+[2025-07-09 15:53:53] local.INFO: Updating company snapshot for company ID: 146  
+[2025-07-09 15:53:53] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6644","status":400,"message":"The USDOT number 6644 was not found, or is marked inactive."} 
+[2025-07-09 15:53:53] local.INFO: No data Company snapshot found for company ID: 146  
+[2025-07-09 15:53:53] local.INFO: Updating company inspections for company ID: 146  
+[2025-07-09 15:53:53] local.INFO: No data Company inspections found for company ID: 146  
+[2025-07-09 15:53:53] local.INFO: Updating company crashes for company ID: 146  
+[2025-07-09 15:53:54] local.INFO: No data Company crashes found for company ID: 146  
+[2025-07-09 15:53:54] local.INFO: Updating company snapshot for company ID: 147  
+[2025-07-09 15:53:54] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6645","status":400,"message":"The USDOT number 6645 was not found, or is marked inactive."} 
+[2025-07-09 15:53:54] local.INFO: No data Company snapshot found for company ID: 147  
+[2025-07-09 15:53:54] local.INFO: Updating company inspections for company ID: 147  
+[2025-07-09 15:53:54] local.INFO: No data Company inspections found for company ID: 147  
+[2025-07-09 15:53:54] local.INFO: Updating company crashes for company ID: 147  
+[2025-07-09 15:53:55] local.INFO: No data Company crashes found for company ID: 147  
+[2025-07-09 15:53:55] local.INFO: Updating company snapshot for company ID: 148  
+[2025-07-09 15:53:55] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6646","status":400,"message":"The USDOT number 6646 was not found, or is marked inactive."} 
+[2025-07-09 15:53:55] local.INFO: No data Company snapshot found for company ID: 148  
+[2025-07-09 15:53:55] local.INFO: Updating company inspections for company ID: 148  
+[2025-07-09 15:53:55] local.INFO: No data Company inspections found for company ID: 148  
+[2025-07-09 15:53:55] local.INFO: Updating company crashes for company ID: 148  
+[2025-07-09 15:53:56] local.INFO: No data Company crashes found for company ID: 148  
+[2025-07-09 15:53:56] local.INFO: Updating company snapshot for company ID: 149  
+[2025-07-09 15:53:56] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6647","status":400,"message":"The USDOT number 6647 was not found, or is marked inactive."} 
+[2025-07-09 15:53:56] local.INFO: No data Company snapshot found for company ID: 149  
+[2025-07-09 15:53:56] local.INFO: Updating company inspections for company ID: 149  
+[2025-07-09 15:53:56] local.INFO: No data Company inspections found for company ID: 149  
+[2025-07-09 15:53:56] local.INFO: Updating company crashes for company ID: 149  
+[2025-07-09 15:53:56] local.INFO: No data Company crashes found for company ID: 149  
+[2025-07-09 15:53:56] local.INFO: Updating company snapshot for company ID: 150  
+[2025-07-09 15:53:57] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6648","status":400,"message":"The USDOT number 6648 was not found, or is marked inactive."} 
+[2025-07-09 15:53:57] local.INFO: No data Company snapshot found for company ID: 150  
+[2025-07-09 15:53:57] local.INFO: Updating company inspections for company ID: 150  
+[2025-07-09 15:53:57] local.INFO: No data Company inspections found for company ID: 150  
+[2025-07-09 15:53:57] local.INFO: Updating company crashes for company ID: 150  
+[2025-07-09 15:53:57] local.INFO: No data Company crashes found for company ID: 150  
+[2025-07-09 15:53:57] local.INFO: Updating company snapshot for company ID: 151  
+[2025-07-09 15:53:58] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6649","status":400,"message":"The USDOT number 6649 was not found, or is marked inactive."} 
+[2025-07-09 15:53:58] local.INFO: No data Company snapshot found for company ID: 151  
+[2025-07-09 15:53:58] local.INFO: Updating company inspections for company ID: 151  
+[2025-07-09 15:53:58] local.INFO: No data Company inspections found for company ID: 151  
+[2025-07-09 15:53:58] local.INFO: Updating company crashes for company ID: 151  
+[2025-07-09 15:53:58] local.INFO: No data Company crashes found for company ID: 151  
+[2025-07-09 15:53:58] local.INFO: Updating company snapshot for company ID: 152  
+[2025-07-09 15:53:59] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6650","status":400,"message":"The USDOT number 6650 was not found, or is marked inactive."} 
+[2025-07-09 15:53:59] local.INFO: No data Company snapshot found for company ID: 152  
+[2025-07-09 15:53:59] local.INFO: Updating company inspections for company ID: 152  
+[2025-07-09 15:53:59] local.INFO: No data Company inspections found for company ID: 152  
+[2025-07-09 15:53:59] local.INFO: Updating company crashes for company ID: 152  
+[2025-07-09 15:53:59] local.INFO: No data Company crashes found for company ID: 152  
+[2025-07-09 15:53:59] local.INFO: Updating company snapshot for company ID: 153  
+[2025-07-09 15:54:00] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6651","status":400,"message":"The USDOT number 6651 was not found, or is marked inactive."} 
+[2025-07-09 15:54:00] local.INFO: No data Company snapshot found for company ID: 153  
+[2025-07-09 15:54:00] local.INFO: Updating company inspections for company ID: 153  
+[2025-07-09 15:54:00] local.INFO: No data Company inspections found for company ID: 153  
+[2025-07-09 15:54:00] local.INFO: Updating company crashes for company ID: 153  
+[2025-07-09 15:54:00] local.INFO: No data Company crashes found for company ID: 153  
+[2025-07-09 15:54:00] local.INFO: Updating company snapshot for company ID: 154  
+[2025-07-09 15:54:01] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6652","status":400,"message":"The USDOT number 6652 was not found, or is marked inactive."} 
+[2025-07-09 15:54:01] local.INFO: No data Company snapshot found for company ID: 154  
+[2025-07-09 15:54:01] local.INFO: Updating company inspections for company ID: 154  
+[2025-07-09 15:54:01] local.INFO: No data Company inspections found for company ID: 154  
+[2025-07-09 15:54:01] local.INFO: Updating company crashes for company ID: 154  
+[2025-07-09 15:54:01] local.INFO: No data Company crashes found for company ID: 154  
+[2025-07-09 15:54:01] local.INFO: Updating company snapshot for company ID: 155  
+[2025-07-09 15:54:02] local.ERROR: SaferWeb API error {"url":"/v2/usdot/snapshot/6653","status":400,"message":"The USDOT number 6653 was not found, or is marked inactive."} 
+[2025-07-09 15:54:02] local.INFO: No data Company snapshot found for company ID: 155  
+[2025-07-09 15:54:02] local.INFO: Updating company inspections for company ID: 155  
+[2025-07-09 15:54:02] local.INFO: No data Company inspections found for company ID: 155  
+[2025-07-09 15:54:02] local.INFO: Updating company crashes for company ID: 155  
+[2025-07-09 15:54:02] local.INFO: No data Company crashes found for company ID: 155  
+[2025-07-09 15:54:02] local.INFO: Updating company snapshot for company ID: 156  

@@ -25,7 +25,7 @@ class UserSeeder extends Seeder
             ['firstname' => 'Driver', 'email' => 'driver@gmail.com', 'password' => '123456', 'role' => 4],
         ];
 
-        $companies = $this->generateCompanies([6500, 6800]);
+        $companies = $this->generateCompanies([6500, 6501]);
         $users = array_merge($users, $companies);
 
         foreach ($users as $userData) {
