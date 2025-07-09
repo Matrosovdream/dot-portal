@@ -128,10 +128,10 @@ class CompanyMenu implements InterfaceMenu {
             ),
             array(
                 'title' => 'Insurance vehicles',
-                'url' => '',
+                'url' => route('dashboard.insurance-vehicles.index'),
                 'icon' => 'ki-shield',
                 'roles' => ['user', 'manager', 'admin'],
-                'childs' => array(
+                /*'childs' => array(
                     array(
                         'title' => 'All insurances',
                         'url' => route('dashboard.insurance-vehicles.index'),
@@ -144,7 +144,7 @@ class CompanyMenu implements InterfaceMenu {
                         'route' => 'dashboard.insurance-vehicles.create',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
-                ),
+                ),*/
             ),
             array(
                 'title' => 'Service request',
