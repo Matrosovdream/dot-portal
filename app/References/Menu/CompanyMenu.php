@@ -22,7 +22,7 @@ class CompanyMenu implements InterfaceMenu {
                 'url' => '',
                 'icon' => 'ki-notification',
                 'roles' => ['user'],
-                'childs' => array(
+                /*'childs' => array(
                     array(
                         'title' => 'Active',
                         'url' => route('dashboard.notifications'),
@@ -30,6 +30,7 @@ class CompanyMenu implements InterfaceMenu {
                         'roles' => ['user', 'manager', 'admin'],
                     ),
                 ),
+                */
             ),
             array(
                 'title' => 'To-Do List',
@@ -37,7 +38,7 @@ class CompanyMenu implements InterfaceMenu {
                 'route' => 'dashboard.todo.index',
                 'icon' => 'ki-check-square',
                 'roles' => ['driver', 'company'],
-                'childs' => array(
+                /*'childs' => array(
                     array(
                         'title' => 'All tasks',
                         'url' => route('dashboard.todo.index'),
@@ -63,27 +64,28 @@ class CompanyMenu implements InterfaceMenu {
                         'roles' => ['driver', 'company'],
                     ),
                 ),
+                */
             ),
             array(
                 'title' => 'Documents',
                 'url' => '',
                 'icon' => 'ki-document',
                 'roles' => ['user', 'manager', 'admin'],
-                'childs' => array(
+                /*'childs' => array(
                     array(
                         'title' => 'All documents',
                         'url' => route('dashboard.documents.index'),
                         'route' => 'dashboard.documents.index',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
-                ),
+                ),*/
             ),
             array(
                 'title' => 'Drivers',
                 'url' => '',
                 'icon' => 'ki-user',
                 'roles' => ['user', 'manager', 'admin'],
-                'childs' => array(
+                /*'childs' => array(
                     array(
                         'title' => 'All drivers',
                         'url' => route('dashboard.drivers.index'),
@@ -102,14 +104,14 @@ class CompanyMenu implements InterfaceMenu {
                         'route' => 'dashboard.drivers.create',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
-                ),
+                ),*/
             ),
             array(
                 'title' => 'Vehicles',
                 'url' => '',
                 'icon' => 'ki-car',
                 'roles' => ['user', 'manager', 'admin'],
-                'childs' => array(
+                /*'childs' => array(
                     array(
                         'title' => 'All vehicles',
                         'url' => route('dashboard.vehicles.index'),
@@ -122,7 +124,7 @@ class CompanyMenu implements InterfaceMenu {
                         'route' => 'dashboard.vehicles.create',
                         'roles' => ['user', 'manager', 'admin'],
                     ),
-                ),
+                ),*/
             ),
             array(
                 'title' => 'Insurance vehicles',
