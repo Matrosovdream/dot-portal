@@ -190,26 +190,26 @@ class ToDoActions {
     protected function getTopMenu() {
 
         return [
-                        array(
-                            'title' => 'All tasks',
-                            'url' => route('dashboard.todo.index'),
-                            'route' => 'dashboard.todo.index',
-                        ),
-                        array(
-                            'title' => 'Company tasks',
-                            'url' => route('dashboard.todo.company'),
-                            'route' => 'dashboard.todo.company',
-                        ),
-                        array(
-                            'title' => 'Vehicle tasks',
-                            'url' => route('dashboard.todo.vehicle'),
-                            'route' => 'dashboard.todo.vehicle',
-                        ),
-                        array(
-                            'title' => 'Driver tasks',
-                            'url' => route('dashboard.todo.driver'),
-                            'route' => 'dashboard.todo.driver',
-                        ),
+            array(
+                'title' => 'All tasks',
+                'url' => route('dashboard.todo.index'),
+                'route' => 'dashboard.todo.index',
+            ),
+            array(
+                'title' => 'Company tasks',
+                'url' => route('dashboard.todo.company'),
+                'route' => 'dashboard.todo.company',
+            ),
+            array(
+                'title' => 'Vehicle tasks',
+                'url' => route('dashboard.todo.vehicle'),
+                'route' => 'dashboard.todo.vehicle',
+            ),
+            array(
+                'title' => 'Driver tasks',
+                'url' => route('dashboard.todo.driver'),
+                'route' => 'dashboard.todo.driver',
+            ),
         ];
 
     }
