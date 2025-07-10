@@ -134,7 +134,7 @@ class RequestUserActions {
         ];
 
         if( request()->has('ff') ) {
-            dd($data['company']['saferweb']);
+            dd($data);
         }
 
         return $data;
