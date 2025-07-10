@@ -44,8 +44,8 @@ class UpdateSaferwebData extends Command
             $companyId = $user['company']['id'];
 
             // Company Snapshot
-            UpdateCompanySnapshot::dispatch($companyId)
-                ->delay(now()->addSeconds($delay));
+            /*UpdateCompanySnapshot::dispatch($companyId)
+                ->delay(now()->addSeconds($delay));*/
 
             // Company Inspections
             UpdateCompanyInspections::dispatch($companyId)
