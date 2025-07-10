@@ -304,7 +304,7 @@
         <div class="separator mb-8"></div>
   
         <!-- Operation Info -->
-        <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center justify-content-between mb-5">
           <h5 class="">Operation Info</h5>
           <label class="form-check form-switch mb-0">
             <input 
@@ -320,33 +320,97 @@
         </div>
         
         <div class="toggle-section" id="section-operation-info">
-  
+
+          <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-semibold fs-6">Number of drivers</label>
+            <div class="col-lg-4 fv-row">
+              <input 
+                  type="number" 
+                  class="form-control form-control-lg form-control-solid" 
+                  placeholder="Number of drivers"
+                  name="fields[drivers_number]"
+                  value="{{ $values['drivers_number'] ?? '' }}">
+            </div>
+          </div>
+
+          <div class="row mb-6">
+            <label class="col-lg-4 col-form-label fw-semibold fs-6">Number of vehicles</label>
+            <div class="col-lg-4 fv-row">
+              <input 
+                  type="number" 
+                  class="form-control form-control-lg form-control-solid" 
+                  placeholder="Number of vehicles"
+                  name="fields[vehicles_number]"
+                  value="{{ $values['vehicles_number'] ?? '' }}">
+            </div>
+          </div>
+
           <div class="row mb-6">
             
-              <x-select 
-                  inputName="fields[operation_type]"
-                  label="Operation Type"
-                  :options="$formRefs['operation_type']['options']"
-                  value="{{ $values['operation_type'] ?? '' }}"
-                  :multiple=false
-                  :required=true
-                  template="inline"
-              />
-              
-          </div>
+            <x-select 
+                inputName="fields[operation_type]"
+                label="Operation Type"
+                :options="$formRefs['operation_type']['options']"
+                value="{{ $values['operation_type'] ?? '' }}"
+                :multiple=false
+                :required=true
+                template="inline"
+            />
+            
+        </div>
     
           <div class="row mb-6">
             
               <x-select 
                   inputName="fields[cargo_type]"
-                  label="Cargo Type"
+                  label="Cargo Classifications"
                   :options="$formRefs['cargo_type']['options']"
                   value="{{ $values['cargo_type'] ?? '' }}"
-                  :multiple=false
+                  :multiple=true
                   :required=true
                   template="inline"
               />
               
+          </div>
+
+          <div class="row mb-6">
+
+            <label class="col-lg-4 col-form-label fw-semibold fs-6 required" for="fields[cargo_type]">
+              Hazardous Materials
+            </label>
+              
+            <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th>Title</th>
+                      <th>Carrier</th>
+                      <th>Shipper</th>
+                      <th>Bulk</th>
+                      <th>Non-Bulk</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  @foreach($formRefs['hazardous_materials']['options'] as $item)
+                      <tr>
+                          <td>{{ $item['title'] }}</td>
+                          <td>
+                              <input type="checkbox" name="hazmat[{{ $item['value'] }}][carrier]" value="1">
+                          </td>
+                          <td>
+                              <input type="checkbox" name="hazmat[{{ $item['value'] }}][shipper]" value="1">
+                          </td>
+                          <td>
+                              <input type="checkbox" name="hazmat[{{ $item['value'] }}][bulk]" value="1">
+                          </td>
+                          <td>
+                              <input type="checkbox" name="hazmat[{{ $item['value'] }}][non_bulk]" value="1">
+                          </td>
+                      </tr>
+                  @endforeach
+              </tbody>
+            </table>
+          
+            
           </div>
     
           <div class="row mb-6">
