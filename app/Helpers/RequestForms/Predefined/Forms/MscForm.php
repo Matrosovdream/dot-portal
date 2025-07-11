@@ -9,6 +9,11 @@ class MscForm extends AbstractForm
     protected $formName = 'mcs150';
     protected $formTitle = 'MCS-150';
     protected $formFields = [
+        'dot_number' => [
+            'type' => 'text',
+            'label' => 'DOT Number',
+            'required' => true,
+        ],
         'pin' => [
             'type' => 'text',
             'label' => 'PIN',
@@ -22,16 +27,6 @@ class MscForm extends AbstractForm
         ],
 
         // Main info
-        'drivers_number' => [
-            'type' => 'number',
-            'label' => 'Number of Drivers',
-            'required' => false,
-        ],
-        'vehicles_number' => [
-            'type' => 'number',
-            'label' => 'Number of Vehicles',
-            'required' => false,
-        ],
         'main_info_toggle' => [
             'type' => 'checkbox',
             'label' => 'Main Information',
@@ -41,6 +36,29 @@ class MscForm extends AbstractForm
         'ein' => [
             'type' => 'text',
             'label' => 'EIN',
+            'required' => false,
+        ],
+
+        // Contact information fields
+        'contact_info_toggle' => [
+            'type' => 'checkbox',
+            'label' => 'Contact Information',
+            //'default' => true,
+            'section' => 'contact-info',
+        ],
+        'contact_name' => [
+            'type' => 'text',
+            'label' => 'Contact Name',
+            'required' => false,
+        ],
+        'contact_phone' => [
+            'type' => 'text',
+            'label' => 'Contact Phone',
+            'required' => false,
+        ],
+        'contact_email' => [
+            'type' => 'email',
+            'label' => 'Contact Email',
             'required' => false,
         ],
 
@@ -112,35 +130,17 @@ class MscForm extends AbstractForm
             'required' => false,
         ],
 
-        // Contact information fields
-        'contact_info_toggle' => [
-            'type' => 'checkbox',
-            'label' => 'Contact Information',
-            //'default' => true,
-            'section' => 'contact-info',
-        ],
-        'contact_name' => [
-            'type' => 'text',
-            'label' => 'Contact Name',
-            'required' => false,
-        ],
-        'contact_phone' => [
-            'type' => 'text',
-            'label' => 'Contact Phone',
-            'required' => false,
-        ],
-        'contact_email' => [
-            'type' => 'email',
-            'label' => 'Contact Email',
-            'required' => false,
-        ],
-
         // Operation information fields
         'operation_info_toggle' => [
             'type' => 'checkbox',
             'label' => 'Operation Information',
             //'default' => true,
             'section' => 'operation-info',
+        ],
+        'vehicles_number' => [
+            'type' => 'number',
+            'label' => 'Number of Vehicles',
+            'required' => false,
         ],
         'operation_type' => [
             'type' => 'select',
@@ -155,12 +155,44 @@ class MscForm extends AbstractForm
             'required' => false,     
             'multiple' => true,
         ],
+        'hazardous_materials' => [
+            'type' => 'select',
+            'label' => 'Hazardous Materials',
+            'required' => false,
+        ],
         'mileage' => [
             'type' => 'text',
             'label' => 'Mileage',
             'required' => false,
         ],
-        
+
+        // Driver counts
+        'driver_counts_toggle' => [
+            'type' => 'checkbox',
+            'label' => 'Driver Counts',
+            //'default' => true,
+            'section' => 'driver-counts',
+        ],
+        'drivers_number' => [
+            'type' => 'number',
+            'label' => 'Total Drivers',
+            'required' => false,
+        ],
+        'cdl_license_holders' => [
+            'type' => 'number',
+            'label' => 'CDL License Holders',
+            'required' => false,
+        ],
+        'interstate_drivers' => [
+            'type' => 'number',
+            'label' => 'Interstate Drivers',
+            'required' => false,
+        ],
+        'intrastate_drivers' => [
+            'type' => 'number',
+            'label' => 'Intrastate Drivers',
+            'required' => false,
+        ],
     ];
 
     protected $fieldDependencies = [
