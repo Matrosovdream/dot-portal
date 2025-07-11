@@ -16,18 +16,6 @@
   <div class="toggle-section" id="section-operation-info">
 
     <div class="row mb-6">
-      <label class="col-lg-4 col-form-label fw-semibold fs-6">Number of drivers</label>
-      <div class="col-lg-4 fv-row">
-        <input 
-            type="number" 
-            class="form-control form-control-lg form-control-solid" 
-            placeholder="Number of drivers"
-            name="fields[drivers_number]"
-            value="{{ $values['drivers_number'] ?? '' }}">
-      </div>
-    </div>
-
-    <div class="row mb-6">
       <label class="col-lg-4 col-form-label fw-semibold fs-6">Number of vehicles</label>
       <div class="col-lg-4 fv-row">
         <input 
@@ -54,12 +42,12 @@
   </div>
 
     <div class="row mb-6">
-      
+
         <x-select 
             inputName="fields[cargo_type]"
             label="Cargo Classifications"
             :options="$formRefs['cargo_type']['options']"
-            value="{{ $values['cargo_type'] ?? '' }}"
+            value="{{ is_array($v = $values['cargo_type'] ?? '') ? implode(',', $v) : $v }}"
             :multiple=true
             :required=true
             template="inline"
