@@ -90,13 +90,14 @@ class RequestUserActions {
             // Prefill values if exists
             $prefilledValues = $refsClass->prefillValues();
 
+            $oldFields = old('fields'); 
+
             // Loop through and if old() exists, set it
             foreach( $formFields as $key => $field ) {
-                $oldFields = old('fields'); 
                 
                 if( 
-                    is_array($oldFields) && 
-                    array_key_exists($key, $oldFields) 
+                    is_array($oldFields) &&
+                    isset( $oldFields[$key] )
                     ) {
                     $values[$key] = $oldFields[$key];
                 } elseif(
@@ -109,6 +110,11 @@ class RequestUserActions {
             }
 
         }
+
+        if( is_array($oldFields) ) {
+            //dd($values, $oldFields);
+        }
+        
 
         // Get referencences and prepare data
         $references = $this->getReferences();
