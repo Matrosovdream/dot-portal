@@ -24,7 +24,7 @@
                         <input 
                             type="checkbox" 
                             class="form-check-input form-check-input-lg" 
-                            name="{{ $item['value'] }}_carrier" 
+                            name="fields[{{ $item['value'] }}_carrier]" 
                             @if( isset( $values[ $item['value'].'_carrier' ] ) ) checked @endif
                             value="1"
                             >
@@ -33,7 +33,7 @@
                         <input 
                             type="checkbox" 
                             class="form-check-input form-check-input-lg" 
-                            name="{{ $item['value'] }}_shippen" 
+                            name="fields[{{ $item['value'] }}_shipper]" 
                             @if( isset( $values[ $item['value'].'_shipper' ] ) ) checked @endif
                             value="1"
                             >
@@ -42,7 +42,7 @@
                         <input 
                             type="checkbox" 
                             class="form-check-input form-check-input-lg" 
-                            name="{{ $item['value'] }}_bulk" 
+                            name="fields[{{ $item['value'] }}_bulk]" 
                             @if( isset( $values[ $item['value'].'_bulk' ] ) ) checked @endif
                             value="1"
                             >
@@ -51,7 +51,7 @@
                         <input 
                             type="checkbox" 
                             class="form-check-input form-check-input-lg" 
-                            name="{{ $item['value'] }}_non_bulk" 
+                            name="fields[{{ $item['value'] }}_non_bulk]" 
                             @if( isset( $values[ $item['value'].'_non_bulk' ] ) ) checked @endif
                             value="1"
                             >
