@@ -9,7 +9,10 @@
         type="checkbox" 
         class="form-check-input section-toggle" 
         data-section="contact-info" 
-        @if( $values['contact_info_toggle'] == 1 ) checked @endif
+        @if( 
+          isset($values['contact_info_toggle']) &&
+          $values['contact_info_toggle'] == 1 
+          ) checked @endif
         >
     </label>
   </div>

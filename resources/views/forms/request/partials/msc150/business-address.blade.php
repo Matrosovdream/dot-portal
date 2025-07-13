@@ -9,7 +9,10 @@
                         class="form-check-input section-toggle" 
                         data-section="business-address" 
                         id="businessAddressToggle" 
-                        @if( $values['business_address_toggle'] == 1 ) checked @endif
+                        @if( 
+                          isset($values['business_address_toggle']) &&
+                          $values['business_address_toggle'] == 1 
+                          ) checked @endif
                         >
                     </label>
                   </div>

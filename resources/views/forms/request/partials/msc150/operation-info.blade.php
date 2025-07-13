@@ -8,7 +8,10 @@
         type="checkbox" 
         class="form-check-input section-toggle" 
         data-section="operation-info" 
-        @if( $values['operation_info_toggle'] == 1 ) checked @endif
+        @if( 
+          isset($values['operation_info_toggle']) &&
+          $values['operation_info_toggle'] == 1 
+          ) checked @endif
         >
     </label>
   </div>
