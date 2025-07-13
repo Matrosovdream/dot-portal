@@ -83,6 +83,9 @@ class RequestAdminActions {
                     $data['formValues'] = $request['predefinedValues']['Mapped'] ?? [];
                     $data['formRefs'] = $formRefs ?? [];
                     $data['formPath'] = $formPath;
+
+                    // Update values, eg. for hazardous materials into array
+                    $data['formValues'] = $refsClass->prepareFieldsFromDB( $data['formValues'] );
                     
                 }
 
