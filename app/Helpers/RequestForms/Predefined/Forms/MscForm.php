@@ -68,6 +68,7 @@ class MscForm extends AbstractForm
             'label' => 'Business Address',
             //'default' => true,
             'section' => 'business-address',
+            'required' => false
         ],
         'business_address1' => [
             'type' => 'text',
@@ -102,6 +103,7 @@ class MscForm extends AbstractForm
             'label' => 'Mailing Address',
             //'default' => true,
             'section' => 'mailing-address',
+            'required' => false
         ],
         'mailing_address1' => [
             'type' => 'text',
@@ -153,7 +155,7 @@ class MscForm extends AbstractForm
             'label' => 'Cargo Type',
             'reference' => 'cargo_type',
             'required' => false,     
-            'multiple' => true,
+            'multiple' => false,
         ],
         'hazardous_materials' => [
             'type' => 'select',
@@ -436,6 +438,15 @@ class MscForm extends AbstractForm
 
         return $dataSet;
 
+    }
+
+    public function prepareRequestData( $fields ): array {
+
+        if( isset( $fields['hazardous_materials'] ) ) {
+            $fields['hazardous_materials'] = array_keys( $fields['hazardous_materials'] );
+        }
+
+        return $fields;
     }
 
 
