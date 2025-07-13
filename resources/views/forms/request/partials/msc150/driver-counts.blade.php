@@ -8,7 +8,10 @@
         type="checkbox" 
         class="form-check-input section-toggle" 
         data-section="driver-counts" 
-        @if( $values['driver_counts_toggle'] == 1 ) checked @endif
+        @if( 
+            isset($values['driver_counts_toggle']) &&
+            $values['driver_counts_toggle'] == 1 
+            ) checked @endif
         >
     </label>
   </div>

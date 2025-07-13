@@ -9,7 +9,10 @@
         data-section="main-info" 
         id="mainInfoToggle" 
         value="1"
-        @if( $values['main_info_toggle'] == 1 ) checked @endif
+        @if( 
+          isset($values['main_info_toggle']) &&
+          $values['main_info_toggle'] == 1 
+          ) checked @endif
         >
     </label>
   </div>
