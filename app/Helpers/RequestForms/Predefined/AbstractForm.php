@@ -307,6 +307,17 @@ class AbstractForm
     }
 
     /**
+     * Prepare fields from DB
+     * This method can be overridden in child classes to provide specific logic.
+     * @param array $fields
+     * @return array
+    */
+    public function prepareFieldsFromDB($fields)
+    {
+        return $fields;
+    }
+
+    /**
      * Prefill fields based on the request data or other criteria.
      *
      * This method can be overridden in child classes to provide specific prefill logic.
