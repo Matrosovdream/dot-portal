@@ -199,7 +199,13 @@ class RequestUserActions {
             'status_id' => ($service['is_paid'] == 1) ? 2 : 1, // 1 - Processing, 2 - Waiting for payment
             'service_id' => $service['id'],
         ];
+
         $requestData = $this->requestRepo->create($requestPayload);
+
+        // Prepare request data
+        if( $service['form_type'] == 'predefined' ) {
+            $request->fields = $refsClass->prepareRequestData($request->fields);
+        } 
 
         // Sync field values, custom or predefined
         $this->requestRepo->syncFieldValues( $requestData['id'], $request->fields );
