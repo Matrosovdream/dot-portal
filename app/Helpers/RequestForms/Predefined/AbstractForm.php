@@ -296,6 +296,17 @@ class AbstractForm
     }
 
     /**
+     * Prepare request data for DB
+     * This method can be overridden in child classes to provide specific logic.
+     * @param array $requestData
+     * @return array
+    */
+    public function prepareRequestData($requestData)
+    {
+        return $requestData;
+    }
+
+    /**
      * Prefill fields based on the request data or other criteria.
      *
      * This method can be overridden in child classes to provide specific prefill logic.
