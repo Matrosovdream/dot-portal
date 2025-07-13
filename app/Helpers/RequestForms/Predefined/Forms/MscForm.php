@@ -449,5 +449,15 @@ class MscForm extends AbstractForm
         return $fields;
     }
 
+    public function prepareFieldsFromDB( $fields ): array {
+
+        if( isset( $fields['hazardous_materials'] ) ) {
+            $fields['hazardous_materials'] = explode( ',', $fields['hazardous_materials'] );
+        }
+
+        return $fields;
+
+    }
+
 
 }
