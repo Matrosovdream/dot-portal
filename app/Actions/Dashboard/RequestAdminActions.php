@@ -63,31 +63,31 @@ class RequestAdminActions {
             'references' => $this->getReferences( $request['user']['id'] ?? null )
         ];
 
-                // Get form path for predefined forms
-                if( $service['form_type'] == 'predefined' ) {
+        // Get form path for predefined forms
+        if( $service['form_type'] == 'predefined' ) {
 
-                    $predefinedForm =  $this->serviceRef->getPredefinedForms()[ $service['form_id'] ];
-        
-                    $formPath = $predefinedForm['path'] ?? null;
-                    $formClass = $predefinedForm['classProcess'] ?? null;
-        
-                    if( $formClass ) {
-                        $refsClass = new $formClass();
-                        $refsClass->setRequestData( $request['predefinedValues'] );
-                        $formRefs = $refsClass->getReferences();
-                    }
-        
-                    // Prepare values for predefined form
-                    $data['formFields'] = $refsClass->getFormFields();
-                    $data['formFields'] = $refsClass->matchFieldValues( $request['predefinedValues'] ?? [] );
-                    $data['formValues'] = $request['predefinedValues']['Mapped'] ?? [];
-                    $data['formRefs'] = $formRefs ?? [];
-                    $data['formPath'] = $formPath;
+            $predefinedForm =  $this->serviceRef->getPredefinedForms()[ $service['form_id'] ];
 
-                    // Update values, eg. for hazardous materials into array
-                    $data['formValues'] = $refsClass->prepareFieldsFromDB( $data['formValues'] );
-                    
-                }
+            $formPath = $predefinedForm['path'] ?? null;
+            $formClass = $predefinedForm['classProcess'] ?? null;
+
+            if( $formClass ) {
+                $refsClass = new $formClass();
+                $refsClass->setRequestData( $request['predefinedValues'] );
+                $formRefs = $refsClass->getReferences();
+            }
+
+            // Prepare values for predefined form
+            $data['formFields'] = $refsClass->getFormFields();
+            $data['formFields'] = $refsClass->matchFieldValues( $request['predefinedValues'] ?? [] );
+            $data['formValues'] = $request['predefinedValues']['Mapped'] ?? [];
+            $data['formRefs'] = $formRefs ?? [];
+            $data['formPath'] = $formPath;
+
+            // Update values, eg. for hazardous materials into array
+            $data['formValues'] = $refsClass->prepareFieldsFromDB( $data['formValues'] );
+            
+        }
 
         return $data;
 
