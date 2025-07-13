@@ -25,7 +25,10 @@
                             type="checkbox" 
                             class="form-check-input form-check-input-lg" 
                             name="fields[hazardous_materials][{{ $item['value'] }}_carrier]" 
-                            @if( isset( $values[ 'hazardous_materials'][$item['value'].'_carrier'] ) ) checked @endif
+                            @if( 
+                                isset( $values[ 'hazardous_materials'][$item['value'].'_carrier'] ) ||
+                                in_array( $item['value'].'_carrier', $values[ 'hazardous_materials'] ?? [] )
+                                ) checked @endif
                             value="1"
                             >
                     </td>
@@ -34,7 +37,10 @@
                             type="checkbox" 
                             class="form-check-input form-check-input-lg" 
                             name="fields[hazardous_materials][{{ $item['value'] }}_shipper]"
-                            @if( isset( $values[ 'hazardous_materials'][$item['value'].'_shipper'] ) ) checked @endif
+                            @if( 
+                                isset( $values[ 'hazardous_materials'][$item['value'].'_shipper'] ) ||
+                                in_array( $item['value'].'_shipper', $values[ 'hazardous_materials'] ?? [] )
+                                ) checked @endif
                             value="1"
                             >
                     </td>
@@ -43,7 +49,10 @@
                             type="checkbox" 
                             class="form-check-input form-check-input-lg" 
                             name="fields[hazardous_materials][{{ $item['value'] }}_bulk]"
-                            @if( isset( $values[ 'hazardous_materials'][$item['value'].'_bulk'] ) ) checked @endif
+                            @if( 
+                                isset( $values[ 'hazardous_materials'][$item['value'].'_bulk'] ) ||
+                                in_array( $item['value'].'_bulk', $values[ 'hazardous_materials'] ?? [] )
+                                ) checked @endif
                             value="1"
                             >
                     </td>
@@ -52,7 +61,10 @@
                             type="checkbox" 
                             class="form-check-input form-check-input-lg" 
                             name="fields[hazardous_materials][{{ $item['value'] }}_non_bulk]"
-                            @if( isset( $values[ 'hazardous_materials'][$item['value'].'_non_bulk'] ) ) checked @endif
+                            @if( 
+                                isset( $values[ 'hazardous_materials'][$item['value'].'_non_bulk'] ) ||
+                                in_array( $item['value'].'_non_bulk', $values[ 'hazardous_materials'] ?? [] )
+                                ) checked @endif
                             value="1"
                             >
                     </td>
