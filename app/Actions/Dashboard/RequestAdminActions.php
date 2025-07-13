@@ -108,9 +108,22 @@ class RequestAdminActions {
     public function updateFields($data, $request_id)
     {
         $request = $this->requestRepo->getById($request_id); 
+        $service = $request['service'] ?? [];
         if (!$request) {
             return false; // Request not found
         }
+
+        // Get form path for predefined forms
+        if( $service['form_type'] == 'predefined' ) {
+
+            $predefinedForm =  $this->serviceRef->getPredefinedForms()[ $service['form_id'] ];
+            $formClass = $predefinedForm['classProcess'] ?? null;
+
+            $refsClass = new $formClass();
+
+            $data['fields'] = $refsClass->prepareRequestData( $data['fields'] );
+
+        }    
 
         // Sync field values
         $this->requestRepo->syncFieldValues($request_id, $fields = $data['fields']);
