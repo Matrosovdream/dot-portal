@@ -9,11 +9,6 @@ class MscForm extends AbstractForm
     protected $formName = 'mcs150';
     protected $formTitle = 'MCS-150';
     protected $formFields = [
-        'dot_number' => [
-            'type' => 'text',
-            'label' => 'DOT Number',
-            'required' => true,
-        ],
         'pin' => [
             'type' => 'text',
             'label' => 'PIN',
@@ -292,6 +287,7 @@ class MscForm extends AbstractForm
                     ['value' => 'interstate', 'title' => 'Interstate Carrier'],
                     ['value' => 'intrastate', 'title' => 'Intrastate Hazmat Carrier'],
                     ['value' => 'interstate_non_hazmat', 'title' => 'Intrastate Non Hazmat Carrier'],
+                    ['value' => 'brk_frght_forwarder', 'title' => 'Broker and Freight Forwarder'],
                 ],
             ],
             'operation_classif' => [
