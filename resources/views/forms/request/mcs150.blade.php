@@ -72,28 +72,6 @@
   
   <!-- JS: Toggle Editable Fields + File Preview -->
   <script>
-    /*
-    document.addEventListener('DOMContentLoaded', function () {
-      const changeType = document.getElementById('changeType');
-      const editableFields = document.getElementById('editableFields');
-  
-      changeType.addEventListener('change', function () {
-        checkEditable();
-      });
-
-      // Check on page load
-      checkEditable();
-      
-      dropzone.addEventListener('click', function (e) {
-        if (!e.target.closest('button')) fileInput.click();
-      });
-
-    });
-
-    function checkEditable() {
-      editableFields.style.display = changeType.value === 'change' ? 'block' : 'none';
-    }
-    */  
 
     document.addEventListener('DOMContentLoaded', function () {
       document.querySelectorAll('.section-toggle').forEach(function (toggle) {
@@ -115,78 +93,78 @@
 
   
 
-<script>
+  <script>
 
-  document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function () {
 
-    // Bind change event after initializing Select2
-    $('#fields\\[change_type\\]').on('change', function () {
+      // Bind change event after initializing Select2
+      $('#fields\\[change_type\\]').on('change', function () {
+        toggleEditable();
+      });
+
+      // Run on page load
       toggleEditable();
     });
 
-    // Run on page load
-    toggleEditable();
-  });
+    function toggleEditable() {
+      const value = $('#fields\\[change_type\\]').val();
+      const section = document.getElementById('editableFields');
 
-  function toggleEditable() {
-    const value = $('#fields\\[change_type\\]').val();
-    const section = document.getElementById('editableFields');
-
-    if (value === 'change') {
-      section.style.display = 'block';
-    } else {
-      section.style.display = 'none';
-    }
-  }
-
-</script>
-
-
-<script>
-
-  document.addEventListener('DOMContentLoaded', function () {
-
-    // Bind change event after initializing Select2
-    $('#fields\\[operation_type\\]').on('change', function () {
-      toggleHazardous();
-    });
-
-    // Run on page load
-    toggleHazardous();
-    });
-
-    function toggleHazardous() {
-      const operationType = $('#fields\\[operation_type\\]').val();
-      const hazardousSection = document.getElementById('section-hazardous');
-
-      if (operationType === 'intrastate') {
-        hazardousSection.style.display = 'block';
+      if (value === 'change') {
+        section.style.display = 'block';
       } else {
-        hazardousSection.style.display = 'none';
+        section.style.display = 'none';
       }
     }
 
-</script>
+  </script>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function () {
-      document.querySelectorAll('td.clickable-cell').forEach(td => {
-          td.addEventListener('click', function () {
-              const checkbox = this.querySelector('input[type="checkbox"]');
-              if (checkbox) checkbox.checked = !checkbox.checked;
-          });
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+      // Bind change event after initializing Select2
+      $('#fields\\[operation_type\\]').on('change', function () {
+        toggleHazardous();
       });
-  });
-</script>
+
+      // Run on page load
+      toggleHazardous();
+      });
+
+      function toggleHazardous() {
+        const operationType = $('#fields\\[operation_type\\]').val();
+        const hazardousSection = document.getElementById('section-hazardous');
+
+        if (operationType === 'intrastate') {
+          hazardousSection.style.display = 'block';
+        } else {
+          hazardousSection.style.display = 'none';
+        }
+      }
+
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('td.clickable-cell').forEach(td => {
+            td.addEventListener('click', function () {
+                const checkbox = this.querySelector('input[type="checkbox"]');
+                if (checkbox) checkbox.checked = !checkbox.checked;
+            });
+        });
+    });
+  </script>
 
 
-<style>
-  .clickable-cell {
-      cursor: pointer;
-      user-select: none;
-  }
+  <style>
+    .clickable-cell {
+        cursor: pointer;
+        user-select: none;
+    }
 
-  .clickable-cell input[type="checkbox"] {
-      pointer-events: none; /* allow click to bubble to td */
-  }
-</style>
+    .clickable-cell input[type="checkbox"] {
+        pointer-events: none; /* allow click to bubble to td */
+    }
+  </style>

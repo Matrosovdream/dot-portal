@@ -160,7 +160,7 @@ class MscForm extends AbstractForm
         'hazardous_materials' => [
             'type' => 'select',
             'label' => 'Hazardous Materials',
-            'required' => true,
+            'required' => false,
             'reference' => 'hazardous_materials',
             'multiple' => true,
         ],
@@ -263,7 +263,13 @@ class MscForm extends AbstractForm
             ];
 
             foreach ($reqFields as $field) {
-                if (empty($requestData[$field])) {
+
+                $formField = $this->formFields[$field] ?? null;
+
+                if (
+                    empty($requestData[$field]) && 
+                    $formField['required']
+                    ) {
                     $errors[$field] = 'The ' . $this->formFields[$field]['label'] . ' field is required.';
                 }
             }
