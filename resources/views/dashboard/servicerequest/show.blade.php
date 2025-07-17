@@ -53,6 +53,10 @@
                                     $apiData = $saferweb['api_data'] ?? null;
 
                                     $list = [
+                                        'dot_number' => [
+                                            'label' => 'Dot Number',
+                                            'value' => $saferweb['dot_number'] ?? null
+                                        ],
                                         'entity_type' => [
                                             'label' => 'Entity type',
                                             'value' => $saferweb['entity_type'] ?? null
