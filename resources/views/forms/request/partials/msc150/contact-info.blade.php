@@ -20,7 +20,20 @@
   <div class="toggle-section" id="section-contact-info">
 
     <div class="row mb-6">
-      <label class="col-lg-4 col-form-label fw-semibold fs-6">Name</label>
+      <label class="col-lg-4 col-form-label fw-semibold fs-6">Company Legal Name</label>
+      <div class="col-lg-4 fv-row">
+        <input 
+            type="text" 
+            class="form-control form-control-lg form-control-solid" 
+            placeholder="Company Legal Name"
+            name="fields[company_name]" 
+            value="{{ $values['company_name'] ?? '' }}"
+            />
+      </div>
+    </div>
+
+    <div class="row mb-6">
+      <label class="col-lg-4 col-form-label fw-semibold fs-6">Owner’s Name</label>
       <div class="col-lg-4 fv-row">
         <input 
             type="text" 

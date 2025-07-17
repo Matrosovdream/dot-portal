@@ -41,6 +41,11 @@ class MscForm extends AbstractForm
             //'default' => true,
             'section' => 'contact-info',
         ],
+        'company_name' => [
+            'type' => 'text',
+            'label' => 'Company Legal Name',
+            'required' => false,
+        ],
         'contact_name' => [
             'type' => 'text',
             'label' => 'Contact Name',
