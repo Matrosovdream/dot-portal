@@ -1,4 +1,4 @@
-<div class="row mb-6">
+<div class="row mb-6" id="section-hazardous">
 
     <label class="col-lg-4 col-form-label fw-semibold fs-6 required" for="fields[cargo_type]">
       Hazardous Materials

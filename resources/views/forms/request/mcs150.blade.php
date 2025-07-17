@@ -1,18 +1,4 @@
-      <!-- Dot -->
-      <div class="row mb-6">
-        <label class="col-lg-4 col-form-label fw-semibold fs-6 required">Dot Number</label>
-        <div class="col-lg-4 fv-row">
-          <input 
-            type="text" 
-            class="form-control form-control-lg form-control-solid" 
-            placeholder="Dot Number"
-            name="fields[dot_number]"
-            value="{{ $values['dot_number'] ?? '' }}"
-            >
-        </div>
-      </div>
 
-      
       <!-- PIN -->
       <div class="row mb-6">
         <label class="col-lg-4 col-form-label fw-semibold fs-6 required">PIN</label>
@@ -110,6 +96,28 @@
         updateVisibility();
       });
     });
+
+    document.addEventListener('DOMContentLoaded', function () {
+
+      // Bind change event after initializing Select2
+      $('#fields\\[operation_type\\]').on('change', function () {
+        toggleHazardous();
+      });
+
+      // Run on page load
+      toggleHazardous();
+    });
+
+  function toggleHazardous() {
+    const operationType = $('#fields\\[operation_type\\]').val();
+    const hazardousSection = document.getElementById('section-hazardous');
+    
+    if (operationType === 'intrastate') {
+      hazardousSection.style.display = 'block';
+    } else {
+      hazardousSection.style.display = 'none';
+    }
+  }
 
   </script>
 
