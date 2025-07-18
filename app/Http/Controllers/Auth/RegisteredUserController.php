@@ -33,22 +33,41 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
-            'phone_number' => ['required', 'string', 'max:15'],
+            'phone' => ['required', 'string', 'max:15'],
             'usdot' => ['required', 'string', 'max:20'],
             'company_name' => ['required', 'string', 'max:255'],
             'trucks_number' => ['required', 'integer', 'min:1'],
             'drivers_number' => ['required', 'integer', 'min:1'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'password_confirmation' => ['required', 'string', 'min:8', 'max:255'],
         ]);
 
+        // Prepare firstname and lastname
+        $nameParts = explode(' ', $request->name, 2);
+        $firstname = $nameParts[0];
+        $lastname = isset($nameParts[1]) ? $nameParts[1] : '';
+
+
+        // Create user
         $user = User::create([
-            'name' => $request->name,
+            'firstname' => $firstname,
+            'lastname' => $lastname,
+            'phone' => $request->phone,
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
 
+        // Create company
+        $user->company()->create([
+            'name' => $request->company_name,
+            'phone' => $request->phone,
+            'dot_number' => $request->usdot,
+            //'trucks_number' => $request->trucks_number,
+            //'drivers_number' => $request->drivers_number,
+        ]);
+
         // Assign role to user
-        $user->assignRole('user');
+        $user->setRole('company');
 
         event(new Registered($user));
 
