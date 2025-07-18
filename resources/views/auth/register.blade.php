@@ -11,44 +11,86 @@
 
         <div class="fv-row mb-8">
             <x-input-label for="name" :value="__('Official’s full name')" />
-            <x-text-input id="name" class="form-control bg-transparent" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-text-input 
+                id="name" 
+                class="form-control bg-transparent {{ $errors->has('name') ? 'is-invalid' : '' }}" 
+                type="text" 
+                name="name" 
+                :value="old('name')" 
+                required autofocus autocomplete="name" 
+                />
         </div>
 
         <div class="fv-row mb-8">
             <x-input-label for="email" :value="__('Email')" />
-           <x-text-input id="email" class="form-control bg-transparent" type="email" name="email" :value="old('email')" required autocomplete="username" />
-           <x-input-error :messages="$errors->get('email')" class="mt-2" />
+           <x-text-input 
+            id="email" 
+            class="form-control bg-transparent {{ $errors->has('email') ? 'is-invalid' : '' }}" 
+            type="email" 
+            name="email" 
+            :value="old('email')" 
+            required autocomplete="username" 
+            />
         </div>
 
         <div class="fv-row mb-8">
             <x-input-label for="phone" :value="__('Phone number')" />
-           <x-text-input id="phone" class="form-control bg-transparent" type="text" name="phone" :value="old('phone')" required />
-           <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+           <x-text-input 
+            id="phone" 
+            class="form-control bg-transparent {{ $errors->has('phone') ? 'is-invalid' : '' }}" 
+            type="text" 
+            name="phone" 
+            :value="old('phone')" 
+            required 
+            />
         </div>
 
         <div class="fv-row mb-8">
             <x-input-label for="usdot" :value="__('USDOT number')" />
-           <x-text-input id="usdot" class="form-control bg-transparent" type="text" name="usdot" :value="old('usdot')" required />
-           <x-input-error :messages="$errors->get('usdot')" class="mt-2" />
+           <x-text-input 
+            id="usdot" 
+            class="form-control bg-transparent {{ $errors->has('usdot') ? 'is-invalid' : '' }}" 
+            type="text" 
+            name="usdot" 
+            :value="old('usdot')" 
+            required 
+            />
         </div>
 
         <div class="fv-row mb-8">
             <x-input-label for="company_name" :value="__('Company name')" />
-           <x-text-input id="company_name" class="form-control bg-transparent" type="text" name="company_name" :value="old('company_name')" required />
-           <x-input-error :messages="$errors->get('company_name')" class="mt-2" />
+           <x-text-input 
+            id="company_name" 
+            class="form-control bg-transparent {{ $errors->has('company_name') ? 'is-invalid' : '' }}" 
+            type="text" 
+            name="company_name" 
+            :value="old('company_name')" 
+            required 
+            />
         </div>
 
         <div class="fv-row mb-8">
             <x-input-label for="trucks_number" :value="__('Number of trucks')" />
-           <x-text-input id="trucks_number" class="form-control bg-transparent" type="number" name="trucks_number" :value="old('trucks_number')" required />
-           <x-input-error :messages="$errors->get('trucks_number')" class="mt-2" />
+           <x-text-input 
+            id="trucks_number" 
+            class="form-control bg-transparent {{ $errors->has('trucks_number') ? 'is-invalid' : '' }}" 
+            type="number"
+            name="trucks_number" 
+            :value="old('trucks_number')" 
+            required 
+            />
         </div>
 
         <div class="fv-row mb-8">
             <x-input-label for="drivers_number" :value="__('Number of drivers')" />
-           <x-text-input id="drivers_number" class="form-control bg-transparent" type="number" name="drivers_number" :value="old('drivers_number')" required />
-           <x-input-error :messages="$errors->get('drivers_number')" class="mt-2" />
+           <x-text-input 
+            id="drivers_number" 
+            class="form-control bg-transparent {{ $errors->has('drivers_number') ? 'is-invalid' : '' }}" 
+            type="number" 
+            name="drivers_number" 
+            :value="old('drivers_number')" 
+            required 
+            />
         </div>
 
 
@@ -56,22 +98,29 @@
         <div class="fv-row mb-8">
            <x-input-label for="password" :value="__('Password')" />
 
-           <x-text-input id="password" class="form-control bg-transparent"
-                           type="password"
-                           name="password"
-                           required autocomplete="new-password" />
-
-           <x-input-error :messages="$errors->get('password')" class="mt-2" />
+           <x-text-input 
+            id="password" 
+            class="form-control bg-transparent {{ $errors->has('password') ? 'is-invalid' : '' }}"
+            type="password"
+            name="password"
+            required autocomplete="new-password" 
+            />
         </div>
 
         <div class="fv-row mb-8">
            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
 
-           <x-text-input id="password_confirmation" class="form-control bg-transparent"
-                           type="password"
-                           name="password_confirmation" required autocomplete="new-password" />
+           <x-text-input 
+            id="password_confirmation" 
+            class="form-control bg-transparent {{ $errors->has('password_confirmation') ? 'is-invalid' : '' }}"
+            type="password"
+            name="password_confirmation" 
+            required autocomplete="new-password" 
+            />
 
+        @php /*
            <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
+        */ @endphp
        </div>
 
         <div class="fv-row mb-8">
