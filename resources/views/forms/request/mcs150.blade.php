@@ -63,6 +63,10 @@
         @include('forms.request.partials.msc150.operation-info')
         <div class="separator mb-8"></div>
 
+        <!-- Vehicles Info -->
+        @include('forms.request.partials.msc150.vehicles-info')
+        <div class="separator mb-8"></div>
+
         <!-- Driver counts -->
         @include('forms.request.partials.msc150.driver-counts')
   
