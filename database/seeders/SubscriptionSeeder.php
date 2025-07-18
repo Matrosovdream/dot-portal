@@ -17,11 +17,11 @@ class SubscriptionSeeder extends Seeder
         $subs = [
             [
                 'name' => '5 Drivers', 
-                'price' => 59.99,
+                'price' => 150.00,
                 'discount' => 0,
                 'duration' => 'monthly',
                 'short_description' => 'Best for a small company',
-                'description' => '5 drivers for 59.99$ per month',
+                'description' => '1-5 drivers for 150$ per month',
                 'drivers_amount' => 5,
                 'points' => [
                     [
@@ -36,11 +36,11 @@ class SubscriptionSeeder extends Seeder
             ],
             [
                 'name' => '10 Drivers', 
-                'price' => 99.99,
+                'price' => 250.00,
                 'discount' => 0,
                 'duration' => 'monthly',
                 'short_description' => 'Best for a middle company',
-                'description' => '10 drivers for 99.99$ per month',
+                'description' => '6-10 drivers for 99.99$ per month',
                 'drivers_amount' => 10,
                 'points' => [
                     [
@@ -55,15 +55,15 @@ class SubscriptionSeeder extends Seeder
             ],
             [
                 'name' => '20 Drivers', 
-                'price' => 199.99,
+                'price' => 300.00,
                 'discount' => 0,
                 'duration' => 'monthly',
                 'short_description' => 'Best for a middle+ company',
-                'description' => '20 drivers for 199.99$ per month',
+                'description' => '11+ drivers for 300$ per month',
                 'drivers_amount' => 20,
                 'points' => [
                     [
-                        'title' => 'Up to 20 Active Drivers',
+                        'title' => '11+ Active Drivers',
                         'included' => 1,
                     ],
                     [
