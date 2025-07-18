@@ -8,6 +8,44 @@
 
 @section('content')
 
+    @if( isset($company['banner_new_company']) )
+
+        <div class="alert alert-primary d-flex flex-column flex-sm-row p-5 mb-10">
+            <div class="d-flex flex-column pe-0 pe-sm-10">
+                <h4 class="mb-2 text-dark">
+                    Welcome!
+                </h4>
+                <span class="text-gray-700">
+                    To finish setup, please complete your Driver Info and Truck Info.
+                </span>
+            </div>
+
+            <div class="ms-sm-auto mt-4 mt-sm-0">
+
+                <a href="{{ route('dashboard.drivers.index') }}" class="btn btn-primary px-6 flex-shrink-0 align-self-center me-6">
+                    <i class="ki-duotone ki-user fs-2 me-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                    </i>
+                    Add Drivers
+                </a>
+
+                <a href="{{ route('dashboard.vehicles.index') }}" class="btn btn-primary px-6 flex-shrink-0 align-self-center">
+                    <i class="ki-duotone ki-car fs-2 me-2">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                    </i>
+                    Add Trucks
+                </a>
+
+            </div>
+        </div>
+
+    @endif
+
+
     <div class="row gx-5 gx-xl-10 mb-xl-10">
 
         <div class="row gx-5 gx-xl-10">
