@@ -170,6 +170,14 @@ class MscForm extends AbstractForm
             'required' => false,
         ],
 
+        // Vehicle information
+        'vehicle_info_toggle' => [
+            'type' => 'checkbox',
+            'label' => 'Vehicle Information',
+            //'default' => true,
+            'section' => 'vehicles-info',
+        ],
+
         // Driver counts
         'driver_counts_toggle' => [
             'type' => 'checkbox',
