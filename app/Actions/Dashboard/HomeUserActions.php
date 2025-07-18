@@ -120,6 +120,12 @@ class HomeUserActions {
 
     public function getSaferwebCount( $repo, $filterSet = [] ) {
 
+        if( 
+            !isset( auth()->user()->company->id )
+            ) {
+            return null; 
+        }
+
         $filter = ['company_id' => auth()->user()->company->id];
 
         $filter = array_merge($filter, $filterSet);
