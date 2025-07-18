@@ -9,31 +9,8 @@
             <div class="text-gray-500 fw-semibold fs-6"></div>
         </div>
 
-        <!--
-        <div class="row g-3 mb-9">
-            <div class="col-md-6">
-                <a href="#"
-                    class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-                    <img alt="Logo" src="{{ asset('assets/admin/media/svg/brand-logos/google-icon.svg') }}"
-                        class="h-15px me-3" />Sign in with Google</a>
-            </div>
-            <div class="col-md-6">
-                <a href="#"
-                    class="btn btn-flex btn-outline btn-text-gray-700 btn-active-color-primary bg-state-light flex-center text-nowrap w-100">
-                    <img alt="Logo" src="{{ asset('assets/admin/media/svg/brand-logos/apple-black.svg') }}"
-                        class="theme-light-show h-15px me-3" />
-                    <img alt="Logo" src="{{ asset('assets/admin/media/svg/brand-logos/apple-black-dark.svg') }}"
-                        class="theme-dark-show h-15px me-3" />Sign in with Apple</a>
-            </div>
-        </div>
-        
-        <div class="separator separator-content my-14">
-            <span class="w-125px text-gray-500 fw-semibold fs-7">Or with email</span>
-        </div>
-        -->
-
         <div class="fv-row mb-8">
-            <x-input-label for="name" :value="__('Name')" />
+            <x-input-label for="name" :value="__('Official’s full name')" />
             <x-text-input id="name" class="form-control bg-transparent" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
@@ -43,6 +20,38 @@
            <x-text-input id="email" class="form-control bg-transparent" type="email" name="email" :value="old('email')" required autocomplete="username" />
            <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
+
+        <div class="fv-row mb-8">
+            <x-input-label for="phone" :value="__('Phone number')" />
+           <x-text-input id="phone" class="form-control bg-transparent" type="text" name="phone" :value="old('phone')" required />
+           <x-input-error :messages="$errors->get('phone')" class="mt-2" />
+        </div>
+
+        <div class="fv-row mb-8">
+            <x-input-label for="usdot" :value="__('USDOT number')" />
+           <x-text-input id="usdot" class="form-control bg-transparent" type="text" name="usdot" :value="old('usdot')" required />
+           <x-input-error :messages="$errors->get('usdot')" class="mt-2" />
+        </div>
+
+        <div class="fv-row mb-8">
+            <x-input-label for="company_name" :value="__('Company name')" />
+           <x-text-input id="company_name" class="form-control bg-transparent" type="text" name="company_name" :value="old('company_name')" required />
+           <x-input-error :messages="$errors->get('company_name')" class="mt-2" />
+        </div>
+
+        <div class="fv-row mb-8">
+            <x-input-label for="trucks_number" :value="__('Number of trucks')" />
+           <x-text-input id="trucks_number" class="form-control bg-transparent" type="number" name="trucks_number" :value="old('trucks_number')" required />
+           <x-input-error :messages="$errors->get('trucks_number')" class="mt-2" />
+        </div>
+
+        <div class="fv-row mb-8">
+            <x-input-label for="drivers_number" :value="__('Number of drivers')" />
+           <x-text-input id="drivers_number" class="form-control bg-transparent" type="number" name="drivers_number" :value="old('drivers_number')" required />
+           <x-input-error :messages="$errors->get('drivers_number')" class="mt-2" />
+        </div>
+
+
 
         <div class="fv-row mb-8">
            <x-input-label for="password" :value="__('Password')" />
