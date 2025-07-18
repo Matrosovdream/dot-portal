@@ -6,6 +6,9 @@
 
 @section('content')
 
+    <!-- Registration Payment Section -->
+    @include('dashboard.subscription.sections.registration-payment')
+
     <!-- Preview -->
     @include('dashboard.subscription.sections.preview')
 
