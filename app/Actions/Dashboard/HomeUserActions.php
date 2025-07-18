@@ -44,8 +44,15 @@ class HomeUserActions {
 
         if( $user->isCompany() ) {
             $data['company']['saferweb'] = $this->userRepo->getCompanySaferweb( $user->id );
-        }
 
+            if(
+                $data['stats']['drivers']['total'] == 0 ||
+                $data['stats']['vehicles']['total'] == 0
+            ) {
+                $data['company']['banner_new_company'] = true;
+            }
+
+        }
         return $data;
     }
 
