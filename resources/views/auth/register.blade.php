@@ -148,8 +148,57 @@
 </x-guest-layout>
 
 
+<!--begin::Input wrapper-->
+<div class="w-lg-50">
+    <!--begin::Label-->
+    <label class="fs-6 fw-semibold mb-2">
+        Daily Budget
+
+        <span class="m2-1" data-bs-toggle="tooltip" title="Choose the budget allocated for each day. Higher budget will generate better results">
+            <i class="ki-duotone ki-information fs-7"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
+        </span>
+    </label>
+    <!--end::Label-->
+
+    <!--begin::Slider-->
+    <div class="d-flex flex-column text-center">
+        <div class="d-flex align-items-start justify-content-center mb-7">
+            <span class="fw-bold fs-4 mt-1 me-2">$</span>
+            <span class="fw-bold fs-3x" id="kt_modal_create_campaign_budget_label"></span>
+            <span class="fw-bold fs-3x">.00</span>
+        </div>
+        <div id="kt_docs_forms_advanced_interactive_slider" class="noUi-sm"></div>
+    </div>
+    <!--end::Slider-->
+</div>
+<!--end::Input wrapper-->
 
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js" integrity="sha512-g/feAizmeiVKSwvfW0Xk3ZHZqv5Zs8PEXEBKzL15pM0SevEvoX8eJ4yFWbqakvRj7vtw1Q97bLzEpG2IVWX0Mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.css" integrity="sha512-MKxcSu/LDtbIYHBNAWUQwfB3iVoG9xeMCm32QV5hZ/9lFaQZJVaXfz9aFa0IZExWzCpm7OWvp9zq9gVip/nLMg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+<script>
+
+var budgetSlider = document.querySelector("#kt_docs_forms_advanced_interactive_slider");
+var budgetValue = document.querySelector("#kt_docs_forms_advanced_interactive_slider_label");
+
+noUiSlider.create(budgetSlider, {
+    start: [5],
+    connect: true,
+    range: {
+        "min": 1,
+        "max": 500
+    }
+});
+
+budgetSlider.noUiSlider.on("update", function (values, handle) {
+    budgetValue.innerHTML = Math.round(values[handle]);
+    if (handle) {
+        budgetValue.innerHTML = Math.round(values[handle]);
+    }
+});
+
+</script>
 
 
 
