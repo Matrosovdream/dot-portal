@@ -25,12 +25,18 @@
             </div>
 
             <div class="col-lg-5 d-flex align-items-end justify-content-end">
-                <form action="#" method="POST">
-                    @csrf
-                    <button class="btn btn-success">
-                        Pay Registration Fee
-                    </button>
-                </form>
+                @if($user['paymentCards']['items']->count() > 0)
+                    <form action="#" method="POST">
+                        @csrf
+                        <button class="btn btn-success">
+                            Pay Registration Fee
+                        </button>
+                    </form>
+                @else
+                    <div class="d-flex flex-column">
+                        <span class="text-gray-800 fw-bold fs-5 mb-2">Add a payment method to upgrade</span>
+                    </div>
+                @endif
             </div>
         </div>
 
