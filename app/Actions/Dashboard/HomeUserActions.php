@@ -53,6 +53,7 @@ class HomeUserActions {
             }
 
         }
+
         return $data;
     }
 
