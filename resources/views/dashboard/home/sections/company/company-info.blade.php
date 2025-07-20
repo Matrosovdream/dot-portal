@@ -1,20 +1,31 @@
 @php
+    $companyUser = $user['company'] ?? [];
+    $companySaferweb = $companyUser['saferweb'] ?? [];
+
     $fields = [
         'dot_number' => [
             'label' => 'USDOT',
-            'value' => $user['company']['dot_number'] ?? '-',
+            'value' => $companyUser['dot_number'] ?? '-',
         ],
         'mc_number' => [
             'label' => 'MC Number',
-            'value' => $user['company']['mc_number'] ?? '-',
+            'value' => $companyUser['mc_number'] ?? '-',
         ],
         'last_mcs150_date' => [
             'label' => 'Last MCS-150 date',
-            'value' => isset($company['saferweb']['latest_update']) ? dateFormat($company['saferweb']['latest_update']) : '-',
+            'value' => isset($companySaferweb['latest_update']) ? dateFormat($companySaferweb['latest_update']) : '-',
         ],
         'iss_score' => [
             'label' => 'ISS Score',
             'value' => '-',
+        ],
+        'business_address' => [
+            'label' => 'Business Address',
+            'value' => $companyUser['addresses']['business']['full_address'] ?? '-',
+        ],
+        'mailing_address' => [
+            'label' => 'Mailing Address',
+            'value' => $companyUser['addresses']['mailing']['full_address'] ?? '-',
         ],
     ];
 @endphp
