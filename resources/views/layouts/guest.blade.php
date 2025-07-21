@@ -17,6 +17,8 @@
             <link rel="stylesheet" href="{{ asset($asset) }}">
         @endforeach
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
     </head>
 
 
