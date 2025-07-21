@@ -45,7 +45,7 @@
             />
         </div>
 
-        <div class="fv-row mb-8">
+        <div class="fv-row mb-8 position-relative">
             <x-input-label for="usdot" :value="__('USDOT number')" />
            <x-text-input 
             id="usdot" 
@@ -55,18 +55,28 @@
             :value="old('usdot')" 
             required 
             />
+
+            <span
+                id="usdot-loader"
+                class="spinner-border text-primary position-absolute top-50 end-0 d-none"
+                style="margin-top: -3px; margin-right: 8px;"
+                role="status"
+                >
+                <span class="visually-hidden">Loading...</span>
+            </span>
+
         </div>
 
         <div class="fv-row mb-8">
             <x-input-label for="company_name" :value="__('Company name')" />
-           <x-text-input 
-            id="company_name" 
-            class="form-control bg-transparent {{ $errors->has('company_name') ? 'is-invalid' : '' }}" 
-            type="text" 
-            name="company_name" 
-            :value="old('company_name')" 
-            required 
-            />
+            <x-text-input 
+                id="company_name" 
+                class="form-control bg-transparent {{ $errors->has('company_name') ? 'is-invalid' : '' }}" 
+                type="text" 
+                name="company_name" 
+                :value="old('company_name')" 
+                required 
+                />
         </div>
 
         <div class="fv-row mb-8">
