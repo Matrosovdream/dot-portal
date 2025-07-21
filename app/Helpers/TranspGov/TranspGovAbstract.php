@@ -19,6 +19,20 @@ class TranspGovAbstract {
         return $items;
     }
 
+    public function getByDot( int $dotNumber ) {
+
+        $items = $this->getItemsByDot([$dotNumber], $this->paginateDefault);
+
+        $items = $this->mapItemsForModel($items);
+
+        if (empty($items)) {
+            return null; // Return null if no items found
+        } else {
+            return $items[0]; // Return the first item if found
+        }
+
+    }
+
     public function getItemsByDot(array $usdots, int $paginate = 10000, $groupBy = null)
     {
 
