@@ -210,6 +210,43 @@ budgetSlider.noUiSlider.on("update", function (values, handle) {
 
 </script>
 
+<script>
+    document.getElementById('usdot').addEventListener('blur', function () {
+        const usdot = this.value.trim();
+    
+        if (!usdot) return;
+    
+        // Show loader
+        document.getElementById('usdot-loader').classList.remove('d-none');
+    
+        fetch('/register.ttt', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
+            },
+            body: JSON.stringify({ usdot })
+        })
+        .then(response => response.json())
+        .then(data => {
+            // Fill the fields
+            document.getElementById('company_name').value = data.company_name || '';
+            document.getElementById('trucks_number').value = data.trucks_number || '';
+            document.getElementById('drivers_number').value = data.drivers_number || '';
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            // Optional: show error to user
+        })
+        .finally(() => {
+            setTimeout(() => {
+                loader.classList.add('d-none');
+            }, 2000);
+        });
+    });
+</script>
+    
+
 
 
 
