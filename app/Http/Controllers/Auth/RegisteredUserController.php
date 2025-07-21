@@ -75,4 +75,20 @@ class RegisteredUserController extends Controller
 
         return redirect(route('dashboard.home', absolute: false));
     }
+
+    public function retrieveUsdot(Request $request)
+    {
+        $usdot = $request->input('usdot');
+
+        // to retrieve the USDOT information. For this example, we'll just return a dummy response.
+        $response = [
+            'usdot' => $usdot,
+            'company_name' => 'Example Company',
+            'trucks_number' => 5,
+            'drivers_number' => 10,
+        ];
+
+        return response()->json($response);
+    }
+
 }

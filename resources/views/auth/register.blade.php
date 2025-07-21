@@ -218,8 +218,12 @@ budgetSlider.noUiSlider.on("update", function (values, handle) {
     
         // Show loader
         document.getElementById('usdot-loader').classList.remove('d-none');
+
+        // Show loader
+        const loader = document.getElementById('usdot-loader');
+        loader.classList.remove('d-none');
     
-        fetch('/register.ttt', {
+        fetch('/retrieve-usdot', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -241,7 +245,7 @@ budgetSlider.noUiSlider.on("update", function (values, handle) {
         .finally(() => {
             setTimeout(() => {
                 loader.classList.add('d-none');
-            }, 2000);
+            }, 1000);
         });
     });
 </script>
