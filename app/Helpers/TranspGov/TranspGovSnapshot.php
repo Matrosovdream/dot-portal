@@ -19,6 +19,8 @@ class TranspGovSnapshot extends TranspGovAbstract {
                 'entity_type' => $item['entity_type'] ?? null,
                 'physical_address' => $this->makePhysicalAddress($item),
                 'mailing_address' => $this->makeMailingAddress($item),
+                'truck_units' => $item['truck_units'] ?? 0,
+                'total_drivers' => $item['total_drivers'] ?? 0,
                 'latest_update' => $this->parseDate( $item['mcs150_date'] ?? null ),
                 'api_data' => $item
             ];
