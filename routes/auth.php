@@ -15,6 +15,10 @@ Route::middleware('guest')->group(function () {
     Route::get('register', [RegisteredUserController::class, 'create'])
         ->name('register');
 
+    // retrieve-usdot
+    Route::post('retrieve-usdot', [RegisteredUserController::class, 'retrieveUsdot'])
+        ->name('retrieve-usdot'); 
+
     Route::post('register', [RegisteredUserController::class, 'store']);
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
