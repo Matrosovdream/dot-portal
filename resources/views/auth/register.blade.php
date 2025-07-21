@@ -79,31 +79,47 @@
                 />
         </div>
 
-        <div class="fv-row mb-8">
+        <div class="fv-row mb-10">
+            <!--begin::Label-->
             <x-input-label for="trucks_number" :value="__('Number of trucks')" />
-           <x-text-input 
-            id="trucks_number" 
-            class="form-control bg-transparent {{ $errors->has('trucks_number') ? 'is-invalid' : '' }}" 
-            type="number"
-            name="trucks_number" 
-            :value="old('trucks_number')" 
-            required 
+            <br/><br/>
+        
+            <!-- Hidden input to sync with slider -->
+            <x-text-input 
+                id="trucks_number" 
+                class="form-control bg-transparent {{ $errors->has('trucks_number') ? 'is-invalid' : '' }} d-none" 
+                type="number"
+                name="trucks_number" 
+                :value="old('trucks_number', 10)" 
+                required 
             />
+        
+            <div class="d-flex flex-stack">
+                <div id="slider_trucks_number_value" class="fs-7 fw-semibold text-muted"></div>
+                <div id="slider_trucks_number_slider" class="noUi-sm w-100 ms-5 me-8"></div>
+            </div>
+
         </div>
 
-        <div class="fv-row mb-8">
+        <!-- Number of drivers -->
+        <div class="fv-row mb-10">
             <x-input-label for="drivers_number" :value="__('Number of drivers')" />
-           <x-text-input 
-            id="drivers_number" 
-            class="form-control bg-transparent {{ $errors->has('drivers_number') ? 'is-invalid' : '' }}" 
-            type="number" 
-            name="drivers_number" 
-            :value="old('drivers_number')" 
-            required 
+            <br/><br/>
+
+            <x-text-input 
+                id="drivers_number" 
+                class="form-control bg-transparent {{ $errors->has('drivers_number') ? 'is-invalid' : '' }} d-none" 
+                type="number" 
+                name="drivers_number" 
+                :value="old('drivers_number', 10)" 
+                required 
             />
-        </div>
 
-
+            <div class="d-flex flex-stack">
+                <div id="slider_drivers_number_value" class="fs-7 fw-semibold text-muted"></div>
+                <div id="slider_drivers_number_slider" class="noUi-sm w-100 ms-5 me-8"></div>
+            </div>
+        </div>  
 
         <div class="fv-row mb-8">
            <x-input-label for="password" :value="__('Password')" />
@@ -158,97 +174,12 @@
 </x-guest-layout>
 
 
-<!--begin::Input wrapper-->
-<div class="w-lg-50">
-    <!--begin::Label-->
-    <label class="fs-6 fw-semibold mb-2">
-        Daily Budget
-
-        <span class="m2-1" data-bs-toggle="tooltip" title="Choose the budget allocated for each day. Higher budget will generate better results">
-            <i class="ki-duotone ki-information fs-7"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-        </span>
-    </label>
-    <!--end::Label-->
-
-    <!--begin::Slider-->
-    <div class="d-flex flex-column text-center">
-        <div class="d-flex align-items-start justify-content-center mb-7">
-            <span class="fw-bold fs-4 mt-1 me-2">$</span>
-            <span class="fw-bold fs-3x" id="kt_modal_create_campaign_budget_label"></span>
-            <span class="fw-bold fs-3x">.00</span>
-        </div>
-        <div id="kt_docs_forms_advanced_interactive_slider" class="noUi-sm"></div>
-    </div>
-    <!--end::Slider-->
-</div>
-<!--end::Input wrapper-->
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js" integrity="sha512-g/feAizmeiVKSwvfW0Xk3ZHZqv5Zs8PEXEBKzL15pM0SevEvoX8eJ4yFWbqakvRj7vtw1Q97bLzEpG2IVWX0Mg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.css" integrity="sha512-MKxcSu/LDtbIYHBNAWUQwfB3iVoG9xeMCm32QV5hZ/9lFaQZJVaXfz9aFa0IZExWzCpm7OWvp9zq9gVip/nLMg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<script>
 
-var budgetSlider = document.querySelector("#kt_docs_forms_advanced_interactive_slider");
-var budgetValue = document.querySelector("#kt_docs_forms_advanced_interactive_slider_label");
 
-noUiSlider.create(budgetSlider, {
-    start: [5],
-    connect: true,
-    range: {
-        "min": 1,
-        "max": 500
-    }
-});
-
-budgetSlider.noUiSlider.on("update", function (values, handle) {
-    budgetValue.innerHTML = Math.round(values[handle]);
-    if (handle) {
-        budgetValue.innerHTML = Math.round(values[handle]);
-    }
-});
-
-</script>
-
-<script>
-    document.getElementById('usdot').addEventListener('blur', function () {
-        const usdot = this.value.trim();
-    
-        if (!usdot) return;
-    
-        // Show loader
-        document.getElementById('usdot-loader').classList.remove('d-none');
-
-        // Show loader
-        const loader = document.getElementById('usdot-loader');
-        loader.classList.remove('d-none');
-    
-        fetch('/retrieve-usdot', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]')?.getAttribute('content')
-            },
-            body: JSON.stringify({ usdot })
-        })
-        .then(response => response.json())
-        .then(data => {
-            // Fill the fields
-            document.getElementById('company_name').value = data.company_name || '';
-            document.getElementById('trucks_number').value = data.trucks_number || '';
-            document.getElementById('drivers_number').value = data.drivers_number || '';
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            // Optional: show error to user
-        })
-        .finally(() => {
-            setTimeout(() => {
-                loader.classList.add('d-none');
-            }, 1000);
-        });
-    });
-</script>
+@include('auth.partials.register-js')
     
 
 
