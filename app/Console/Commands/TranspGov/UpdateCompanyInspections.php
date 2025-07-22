@@ -37,6 +37,10 @@ class UpdateCompanyInspections extends Command {
             // Dispatch the job for each chunk
             InspectionJob::dispatch($chunk)->delay(now()->addSeconds($this->delayChunks));
 
+            //$helper = app('App\Helpers\Company\CompanyIntegrationHelper');
+            //$helper->updateInspections($chunk);
+            //dd(1);
+
             $this->info("Transport Government company inspections have been added to the queue: " . implode(', ', $chunk));
         }
 
