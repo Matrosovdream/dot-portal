@@ -3,6 +3,9 @@
 namespace App\Helpers\Company;
 
 use App\Helpers\TranspGov\TranspGovSnapshot;
+use App\Helpers\TranspGov\TranspGovInspection;
+use App\Helpers\TranspGov\TranspGovCrash;
+use App\Repositories\Vehicle\VehicleInspectionsSaferwebRepo;
 use App\Repositories\User\CompanySaferwebRepo;
 
 class CompanyIntegrationHelper {
@@ -50,6 +53,39 @@ class CompanyIntegrationHelper {
         }
 
         return [];
+
+    }
+
+    public function updateInspections(array $companies): bool
+    {
+
+        if (empty($companies)) {
+            return false;
+        }
+
+        // Init classes
+        $saferwebRepo = app(VehicleInspectionsSaferwebRepo::class);
+
+        $transportGov = app(TranspGovInspection::class);
+        $transportGov->mapWithModel = true; // Enable mapping to model
+
+        // Retrieve results from the Transport Government API
+        $items = $transportGov->getItemsByDot(
+            $companies,
+            100000
+        );
+
+        // let's chunk items to avoid memory issues
+        $itemChunks = array_chunk($items, 100, true);
+
+        foreach($itemChunks as $chunk) {
+
+            // Sync items with the repository
+            $saferwebRepo->syncItems($chunk);
+
+        }
+
+        return true;
 
     }
 
