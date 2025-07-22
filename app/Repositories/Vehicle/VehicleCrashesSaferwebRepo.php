@@ -28,6 +28,21 @@ class VehicleCrashesSaferwebRepo extends AbstractRepo
         }
     }
 
+    public function syncItemsUpsert($items)
+    {
+        if (empty($items)) return;
+
+        // Prepare data for upsert, if the value is an object, convert it to an array
+        $items = $this->prepareItemsUpsert($items);
+        
+        // Run batch upsert
+        $this->model->upsert(
+            $items,
+            ['report_number'], // Unique constraints
+        );
+
+    }
+
     public function sync($vehicle_id, $data) 
     {
 
