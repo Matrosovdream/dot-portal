@@ -157,6 +157,23 @@ abstract class AbstractRepo
         $item->delete();
     }
 
+    public function prepareItemsUpsert($items)
+    {
+        if (empty($items)) return [];
+
+        // Prepare data for upsert, if the value is an object, convert it to an array
+        foreach ($items as $key => $item) {
+            foreach ($item as $field_key => $field_value) {
+                // If is array, convert to json
+                if (is_array($field_value)) {
+                    $items[$key][$field_key] = json_encode($field_value);
+                }
+            }
+        }
+
+        return $items;
+    }
+
     public function modelSearch( $query, $map=true, $paginate = 20 ) {
 
         // Validate the query because we depend on the Scout package
