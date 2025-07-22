@@ -28,11 +28,8 @@ class CompanyIntegrationHelper {
         $transportGov = app(TranspGovSnapshot::class);
         $transportGov->mapWithModel = true; // Enable mapping to model
 
-        $companiesDataRaw = $companyModel->whereIn('id', $companiesRev)->get();
-        $companiesData = [];
-        foreach ($companiesDataRaw as $company) {
-            $companiesData[ $company->id ] = $company->toArray();
-        }
+        // Retrieve company data
+        $companiesData = $this->getCompanies($companiesRev);
 
         // Retrieve results from the Transport Government API
         $items = $transportGov->getItemsByDot(
@@ -97,6 +94,9 @@ class CompanyIntegrationHelper {
             return false;
         }
 
+        // Reverse $companies key and value
+        $companiesRev = array_flip($companies);
+
         // Init classes
         $saferwebRepo = app(VehicleCrashesSaferwebRepo::class);
 
@@ -120,6 +120,20 @@ class CompanyIntegrationHelper {
         }
 
         return true;
+
+    }
+
+    protected function getCompanies( array $companies ): array {
+
+        $companyModel = app('App\Models\UserCompany');
+
+        $companiesDataRaw = $companyModel->whereIn('id', $companies)->get();
+        $companiesData = [];
+        foreach ($companiesDataRaw as $company) {
+            $companiesData[ $company->id ] = $company->toArray();
+        }
+
+        return $companiesData;
 
     }
 
