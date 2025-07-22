@@ -74,7 +74,7 @@ class VehicleCrashesSaferwebRepo extends AbstractRepo
             'report_state_id' => $item->report_state_id,
             'total_injuries' => $item->total_injuries,
             'total_fatalities' => $item->total_fatalities,
-            'api_data' => json_decode( $item->api_data, true ),
+            'api_data' => $item->api_data,
             'Model' => $item
         ];
         return $res;
