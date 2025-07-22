@@ -17466,3 +17466,21 @@ Did you mean one of these?
 #40 {main}
 "} 
 [2025-07-21 07:56:41] local.INFO: Updating company inspections for company ID: 1  
+[2025-07-22 10:38:04] local.ERROR: Class "App\Console\Commands\TranspGov\Inspections\TranspGovHelper" not found {"exception":"[object] (Error(code: 0): Class \"App\\Console\\Commands\\TranspGov\\Inspections\\TranspGovHelper\" not found at /var/www/app/Console/Commands/TranspGov/Inspections/LaunchCompanyInspections.php:21)
+[stacktrace]
+#0 [internal function]: App\\Console\\Commands\\TranspGov\\Inspections\\LaunchCompanyInspections->__construct()
+#1 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(1004): ReflectionClass->newInstanceArgs(Array)
+#2 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(832): Illuminate\\Container\\Container->build('App\\\\Console\\\\Com...')
+#3 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\\Container\\Container->resolve('App\\\\Console\\\\Com...', Array, true)
+#4 /var/www/vendor/laravel/framework/src/Illuminate/Container/Container.php(763): Illuminate\\Foundation\\Application->resolve('App\\\\Console\\\\Com...', Array)
+#5 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\\Container\\Container->make('App\\\\Console\\\\Com...', Array)
+#6 /var/www/vendor/laravel/framework/src/Illuminate/Console/Application.php(262): Illuminate\\Foundation\\Application->make('App\\\\Console\\\\Com...')
+#7 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(376): Illuminate\\Console\\Application->resolve('App\\\\Console\\\\Com...')
+#8 /var/www/vendor/laravel/framework/src/Illuminate/Console/Application.php(134): Illuminate\\Foundation\\Console\\Kernel->Illuminate\\Foundation\\Console\\{closure}(Object(Illuminate\\Console\\Application))
+#9 /var/www/vendor/laravel/framework/src/Illuminate/Console/Application.php(81): Illuminate\\Console\\Application->bootstrap()
+#10 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(540): Illuminate\\Console\\Application->__construct(Object(Illuminate\\Foundation\\Application), Object(Illuminate\\Events\\Dispatcher), '11.45.1')
+#11 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(198): Illuminate\\Foundation\\Console\\Kernel->getArtisan()
+#12 /var/www/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1235): Illuminate\\Foundation\\Console\\Kernel->handle(Object(Symfony\\Component\\Console\\Input\\ArgvInput), Object(Symfony\\Component\\Console\\Output\\ConsoleOutput))
+#13 /var/www/artisan(13): Illuminate\\Foundation\\Application->handleCommand(Object(Symfony\\Component\\Console\\Input\\ArgvInput))
+#14 {main}
+"} 
