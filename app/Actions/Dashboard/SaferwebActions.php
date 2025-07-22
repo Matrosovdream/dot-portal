@@ -67,7 +67,8 @@ class SaferwebActions {
     public function prepareSearch( $model ) {
 
         // Filter by search form
-        $filter = ['company_id' => auth()->user()->company->id];
+        //$filter = ['company_id' => auth()->user()->company->id];
+        $filter = ['dot_number' => auth()->user()->company->dot_number];
 
         // Filter by common search
         if( request()->has('q') && !empty(request()->input('q')) ) {
