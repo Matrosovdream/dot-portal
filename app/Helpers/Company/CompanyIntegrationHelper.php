@@ -54,74 +54,59 @@ class CompanyIntegrationHelper {
 
     }
 
-    public function updateInspections(array $companies): bool
+    public function updateInspections(array $companies)
     {
-
-        if (empty($companies)) {
-            return false;
-        }
-
-        // Init classes
-        $saferwebRepo = app(VehicleInspectionsSaferwebRepo::class);
-
-        $transportGov = app(TranspGovInspection::class);
-        $transportGov->mapWithModel = true; // Enable mapping to model
-
-        // Retrieve results from the Transport Government API
-        $items = $transportGov->getItemsByDot(
+        return $this->updateMultipleEntity(
             $companies,
-            100000
+            VehicleInspectionsSaferwebRepo::class,
+            TranspGovInspection::class,
+            'syncItems',
+            ['unique_id']
         );
-
-        // let's chunk items to avoid memory issues
-        $itemChunks = array_chunk($items, 100, true);
-
-        foreach($itemChunks as $chunk) {
-
-            // Sync items with the repository
-            $saferwebRepo->syncItems($chunk);
-
-        }
-
-        return true;
-
     }
 
     public function updateCrashes(array $companies): bool
     {
+        return $this->updateMultipleEntity(
+            $companies,
+            VehicleCrashesSaferwebRepo::class,
+            TranspGovCrash::class,
+            'syncItemsUpsert',
+            ['report_number']
+        );
+    }
+
+    private function updateMultipleEntity(
+        array $companies,
+        string $repoClass,
+        string $apiClass,
+        string $syncMethod,
+        array $uniqueConstraints = []
+    ): bool|array {
 
         if (empty($companies)) {
             return false;
         }
 
-        // Reverse $companies key and value
-        $companiesRev = array_flip($companies);
-
         // Init classes
-        $saferwebRepo = app(VehicleCrashesSaferwebRepo::class);
+        $repo = app($repoClass);
+        $api = app($apiClass);
+        $api->mapWithModel = true;
 
-        $transportGov = app(TranspGovCrash::class);
-        $transportGov->mapWithModel = true; // Enable mapping to model
-
-        // Retrieve results from the Transport Government API
-        $items = $transportGov->getItemsByDot(
-            $companies,
-            100000
-        );
-
-        // let's chunk items to avoid memory issues
+        // Fetch items from API
+        $items = $api->getItemsByDot($companies, 100000);
         $itemChunks = array_chunk($items, 100, true);
 
-        foreach($itemChunks as $chunk) {
-
-            // Sync items with the repository
-            $saferwebRepo->syncItemsUpsert($chunk);
-
+        foreach ($itemChunks as $chunk) {
+            $repo->$syncMethod($chunk, $uniqueConstraints);
         }
 
-        return true;
+        // Update Scout
+        $repo->model->query()->searchable();
 
+        return is_a($api, TranspGovCrash::class) ? true : $items;
     }
+
 
     protected function getCompanies( array $companies ): array {
 
