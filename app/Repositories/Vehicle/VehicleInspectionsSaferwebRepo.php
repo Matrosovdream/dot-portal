@@ -19,21 +19,6 @@ class VehicleInspectionsSaferwebRepo extends AbstractRepo
         $this->model = new VehicleInspectionSaferweb();
     }
 
-    public function syncItems($items)
-    {
-        if (empty($items)) return;
-
-        // Prepare data for upsert, if the value is an object, convert it to an array
-        $items = $this->prepareItemsUpsert($items);
-        
-        // Run batch upsert
-        $this->model->upsert(
-            $items,
-            ['unique_id'], // Unique constraints
-        );
-
-    }
-
     public function mapItem($item)
     {
 
