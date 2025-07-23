@@ -60,7 +60,7 @@ class CompanyIntegrationHelper {
             $companies,
             VehicleInspectionsSaferwebRepo::class,
             TranspGovInspection::class,
-            'syncItems',
+            'syncItemsUpsert',
             ['unique_id']
         );
     }
