@@ -9,11 +9,13 @@
         "academe/omnipay-authorizenetapi": " ~3.0",
         "astrotomic/laravel-translatable": "^11.15",
         "authorizenet/authorizenet": "^2.0",
+        "guzzlehttp/guzzle": "^7.9",
         "http-interop/http-factory-guzzle": "^1.2",
         "laravel/framework": "^11.9",
         "laravel/scout": "^10.15",
         "laravel/tinker": "^2.9",
         "league/omnipay": "^3.2",
+        "mailgun/mailgun-php": "^4.3",
         "meilisearch/meilisearch-php": "^1.15",
         "stevebauman/location": "^7.3"
     },
