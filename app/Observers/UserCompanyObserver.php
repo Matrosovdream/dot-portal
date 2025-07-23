@@ -15,12 +15,12 @@ class UserCompanyObserver
 
     public function created(UserCompany $company): void
     {
-        $this->updateSaferweb( $company );
+        //$this->updateSaferweb( $company );
     }
 
     public function updated(UserCompany $company): void
     {
-        $this->updateSaferweb( $company );
+        //$this->updateSaferweb( $company );
     }
 
     public function deleted(UserCompany $company): void
