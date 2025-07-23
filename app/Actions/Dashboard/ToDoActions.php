@@ -34,16 +34,6 @@ class ToDoActions {
             dd($safer);
         } 
 
-        if( request()->has('update_crashes')) {
-            $safer = $taskHelper->updateCrashes(1);
-            dd($safer);
-        } 
-
-        if( request()->has('update_inspections')) {
-            $safer = $taskHelper->updateInspections(1);
-            dd($safer);
-        } 
-
         if( request()->has('number') ) {
             $dotNumber = request()->input('number');
         } else {
@@ -111,12 +101,24 @@ class ToDoActions {
             $transportGov->mapWithModel = true; // Enable mapping to model
             
             $items = $transportGov->getItemsByDot(
-                [363, 44, 64, 111, 113],
+                [363, 44, 64, 111, 113, 18235],
                 1000,
                 'dot_number'
             );
             dd($items);
         }
+
+        if( request()->has('update_crashes')) {
+            
+        } 
+
+        if( request()->has('update_inspections')) {
+            
+            $helper = app('App\Helpers\Company\CompanyIntegrationHelper');
+            $res = $helper->updateInspections([363, 44, 64, 111, 113]);
+            dd($res);
+
+        } 
 
         $data = [
             'title' => 'To-Do List',
