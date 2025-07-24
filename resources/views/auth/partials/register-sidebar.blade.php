@@ -25,6 +25,13 @@
             'description' => 'Your account is created'
         ]
     ];
+
+    // Set active based GET parameter 'step' and if empty then default to 'account'
+    $activeStep = request()->get('step', 'account');    
+    foreach( $steps as $key => $details ) {
+        $steps[$key]['active'] = ($details['slug'] == $activeStep);
+    }
+    
 @endphp
 
 
@@ -47,7 +54,7 @@
 
                 @foreach( $steps as $step => $details)
 
-                    <div class="stepper-item {{ $loop->first ? 'current' : '' }}" data-kt-stepper-element="nav">
+                    <div class="stepper-item {{ $details['active'] == true ? 'current' : '' }}" data-kt-stepper-element="nav">
 
                         <div class="stepper-wrapper">
 
