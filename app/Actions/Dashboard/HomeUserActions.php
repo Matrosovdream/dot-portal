@@ -9,6 +9,10 @@ use App\Repositories\Insurance\InsuranceVehicleRepo;
 use App\Repositories\Vehicle\VehicleInspectionsSaferwebRepo;
 use App\Repositories\Vehicle\VehicleCrashesSaferwebRepo;
 
+use App\Mail\Company\CompanyWelcomeMail;
+use Illuminate\Support\Facades\Mail;
+
+use App\Services\MailgunService;
 
 class HomeUserActions {
 
@@ -53,6 +57,18 @@ class HomeUserActions {
             }
 
         }
+
+        /*
+        $service = new MailgunService();
+        $mailRes = $service->sendTemplate(
+            'matrosovdream@gmail.com',
+            'welcome-company',
+            ['firstname' => 'Stan']
+        );
+
+        dd($mailRes);
+        */
+
 
         return $data;
     }
