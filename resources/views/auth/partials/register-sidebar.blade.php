@@ -18,11 +18,11 @@
             'slug' => 'billing',
             'description' => 'Provide your payment info'
         ],
-        'Completed' => [
+        'Subscription payment' => [
             'number' => '4',
-            'title' => 'Completed',
-            'slug' => 'completed',
-            'description' => 'Your account is created'
+            'title' => 'Subscription payment',
+            'slug' => 'payment',
+            'description' => 'Payment for your subscription'
         ]
     ];
 
