@@ -1,39 +1,3 @@
-@php
-    $steps = [
-        'Account Info' => [
-            'number' => '1',
-            'title' => 'Account Info',
-            'slug' => 'account',
-            'description' => 'Setup your account settings'
-        ],
-        'Company Details' => [
-            'number' => '2',
-            'title' => 'Company Details',
-            'slug' => 'company',
-            'description' => 'Setup your Company details'
-        ],
-        'Billing Details' => [
-            'number' => '3',
-            'title' => 'Billing Details',
-            'slug' => 'billing',
-            'description' => 'Provide your payment info'
-        ],
-        'Subscription payment' => [
-            'number' => '4',
-            'title' => 'Subscription payment',
-            'slug' => 'payment',
-            'description' => 'Payment for your subscription'
-        ]
-    ];
-
-    // Set active based GET parameter 'step' and if empty then default to 'account'
-    $activeStep = request()->get('step', 'account');    
-    foreach( $steps as $key => $details ) {
-        $steps[$key]['active'] = ($details['slug'] == $activeStep);
-    }
-    
-@endphp
-
 
 <div class="d-flex flex-column flex-lg-row-auto w-lg-350px w-xl-500px">
     <div 
