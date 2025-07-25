@@ -25,14 +25,9 @@ class RegisteredUserController extends Controller
 
     public function create(): View
     {
-
-        $data = [
-            'title' => 'Register',
-            'description' => 'Create a new account to access the DOT Portal.',
-            'steps' => $this->actions->getRegSteps(),
-        ];
-
-        return view('auth.register', $data);
+        return view('auth.register', 
+            $this->actions->index() 
+        );
     }
 
     /**
