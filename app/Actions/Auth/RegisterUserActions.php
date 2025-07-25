@@ -16,6 +16,30 @@ class RegisterUserActions {
 
     }
 
+    public function retrieveUsdot($request)
+    {
+        $usdot = $request->input('usdot');
+
+        $dotApi = app('App\Helpers\TranspGov\TranspGovSnapshot');
+
+        // Use the TranspGovSnapshot helper to retrieve USDOT information
+        $snapshot = $dotApi->getByDot($usdot);
+
+        if (!$snapshot) {
+            return response()->json([]);
+        }
+
+        // to retrieve the USDOT information. For this example, we'll just return a dummy response.
+        $response = [
+            'usdot' => $usdot,
+            'company_name' => $snapshot['legal_name'] ?? '',
+            'trucks_number' => $snapshot['truck_units'] ?? 0,
+            'drivers_number' => $snapshot['total_drivers'] ?? 0,
+        ];
+
+        return $response;
+    }
+
     public function getRegSteps(): array
     {
         $steps = [
