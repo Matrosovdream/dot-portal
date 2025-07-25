@@ -13,6 +13,11 @@ class RegisterUserActions {
     public function index()
     {
 
+        return [
+            'title' => 'Register',
+            'description' => 'Create a new account to access the DOT Portal.',
+            'steps' => $this->getRegSteps(),
+        ];
 
     }
 
