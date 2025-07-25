@@ -16,7 +16,7 @@ class RegisterUserActions {
 
     }
 
-    public function index()
+    public function index(): array
     {
 
         return [
@@ -77,7 +77,7 @@ class RegisterUserActions {
 
     }
 
-    public function retrieveUsdot($request)
+    public function retrieveUsdot($request): array
     {
         $usdot = $request->input('usdot');
 
@@ -87,7 +87,7 @@ class RegisterUserActions {
         $snapshot = $dotApi->getByDot($usdot);
 
         if (!$snapshot) {
-            return response()->json([]);
+            return [];
         }
 
         // to retrieve the USDOT information. For this example, we'll just return a dummy response.
