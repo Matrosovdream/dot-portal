@@ -7,6 +7,7 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Actions\Auth\RegisterUserActions;
+use Illuminate\Http\JsonResponse;
 
 class RegisteredUserController extends Controller
 {
@@ -33,7 +34,7 @@ class RegisteredUserController extends Controller
         return redirect(route('dashboard.home', absolute: false));
     }
 
-    public function retrieveUsdot(Request $request)
+    public function retrieveUsdot(Request $request): JsonResponse
     {
         return response()->json(
             $this->actions->retrieveUsdot($request)
