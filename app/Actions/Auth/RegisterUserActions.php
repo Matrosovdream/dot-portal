@@ -37,7 +37,7 @@ class RegisterUserActions {
                 $res = $this->storeAccount( $request );
                 break;
             case 'company':
-                // Handle company details logic
+                $res = $this->storeCompany( $request );
                 break;
             case 'billing':
                 // Handle billing details logic
@@ -64,10 +64,6 @@ class RegisterUserActions {
             'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'phone' => ['required', 'string', 'max:15'],
-            //'usdot' => ['required', 'string', 'max:20'],
-            //'company_name' => ['required', 'string', 'max:255'],
-            //'trucks_number' => ['required', 'integer', 'min:1'],
-            // 'drivers_number' => ['required', 'integer', 'min:1'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'password_confirmation' => ['required', 'string', 'min:8', 'max:255'],
         ]);
@@ -78,6 +74,8 @@ class RegisterUserActions {
             'lastname' => $request->lastname,
             'phone' => $request->phone,
             'email' => $request->email,
+            'is_active' => false,
+            'reg_step' => 'account',
             'password' => Hash::make($request->password),
         ]);
 
@@ -100,6 +98,42 @@ class RegisterUserActions {
             'next_page' => route('register', ['step' => 'company'])
         ];
 
+    }
+
+    private function storeCompany($request)
+    {
+
+        $request->validate([
+            'usdot' => ['required', 'string', 'max:20'],
+            'company_name' => ['required', 'string', 'max:255'],
+            'trucks_number' => ['required', 'integer', 'min:1'],
+            'drivers_number' => ['required', 'integer', 'min:1'],
+        ]);
+
+        // Update company details
+        $user = auth()->user();
+        $companyData = [
+            'name' => $request->company_name,
+            'dot_number' => $request->usdot,
+            'trucks_number' => $request->trucks_number,
+            'drivers_number' => $request->drivers_number,
+        ];
+
+        if( isset( $user->company ) ) {
+            $user->company()->update($companyData);
+        } else {
+            // If company does not exist, create it
+            $user->company()->create($companyData);
+        }
+
+        // Update user registration step
+        $user->reg_step = 'company';
+        $user->save();
+
+        return [
+            'result' => true,
+            'next_page' => route('register', ['step' => 'billing'])
+        ];
     }
 
     public function retrieveUsdot($request): array
