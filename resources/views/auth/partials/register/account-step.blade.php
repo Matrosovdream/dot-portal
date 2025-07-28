@@ -22,6 +22,7 @@
 
     <div class="row">
         
+        <!--
         <div class="fv-row mb-8">
             <x-input-label for="name" :value="__('Official’s full name')" />
             <x-text-input 
@@ -31,6 +32,31 @@
                 name="name" 
                 :value="old('name')" 
                 required autofocus autocomplete="name" 
+                />
+        </div>
+        -->
+
+        <div class="fv-row mb-8">
+            <x-input-label for="firstname" :value="__('First name')" />
+            <x-text-input 
+                id="firstname" 
+                class="form-control bg-transparent {{ $errors->has('firstname') ? 'is-invalid' : '' }}" 
+                type="text" 
+                name="firstname" 
+                :value="old('firstname')" 
+                required autofocus
+                />
+        </div>
+
+        <div class="fv-row mb-8">
+            <x-input-label for="lastname" :value="__('Last name')" />
+            <x-text-input 
+                id="lastname" 
+                class="form-control bg-transparent {{ $errors->has('lastname') ? 'is-invalid' : '' }}" 
+                type="text" 
+                name="lastname" 
+                :value="old('lastname')" 
+                required
                 />
         </div>
 
@@ -44,6 +70,15 @@
             :value="old('email')" 
             required autocomplete="username" 
             />
+            <!-- Error message -->
+            @if (
+                $errors->has('email') &&
+                $errors->first('email') !== 'The email field is required.'
+                )
+                <span class="invalid-feedback" role="alert">
+                    <strong>{{ $errors->first('email') }}</strong>
+                </span>
+            @endif
         </div>
 
         <div class="fv-row mb-8">
@@ -106,6 +141,7 @@
         </i>Previous</button>
     </div>
     <div>
+        <!--
         <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="submit">
             <span class="indicator-label">Submit 
             <i class="ki-duotone ki-arrow-right fs-4 ms-2">
@@ -115,11 +151,14 @@
             <span class="indicator-progress">Please wait... 
             <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
         </button>
-        <button type="button" class="btn btn-lg btn-primary" data-kt-stepper-action="next">Continue 
-        <i class="ki-duotone ki-arrow-right fs-4 ms-1">
-            <span class="path1"></span>
-            <span class="path2"></span>
-        </i></button>
+        -->
+        <button type="submit" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
+            Register
+            <i class="ki-duotone ki-arrow-right fs-4 ms-1">
+                <span class="path1"></span>
+                <span class="path2"></span>
+            </i>
+        </button>
     </div>
 </div>
 
