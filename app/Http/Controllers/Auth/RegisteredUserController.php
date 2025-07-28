@@ -31,7 +31,12 @@ class RegisteredUserController extends Controller
 
         $res = $this->actions->store($request);
 
-        return redirect(route('dashboard.home', absolute: false));
+        if( $res['result'] ) {
+            return redirect($res['next_page']);
+        }
+
+        return redirect()->back()->withErrors(['error' => 'Registration failed. Please try again.']);
+
     }
 
     public function retrieveUsdot(Request $request): JsonResponse
