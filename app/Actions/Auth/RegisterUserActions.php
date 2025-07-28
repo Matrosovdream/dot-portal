@@ -29,41 +29,60 @@ class RegisterUserActions {
 
     public function store($request)
     {
-        
+
+        $step = $request->input('step', null);
+
+        switch ($step) {
+            case 'account':
+                $this->storeAccount( $request );
+                break;
+            case 'company':
+                // Handle company details logic
+                break;
+            case 'billing':
+                // Handle billing details logic
+                break;
+            case 'payment':
+                // Handle payment logic
+                break;
+            default:
+                // Default action or error handling
+                return false;
+        }
+
+        return true;
+
+    }
+
+    private function storeAccount($request)
+    {
+
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'phone' => ['required', 'string', 'max:15'],
-            'usdot' => ['required', 'string', 'max:20'],
-            'company_name' => ['required', 'string', 'max:255'],
-            'trucks_number' => ['required', 'integer', 'min:1'],
-            'drivers_number' => ['required', 'integer', 'min:1'],
+            //'usdot' => ['required', 'string', 'max:20'],
+            //'company_name' => ['required', 'string', 'max:255'],
+            //'trucks_number' => ['required', 'integer', 'min:1'],
+            // 'drivers_number' => ['required', 'integer', 'min:1'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'password_confirmation' => ['required', 'string', 'min:8', 'max:255'],
         ]);
 
         // Prepare firstname and lastname
-        $nameParts = explode(' ', $request->name, 2);
-        $firstname = $nameParts[0];
-        $lastname = isset($nameParts[1]) ? $nameParts[1] : '';
+        //$nameParts = explode(' ', $request->name, 2);
+        //$firstname = $nameParts[0];
+        //$lastname = isset($nameParts[1]) ? $nameParts[1] : '';
 
 
         // Create user
         $user = User::create([
-            'firstname' => $firstname,
-            'lastname' => $lastname,
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
             'phone' => $request->phone,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-        ]);
-
-        // Create company
-        $user->company()->create([
-            'name' => $request->company_name,
-            'phone' => $request->phone,
-            'dot_number' => $request->usdot,
-            //'trucks_number' => $request->trucks_number,
-            //'drivers_number' => $request->drivers_number,
         ]);
 
         // Assign role to user
@@ -73,7 +92,17 @@ class RegisterUserActions {
 
         Auth::login($user);
 
-        return true;
+        return $user;
+
+
+        // Create company
+        $user->company()->create([
+            'name' => $request->company_name,
+            'phone' => $request->phone,
+            'dot_number' => $request->usdot,
+            //'trucks_number' => $request->trucks_number,
+            //'drivers_number' => $request->drivers_number,
+        ]);
 
     }
 
