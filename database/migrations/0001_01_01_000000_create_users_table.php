@@ -73,6 +73,8 @@ return new class extends Migration
             $table->string('phone')->nullable();
             $table->string('dot_number')->nullable();
             $table->string('mc_number')->nullable();
+            $table->integer('trucks_number')->default(0);
+            $table->integer('drivers_number')->default(0);
             $table->timestamps();
         });
 
