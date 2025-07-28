@@ -20,7 +20,9 @@ class UserCompany extends Model
         'dot_number',
         'mc_number',
         'business_address',
-        'mailing_address'
+        'mailing_address',
+        'trucks_number',
+        'drivers_number',
     ];
     
     public function user()
