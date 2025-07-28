@@ -14,7 +14,8 @@
 
                     <div class="w-lg-650px w-xl-700px p-10 p-lg-15 mx-auto">
 
-                        <form class="my-auto pb-5" novalidate="novalidate" id="kt_create_account_form">
+                        <form class="my-auto pb-5" novalidate="novalidate" id="kt_create_account_form" method="POST" action="{{ route('register') }}">
+                            @csrf
 
                             <input type="hidden" name="step" value="{{ $currentStep }}" />
 
