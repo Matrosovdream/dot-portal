@@ -27,14 +27,14 @@ class RegisterUserActions {
 
     }
 
-    public function store($request)
+    public function store($request): array
     {
 
         $step = $request->input('step', null);
 
         switch ($step) {
             case 'account':
-                $this->storeAccount( $request );
+                $res = $this->storeAccount( $request );
                 break;
             case 'company':
                 // Handle company details logic
@@ -47,10 +47,12 @@ class RegisterUserActions {
                 break;
             default:
                 // Default action or error handling
-                return false;
+                return [
+                    'result' => false,
+                ];
         }
 
-        return true;
+        return $res;
 
     }
 
@@ -70,12 +72,6 @@ class RegisterUserActions {
             'password_confirmation' => ['required', 'string', 'min:8', 'max:255'],
         ]);
 
-        // Prepare firstname and lastname
-        //$nameParts = explode(' ', $request->name, 2);
-        //$firstname = $nameParts[0];
-        //$lastname = isset($nameParts[1]) ? $nameParts[1] : '';
-
-
         // Create user
         $user = User::create([
             'firstname' => $request->firstname,
@@ -88,21 +84,21 @@ class RegisterUserActions {
         // Assign role to user
         $user->setRole('company');
 
+        // Create company
+        $user->company()->create([
+            'name' => '',
+            'phone' => $request->phone,
+            'dot_number' => '',
+        ]);
+
         event(new Registered($user));
 
         Auth::login($user);
 
-        return $user;
-
-
-        // Create company
-        $user->company()->create([
-            'name' => $request->company_name,
-            'phone' => $request->phone,
-            'dot_number' => $request->usdot,
-            //'trucks_number' => $request->trucks_number,
-            //'drivers_number' => $request->drivers_number,
-        ]);
+        return [
+            'result' => true,
+            'next_page' => route('register', ['step' => 'company'])
+        ];
 
     }
 
