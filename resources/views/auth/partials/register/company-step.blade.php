@@ -29,14 +29,14 @@
             class="form-control bg-transparent {{ $errors->has('usdot') ? 'is-invalid' : '' }}" 
             type="text" 
             name="usdot" 
-            :value="old('usdot')" 
+            :value="auth()->user()->company->dot_number ?? old('usdot')"
             required 
             />
 
             <span
                 id="usdot-loader"
                 class="spinner-border text-primary position-absolute top-50 end-0 d-none"
-                style="margin-top: -3px; margin-right: 8px;"
+                style="margin-top: -3px; margin-right: 15px;"
                 role="status"
                 >
                 <span class="visually-hidden">Loading...</span>
@@ -51,7 +51,7 @@
                 class="form-control bg-transparent {{ $errors->has('company_name') ? 'is-invalid' : '' }}" 
                 type="text" 
                 name="company_name" 
-                :value="old('company_name')" 
+                :value="auth()->user()->company->name ?? old('company_name')"
                 required 
                 />
         </div>
@@ -66,7 +66,7 @@
                     class="form-control bg-transparent {{ $errors->has('trucks_number') ? 'is-invalid' : '' }} d-none" 
                     type="number"
                     name="trucks_number" 
-                    :value="old('trucks_number')" 
+                    :value="auth()->user()->company->trucks_number ?? old('trucks_number')"
                     required 
                 />
             </div>
@@ -88,7 +88,7 @@
                 class="form-control bg-transparent {{ $errors->has('drivers_number') ? 'is-invalid' : '' }} d-none" 
                 type="number" 
                 name="drivers_number" 
-                :value="old('drivers_number')" 
+                :value="auth()->user()->company->drivers_number ?? old('drivers_number')"
                 required 
                 />
             </div>
@@ -102,6 +102,31 @@
 
     </div>
     <!--end::Row-->
+
+
+    <!--begin::Subscription Summary-->
+    <div id="subscription-summary" class="card mt-10 d-none">
+        <div class="card-body p-7 bg-light-primary">
+            <div class="d-flex align-items-center mb-4">
+                <i class="ki-duotone ki-wallet fs-1 text-primary me-4">
+                    <span class="path1"></span><span class="path2"></span>
+                </i>
+                <div>
+                    <h3 class="mb-0 fw-bold text-gray-900">Subscription Plan</h3>
+                    <div class="text-muted fs-6">Calculated based on number of drivers</div>
+                </div>
+            </div>
+            <div class="fs-6 fw-semibold text-gray-700 mb-2" id="subscription-description"></div>
+            <div class="fs-2 fw-bold text-primary" id="subscription-total"></div>
+        </div>
+    </div>
+    <!--end::Subscription Summary-->
+
+    <input type="hidden" name="price_per_driver" id="price_per_driver">
+    <input type="hidden" name="subscription_price" id="subscription_price">
+    <input type="hidden" name="subscription_id" id="subscription_id">
+
+
 </div>
 <!--end::Input group-->
 
