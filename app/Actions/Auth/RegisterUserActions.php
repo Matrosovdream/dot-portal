@@ -31,7 +31,7 @@ class RegisterUserActions {
         return [
             'title' => 'Register',
             'description' => 'Create a new account to access the DOT Portal.',
-            'subscription' => $sub,
+            'subscription' => $sub ?? null,
             'total_price' => $total_price ?? 0,
             'steps' => $this->getRegSteps(),
         ];
