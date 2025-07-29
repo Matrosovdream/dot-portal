@@ -19,9 +19,20 @@ class RegisterUserActions {
     public function index(): array
     {
 
+        if( auth()->check() ) {
+            $sub = auth()->user()->subscription ?? null;
+            $firstPayment = 199;
+
+            if( $sub ) {
+                $total_price = $sub->price + $firstPayment;
+            }
+        }
+
         return [
             'title' => 'Register',
             'description' => 'Create a new account to access the DOT Portal.',
+            'subscription' => $sub,
+            'total_price' => $total_price ?? 0,
             'steps' => $this->getRegSteps(),
         ];
 
@@ -61,11 +72,8 @@ class RegisterUserActions {
             case 'company':
                 $res = $this->storeCompany( $request );
                 break;
-            case 'billing':
-                // Handle billing details logic
-                break;
             case 'payment':
-                // Handle payment logic
+                $res = $this->storePayment( $request );
                 break;
             default:
                 // Default action or error handling
@@ -77,6 +85,27 @@ class RegisterUserActions {
         return $res;
 
     }
+
+    private function storePayment($request)
+    {
+
+        $request->validate([
+            'card_name' => ['required', 'string', 'max:255'],
+            'first_name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'card_number' => ['required', 'string', 'max:20'],
+            'card_expiry_month' => ['required', 'string', 'max:2'],
+            'card_expiry_year' => ['required', 'string', 'max:4'],
+            'card_cvv' => ['required', 'string', 'max:4'],
+        ]);
+
+        dd($request->all());
+
+        // Update user registration step
+        $user->reg_step = 'payment';
+        $user->save();
+
+    }    
 
     private function storeAccount($request)
     {
@@ -181,6 +210,7 @@ class RegisterUserActions {
 
         // Update subscription
         $user->subscription()->update([
+            'subscription_id' => $request->subscription_id ?? null,
             'price' => $request->subscription_price ?? 0,
             'price_per_driver' => $request->price_per_driver ?? 0,
             'drivers_number' => $request->drivers_number ?? 0,
@@ -192,7 +222,7 @@ class RegisterUserActions {
 
         return [
             'result' => true,
-            'next_page' => route('register', ['step' => 'billing'])
+            'next_page' => route('register', ['step' => 'payment'])
         ];
     }
 
@@ -235,14 +265,14 @@ class RegisterUserActions {
                 'slug' => 'company',
                 'description' => 'Setup your Company details'
             ],
-            'billing' => [
+            /*'billing' => [
                 'number' => '3',
                 'title' => 'Billing Details',
                 'slug' => 'billing',
                 'description' => 'Provide your payment info'
-            ],
+            ],*/
             'payment' => [
-                'number' => '4',
+                'number' => '3',
                 'title' => 'Subscription payment',
                 'slug' => 'payment',
                 'description' => 'Payment for your subscription'
