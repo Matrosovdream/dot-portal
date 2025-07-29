@@ -72,6 +72,12 @@ class User extends Authenticatable
         return $this->hasOne(UserAddress::class);
     }
 
+    // User subscription
+    public function subscription() 
+    {
+        return $this->hasOne(UserSubscription::class);
+    }
+
     // Get subscriptions
     public function subscriptions()
     {
