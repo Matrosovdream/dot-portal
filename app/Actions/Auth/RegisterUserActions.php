@@ -172,12 +172,19 @@ class RegisterUserActions {
             'drivers_number' => $request->drivers_number,
         ];
 
+        // Update/Create company
         if( isset( $user->company ) ) {
             $user->company()->update($companyData);
         } else {
-            // If company does not exist, create it
             $user->company()->create($companyData);
         }
+
+        // Update subscription
+        $user->subscription()->update([
+            'price' => $request->subscription_price ?? 0,
+            'price_per_driver' => $request->price_per_driver ?? 0,
+            'drivers_number' => $request->drivers_number ?? 0,
+        ]);
 
         // Update user registration step
         $user->reg_step = 'company';
