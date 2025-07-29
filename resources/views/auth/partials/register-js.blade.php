@@ -5,7 +5,7 @@
     const hiddenInput = document.querySelector("#trucks_number");
 
     noUiSlider.create(sliderTrucks, {
-        start: [{{ old('trucks_number', 1) }}],
+        start: [{{ auth()->user()->company->trucks_number ?? old('trucks_number') }}],
         connect: [true, false],
         range: {
             min: 1,
@@ -47,7 +47,7 @@
     const hiddenDriversInput = document.querySelector("#drivers_number");   
 
     noUiSlider.create(sliderDrivers, {
-        start: [{{ old('drivers_number', 1) }}],
+        start: [{{ auth()->user()->company->drivers_number ?? old('drivers_number', 1) }}],
         connect: [true, false],
         range: {
             min: 1,
@@ -76,11 +76,66 @@
             sliderDrivers.noUiSlider.set(value);
             hiddenDriversInput.value = value;
             sliderDriversValue.innerHTML = value + ' drivers';
+
+            updateSubscriptionSummary(value);
         }
     }
 
 </script>
 
+
+<script>
+
+    function updateSubscriptionSummary(driverCount) {
+        const summaryCard = document.getElementById('subscription-summary');
+        const description = document.getElementById('subscription-description');
+        const total = document.getElementById('subscription-total');
+
+        if (!summaryCard || !description || !total) return;
+
+        let pricePerDriver = 30;
+        let tierLabel = '1–5 drivers';
+        let subscriptionId = 1;
+
+        if (driverCount >= 6 && driverCount <= 10) {
+            pricePerDriver = 25;
+            tierLabel = '6–10 drivers';
+            subscriptionId = 2;
+        } else if (driverCount >= 11) {
+            pricePerDriver = 20;
+            tierLabel = '11+ drivers';
+            subscriptionId = 3;
+        }
+
+        const totalPrice = driverCount * pricePerDriver;
+
+        // Update visible summary
+        description.innerHTML = `
+            <span class="text-gray-800">${driverCount} drivers</span> — 
+            <span class="text-muted">${tierLabel} @ $${pricePerDriver} per driver</span>
+        `;
+        total.innerText = `Total: $${totalPrice}/month`;
+        summaryCard.classList.remove('d-none');
+
+        // Update hidden inputs
+        document.getElementById('price_per_driver').value = pricePerDriver;
+        document.getElementById('subscription_price').value = totalPrice;
+        document.getElementById('subscription_id').value = subscriptionId;
+    }
+
+
+
+    // Update subscription on slider change
+    sliderDrivers.noUiSlider.on("update", function (values) {
+        const val = Math.round(values[0]);
+        sliderDriversValue.innerHTML = val + ' drivers';
+        hiddenDriversInput.value = val;
+
+        updateSubscriptionSummary(val);
+    });
+
+
+</script>
 
 
 <script>
