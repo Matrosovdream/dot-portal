@@ -13,7 +13,9 @@ use Illuminate\Support\Facades\Route;
 
 // This pages are available for registration and user management
 Route::get('register', [RegisteredUserController::class, 'create'])->name('register');
+Route::get('register-remove', [RegisteredUserController::class, 'registerRemove'])->name('register.remove');
 Route::post('register', [RegisteredUserController::class, 'store']);
+
 
 // retrieve-usdot
 Route::post('retrieve-usdot', [RegisteredUserController::class, 'retrieveUsdot'])->name('retrieve-usdot'); 
