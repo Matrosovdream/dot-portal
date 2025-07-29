@@ -108,6 +108,8 @@ return new class extends Migration
             $table->foreignId('user_id')->on('users');
             $table->foreignId('subscription_id')->on('subscriptions')->nullable();
             $table->float('price')->default(0);
+            $table->float('price_per_driver')->default(0);
+            $table->integer('drivers_number')->default(0);
             $table->float('discount')->default(0);
             $table->foreignId('payment_card_id')->on('user_payment_cards')->nullable();
             $table->timestamp('start_date')->nullable();
