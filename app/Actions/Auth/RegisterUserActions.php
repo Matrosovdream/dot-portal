@@ -27,6 +27,28 @@ class RegisterUserActions {
 
     }
 
+    public function registerRemove() {
+
+        if( auth()->check() ) {
+
+            $user = Auth::user();
+
+            // Delete user account
+            $user->delete();
+
+            // Log out the user
+            Auth::logout();
+
+            // Invalidate the session
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+
+            return true;
+
+        }
+
+    }
+ 
     public function store($request): array
     {
 
