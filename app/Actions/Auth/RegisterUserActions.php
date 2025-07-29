@@ -59,6 +59,40 @@ class RegisterUserActions {
     private function storeAccount($request)
     {
 
+        if( auth()->check() ) {
+            $this->storeAccountAuthorized( $request );
+        } else {
+            $this->storeAccountGuest( $request );
+        }
+
+        return [
+            'result' => true,
+            'next_page' => route('register', ['step' => 'company'])
+        ];
+
+    }
+
+    private function storeAccountAuthorized( $request ) {
+
+        $request->validate([
+            'firstname' => ['required', 'string', 'max:255'],
+            'lastname' => ['required', 'string', 'max:255'],
+            'phone' => ['required', 'string', 'max:15'],
+        ]);
+
+        $user = auth()->user();
+
+        // User update
+        $user->update([
+            'firstname' => $request->firstname,
+            'lastname' => $request->lastname,
+            'phone' => $request->phone,
+        ]);
+
+    }
+
+    private function storeAccountGuest( $request ) {
+
         $request->validate([
             'firstname' => ['required', 'string', 'max:255'],
             'lastname' => ['required', 'string', 'max:255'],
@@ -93,10 +127,7 @@ class RegisterUserActions {
 
         Auth::login($user);
 
-        return [
-            'result' => true,
-            'next_page' => route('register', ['step' => 'company'])
-        ];
+        return $user;
 
     }
 
