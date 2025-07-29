@@ -26,6 +26,18 @@ class RegisteredUserController extends Controller
         );
     }
 
+    public function registerRemove() {
+
+        $res = $this->actions->registerRemove();
+
+        if( $res ) {
+            return redirect()->route('register');
+        } else {
+            return redirect()->back();
+        }
+
+    }
+
     public function store(Request $request): RedirectResponse
     {
 
