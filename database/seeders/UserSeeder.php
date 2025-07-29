@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
         ];
 
         $companies = $this->generateCompanies([6500, 6550]);
-        $users = array_merge($users, $companies);
+        //$users = array_merge($users, $companies);
 
         // user and company with dot 109163, for delay testing
         $users[] = ['firstname' => 'Company dot #109163', 'email' => 'company363@gmail.com', 'password' => '123456', 'role' => 3,
