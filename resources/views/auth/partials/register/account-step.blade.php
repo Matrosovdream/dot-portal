@@ -86,7 +86,7 @@
 
                 <div class="mt-2">
                     If you want to change your email, we will remove this account, 
-                    <a href="#" class="text-danger text-sm">click here</a>
+                    <a href="{{ route('register.remove') }}" class="text-danger text-sm">click here</a>
                 </div>
 
             @endif
