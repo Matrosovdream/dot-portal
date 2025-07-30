@@ -99,7 +99,32 @@ class RegisterUserActions {
             'card_cvv' => ['required', 'string', 'max:4'],
         ]);
 
-        dd($request->all());
+        $user = auth()->user();
+        $subscription = $user->subscription ?? null;
+
+        if( $request->has('save_card') ) {
+
+            $subActions = app('App\Actions\Dashboard\SubscriptionUserActions');
+
+            $cardData = $request->only([
+                'card_name',
+                'first_name',
+                'last_name',
+                'card_number',
+                'card_expiry_month',
+                'card_expiry_year',
+                'card_cvv'
+            ]);
+            $res = $subActions->storeCard($cardData);
+            dd($res);
+
+        } else {
+
+
+
+        }
+
+        dd($request->all(), $subscription);
 
         // Update user registration step
         $user->reg_step = 'payment';
