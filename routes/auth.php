@@ -17,9 +17,6 @@ Route::get('register-remove', [RegisteredUserController::class, 'registerRemove'
 Route::post('register', [RegisteredUserController::class, 'store']);
 
 
-// retrieve-usdot
-Route::post('retrieve-usdot', [RegisteredUserController::class, 'retrieveUsdot'])->name('retrieve-usdot'); 
-
 // This routes are available for guest users
 Route::middleware('guest')->group(function () {
 
@@ -42,6 +39,10 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
+
+    // retrieve-usdot
+    Route::post('retrieve-usdot', [RegisteredUserController::class, 'retrieveUsdot'])->name('retrieve-usdot'); 
+
     Route::get('verify-email', EmailVerificationPromptController::class)
         ->name('verification.notice');
 
