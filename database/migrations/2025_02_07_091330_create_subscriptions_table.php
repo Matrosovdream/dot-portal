@@ -33,6 +33,18 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // Plan fees
+        Schema::create('plan_fees', function (Blueprint $table) {
+            $table->id();
+            $table->string('name')->nullable();
+            $table->float('price')->default(0);
+            $table->float('discount')->default(0);
+            $table->text('short_description')->nullable();
+            $table->text('description')->nullable();
+            $table->foreignId('user_role_id')->on('roles')->nullable();
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -42,5 +54,6 @@ return new class extends Migration
     {
         Schema::dropIfExists('subscriptions');
         Schema::dropIfExists('subscription_points');
+        Schema::dropIfExists('plan_fees');
     }
 };
