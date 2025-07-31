@@ -76,6 +76,27 @@ class AdminMenu implements InterfaceMenu {
                     ),
                 ),
             ),
+            // Subscriptions
+            array(
+                'title' => 'Subscriptions',
+                'url' => '',
+                'icon' => 'ki-message-question',
+                'roles' => ['admin', 'manager'],
+                'childs' => array(
+                    array(
+                        'title' => 'Initial fees',
+                        'url' => route('dashboard.planfees.index'),
+                        'route' => 'dashboard.planfees.index',
+                        'roles' => ['admin', 'manager'],
+                    ),
+                    array(
+                        'title' => 'Plans',
+                        'url' => route('dashboard.subplans.index'),
+                        'route' => 'dashboard.subplans.index',
+                        'roles' => ['admin', 'manager'],
+                    ),
+                ),
+            ),
             array(
                 'title' => 'Settings',
                 'url' => route('dashboard.settings.index'),
