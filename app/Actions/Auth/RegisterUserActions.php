@@ -105,18 +105,39 @@ class RegisterUserActions {
         if( $request->has('save_card') ) {
 
             $subActions = app('App\Actions\Dashboard\SubscriptionUserActions');
+            $userCardRepo = app('App\Repositories\User\UserPaymentCardRepo');
 
-            $cardData = $request->only([
-                'card_name',
-                'first_name',
-                'last_name',
-                'card_number',
-                'card_expiry_month',
-                'card_expiry_year',
-                'card_cvv'
-            ]);
-            $res = $subActions->storeCard($cardData);
-            dd($res);
+            $primaryCard = $userCardRepo->getUserPrimaryCard( $user->id );
+
+            if( !$primaryCard ) {
+                
+                $cardData = $request->only([
+                    'card_name',
+                    'first_name',
+                    'last_name',
+                    'card_number',
+                    'card_expiry_month',
+                    'card_expiry_year',
+                    'card_cvv'
+                ]);
+                $cardRes = $subActions->storeCard($cardData);
+
+                $primaryCard = $userCardRepo->getUserPrimaryCard( $user->id );
+                
+
+            } else {
+
+                $primaryCard = $userCardRepo->getUserPrimaryCard( $user->id );
+
+            }
+
+            dd($primaryCard);
+            
+            if( $cardRes['success'] ) {
+
+            }
+
+            dd($cardRes);
 
         } else {
 
