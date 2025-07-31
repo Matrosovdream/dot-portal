@@ -21,7 +21,7 @@ class PlanFeesActions {
             'title' => 'Initial Fees',
             'fees' => $this->feeRepo->getAll(),
         ];
-
+        
         return $data;
     }
 

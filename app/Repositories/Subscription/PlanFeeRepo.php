@@ -21,6 +21,10 @@ class PlanFeeRepo extends AbstractRepo
         //$this->roleRepo = new UserRoleRepo();
     }
 
+    public function getPrimary() {
+        return $this->mapItem( $this->model->first() );
+    }
+
     public function mapItem($item)
     {
 
