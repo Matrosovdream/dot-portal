@@ -2,85 +2,34 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Actions\Dashboard\PlanFeesActions;
 
 class PlanFeesController extends Controller
 {
 
+    public function __construct(
+        private PlanFeesActions $actions)
+    {
+
+    }
+
     public function index()
     {
-
-        $data = [
-            'title' => 'Users',
-            'users' => User::paginate(10)
-        ];
-
-        return view('dashboard.users.index', $data);
+        return view('dashboard.planfees.index', $this->actions->index());
     }
 
-    public function show($user_id)
+    public function show($fee_id)
     {
-        $user = User::find($user_id);
-
-        $data = [
-            'title' => 'User details',
-            'user' => $user,
-            'roles' => Role::all()
-        ];
-
-        return view('dashboard.users.show', $data);
+        return view('dashboard.planfees.show', $this->actions->show($fee_id));
     }
 
-    public function update($user_id, Request $request)
+    public function update($fee_id, Request $request)
     {
-
-        if ($request->action == 'save_general') {
-
-            $validated = $request->validate([
-                'firstname' => 'nullable',
-                'lastname' => 'nullable',
-                'email' => 'nullable|email',
-                'phone' => 'nullable',
-                'birthday' => 'nullable|date',
-                'role' => 'required',
-            ]);
-
-            $user = User::find($user_id);
-            $user->update( $validated );
-
-            $user->setRole($request->role);
-
-            return redirect()->back()->with('success', 'User updated successfully');
+        $res = $this->actions->update($fee_id, $request);
+        if( $res ) {
+            return redirect()->route('dashboard.planfees.show', ['fee_id' => $fee_id]);
         }
-
-        if ($request->action == 'save_password') {
-
-            $request->validate([
-                'password' => 'required',
-            ]);
-
-            $user = User::find($user_id);
-            $user->password = bcrypt($request->password);
-            $user->save();
-
-            return redirect()->route('dashboard.users.index');
-        }
-
-        //$user = User::find($user_id);
-        //$user->update(request()->all());
-
-        return redirect()->route('dashboard.users.index');
-    }
-
-
-    public function destroy($user_id)
-    {
-        $user = User::find($user_id);
-        $user->delete();
-
-        return redirect()->route('dashboard.users.index');
     }
 
 }
