@@ -7,12 +7,17 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
+use App\Repositories\Subscription\PlanFeeRepo;
 
 
 class RegisterUserActions {
 
+    private $feeRepo;
+
     public function __construct()
     {
+        $this->feeRepo = new PlanFeeRepo();
+
 
     }
 
@@ -21,10 +26,10 @@ class RegisterUserActions {
 
         if( auth()->check() ) {
             $sub = auth()->user()->subscription ?? null;
-            $firstPayment = 199;
+            $feePrice = $this->getFeePrice();
 
             if( $sub ) {
-                $total_price = $sub->price + $firstPayment;
+                $total_price = $sub->price + $feePrice;
             }
         }
 
@@ -33,6 +38,7 @@ class RegisterUserActions {
             'description' => 'Create a new account to access the DOT Portal.',
             'subscription' => $sub ?? null,
             'total_price' => $total_price ?? 0,
+            'fee_price' => $feePrice,
             'steps' => $this->getRegSteps(),
         ];
 
@@ -332,6 +338,10 @@ class RegisterUserActions {
         }
 
         return $steps;
+    }
+
+    private function getFeePrice() {
+        return $this->feeRepo->getPrimary()['price'] ?? 0;
     }
 
 }
