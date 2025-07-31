@@ -2,8 +2,7 @@
 namespace App\Repositories\Subscription;
 
 use App\Repositories\AbstractRepo;
-use App\Models\Subscription;
-use App\Repositories\Subscription\SubscriptionPointRepo;
+use App\Models\PlanFeeModel;
 
 
 class PlanFeeRepo extends AbstractRepo
@@ -11,15 +10,15 @@ class PlanFeeRepo extends AbstractRepo
 
     protected $model;
 
-    protected $fields = ['points'];
+    protected $fields = [];
 
-    protected $pointsRepo;
+    protected $roleRepo;
 
     public function __construct()
     {
-        $this->model = new Subscription();
+        $this->model = new PlanFeeModel();
 
-        $this->pointsRepo = new SubscriptionPointRepo();
+        //$this->roleRepo = new UserRoleRepo();
     }
 
     public function mapItem($item)
@@ -32,11 +31,10 @@ class PlanFeeRepo extends AbstractRepo
             'name' => $item->name,
             'price' => $item->price,
             'discount' => $item->discount,
-            'duration' => $item->duration,
             'short_description' => $item->short_description,
             'description' => $item->description,
-            'drivers_amount' => $item->drivers_amount,
-            'points' => $this->pointsRepo->mapItems($item->points),
+            'user_role_id' => $item->user_role_id,
+            'role' => $item->role ? $this->roleRepo->mapItem($item->role) : null,
             'Model' => $item
         ];
 
