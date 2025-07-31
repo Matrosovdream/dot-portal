@@ -22,6 +22,8 @@ use App\Http\Controllers\Dashboard\InsuranceVehicleController;
 use App\Http\Controllers\Dashboard\ToDoController;
 use App\Http\Controllers\Dashboard\SearchController;
 use App\Http\Controllers\Dashboard\SaferwebController;
+use App\Http\Controllers\Dashboard\PlanFeesController;
+use App\Http\Controllers\Dashboard\SubPlansController;
 
 Route::group([
     'prefix' => 'dashboard',
@@ -160,6 +162,27 @@ Route::group([
 
         // Admin requests
         Route::get('requests', [AdminRequestController::class, 'index'])->name('admin.requests.index');
+
+        // Plan fees
+        Route::prefix('plan-fees')->name('planfees.')->group(function () {
+            Route::get('/', [PlanFeesController::class, 'index'])->name('index');
+            Route::get('create', [PlanFeesController::class, 'create'])->name('create');
+            Route::post('/', [PlanFeesController::class, 'store'])->name('store');
+            Route::get('{fee_id}', [PlanFeesController::class, 'show'])->name('show');
+            Route::post('{fee_id}', [PlanFeesController::class, 'update'])->name('update');
+            //Route::delete('{fee_id}', [PlanFeesController::class, 'destroy'])->name('destroy');
+        });
+
+        // Sub plans
+        Route::prefix('sub-plans')->name('subplans.')->group(function () {
+            Route::get('/', [SubPlansController::class, 'index'])->name('index');
+            Route::get('create', [SubPlansController::class, 'create'])->name('create');
+            Route::post('/', [SubPlansController::class, 'store'])->name('store');
+            Route::get('{plan_id}', [SubPlansController::class, 'show'])->name('show');
+            Route::post('{plan_id}', [SubPlansController::class, 'update'])->name('update');
+            Route::delete('{plan_id}', [SubPlansController::class, 'destroy'])->name('destroy');
+        });
+
 
         // Settings
         Route::prefix('settings')->name('settings.')->group(function () {
