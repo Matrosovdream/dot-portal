@@ -2,124 +2,47 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Role;
-use App\Models\User;
 use Illuminate\Http\Request;
+use App\Actions\Dashboard\SubPlansActions;
 
 class SubPlansController extends Controller
 {
 
+    public function __construct(
+        private SubPlansActions $actions)
+    {
+
+    }
+
     public function index()
     {
-
-        $data = [
-            'title' => 'Users',
-            'users' => User::paginate(10)
-        ];
-
-        return view('dashboard.users.index', $data);
-    }
-
-    public function show($user_id)
-    {
-        $user = User::find($user_id);
-
-        $data = [
-            'title' => 'User details',
-            'user' => $user,
-            'roles' => Role::all()
-        ];
-
-        return view('dashboard.users.show', $data);
-    }
-
-    public function update($user_id, Request $request)
-    {
-
-        if ($request->action == 'save_general') {
-
-            $validated = $request->validate([
-                'firstname' => 'nullable',
-                'lastname' => 'nullable',
-                'email' => 'nullable|email',
-                'phone' => 'nullable',
-                'birthday' => 'nullable|date',
-                'role' => 'required',
-            ]);
-
-            $user = User::find($user_id);
-            $user->update( $validated );
-
-            $user->setRole($request->role);
-
-            return redirect()->back()->with('success', 'User updated successfully');
-        }
-
-        if ($request->action == 'save_password') {
-
-            $request->validate([
-                'password' => 'required',
-            ]);
-
-            $user = User::find($user_id);
-            $user->password = bcrypt($request->password);
-            $user->save();
-
-            return redirect()->route('dashboard.users.index');
-        }
-
-        //$user = User::find($user_id);
-        //$user->update(request()->all());
-
-        return redirect()->route('dashboard.users.index');
+        return view('dashboard.subplans.index', $this->actions->index());
     }
 
     public function create()
     {
-
-        $data = [
-            'title' => 'Create user',
-            'roles' => Role::all()
-        ];
-
-        return view('dashboard.users.create', $data);
+        return view('dashboard.subplans.create', $this->actions->create());
     }
 
     public function store(Request $request)
     {
-        $request->validate([
-            'firstname' => 'required',
-            'lastname' => 'nullable',
-            'email' => 'required|email',
-            'phone' => 'nullable',
-            'birthday' => 'nullable|date',
-            'role' => 'required',
-        ]);
-
-        $user = new User();
-        $user->firstname = $request->firstname;
-        $user->lastname = $request->lastname;
-        $user->phone = $request->phone;
-        $user->birthday = $request->birthday;
-        $user->email = $request->email;
-        $user->password = bcrypt($request->password);
-        $user->save();
-
-        // Fix the bug
-        $user->password = bcrypt($request->password);
-        $user->save();
-
-        $user->setRole($request->role);
-
-        return redirect()->route('dashboard.users.index');
+        $res = $this->actions->store($request);
+        if( $res ) {
+            return redirect()->route('dashboard.subplans.index');
+        }
     }
 
-    public function destroy($user_id)
+    public function show($plan_id)
     {
-        $user = User::find($user_id);
-        $user->delete();
+        return view('dashboard.subplans.show', $this->actions->show($plan_id));
+    }
 
-        return redirect()->route('dashboard.users.index');
+    public function update($plan_id, Request $request)
+    {
+        $res = $this->actions->update($plan_id, $request);
+        if( $res ) {
+            return redirect()->route('dashboard.subplans.show', $plan_id);
+        }
     }
 
 }
