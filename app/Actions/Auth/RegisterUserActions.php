@@ -9,17 +9,23 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Repositories\Subscription\PlanFeeRepo;
 use App\Repositories\Subscription\SubscriptionRepo;
+use App\Services\Payments\PaymentCardService;
+use App\Services\Payments\PaymentService;
 
 
 class RegisterUserActions {
 
     private $feeRepo;
     private $subRepo;
+    private $cardService;
+    private $paymentService;
 
     public function __construct()
     {
         $this->feeRepo = new PlanFeeRepo();
         $this->subRepo = new SubscriptionRepo();
+        $this->cardService = new PaymentCardService();
+        $this->paymentService = new PaymentService();
     }
 
     public function index(): array
@@ -113,10 +119,7 @@ class RegisterUserActions {
 
         if( $request->has('save_card') ) {
 
-            $subActions = app('App\Actions\Dashboard\SubscriptionUserActions');
-            $userCardRepo = app('App\Repositories\User\UserPaymentCardRepo');
-
-            $primaryCard = $userCardRepo->getUserPrimaryCard( $user->id );
+            $primaryCard = $this->cardService->getUserPrimaryCard( $user->id );
 
             if( !$primaryCard ) {
                 
@@ -129,36 +132,36 @@ class RegisterUserActions {
                     'card_expiry_year',
                     'card_cvv'
                 ]);
-                $cardRes = $subActions->storeCard($cardData);
+                $this->cardService->storeCard($cardData);
 
-                $primaryCard = $userCardRepo->getUserPrimaryCard( $user->id );
+                $primaryCard = $this->cardService->getUserPrimaryCard( $user->id );
                 
-
-            } else {
-
-                $primaryCard = $userCardRepo->getUserPrimaryCard( $user->id );
-
             }
 
-            dd($primaryCard);
+            $totalPrice = $this->getTotalPrice();
             
-            if( $cardRes['success'] ) {
+            if( $primaryCard ) {
+                
+                $paymentRes = $this->paymentService->chargeCustomerWithProfile(
+                    $user->id,
+                    $totalPrice
+                );
 
             }
 
-            dd($cardRes);
+        } 
 
-        } else {
+        if( $paymentRes['success'] ) {
 
+            // Activate the subscription
+            $this->activateAccount( $user );
 
+            return [
+                'result' => true,
+                'next_page' => route('dashboard.home'),
+            ];
 
         }
-
-        dd($request->all(), $subscription);
-
-        // Update user registration step
-        $user->reg_step = 'payment';
-        $user->save();
 
     }    
 
@@ -320,12 +323,6 @@ class RegisterUserActions {
                 'slug' => 'company',
                 'description' => 'Setup your Company details'
             ],
-            /*'billing' => [
-                'number' => '3',
-                'title' => 'Billing Details',
-                'slug' => 'billing',
-                'description' => 'Provide your payment info'
-            ],*/
             'payment' => [
                 'number' => '3',
                 'title' => 'Subscription payment',
@@ -345,6 +342,31 @@ class RegisterUserActions {
 
     private function getFeePrice() {
         return $this->feeRepo->getPrimary()['price'] ?? 0;
+    }
+
+    private function getTotalPrice() {
+        $feePrice = $this->getFeePrice();
+        $subscription = auth()->user()->subscription ?? null;
+
+        if( $subscription ) {
+            return $subscription->price + $feePrice;
+        }
+
+        return $feePrice;
+    }
+
+    private function activateAccount( $user )
+    {
+        $user->subscription()->update([
+            'status' => 'active',
+        ]);
+
+        // Update user registration step and status
+        $user->reg_step = null;
+        $user->is_active = true;
+        $user->save();
+
+        return true;
     }
 
 }
