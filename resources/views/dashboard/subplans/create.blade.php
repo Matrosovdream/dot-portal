@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form class="form" method="POST" action="{{ route('dashboard.users.store') }}" id="kt_ecommerce_customer_profile">
+<form class="form" method="POST" action="{{ route('dashboard.subplans.store') }}" id="kt_ecommerce_customer_profile">
     @csrf
 
     <div class="d-flex flex-column flex-xl-row">
@@ -12,7 +12,7 @@
                 <div class="card-body pt-5">
 
                     <div class="d-flex flex-stack fs-4 py-3">
-                        <div class="fw-bold">Create new account</div>
+                        <div class="fw-bold">Create new plan</div>
 
                     </div>
 
@@ -39,7 +39,7 @@
 
                         <div class="card-header border-0">
                             <div class="card-title">
-                                <h2>Profile</h2>
+                                <h2>General</h2>
                             </div>
                         </div>
 
@@ -47,42 +47,12 @@
 
                             @include('dashboard.includes.errors.default')
 
-                            <input type="hidden" name="action" value="save_general" />
-
-                            <div class="row row-cols-1 row-cols-md-2">
-
-                                <div class="col">
-                                    <div class="fv-row mb-7">
-
-                                        <label class="fs-6 fw-semibold mb-2">
-                                            <span class="required">Role</span>
-                                        </label>
-
-                                        <select name="role" class="form-select form-select-solid" data-control="select2"
-                                            data-hide-search="true">
-                                            <option value="">Select Role</option>
-                                            @foreach($roles as $role)
-                                                <option 
-                                                    value="{{ $role->slug }}"
-                                                    {{ old('role') == $role->slug ? 'selected' : '' }}
-                                                    >
-                                                    {{ $role->title }}
-                                                </option>
-                                            @endforeach
-                                        </select>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                            
                             <div class="fv-row mb-7">
-                                <label class="fs-6 fw-semibold mb-2 required">First Name</label>
+                                <label class="fs-6 fw-semibold mb-2 required">Name</label>
                                 <input 
                                     type="text" 
-                                    name="firstname"
-                                    value="{{ old('firstname') }}" 
+                                    name="name"
+                                    value="{{ old('name') }}" 
                                     class="form-control form-control-solid" 
                                     placeholder="" 
                                     />
@@ -90,11 +60,11 @@
                             </div>
 
                             <div class="fv-row mb-7">
-                                <label class="fs-6 fw-semibold mb-2 required">Last Name</label>
+                                <label class="fs-6 fw-semibold mb-2 required">Slug</label>
                                 <input 
                                     type="text" 
-                                    name="lastname"
-                                    value="{{ old('lastname') }}" 
+                                    name="slug"
+                                    value="{{ old('slug') }}" 
                                     class="form-control form-control-solid" 
                                     placeholder="" 
                                     />
@@ -102,43 +72,46 @@
                             </div>
 
                             <div class="fv-row mb-7">
-                                <label class="fs-6 fw-semibold mb-2 required">Phone</label>
+                                <label class="fs-6 fw-semibold mb-2 required">Price per driver</label>
                                 <input 
-                                    type="text" 
-                                    name="phone"
-                                    value="{{ old('phone') }}" 
+                                    type="number" 
+                                    name="price_per_driver"
+                                    value="{{ old('price_per_driver') }}" 
                                     class="form-control form-control-solid" 
                                     placeholder="" 
                                     />
                                 
                             </div>
 
-                            <div class="row row-cols-1 row-cols-md-2">
-
-                                <div class="col">
-                                    <div class="fv-row mb-7">
-
-                                        <label class="fs-6 fw-semibold mb-2">
-                                            <span class="required">Email</span>
-                                        </label>
-
-                                        <input type="email" class="form-control form-control-solid" placeholder=""
-                                            name="email" value="{{ old('email') }}" autocomplete="off" />
-
-                                    </div>
-                                </div>
-
+                            <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2 required">Driver's amount from</label>
+                                <input 
+                                    type="number" 
+                                    name="drivers_amount_from"
+                                    value="{{ old('drivers_amount_from') }}"                
+                                    class="form-control form-control-solid"
+                                    placeholder=""
+                                    />      
                             </div>
 
                             <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2 required">Driver's amount to</label>
+                                <input 
+                                    type="number" 
+                                    name="drivers_amount_to"
+                                    value="{{ old('drivers_amount_to') }}"                
+                                    class="form-control form-control-solid"
+                                    placeholder=""
+                                    />      
+                            </div>
 
-                                <label class="fs-6 fw-semibold mb-2">
-                                    <span class="required">Password</span>
-                                </label>
-
-                                <input type="password" class="form-control form-control-solid" placeholder=""
-                                    name="password" autocomplete="off" value="" />
-
+                            <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2 required">Short description</label>
+                                <textarea 
+                                    name="short_description"
+                                    class="form-control form-control-solid"
+                                    rows="3"
+                                    placeholder="Short description">{{ old('short_description') }}</textarea>           
                             </div>
 
                             <div class="d-flex justify-content-end">
