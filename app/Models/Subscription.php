@@ -11,12 +11,15 @@ class Subscription extends Model
 
     protected $fillable = [
         'name',
+        'slug',
         'price',
+        'price_per_driver',
+        'drivers_amount_from',
+        'drivers_amount_to',
         'discount',
         'duration',
         'short_description',
         'description',
-        'drivers_amount',
     ];
 
     public function points()
