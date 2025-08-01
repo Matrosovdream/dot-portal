@@ -2,7 +2,7 @@
 namespace App\Repositories\Subscription;
 
 use App\Repositories\AbstractRepo;
-use App\Models\PlanFeeModel;
+use App\Models\PlanFee;
 
 
 class PlanFeeRepo extends AbstractRepo
@@ -16,7 +16,7 @@ class PlanFeeRepo extends AbstractRepo
 
     public function __construct()
     {
-        $this->model = new PlanFeeModel();
+        $this->model = new PlanFee();
 
         //$this->roleRepo = new UserRoleRepo();
     }
