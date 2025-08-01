@@ -54,6 +54,7 @@ class DatabaseSeeder extends Seeder
 
             // Subscriptions
             SubscriptionSeeder::class,
+            PlanFeeSeeder::class,
 
             // Insurances
             InsuranceVehicleSeeder::class,
