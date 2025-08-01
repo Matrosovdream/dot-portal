@@ -29,13 +29,16 @@ class SubscriptionRepo extends AbstractRepo
 
         $res = [
             'id' => $item->id,
+            'slug' => $item->slug,
             'name' => $item->name,
             'price' => $item->price,
+            'price_per_driver' => $item->price_per_driver ?? 0,
+            'drivers_amount_from' => $item->drivers_amount_from,
+            'drivers_amount_to' => $item->drivers_amount_to,
             'discount' => $item->discount,
             'duration' => $item->duration,
             'short_description' => $item->short_description,
             'description' => $item->description,
-            'drivers_amount' => $item->drivers_amount,
             'points' => $this->pointsRepo->mapItems($item->points),
             'Model' => $item
         ];
