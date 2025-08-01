@@ -180,6 +180,15 @@
 
     <div class="d-flex flex-stack mb-4">
         <span class="fs-6 fw-semibold text-gray-700">
+            Amount of drivers:
+        </span>
+        <span class="fs-6 fw-bold text-gray-900">
+            {{ $subscription->drivers_number ?? '' }}  
+        </span>
+    </div>
+
+    <div class="d-flex flex-stack mb-4">
+        <span class="fs-6 fw-semibold text-gray-700">
             Price per driver:
         </span>
         <span class="fs-6 fw-bold text-gray-900">
@@ -195,7 +204,7 @@
         </span>
         <span class="fs-6 fw-bold text-gray-900">
             <span id="registration_fee">
-                $199
+                ${{ $fee_price ?? '' }}
             </span>
         </span>
     </div>
