@@ -8,26 +8,28 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Repositories\Subscription\PlanFeeRepo;
+use App\Repositories\Subscription\SubscriptionRepo;
 
 
 class RegisterUserActions {
 
     private $feeRepo;
+    private $subRepo;
 
     public function __construct()
     {
         $this->feeRepo = new PlanFeeRepo();
-
-
+        $this->subRepo = new SubscriptionRepo();
     }
 
     public function index(): array
     {
 
+        $feePrice = $this->getFeePrice();
+
         if( auth()->check() ) {
             $sub = auth()->user()->subscription ?? null;
-            $feePrice = $this->getFeePrice();
-
+            
             if( $sub ) {
                 $total_price = $sub->price + $feePrice;
             }
@@ -39,6 +41,7 @@ class RegisterUserActions {
             'subscription' => $sub ?? null,
             'total_price' => $total_price ?? 0,
             'fee_price' => $feePrice,
+            'subs' => $this->subRepo->getAll(),
             'steps' => $this->getRegSteps(),
         ];
 
