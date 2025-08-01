@@ -85,34 +85,38 @@
 
 
 <script>
+    const subscriptionTiers = @json($subs['items']);
+</script>
+
+
+
+<script>
 
     function updateSubscriptionSummary(driverCount) {
         const summaryCard = document.getElementById('subscription-summary');
         const description = document.getElementById('subscription-description');
         const total = document.getElementById('subscription-total');
 
-        if (!summaryCard || !description || !total) return;
+        if (!summaryCard || !description || !total || !subscriptionTiers) return;
 
-        let pricePerDriver = 30;
-        let tierLabel = '1–5 drivers';
-        let subscriptionId = 1;
+        let selectedTier = subscriptionTiers.find(tier => {
+            return driverCount >= tier.drivers_amount_from && driverCount <= tier.drivers_amount_to;
+        });
 
-        if (driverCount >= 6 && driverCount <= 10) {
-            pricePerDriver = 25;
-            tierLabel = '6–10 drivers';
-            subscriptionId = 2;
-        } else if (driverCount >= 11) {
-            pricePerDriver = 20;
-            tierLabel = '11+ drivers';
-            subscriptionId = 3;
+        // If no match, use the highest tier
+        if (!selectedTier) {
+            selectedTier = subscriptionTiers[subscriptionTiers.length - 1];
         }
 
+        const pricePerDriver = selectedTier.price_per_driver;
+        const subscriptionId = selectedTier.id;
+        const tierLabel = selectedTier.name;
         const totalPrice = driverCount * pricePerDriver;
 
         // Update visible summary
         description.innerHTML = `
             <span class="text-gray-800">${driverCount} drivers</span> — 
-            <span class="text-muted">${tierLabel} @ $${pricePerDriver} per driver</span>
+            <span class="text-muted">${tierLabel}</span>
         `;
         total.innerText = `Total: $${totalPrice}/month`;
         summaryCard.classList.remove('d-none');
