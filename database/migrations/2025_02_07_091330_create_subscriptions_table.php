@@ -14,12 +14,15 @@ return new class extends Migration
         Schema::create('subscriptions', function (Blueprint $table) {
             $table->id();
             $table->string('name')->nullable();
+            $table->string('slug')->nullable();
             $table->float('price')->default(0);
+            $table->float('price_per_driver')->default(0);
+            $table->integer('drivers_amount_from')->nullable();
+            $table->integer('drivers_amount_to')->nullable();
             $table->float('discount')->default(0);
             $table->string('duration')->nullable();
             $table->text('short_description')->nullable();
             $table->text('description')->nullable();
-            $table->integer('drivers_amount')->nullable();
             $table->timestamps();
         }); 
 
