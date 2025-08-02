@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug')->nullable();
             $table->float('price')->default(0);
             $table->float('price_per_driver')->default(0);
+            $table->boolean('is_custom_price')->default(false);
             $table->integer('drivers_amount_from')->nullable();
             $table->integer('drivers_amount_to')->nullable();
             $table->float('discount')->default(0);
