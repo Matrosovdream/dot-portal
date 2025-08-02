@@ -14,6 +14,7 @@ class Subscription extends Model
         'slug',
         'price',
         'price_per_driver',
+        'is_custom_price',
         'drivers_amount_from',
         'drivers_amount_to',
         'discount',
