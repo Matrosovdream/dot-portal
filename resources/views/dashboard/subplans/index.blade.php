@@ -46,7 +46,11 @@
                                         </a>
                                     </td>
                                     <td class="text-center">
-                                        ${{ $item['price_per_driver'] ?? 0 }}
+                                        @if( $item['is_custom_price'] )
+                                            Custom
+                                        @else   
+                                            ${{ $item['price_per_driver'] ?? 0 }}
+                                        @endif
                                     </td>
                                     <td class="text-center">
                                         {{ implode('-', [$item['drivers_amount_from'], $item['drivers_amount_to']]) }}
