@@ -18,7 +18,12 @@
 
 </div>
 
+
 <input type="hidden" name="is_custom_request" id="is_custom_request" value="false">
+<input type="hidden" name="price_per_driver" id="price_per_driver" value="">
+<input type="hidden" name="subscription_price" id="subscription_price" value="">
+<input type="hidden" name="subscription_id" id="subscription_id" value="">
+
 
 <div class="fv-row">
     <!--begin::Row-->
@@ -127,32 +132,15 @@
     <!--begin::Custom Price Request Form-->
     <div id="custom-price-request-form" class="mt-5 d-none">
 
-        <!--
-        <form method="POST" action="#" id="custom-price-request-form">
-
-            @csrf
-            <input type="hidden" name="drivers_number" id="custom-drivers-number">
-            <input type="hidden" name="trucks_number" id="custom-trucks-number">
-            <input type="hidden" name="company_name" id="custom-company-name">
-        -->
-
-            <label for="custom_request_details" class="form-label fw-semibold">
-                Describe your business needs or add any details
-            </label>
-            <textarea 
-                id="custom_request_details" 
-                name="request_details" 
-                class="form-control" 
-                rows="10" 
-                placeholder="E.g., We operate across 5 states and need scalable pricing..."></textarea>
-
-                <!--
-            <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary">Request Custom Quote</button>
-            </div>
-        -->
-
-        </form>
+        <label for="custom_request_details" class="form-label fw-semibold">
+            Describe your business needs or add any details
+        </label>
+        <textarea 
+            id="custom_request_details" 
+            name="request_details" 
+            class="form-control {{ $errors->has('request_details') ? 'is-invalid' : '' }}" 
+            rows="10" 
+            placeholder="E.g., We operate across 5 states and need scalable pricing..."></textarea>
 
     </div>
     <!--end::Custom Price Request Form-->
