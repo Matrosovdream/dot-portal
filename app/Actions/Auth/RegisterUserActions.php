@@ -278,8 +278,34 @@ class RegisterUserActions {
         $user->reg_step = 'company';
         $user->save();
 
+        
+
+        // If custom request is made
+        if( 
+            $request->has('is_custom_request') && 
+            $request->is_custom_request == 'true' 
+            ) {
+            $res = $this->storeCustomRequest( $request );
+        }
+
         return [
             'result' => true,
+            'next_page' => route('register', ['step' => 'payment'])
+        ];
+    }
+
+    private function storeCustomRequest( $request )
+    {
+        $request->validate([
+            'request_details' => ['required', 'string', 'max:10000'],
+        ]);
+
+        dd($request->all());
+
+        // Example response
+        return [
+            'result' => true,
+            'message' => 'Custom request submitted successfully.',
             'next_page' => route('register', ['step' => 'payment'])
         ];
     }
