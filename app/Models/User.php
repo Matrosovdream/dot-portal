@@ -108,6 +108,18 @@ class User extends Authenticatable
         return $this->hasOne(Driver::class);
     }
 
+    // User subscription custom requests
+    public function subRequests()
+    {
+        return $this->hasMany(SubscriptionCustomRequest::class, 'user_id');
+    }
+
+    // User subscription custom request, take the first one
+    public function subRequest()
+    {
+        return $this->hasOne(SubscriptionCustomRequest::class, 'user_id')->latest();
+    }
+
     // Check if user has role admin
     public function isAdmin()
     {
