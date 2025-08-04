@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use App\Repositories\Subscription\PlanFeeRepo;
 use App\Repositories\Subscription\SubscriptionRepo;
+use App\Repositories\Subscription\SubscriptionRequestRepo;
 use App\Services\Payments\PaymentCardService;
 use App\Services\Payments\PaymentService;
 
@@ -17,6 +18,7 @@ class RegisterUserActions {
 
     private $feeRepo;
     private $subRepo;
+    private $subRequestRepo;
     private $cardService;
     private $paymentService;
 
@@ -24,6 +26,7 @@ class RegisterUserActions {
     {
         $this->feeRepo = new PlanFeeRepo();
         $this->subRepo = new SubscriptionRepo();
+        $this->subRequestRepo = new SubscriptionRequestRepo;
         $this->cardService = new PaymentCardService();
         $this->paymentService = new PaymentService();
     }
@@ -278,8 +281,6 @@ class RegisterUserActions {
         $user->reg_step = 'company';
         $user->save();
 
-        
-
         // If custom request is made
         if( 
             $request->has('is_custom_request') && 
@@ -300,14 +301,17 @@ class RegisterUserActions {
             'request_details' => ['required', 'string', 'max:10000'],
         ]);
 
-        dd($request->all());
+        $user = auth()->user()->refresh();
 
-        // Example response
-        return [
-            'result' => true,
-            'message' => 'Custom request submitted successfully.',
-            'next_page' => route('register', ['step' => 'payment'])
-        ];
+        $this->subRequestRepo->sync([
+            'user_id' => auth()->id(),
+            'subscription_id' => $request->subscription_id ?? null,
+            'user_subscription_id' => $user->subscription->id ?? null,
+            'request_details' => $request->request_details,
+            'status_id' => 1, // Pending status
+        ]); 
+
+        return true;
     }
 
     public function retrieveUsdot($request): array
