@@ -140,7 +140,7 @@
             name="request_details" 
             class="form-control {{ $errors->has('request_details') ? 'is-invalid' : '' }}" 
             rows="10" 
-            placeholder="E.g., We operate across 5 states and need scalable pricing..."></textarea>
+            placeholder="E.g., We operate across 5 states and need scalable pricing...">{{ $subRequest->request_details }}</textarea>
 
     </div>
     <!--end::Custom Price Request Form-->

@@ -51,6 +51,7 @@ class RegisterUserActions {
             'total_price' => $total_price ?? 0,
             'fee_price' => $feePrice,
             'subs' => $this->subRepo->getAll(),
+            'subRequest' => auth()->check() ? auth()->user()->subRequest : null,
             'steps' => $this->getRegSteps(),
         ];
 
