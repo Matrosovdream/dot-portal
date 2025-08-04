@@ -91,13 +91,26 @@
 
 
 <script>
-
     function updateSubscriptionSummary(driverCount) {
         const summaryCard = document.getElementById('subscription-summary');
         const description = document.getElementById('subscription-description');
         const total = document.getElementById('subscription-total');
+        const customForm = document.getElementById('custom-price-request-form');
 
-        if (!summaryCard || !description || !total || !subscriptionTiers) return;
+        const btnContinue = document.getElementById('btn-continue');
+        const btnCustomRequest = document.getElementById('btn-custom-request');
+        const inputIsCustom = document.getElementById('is_custom_request');
+
+        if (
+            !summaryCard || 
+            !description || 
+            !total || 
+            !customForm || 
+            !btnContinue || 
+            !btnCustomRequest || 
+            !inputIsCustom || 
+            !subscriptionTiers
+        ) return;
 
         let selectedTier = subscriptionTiers.find(tier => {
             return driverCount >= tier.drivers_amount_from && driverCount <= tier.drivers_amount_to;
@@ -108,28 +121,47 @@
             selectedTier = subscriptionTiers[subscriptionTiers.length - 1];
         }
 
-        const pricePerDriver = selectedTier.price_per_driver;
-        const subscriptionId = selectedTier.id;
-        const tierLabel = selectedTier.name;
-        const totalPrice = driverCount * pricePerDriver;
+        const { price_per_driver, id, name, is_custom_price } = selectedTier;
+        const totalPrice = driverCount * price_per_driver;
 
-        // Update visible summary
-        description.innerHTML = `
-            <span class="text-gray-800">${driverCount} drivers</span> — 
-            <span class="text-muted">${tierLabel}</span>
-        `;
-        total.innerText = `Total: $${totalPrice}/month`;
+        if (is_custom_price) {
+            // Show custom request UI
+            description.innerHTML = `
+                <span class="text-gray-800">${driverCount} drivers</span> — 
+                <span class="text-muted">${name}</span>
+            `;
+            total.innerHTML = `<span class="text-danger">Price by request</span>`;
+            customForm.classList.remove('d-none');
+
+            // Show request button, hide continue button
+            btnCustomRequest.classList.remove('d-none');
+            btnContinue.classList.add('d-none');
+
+            inputIsCustom.value = 'true';
+        } else {
+            description.innerHTML = `
+                <span class="text-gray-800">${driverCount} drivers</span> — 
+                <span class="text-muted">${name}</span>
+            `;
+            total.innerText = `Total: $${totalPrice}/month`;
+            customForm.classList.add('d-none');
+
+            // Show continue button, hide request button
+            btnCustomRequest.classList.add('d-none');
+            btnContinue.classList.remove('d-none');
+
+            inputIsCustom.value = 'false';
+        }
+
         summaryCard.classList.remove('d-none');
 
         // Update hidden inputs
-        document.getElementById('price_per_driver').value = pricePerDriver;
-        document.getElementById('subscription_price').value = totalPrice;
-        document.getElementById('subscription_id').value = subscriptionId;
+        document.getElementById('price_per_driver').value = price_per_driver;
+        document.getElementById('subscription_price').value = is_custom_price ? '' : totalPrice;
+        document.getElementById('subscription_id').value = id;
     }
 
-
-
-    // Update subscription on slider change
+    // Hook into slider update
     sliderDrivers.noUiSlider.on("update", function (values) {
         const val = Math.round(values[0]);
         sliderDriversValue.innerHTML = val + ' drivers';
@@ -137,8 +169,6 @@
 
         updateSubscriptionSummary(val);
     });
-
-
 </script>
 
 
