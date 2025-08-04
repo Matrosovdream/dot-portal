@@ -44,6 +44,8 @@ class RegisterUserActions {
             }
         }
 
+        $subRequest = auth()->check() ? auth()->user()->subRequest : null;
+
         return [
             'title' => 'Register',
             'description' => 'Create a new account to access the DOT Portal.',
@@ -51,7 +53,7 @@ class RegisterUserActions {
             'total_price' => $total_price ?? 0,
             'fee_price' => $feePrice,
             'subs' => $this->subRepo->getAll(),
-            'subRequest' => auth()->check() ? auth()->user()->subRequest : null,
+            'subRequest' => $subRequest,
             'steps' => $this->getRegSteps(),
         ];
 
