@@ -30,6 +30,14 @@ class SubscriptionRequestRepo extends AbstractRepo
 
     }
 
+    public function sync(array $data)
+    {
+        return $this->model->updateOrCreate(
+            ['user_subscription_id' => $data['user_subscription_id']],
+            $data
+        );
+    }
+
     public function mapItem($item)
     {
 
