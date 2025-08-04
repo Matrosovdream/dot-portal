@@ -59,7 +59,21 @@ class SubscriptionSeeder extends Seeder
                     [ 'title' => 'Unlimited Active Drivers', 'included' => 1 ],
                     [ 'title' => 'Request section for free', 'included' => 1 ]
                 ]
-            ]   
+            ],
+            [
+                'name' => '100+ Drivers (custom price)',
+                'slug' => '100-plus-drivers',
+                'price_per_driver' => 0.00,
+                'is_custom_price' => true,
+                'drivers_amount_from' => 101,
+                'drivers_amount_to' => 100000,
+                'short_description' => 'Custom subscription for your needs',
+                'description' => 'Create a custom subscription based on your requirements',
+                'points' => [
+                    [ 'title' => 'Custom Active Drivers', 'included' => 1 ],
+                    [ 'title' => 'Request section for free', 'included' => 1 ]
+                ]
+            ]
         ];
         
         foreach ($subs as $item) {
