@@ -18,6 +18,8 @@
 
 </div>
 
+<input type="hidden" name="is_custom_request" id="is_custom_request" value="false">
+
 <div class="fv-row">
     <!--begin::Row-->
     <div class="row">
@@ -122,23 +124,59 @@
     </div>
     <!--end::Subscription Summary-->
 
-    <input type="hidden" name="price_per_driver" id="price_per_driver">
-    <input type="hidden" name="subscription_price" id="subscription_price">
-    <input type="hidden" name="subscription_id" id="subscription_id">
+    <!--begin::Custom Price Request Form-->
+    <div id="custom-price-request-form" class="mt-5 d-none">
 
+        <!--
+        <form method="POST" action="#" id="custom-price-request-form">
+
+            @csrf
+            <input type="hidden" name="drivers_number" id="custom-drivers-number">
+            <input type="hidden" name="trucks_number" id="custom-trucks-number">
+            <input type="hidden" name="company_name" id="custom-company-name">
+        -->
+
+            <label for="custom_request_details" class="form-label fw-semibold">
+                Describe your business needs or add any details
+            </label>
+            <textarea 
+                id="custom_request_details" 
+                name="request_details" 
+                class="form-control" 
+                rows="10" 
+                placeholder="E.g., We operate across 5 states and need scalable pricing..."></textarea>
+
+                <!--
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary">Request Custom Quote</button>
+            </div>
+        -->
+
+        </form>
+
+    </div>
+    <!--end::Custom Price Request Form-->
 
 </div>
 <!--end::Input group-->
 
-<div class="d-flex flex-stack pt-15">
+<div class="d-flex flex-stack pt-15 submit-block">
     <div class="mr-2">
         <a href="{{ route('register', ['step' => 'account']) }}" class="btn btn-lg btn-primary">
             <span class="indicator-label">Back</span>
         </a>
     </div>
     <div>
-        
-        <button type="submit" class="btn btn-lg btn-primary" data-kt-stepper-action="next">Continue 
+        <button type="submit" id="btn-continue" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
+            Continue 
+            <i class="ki-duotone ki-arrow-right fs-4 ms-1">
+                <span class="path1"></span>
+                <span class="path2"></span>
+            </i>
+        </button>
+
+        <button type="submit" id="btn-custom-request" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">
+            Request Custom Quote
             <i class="ki-duotone ki-arrow-right fs-4 ms-1">
                 <span class="path1"></span>
                 <span class="path2"></span>
@@ -146,5 +184,6 @@
         </button>
     </div>
 </div>
+
 
 
