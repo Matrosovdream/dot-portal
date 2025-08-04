@@ -49,7 +49,18 @@ return new class extends Migration
             $table->timestamps();
         });
 
-    }
+        // Subscription custom requests
+        Schema::create('subscription_custom_requests', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->on('users');
+            $table->foreignId('subscription_id')->on('subscriptions')->nullable();
+            $table->foreignId('user_subscription_id')->on('user_subscription')->nullable();
+            $table->text('request_details')->nullable();
+            $table->integer('status_id')->default(1);
+            $table->timestamps();
+        });
+
+    }   
 
     /**
      * Reverse the migrations.
@@ -59,5 +70,6 @@ return new class extends Migration
         Schema::dropIfExists('subscriptions');
         Schema::dropIfExists('subscription_points');
         Schema::dropIfExists('plan_fees');
+        Schema::dropIfExists('subscription_custom_requests');
     }
 };
