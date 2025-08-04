@@ -73,6 +73,23 @@
                             </div>
 
                             <div class="fv-row mb-7">
+                                <label class="fs-6 fw-semibold mb-2">Custom price</label>
+                                <div class="form-check form-switch form-check-custom form-check-solid">
+                                    <input 
+                                        class="form-check-input" 
+                                        type="checkbox" 
+                                        id="custom_price_checkbox" 
+                                        name="is_custom_price"
+                                        value="1"
+                                        {{ old('is_custom_price', $plan['is_custom_price'] ?? false) ? 'checked' : '' }}
+                                    />
+                                    <label class="form-check-label" for="custom_price_checkbox">
+                                        Enable custom price
+                                    </label>
+                                </div>
+                            </div>                                                      
+
+                            <div id="price_per_driver_wrapper" class="fv-row mb-7">
                                 <label class="fs-6 fw-semibold mb-2 required">Price per driver</label>
                                 <input 
                                     type="number" 
@@ -80,9 +97,8 @@
                                     value="{{ $plan['price_per_driver'] ?? old('price_per_driver') }}" 
                                     class="form-control form-control-solid" 
                                     placeholder="" 
-                                    />
-                                
-                            </div>
+                                />
+                            </div>                            
 
                             <div class="fv-row mb-7">
                                 <label class="fs-6 fw-semibold mb-2 required">Driver's amount from</label>
@@ -138,5 +154,25 @@
     </div>
 
 </form>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const checkbox = document.getElementById('custom_price_checkbox');
+        const priceWrapper = document.getElementById('price_per_driver_wrapper');
+
+        function togglePriceField() {
+            if (checkbox.checked) {
+                priceWrapper.style.display = 'none'; // Hide if custom price is enabled
+            } else {
+                priceWrapper.style.display = 'block'; // Show otherwise
+            }
+        }
+
+        checkbox.addEventListener('change', togglePriceField);
+        togglePriceField(); // Initialize on page load
+    });
+</script>
+
 
 @endsection
