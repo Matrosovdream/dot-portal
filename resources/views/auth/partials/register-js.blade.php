@@ -5,7 +5,7 @@
     const hiddenInput = document.querySelector("#trucks_number");
 
     noUiSlider.create(sliderTrucks, {
-        start: [{{ auth()->user()->company->trucks_number ?? old('trucks_number') }}],
+        start: [{{ auth()->user()->company->trucks_number ?? old('trucks_number', 1) }}],
         connect: [true, false],
         range: {
             min: 1,
