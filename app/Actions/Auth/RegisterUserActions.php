@@ -224,7 +224,7 @@ class RegisterUserActions {
             'phone' => $request->phone,
             'email' => $request->email,
             'is_active' => false,
-            'reg_step' => 'account',
+            'reg_step' => 'company',
             'password' => Hash::make($request->password),
         ]);
 
@@ -281,7 +281,7 @@ class RegisterUserActions {
         ]);
 
         // Update user registration step
-        $user->reg_step = 'company';
+        $user->reg_step = 'payment';
         $user->save();
 
         // If custom request is made
