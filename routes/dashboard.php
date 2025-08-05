@@ -194,6 +194,7 @@ Route::group([
             Route::get('{req_id}', [SubRequestsController::class, 'show'])->name('show');
             Route::post('{req_id}', [SubRequestsController::class, 'update'])->name('update');
             Route::delete('{req_id}', [SubRequestsController::class, 'destroy'])->name('destroy');
+            Route::post('{req_id}/send-email', [SubRequestsController::class, 'sendEmail'])->name('send.email');
         });
 
 

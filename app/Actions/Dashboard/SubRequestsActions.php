@@ -78,6 +78,20 @@ class SubRequestsActions {
         ];
     }
 
+    public function sendEmail($req_id)
+    {
+        $req = $this->reqRepo->getByID($req_id);
+
+        if (!$req) {
+            abort(404, 'Request not found');
+        }
+
+        dd($req);
+
+        // Assuming the email was sent successfully
+        return true; // Or return some response indicating success
+    }
+
     private function getStatuses() {
 
         return [
