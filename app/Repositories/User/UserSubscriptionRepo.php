@@ -54,15 +54,24 @@ class UserSubscriptionRepo extends AbstractRepo
             //'payments' => $this->subscriptionPaymentRepo->mapItems( $item->payments->all() ),
         ];
 
+        $driversNumber = $item->drivers_number ?? 0;
+
+        // Drivers remained and used
+        $res['driversUsed'] = $this->driverRepo->countDriversByCompany( auth()->user()->id );
+        $res['driversRemained'] = $driversNumber - $res['driversUsed'];
+
+        /*
         if( 
             $res['subscription'] &&
             isset($res['subscription']['drivers_amount']) &&
             $res['subscription']['drivers_amount'] > 0
             ) {
+                
             // Drivers remained and used
             $res['driversUsed'] = $this->driverRepo->countDriversByCompany( auth()->user()->id );
-            $res['driversRemained'] = $res['subscription']['drivers_amount'] - $res['driversUsed'];
+            $res['driversRemained'] = $driversNumber - $res['driversUsed'];
         }
+            */
 
         $res['Model'] = $item;
 
