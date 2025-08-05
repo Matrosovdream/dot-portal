@@ -44,6 +44,8 @@ class UserSubscriptionRepo extends AbstractRepo
             'id' => $item->id,
             'subscription' => $subscription, // Can be null
             'price' => $item->price,
+            'price_per_driver' => $item->price_per_driver,
+            'drivers_number' => $item->drivers_number,
             'discount' => $item->discount,
             'start_date' => $item->start_date,
             'end_date' => $item->end_date,
