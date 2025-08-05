@@ -20,9 +20,31 @@
                     <div class="separator separator-dashed mb-5"></div>
 
                     <div class="d-flex flex-column mb-7">
-                        <label class="fs-6 fw-semibold mb-2">Client's request</label>
-                        <div class="fw-bold fs-6 text-gray-600">{{ $req['request_details'] }}</div>  
+                        <label class="fs-6 fw-semibold mb-2">Status</label>
+                        <div class="fw-bold fs-6 text-gray-600">
+                            <b>
+                                {{ $statuses[ $req['status_id'] ] ?? '' }}    
+                            </b>
+                        </div>  
                     </div>
+
+                    <div class="d-flex flex-column mb-7">
+                        <label class="fs-6 fw-semibold mb-2">Client's request</label>
+                        <div class="fw-bold fs-6 text-gray-600">
+                            {{ $req['request_details'] }}
+                        </div>  
+                    </div>
+
+                    @if( $req['status_id'] == 2 ) 
+
+                        <div class="d-flex flex-column mb-7">
+                            <label class="fs-6 fw-semibold mb-2">Do we email the user?</label>
+                            <a href="http://127.0.0.1:8000/dashboard/servicefields/create" class="btn btn-sm fw-bold btn-primary">
+                                Send email
+                            </a>
+                        </div>
+
+                    @endif
 
                 </div>
 
