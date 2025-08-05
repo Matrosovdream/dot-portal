@@ -31,7 +31,7 @@ use App\Http\Controllers\Dashboard\SubRequestsController;
 Route::group([
     'prefix' => 'dashboard',
     'as' => 'dashboard.',
-    'middleware' => ['auth']
+    'middleware' => ['auth', 'user.isActive']
 ], function () {
 
     // Home dashboard
