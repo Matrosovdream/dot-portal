@@ -14,7 +14,7 @@
 
                     <div class="fs-5 mb-2">
                         <span class="text-gray-800 fw-bold me-1">
-                            ${{ $subscription['subscription']['price'] }}
+                            ${{ $subscription['price'] }}
                         </span>
                         <span class="text-gray-600 fw-semibold">
                             @if($subscription['subscription']['duration'] == 'monthly')
@@ -34,7 +34,7 @@
                     <div class="d-flex text-muted fw-bold fs-5 mb-3">
                         <span class="flex-grow-1 text-gray-800">Drivers</span>
                         <span class="text-gray-800">
-                            {{ $subscription['driversUsed'] }} of {{ $subscription['subscription']['drivers_amount'] }} Used
+                            {{ $subscription['driversUsed'] }} of {{ $subscription['drivers_number'] }} Used
                         </span>
                     </div>
 

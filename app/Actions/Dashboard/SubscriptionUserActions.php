@@ -56,7 +56,7 @@ class SubscriptionUserActions
         if ($subscription['subscription']) {
 
             // Calculate percent of used drivers
-            $data['subscription']['driversUsedPercent'] = round($data['subscription']['driversUsed'] / $data['subscription']['subscription']['drivers_amount'] * 100, 2);
+            $data['subscription']['driversUsedPercent'] = round($subscription['driversUsed'] / $subscription['drivers_number'] * 100, 2);
             $data['subscription']['refundSum'] = $this->getCancelRefundSum() ?? 0.00;
 
         }
