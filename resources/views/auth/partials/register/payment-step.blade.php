@@ -1,4 +1,7 @@
-@if( isset( $subRequest ) ) 
+@if( 
+    isset( $subRequest ) &&
+    $subRequest->status_id != 2
+    ) 
 
     @include('auth.partials.register.payment-custom-step')
 
