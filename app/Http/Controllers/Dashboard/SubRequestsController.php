@@ -37,4 +37,12 @@ class SubRequestsController extends Controller
         }
     }
 
+    public function sendEmail($req_id)
+    {
+        $res = $this->actions->sendEmail($req_id); 
+        if( $res ) {
+            return redirect()->route('dashboard.subrequests.show', $req_id);
+        }
+    }
+
 }
