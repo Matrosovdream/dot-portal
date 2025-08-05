@@ -7,7 +7,9 @@
 @section('content')
 
     <!-- Registration Payment Section -->
+    @php /*
     @include('dashboard.subscription.sections.registration-payment')
+    */ @endphp
 
     <!-- Preview -->
     @include('dashboard.subscription.sections.preview')
