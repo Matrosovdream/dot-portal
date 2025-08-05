@@ -95,6 +95,13 @@ class AdminMenu implements InterfaceMenu {
                         'route' => 'dashboard.subplans.index',
                         'roles' => ['admin', 'manager'],
                     ),
+                    // Custom subscription requests
+                    array(
+                        'title' => 'Custom requests',
+                        'url' => route('dashboard.subrequests.index'),
+                        'route' => 'dashboard.subrequests.index',
+                        'roles' => ['admin', 'manager'],
+                    ),
                 ),
             ),
             array(
