@@ -45,13 +45,9 @@
                                     </td>
 
                                     <td class="text-center">
-                                        @if($item['status_id'] == 1)
-                                            <span class="badge badge-light-warning">Pending</span>
-                                        @elseif($item['status_id'] == 'approved')
-                                            <span class="badge badge-light-success">Approved</span>
-                                        @elseif($item['status_id'] == 'rejected')
-                                            <span class="badge badge-light-danger">Rejected</span>
-                                        @endif
+                                        <b>
+                                            {{ $statuses[ $item['status_id'] ] ?? '' }}
+                                        </b>
                                     </td>
   
                                     <td class="text-end">
