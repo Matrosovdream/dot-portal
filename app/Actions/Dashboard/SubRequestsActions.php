@@ -19,6 +19,7 @@ class SubRequestsActions {
         return [
             'title' => 'Subscription Custom Requests',
             'requests' => $this->reqRepo->getAll(),
+            'statuses' => $this->getStatuses(),
         ];
     }
 
