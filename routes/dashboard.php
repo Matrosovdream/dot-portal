@@ -24,6 +24,9 @@ use App\Http\Controllers\Dashboard\SearchController;
 use App\Http\Controllers\Dashboard\SaferwebController;
 use App\Http\Controllers\Dashboard\PlanFeesController;
 use App\Http\Controllers\Dashboard\SubPlansController;
+use App\Http\Controllers\Dashboard\SubRequestsController;
+
+
 
 Route::group([
     'prefix' => 'dashboard',
@@ -181,6 +184,16 @@ Route::group([
             Route::get('{plan_id}', [SubPlansController::class, 'show'])->name('show');
             Route::post('{plan_id}', [SubPlansController::class, 'update'])->name('update');
             Route::delete('{plan_id}', [SubPlansController::class, 'destroy'])->name('destroy');
+        });
+
+        // Custom subscription requests
+        Route::prefix('sub-requests')->name('subrequests.')->group(function () {
+            Route::get('/', [SubRequestsController::class, 'index'])->name('index');
+            Route::get('create', [SubRequestsController::class, 'create'])->name('create');
+            Route::post('/', [SubRequestsController::class, 'store'])->name('store');
+            Route::get('{req_id}', [SubRequestsController::class, 'show'])->name('show');
+            Route::post('{req_id}', [SubRequestsController::class, 'update'])->name('update');
+            Route::delete('{req_id}', [SubRequestsController::class, 'destroy'])->name('destroy');
         });
 
 
