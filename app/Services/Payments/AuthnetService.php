@@ -1,0 +1,93 @@
+<?php
+
+namespace App\Services\Payments;
+
+use App\Contracts\Payment\PaymentInterface;
+use App\Mixins\Gateways\AuthnetGateway;
+
+class AuthnetService implements PaymentInterface
+{
+    private $processor;
+    private $cardService;
+
+    public function __construct() {
+
+        $this->processor = new AuthnetGateway();
+        $this->cardService = new PaymentCardService();
+
+    }
+
+    public function chargeCustomerWithProfile($user_id, $total, $currency="USD", $description=null): array {
+
+        // Get the user's primary payment card
+        $card = $this->cardService->getUserPrimaryCard($user_id);
+
+        if (!$card) {
+            return ['error' => 'No primary payment card found for user.'];
+        }
+
+        $paymentRes = $this->processor->chargeCustomerProfile(
+            $card['customerProfileId'],
+            $card['paymentProfileId'],
+            $total,
+        );
+
+        if (!$paymentRes['success']) {
+            $res = [
+                'success' => false,
+                'message' => $paymentRes['message'] ?? 'Payment processing failed.',
+            ];
+        } else {
+
+            $res = [
+                'success' => true,
+                'message' => $paymentRes['message'] ?? 'Payment processing failed.',
+                'transaction_id' => $paymentRes['transactionId'] ?? null,
+            ];
+
+        }
+
+        $res['card'] = $card;
+
+        return $res;
+
+    }
+
+    public function chargeCustomerWithCard($user_id, $amount, $currency = 'USD', $description = null, $cardDetails = []): array
+    {
+
+        $user = auth()->user();
+
+        if (!$user) {
+            return ['error' => 'User not authenticated.'];
+        }
+
+        // Validate card details
+        if (empty($cardDetails) || !isset($cardDetails['card_number'])) {
+            return ['error' => 'Invalid card details provided.'];
+        }
+
+        $cardDetails['email'] = $user->email;
+        
+        $paymentRes = $this->processor->chargeCustomerCard(
+            $cardDetails,
+            $amount,
+            $description
+        );
+
+        if (!$paymentRes['success']) {
+            return [
+                'success' => false,
+                'message' => $paymentRes['message'] ?? 'Payment processing failed.',
+            ];
+        }
+
+        return [
+            'success' => true,
+            'message' => $paymentRes['message'] ?? 'Payment processed successfully.',
+            'transaction_id' => $paymentRes['transactionId'] ?? null,
+        ];
+
+    }
+
+}
