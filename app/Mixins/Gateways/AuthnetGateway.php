@@ -428,6 +428,52 @@ class AuthnetGateway
         return $results;
     }
 
+    public function chargeCustomerCard(array $cardData, float $amount, ?string $description = null): array
+    {
+        $creditCard = new AnetAPI\CreditCardType();
+        $creditCard->setCardNumber($this->prepareCardNumber($cardData['card_number']));
+        $creditCard->setExpirationDate(
+            $cardData['card_expiry_year'] . '-' . str_pad($cardData['card_expiry_month'], 2, '0', STR_PAD_LEFT)
+        );
+        $creditCard->setCardCode($cardData['card_cvv']);
+
+        $payment = new AnetAPI\PaymentType();
+        $payment->setCreditCard($creditCard);
+
+        $billTo = new AnetAPI\CustomerAddressType();
+        $billTo->setFirstName($cardData['first_name'] ?? '');
+        $billTo->setLastName($cardData['last_name'] ?? '');
+        $billTo->setEmail($cardData['email'] ?? null);
+
+        $transactionRequest = new AnetAPI\TransactionRequestType();
+        $transactionRequest->setTransactionType("authCaptureTransaction");
+        $transactionRequest->setAmount($amount);
+        $transactionRequest->setPayment($payment);
+        $transactionRequest->setBillTo($billTo);
+
+        if ($description) {
+            $order = new AnetAPI\OrderType();
+            $order->setDescription($description);
+            $transactionRequest->setOrder($order);
+        }
+
+        $request = new AnetAPI\CreateTransactionRequest();
+        $request->setMerchantAuthentication($this->merchantAuthentication);
+        $request->setTransactionRequest($transactionRequest);
+
+        $controller = new AnetController\CreateTransactionController($request);
+        $response = $controller->executeWithApiResponse($this->environment);
+
+        if ($response && $response->getMessages()->getResultCode() === "Ok") {
+            return [
+                'success' => true,
+                'transactionId' => $response->getTransactionResponse()->getTransId()
+            ];
+        }
+
+        return $this->prepareResponseError($response);
+    }
+
 
     private function prepareResponseError(object $response): array
     {
