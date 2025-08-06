@@ -11,7 +11,9 @@ use App\View\Components\Dashboard\Layout\SidebarMenu;
 use App\View\Components\Dashboard\Layout\TopbarNotifications;
 use App\View\Components\Dashboard\Layout\TopbarSearch;
 use App\Services\Mail\MailgunService;
+use App\Contracts\Saferweb\SaferwebInterface;
 use App\Contracts\Mail\MailServiceInterface;
+use App\Services\Saferweb\GovernApiService;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -43,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
 
         // Services binding
         $this->app->bind(MailServiceInterface::class, MailgunService::class);
+        $this->app->bind(SaferwebInterface::class, GovernApiService::class);
 
     }
 
