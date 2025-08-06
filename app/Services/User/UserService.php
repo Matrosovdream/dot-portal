@@ -3,6 +3,7 @@
 namespace App\Services\User;
 
 use App\Contracts\Mail\MailServiceInterface;
+use Illuminate\Support\Facades\Auth;
 
 class UserService {
 
@@ -47,6 +48,28 @@ class UserService {
             $template, 
             $variables
         );
+    }
+
+    public function removeCurrentUser() {
+
+        if( auth()->check() ) {
+
+            $user = Auth::user();
+
+            // Delete user account
+            $user->delete();
+
+            // Log out the user
+            Auth::logout();
+
+            // Invalidate the session
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+
+            return true;
+
+        }
+
     }
 
 
