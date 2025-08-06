@@ -11,9 +11,9 @@ use App\Repositories\Subscription\PlanFeeRepo;
 use App\Repositories\Subscription\SubscriptionRepo;
 use App\Repositories\Subscription\SubscriptionRequestRepo;
 use App\Services\Payments\PaymentCardService;
-use App\Services\Payments\PaymentService;
 use App\Services\User\UserService;
 use App\Contracts\Saferweb\SaferwebInterface;
+use App\Contracts\Payment\PaymentInterface;
 
 
 class RegisterUserActions {
@@ -23,7 +23,7 @@ class RegisterUserActions {
         protected SubscriptionRepo $subRepo,
         protected SubscriptionRequestRepo $subRequestRepo,
         protected PaymentCardService $cardService,
-        protected PaymentService $paymentService,
+        protected PaymentInterface $paymentService,
         protected UserService $userService,
         protected SaferwebInterface $saferweb
     )
@@ -102,47 +102,16 @@ class RegisterUserActions {
             'card_cvv' => ['required', 'string', 'max:4'],
         ]);
 
-        $user = auth()->user();
-        $subscription = $user->subscription ?? null;
-
         if( $request->has('save_card') ) {
-
-            $primaryCard = $this->cardService->getUserPrimaryCard( $user->id );
-
-            if( !$primaryCard ) {
-                
-                $cardData = $request->only([
-                    'card_name',
-                    'first_name',
-                    'last_name',
-                    'card_number',
-                    'card_expiry_month',
-                    'card_expiry_year',
-                    'card_cvv'
-                ]);
-                $this->cardService->storeCard($cardData);
-
-                $primaryCard = $this->cardService->getUserPrimaryCard( $user->id );
-                
-            }
-
-            $totalPrice = $this->getTotalPrice();
-            
-            if( $primaryCard ) {
-                
-                $paymentRes = $this->paymentService->chargeCustomerWithProfile(
-                    $user->id,
-                    $totalPrice
-                );
-
-            }
-
-        } 
+            $paymentRes = $this->storePaymentSavedCard($request);
+        } else {
+            $paymentRes = $this->storePaymentNotSave($request);
+        }
 
         if( $paymentRes['success'] ) {
 
             // Activate the subscription
-            $this->userService->activateAccount( $user );
+            $this->userService->activateAccount( auth()->user() );
 
             return [
                 'result' => true,
@@ -152,6 +121,68 @@ class RegisterUserActions {
         }
 
     }    
+
+    private function storePaymentNotSave( $request ) {
+
+        $user = auth()->user();
+
+        $cardData = $request->only([
+            'card_name',
+            'first_name',
+            'last_name',
+            'card_number',
+            'card_expiry_month',
+            'card_expiry_year',
+            'card_cvv'
+        ]);
+
+        $paymentRes = $this->paymentService->chargeCustomerWithCard(
+            $user->id,
+            $this->getTotalPrice(),
+            'USD',
+            null,
+            $cardData
+        );
+
+        return $paymentRes;
+
+    }    
+
+    private function storePaymentSavedCard($request) {
+
+        $user = auth()->user();
+
+        $primaryCard = $this->cardService->getUserPrimaryCard( $user->id );
+
+        if( !$primaryCard ) {
+            
+            $cardData = $request->only([
+                'card_name',
+                'first_name',
+                'last_name',
+                'card_number',
+                'card_expiry_month',
+                'card_expiry_year',
+                'card_cvv'
+            ]);
+            $this->cardService->storeCard($cardData);
+
+            $primaryCard = $this->cardService->getUserPrimaryCard( $user->id );
+            
+        }
+
+        if( $primaryCard ) {
+            
+            $paymentRes = $this->paymentService->chargeCustomerWithProfile(
+                $user->id,
+                $this->getTotalPrice()
+            );
+
+        }
+
+        return $paymentRes;
+
+    }
 
     private function storeAccount($request)
     {
