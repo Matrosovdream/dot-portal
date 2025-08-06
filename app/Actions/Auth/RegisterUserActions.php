@@ -12,27 +12,20 @@ use App\Repositories\Subscription\SubscriptionRepo;
 use App\Repositories\Subscription\SubscriptionRequestRepo;
 use App\Services\Payments\PaymentCardService;
 use App\Services\Payments\PaymentService;
-use App\Contracts\Mail\MailServiceInterface;
+use App\Services\User\UserService;
 
 
 class RegisterUserActions {
 
-    private $feeRepo;
-    private $subRepo;
-    private $subRequestRepo;
-    private $cardService;
-    private $paymentService;
-
     public function __construct(
-        protected MailServiceInterface $mailService
+        protected PlanFeeRepo $feeRepo,
+        protected SubscriptionRepo $subRepo,
+        protected SubscriptionRequestRepo $subRequestRepo,
+        protected PaymentCardService $cardService,
+        protected PaymentService $paymentService,
+        protected UserService $userService
     )
-    {
-        $this->feeRepo = new PlanFeeRepo();
-        $this->subRepo = new SubscriptionRepo();
-        $this->subRequestRepo = new SubscriptionRequestRepo;
-        $this->cardService = new PaymentCardService();
-        $this->paymentService = new PaymentService();
-    }
+    {}
 
     public function index(): array
     {
@@ -163,7 +156,7 @@ class RegisterUserActions {
         if( $paymentRes['success'] ) {
 
             // Activate the subscription
-            $this->activateAccount( $user );
+            $this->userService->activateAccount( $user );
 
             return [
                 'result' => true,
@@ -389,45 +382,6 @@ class RegisterUserActions {
         }
 
         return $feePrice;
-    }
-
-    private function activateAccount( $user )
-    {
-        $user->subscription()->update([
-            'status' => 'active',
-        ]);
-
-        // Update user registration step and status
-        $user->reg_step = null;
-        $user->is_active = true;
-        $user->save();
-
-        return true;
-    }
-
-    private function sendWelcomeEmail()
-    {
-        $user = auth()->user();
-
-        if( !$user ) {
-            return false;
-        }
-
-        $template = 'welcome-company';
-        $variables = [
-            'firstname' => $user->firstname,
-            'login_url' => route('login'),
-        ];
-
-        $user->email = 'matrosovdream@gmail.com';
-
-        // Send email using MailgunService
-        return $this->mailService->sendTemplate(
-            $user->email, 
-            'Welcome to DOT Portal!',
-            $template, 
-            $variables
-        );
     }
 
 }
