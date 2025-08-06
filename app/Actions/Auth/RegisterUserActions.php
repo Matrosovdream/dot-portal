@@ -13,6 +13,7 @@ use App\Repositories\Subscription\SubscriptionRequestRepo;
 use App\Services\Payments\PaymentCardService;
 use App\Services\Payments\PaymentService;
 use App\Services\User\UserService;
+use App\Contracts\Saferweb\SaferwebInterface;
 
 
 class RegisterUserActions {
@@ -23,7 +24,8 @@ class RegisterUserActions {
         protected SubscriptionRequestRepo $subRequestRepo,
         protected PaymentCardService $cardService,
         protected PaymentService $paymentService,
-        protected UserService $userService
+        protected UserService $userService,
+        protected SaferwebInterface $saferweb
     )
     {}
 
@@ -58,7 +60,7 @@ class RegisterUserActions {
     public function registerRemove() {
 
         $this->userService->removeCurrentUser();
-        
+
     }
  
     public function store($request): array
@@ -297,28 +299,11 @@ class RegisterUserActions {
         return true;
     }
 
-    public function retrieveUsdot($request): array
+    public function retrieveUsdot( $request ): array
     {
-        $usdot = $request->input('usdot');
-
-        $dotApi = app('App\Helpers\TranspGov\TranspGovSnapshot');
-
-        // Use the TranspGovSnapshot helper to retrieve USDOT information
-        $snapshot = $dotApi->getByDot($usdot);
-
-        if (!$snapshot) {
-            return [];
-        }
-
-        // to retrieve the USDOT information. For this example, we'll just return a dummy response.
-        $response = [
-            'usdot' => $usdot,
-            'company_name' => $snapshot['legal_name'] ?? '',
-            'trucks_number' => $snapshot['truck_units'] ?? 0,
-            'drivers_number' => $snapshot['total_drivers'] ?? 0,
-        ];
-
-        return $response;
+        return $this->saferweb->retrieveUsdotData(
+            $request->input('usdot')
+        );
     }
 
     public function getRegSteps(): array
