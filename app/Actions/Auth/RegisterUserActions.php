@@ -12,6 +12,7 @@ use App\Repositories\Subscription\SubscriptionRepo;
 use App\Repositories\Subscription\SubscriptionRequestRepo;
 use App\Services\Payments\PaymentCardService;
 use App\Services\Payments\PaymentService;
+use App\Contracts\Mail\MailServiceInterface;
 
 
 class RegisterUserActions {
@@ -22,7 +23,9 @@ class RegisterUserActions {
     private $cardService;
     private $paymentService;
 
-    public function __construct()
+    public function __construct(
+        protected MailServiceInterface $mailService
+    )
     {
         $this->feeRepo = new PlanFeeRepo();
         $this->subRepo = new SubscriptionRepo();
@@ -400,6 +403,31 @@ class RegisterUserActions {
         $user->save();
 
         return true;
+    }
+
+    private function sendWelcomeEmail()
+    {
+        $user = auth()->user();
+
+        if( !$user ) {
+            return false;
+        }
+
+        $template = 'welcome-company';
+        $variables = [
+            'firstname' => $user->firstname,
+            'login_url' => route('login'),
+        ];
+
+        $user->email = 'matrosovdream@gmail.com';
+
+        // Send email using MailgunService
+        return $this->mailService->sendTemplate(
+            $user->email, 
+            'Welcome to DOT Portal!',
+            $template, 
+            $variables
+        );
     }
 
 }
