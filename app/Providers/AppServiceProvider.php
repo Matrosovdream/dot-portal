@@ -14,6 +14,8 @@ use App\Services\Mail\MailgunService;
 use App\Contracts\Saferweb\SaferwebInterface;
 use App\Contracts\Mail\MailServiceInterface;
 use App\Services\Saferweb\GovernApiService;
+use App\Contracts\Payment\PaymentInterface;
+use App\Services\Payments\AuthnetService;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -46,6 +48,7 @@ class AppServiceProvider extends ServiceProvider
         // Services binding
         $this->app->bind(MailServiceInterface::class, MailgunService::class);
         $this->app->bind(SaferwebInterface::class, GovernApiService::class);
+        $this->app->bind(PaymentInterface::class, AuthnetService::class);
 
     }
 
