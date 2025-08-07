@@ -26,6 +26,7 @@ class PaymentCardService
 
         if( $primaryCard ) {
             return [
+                'id' => $primaryCard['id'],
                 'customerProfileId' => $primaryCard['Meta']['authnet_profile_id'],
                 'paymentProfileId' => $primaryCard['Meta']['authnet_payment_profile_id'],
             ];
