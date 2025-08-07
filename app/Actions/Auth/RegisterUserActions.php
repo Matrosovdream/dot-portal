@@ -14,6 +14,7 @@ use App\Services\Payments\PaymentCardService;
 use App\Services\User\UserService;
 use App\Contracts\Saferweb\SaferwebInterface;
 use App\Contracts\Payment\PaymentInterface;
+use App\Repositories\User\UserSubscriptionRepo;
 
 
 class RegisterUserActions {
@@ -172,17 +173,61 @@ class RegisterUserActions {
         }
 
         if( $primaryCard ) {
-            
-            $paymentRes = $this->paymentService->chargeCustomerWithProfile(
+
+            // Make a user subscription
+            $subRes = $this->paymentService->createSubscriptionWithUser(
                 $user->id,
-                $this->getTotalPrice()
+                $this->getSubPrice(),
+                'Subscription for ' . $user->company->name
             );
+
+            if( isset($subRes['success']) ) {
+
+                // Update user sub in DB
+                $this->updateUserSubscription($user, $subRes);
+
+                // Charge customer subscription and fee
+                $paymentRes = $this->paymentService->chargeCustomerWithProfile(
+                    $user->id,
+                    $this->getTotalPrice()
+                );
+
+            } else {
+                dd($subRes);
+            }
 
         }
 
         return $paymentRes;
 
     }
+
+    private function updateUserSubscription($user, $subscription) {
+
+        $userSubRepo = app(UserSubscriptionRepo::class);
+        $userSub = $userSubRepo->getByUserID($user->id);
+
+        //$userSubscription = 
+        // Calculate next date
+        $nextDate = date('Y-m-d H:i:s', strtotime('+1 month'));
+
+        $primaryCard = $this->cardService->getUserPrimaryCard( $user->id );
+
+        // Update subscription in database
+        $user->subscription()->update(
+            [
+                'status' => 'active',
+                'payment_card_id' => $primaryCard['id'],
+                'start_date' => date('Y-m-d H:i:s'),
+                'next_date' => $nextDate,
+                'end_date' => $nextDate,
+            ]
+        );
+
+        // Set Authnet subscription ID
+        $userSub['Model']->setMeta('authnet_sub_id', $subscription['subscriptionId']);
+
+    }    
 
     private function storeAccount($request)
     {
@@ -382,6 +427,17 @@ class RegisterUserActions {
         }
 
         return $feePrice;
+    }
+
+    private function getSubPrice() {
+        $feePrice = $this->getFeePrice();
+        $subscription = auth()->user()->subscription ?? null;
+
+        if( $subscription ) {
+            return $subscription->price;
+        }
+
+        return 0;
     }
 
 }
