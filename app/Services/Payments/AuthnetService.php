@@ -102,6 +102,7 @@ class AuthnetService implements PaymentInterface
             $customerProfileId,
             $paymentProfileId,
             $price,
+            $title
         );
         
     }
@@ -124,7 +125,7 @@ class AuthnetService implements PaymentInterface
             $profile['customerProfileId'],
             $profile['paymentProfileId'],
             $price,
-            $title='Subscription for ' . $title
+            $title
         );
 
     }
