@@ -169,7 +169,12 @@ class AuthnetGateway
 
     }
 
-    public function createSubscription(string $customerProfileId, string $paymentProfileId, float $amount): array
+    public function createSubscription(
+        string $customerProfileId, 
+        string $paymentProfileId, 
+        float $amount,
+        string $title = ''
+        ): array
     {
         // STEP 1: Get payment profile (to extract billing info)
         $getRequest = new AnetAPI\GetCustomerPaymentProfileRequest();
@@ -204,7 +209,7 @@ class AuthnetGateway
 
         // STEP 4: Create subscription
         $subscription = new AnetAPI\ARBSubscriptionType();
-        $subscription->setName("Laravel Subscription - " . uniqid());
+        $subscription->setName( $title );
         $subscription->setPaymentSchedule($schedule);
         $subscription->setAmount($amount);
         $subscription->setProfile($profile);
