@@ -90,4 +90,43 @@ class AuthnetService implements PaymentInterface
 
     }
 
+    public function createSubscription(
+        int $customerProfileId, 
+        int $paymentProfileId, 
+        int $price, 
+        string $title): array 
+    {
+
+        // Subscribe user
+        return $this->processor->createSubscription(
+            $customerProfileId,
+            $paymentProfileId,
+            $price,
+        );
+        
+    }
+
+    public function createSubscriptionWithUser(
+        int $userId, 
+        int $price, 
+        string $title): array 
+    {
+
+        // Get user profile
+        $profile = $this->cardService->getUserPrimaryCard($userId);
+
+        if (!$profile) {
+            return ['error' => 'No payment profile found for user.'];
+        }
+
+        // Create subscription
+        return $this->createSubscription(
+            $profile['customerProfileId'],
+            $profile['paymentProfileId'],
+            $price,
+            $title='Subscription for ' . $title
+        );
+
+    }
+
 }
