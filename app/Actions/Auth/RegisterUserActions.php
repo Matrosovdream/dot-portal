@@ -148,16 +148,49 @@ class RegisterUserActions {
             $cardData
         );
 
-        return $paymentRes;
+        if( isset( $paymentRes['success'] ) ) {
+
+            // Update user sub in DB
+            $this->updateUserSubscription($user);
+
+            $note = [];
+            $note[] = 'First payment for subscription and ';
+            $note[] = 'fee for DOT Portal registration';
+
+            // Create payment history record
+            $this->userPaymentHistoryRepo->create([
+                'user_id' => $user->id,
+                'payment_method_id' => 1,
+                'subscription_id' => $user->subscription->id,
+                'type' => 'subscription',
+                'amount' => $this->getTotalPrice(),
+                'payment_date' => date('Y-m-d H:i:s'),
+                'transaction_id' => $paymentRes['transactionId'],
+                'status' => 'success',
+                'notes' => implode(' ', $note),
+            ]);
+
+            return [
+                'success' => true,
+                'message' => $paymentRes['message'] ?? 'Payment processed successfully.',
+                'transactionId' => $paymentRes['transactionId'] ?? null,
+            ];
+
+        } else {
+
+            return [
+                'error' => true,
+                'message' => $subRes['message'] ?? 'An error occurred while creating the subscription.'
+            ];
+
+        }
 
     }    
 
     private function storePaymentSavedCard($request) {
 
         $user = auth()->user();
-
-        //dd($user);
-
+        
         $primaryCard = $this->cardService->getUserPrimaryCard( $user->id );
 
         if( !$primaryCard ) {
@@ -231,30 +264,33 @@ class RegisterUserActions {
 
     }
 
-    private function updateUserSubscription($user, $subscription) {
+    private function updateUserSubscription($user, $subscription=null) {
 
         $userSubRepo = app(UserSubscriptionRepo::class);
         $userSub = $userSubRepo->getByUserID($user->id);
 
-        //$userSubscription = 
         // Calculate next date
         $nextDate = date('Y-m-d H:i:s', strtotime('+1 month'));
 
+        $subSet = [
+            'status' => 'active',
+            'start_date' => date('Y-m-d H:i:s'),
+            'next_date' => $nextDate,
+            'end_date' => $nextDate,
+        ];
+
         $primaryCard = $this->cardService->getUserPrimaryCard( $user->id );
+        if( $primaryCard ) {
+            $subSet['payment_card_id'] = $primaryCard['id'];
+        }
 
         // Update subscription in database
-        $user->subscription()->update(
-            [
-                'status' => 'active',
-                'payment_card_id' => $primaryCard['id'],
-                'start_date' => date('Y-m-d H:i:s'),
-                'next_date' => $nextDate,
-                'end_date' => $nextDate,
-            ]
-        );
+        $user->subscription()->update( $subSet );
 
         // Set Authnet subscription ID
-        $userSub['Model']->setMeta('authnet_sub_id', $subscription['subscriptionId']);
+        if ($subscription) {
+            $userSub['Model']->setMeta('authnet_sub_id', $subscription['subscriptionId']);
+        }
 
     }    
 
