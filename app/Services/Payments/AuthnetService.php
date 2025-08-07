@@ -42,7 +42,7 @@ class AuthnetService implements PaymentInterface
             $res = [
                 'success' => true,
                 'message' => $paymentRes['message'] ?? 'Payment processing failed.',
-                'transaction_id' => $paymentRes['transactionId'] ?? null,
+                'transactionId' => $paymentRes['transactionId'] ?? null,
             ];
 
         }
@@ -85,7 +85,7 @@ class AuthnetService implements PaymentInterface
         return [
             'success' => true,
             'message' => $paymentRes['message'] ?? 'Payment processed successfully.',
-            'transaction_id' => $paymentRes['transactionId'] ?? null,
+            'transactionId' => $paymentRes['transactionId'] ?? null,
         ];
 
     }
