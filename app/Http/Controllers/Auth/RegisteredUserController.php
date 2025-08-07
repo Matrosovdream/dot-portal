@@ -43,11 +43,11 @@ class RegisteredUserController extends Controller
 
         $res = $this->actions->store($request);
 
-        if( $res['result'] ) {
+        if( isset( $res['result'] ) ) {
             return redirect($res['next_page']);
         }
 
-        return redirect()->back()->withErrors(['error' => 'Registration failed. Please try again.']);
+        return redirect()->back()->withErrors(['error' => $res['message']]);
 
     }
 
