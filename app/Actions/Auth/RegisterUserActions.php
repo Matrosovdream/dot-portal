@@ -3,6 +3,7 @@
 namespace App\Actions\Auth;
 
 use App\Models\User;
+use App\Models\UserPaymentHistory;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -15,6 +16,7 @@ use App\Services\User\UserService;
 use App\Contracts\Saferweb\SaferwebInterface;
 use App\Contracts\Payment\PaymentInterface;
 use App\Repositories\User\UserSubscriptionRepo;
+use App\Repositories\User\UserPaymentHistoryRepo;
 
 
 class RegisterUserActions {
@@ -26,7 +28,8 @@ class RegisterUserActions {
         protected PaymentCardService $cardService,
         protected PaymentInterface $paymentService,
         protected UserService $userService,
-        protected SaferwebInterface $saferweb
+        protected SaferwebInterface $saferweb,
+        protected UserPaymentHistoryRepo $userPaymentHistoryRepo
     )
     {}
 
@@ -153,6 +156,8 @@ class RegisterUserActions {
 
         $user = auth()->user();
 
+        //dd($user);
+
         $primaryCard = $this->cardService->getUserPrimaryCard( $user->id );
 
         if( !$primaryCard ) {
@@ -192,8 +197,32 @@ class RegisterUserActions {
                     $this->getTotalPrice()
                 );
 
+                if( isset( $paymentRes['success'] ) ) {
+
+                    $note = [];
+                    $note[] = 'First payment for subscription and ';
+                    $note[] = 'fee for DOT Portal registration';
+
+                    // Create payment history record
+                    $this->userPaymentHistoryRepo->create([
+                        'user_id' => $user->id,
+                        'payment_method_id' => 1,
+                        'subscription_id' => $user->subscription->id,
+                        'type' => 'subscription',
+                        'amount' => $this->getTotalPrice(),
+                        'payment_date' => date('Y-m-d H:i:s'),
+                        'transaction_id' => $paymentRes['transactionId'],
+                        'status' => 'success',
+                        'notes' => implode(' ', $note),
+                    ]);
+
+                }
+
             } else {
-                dd($subRes);
+                return [
+                    'error' => true,
+                    'message' => $subRes['message'] ?? 'An error occurred while creating the subscription.'
+                ];
             }
 
         }
