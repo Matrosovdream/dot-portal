@@ -23,6 +23,20 @@
         </div>
     </div>
 
+    @if ($errors->has('error'))
+        <div class="alert alert-danger d-flex align-items-center p-5 mb-10">
+            <i class="ki-duotone ki-information fs-2hx text-danger me-4">
+                <span class="path1"></span>
+                <span class="path2"></span>
+                <span class="path3"></span>
+            </i>
+            <div class="d-flex flex-column">
+                <h4 class="mb-1 text-danger">Payment Error</h4>
+                <span>{{ $errors->first('error') }}</span>
+            </div>
+        </div>
+    @endif
+
     <div class="fv-row mb-20">
 
         <div class="d-flex flex-column mb-7 fv-row">

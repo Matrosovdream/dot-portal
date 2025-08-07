@@ -112,7 +112,7 @@ class RegisterUserActions {
             $paymentRes = $this->storePaymentNotSave($request);
         }
 
-        if( $paymentRes['success'] ) {
+        if( isset( $paymentRes['success'] ) ) {
 
             // Activate the subscription
             $this->userService->activateAccount( auth()->user() );
@@ -122,6 +122,8 @@ class RegisterUserActions {
                 'next_page' => route('dashboard.home'),
             ];
 
+        } else {
+            return $paymentRes;
         }
 
     }    
@@ -180,7 +182,7 @@ class RegisterUserActions {
 
             return [
                 'error' => true,
-                'message' => $subRes['message'] ?? 'An error occurred while creating the subscription.'
+                'message' => $subRes['message'] ?? 'An error occurred while payment processing.',
             ];
 
         }
@@ -190,7 +192,7 @@ class RegisterUserActions {
     private function storePaymentSavedCard($request) {
 
         $user = auth()->user();
-        
+
         $primaryCard = $this->cardService->getUserPrimaryCard( $user->id );
 
         if( !$primaryCard ) {
@@ -210,7 +212,7 @@ class RegisterUserActions {
             
         }
 
-        if( $primaryCard ) {
+        if( $primaryCard ) { 
 
             // Make a user subscription
             $subRes = $this->paymentService->createSubscriptionWithUser(
@@ -254,10 +256,15 @@ class RegisterUserActions {
             } else {
                 return [
                     'error' => true,
-                    'message' => $subRes['message'] ?? 'An error occurred while creating the subscription.'
+                    'message' => $subRes['message'] ?? 'An error occurred while payment processing.',
                 ];
             }
 
+        } else {
+            return [
+                'error' => true,
+                'message' => 'An error occurred while processing payment. Please check your credit card.',
+            ];
         }
 
         return $paymentRes;
