@@ -19,4 +19,17 @@ interface PaymentInterface {
         $cardDetails = []
     ): array;
 
+    public function createSubscription(
+        int $customerProfileId,
+        int $paymentProfileId,
+        int $price,
+        string $title
+    ): array;
+
+    public function createSubscriptionWithUser(
+        int $userId,
+        int $price,
+        string $title
+    ): array;
+
 }
