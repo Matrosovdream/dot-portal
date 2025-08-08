@@ -188,7 +188,7 @@
 
         <div class="d-flex flex-wrap flex-stack">
             <div class="d-flex flex-column flex-grow-1 pe-8">
-                <div class="d-flex flex-wrap">
+                <div class="d-flex flex-wrap d-none">
                     <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
 
                         <div class="d-flex align-items-center">
