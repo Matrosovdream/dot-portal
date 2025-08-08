@@ -13,7 +13,7 @@
 
     <div class="card-body p-9">
 
-        <div class="row mb-7">
+        <div class="row mb-7 d-none">
             <label class="col-lg-4 fw-semibold text-muted">Driver type</label>
             <div class="col-lg-8">
                 <span class="fw-bold fs-6 text-gray-800">
