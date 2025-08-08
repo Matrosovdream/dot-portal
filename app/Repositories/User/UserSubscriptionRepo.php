@@ -47,6 +47,7 @@ class UserSubscriptionRepo extends AbstractRepo
             'price_per_driver' => $item->price_per_driver,
             'drivers_number' => $item->drivers_number,
             'discount' => $item->discount,
+            'payment_card_id' => $item->payment_card_id,
             'start_date' => $item->start_date,
             'end_date' => $item->end_date,
             'status' => $item->status,
@@ -65,7 +66,6 @@ class UserSubscriptionRepo extends AbstractRepo
             $res['driversUsed'] = $this->driverRepo->countDriversByCompany( $item->user_id );
             $res['driversRemained'] = $driversNumber - $res['driversUsed'];
         }
-
 
         $res['Model'] = $item;
 
