@@ -17,21 +17,12 @@ class CompanyMenu implements InterfaceMenu {
     public function sidebarMenu() : array {
 
         return array(
-            array(
+            /*array(
                 'title' => 'Notifications',
                 'url' => route('dashboard.notifications'),
                 'icon' => 'ki-notification',
                 'roles' => ['user'],
-                /*'childs' => array(
-                    array(
-                        'title' => 'Active',
-                        'url' => route('dashboard.notifications'),
-                        'route' => 'dashboard.notifications',
-                        'roles' => ['user', 'manager', 'admin'],
-                    ),
-                ),
-                */
-            ),
+            ),*/
             array(
                 'title' => 'To-Do List',
                 'url' => route('dashboard.todo.index'),
