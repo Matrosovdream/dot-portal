@@ -160,53 +160,6 @@
 
         <div class="d-flex flex-wrap flex-stack">
             <div class="d-flex flex-column flex-grow-1 pe-8">
-                <div class="d-flex flex-wrap">
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-
-                        <div class="d-flex align-items-center">
-                            <i class="ki-duotone ki-arrow-up fs-3 text-success me-2">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                            <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="4500"
-                                data-kt-countup-prefix="$">0</div>
-                        </div>
-
-                        <div class="fw-semibold fs-6 text-gray-500">Earnings</div>
-
-                    </div>
-
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-
-                        <div class="d-flex align-items-center">
-                            <i class="ki-duotone ki-arrow-down fs-3 text-danger me-2">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                            <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="80">0
-                            </div>
-                        </div>
-
-                        <div class="fw-semibold fs-6 text-gray-500">Projects</div>
-
-                    </div>
-
-                    <div class="border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3">
-                        <!--begin::Number-->
-                        <div class="d-flex align-items-center">
-                            <i class="ki-duotone ki-arrow-up fs-3 text-success me-2">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
-                            <div class="fs-2 fw-bold" data-kt-countup="true" data-kt-countup-value="60"
-                                data-kt-countup-prefix="%">0</div>
-                        </div>
-
-                        <div class="fw-semibold fs-6 text-gray-500">Success Rate</div>
-
-                    </div>
-
-                </div>
             </div>
 
             <div class="d-flex align-items-center w-200px w-sm-300px flex-column mt-3">
