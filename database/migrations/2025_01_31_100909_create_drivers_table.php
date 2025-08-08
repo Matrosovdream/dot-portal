@@ -20,7 +20,7 @@ return new class extends Migration
             $table->date('dob')->nullable();
             $table->string('ssn')->nullable();
             $table->date('hire_date')->nullable();
-            $table->foreignId('driver_type_id')->on('ref_driver_type');
+            $table->foreignId('driver_type_id')->on('ref_driver_type')->nullable();
             $table->integer('status_id')->default(1)->nullable(); // 1 - active, 2 - inactive, 3 - terminated
             $table->timestamps();
         });
@@ -28,7 +28,7 @@ return new class extends Migration
         Schema::create('driver_documents', function (Blueprint $table) {
             $table->id();
             $table->foreignId('driver_id')->on('drivers');
-            $table->string('type');
+            $table->string('type')->nullable();
             $table->string('title')->nullable();
             $table->foreignId('file_id')->on('files');
             $table->string('extension')->nullable();
@@ -38,11 +38,11 @@ return new class extends Migration
         Schema::create('driver_license', function (Blueprint $table) {
             $table->id();
             $table->foreignId('driver_id')->on('drivers');
-            $table->foreignId('type_id')->on('ref_driver_license_type');
-            $table->foreignId('endorsement_id')->on('ref_driver_license_endrs');
+            $table->foreignId('type_id')->on('ref_driver_license_type')->nullable();
+            $table->foreignId('endorsement_id')->on('ref_driver_license_endrs')->nullable();
             $table->string('license_number')->nullable();
             $table->date('expiration_date')->nullable();
-            $table->foreignId('state_id')->on('ref_country_states');
+            $table->foreignId('state_id')->on('ref_country_states')->nullable();
             $table->timestamps();
         });
 
@@ -62,7 +62,7 @@ return new class extends Migration
             $table->string('address1')->nullable();
             $table->string('address2')->nullable();
             $table->string('city')->nullable();
-            $table->foreignId('state_id')->on('ref_country_states');
+            $table->foreignId('state_id')->on('ref_country_states')->nullable();
             $table->string('zip')->nullable();
             $table->text('value')->nullable();
             $table->timestamps();
