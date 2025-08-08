@@ -11,6 +11,14 @@
     @include('dashboard.subscription.sections.registration-payment')
     */ @endphp
 
+    <!-- Show notice "Add payment card" -->
+    @if( 
+        isset( $subscription ) &&
+        $subscription['payment_card_id'] === null
+        )
+        @include('dashboard.subscription.sections.payment-card-notice')
+    @endif
+
     <!-- Preview -->
     @include('dashboard.subscription.sections.preview')
 
