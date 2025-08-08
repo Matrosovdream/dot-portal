@@ -82,7 +82,7 @@ class DriverController extends Controller
             'dob' => 'nullable|date',
             'ssn' => 'nullable',
             'hire_date' => 'nullable|date',
-            'driver_type_id' => 'required',
+            'driver_type_id' => 'nullable',
         ]);
         
         $data = $this->driverUserActions->store($validated);
