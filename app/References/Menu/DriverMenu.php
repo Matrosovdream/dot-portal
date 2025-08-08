@@ -17,12 +17,12 @@ class DriverMenu implements InterfaceMenu {
     public function sidebarMenu() : array {
 
         return array(
-            array(
+            /*array(
                 'title' => 'Notifications',
                 'url' => route('dashboard.notifications'),
                 'icon' => 'ki-notification',
                 'roles' => ['user'],
-            ),
+            ),*/
             array(
                 'title' => 'To-Do List',
                 'url' => route('dashboard.todo.index'),
