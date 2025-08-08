@@ -46,7 +46,7 @@
                         <thead>
                             <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                                 <th class="">Driver Name</th>
-                                <th class=" text-center">Driver Type</th>
+                                <!--<th class=" text-center">Driver Type</th>-->
                                 <th class=" text-center">Dob</th>
                                 <th class=" text-center">License type</th>
                                 <th class=" text-center">License state / Number</th>
@@ -82,9 +82,11 @@
                                             @endif
                                         </span>
                                     </td>
+                                    @php /*
                                     <td class="text-center">
                                         {{ $driver['Model']->driverType->title ?? 'N/A' }}
                                     </td>
+                                    */ @endphp
                                     <td class="text-center">
                                         {{ dateFormat( $driver['dob'] ?? '' ) }}
                                     </td>
