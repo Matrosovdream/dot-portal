@@ -55,8 +55,6 @@ class UserSubscriptionRepo extends AbstractRepo
             //'payments' => $this->subscriptionPaymentRepo->mapItems( $item->payments->all() ),
         ];
 
-        $driversNumber = $item->drivers_number ?? 0;
-
         // Drivers remained and used
         if( 
             $res['subscription']
