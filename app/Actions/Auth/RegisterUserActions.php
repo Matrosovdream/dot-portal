@@ -345,6 +345,7 @@ class RegisterUserActions {
             'phone' => ['required', 'string', 'max:15'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'password_confirmation' => ['required', 'string', 'min:8', 'max:255'],
+            'toc' => ['required', 'accepted']
         ]);
 
         // Create user
@@ -383,7 +384,7 @@ class RegisterUserActions {
             'usdot' => ['required', 'string', 'max:20'],
             'company_name' => ['required', 'string', 'max:255'],
             'trucks_number' => ['required', 'integer', 'min:1'],
-            'drivers_number' => ['required', 'integer', 'min:1'],
+            'drivers_number' => ['required', 'integer', 'min:1']
         ]);
 
         // Update company details
