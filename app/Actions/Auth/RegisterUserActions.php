@@ -44,6 +44,7 @@ class RegisterUserActions {
             if( $sub ) {
                 $total_price = $sub->price + $feePrice;
             }
+
         }
 
         $subRequest = auth()->check() ? auth()->user()->subRequest : null;
@@ -370,6 +371,9 @@ class RegisterUserActions {
         ]);
 
         event(new Registered($user));
+
+        // Send welcome email
+        $this->userService->sendWelcomeEmail($user);
 
         Auth::login($user);
 
