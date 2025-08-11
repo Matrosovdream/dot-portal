@@ -36,7 +36,7 @@ class UserService {
         $template = 'welcome-company';
         $variables = [
             'firstname' => $user->firstname,
-            'login_url' => route('login'),
+            'login_url' => route('login')
         ];
 
         $user->email = 'matrosovdream@gmail.com';
@@ -48,6 +48,26 @@ class UserService {
             $template, 
             $variables
         );
+    }
+
+    public function sendApprovedRequestEmail( $user ) {
+
+        if( !$user ) { return false; }
+
+        $template = 'approved-drivers-request';
+        $variables = [
+            'firstname' => $user->firstname,
+            'login_url' => route('login')
+        ];
+
+        // Send email using MailgunService
+        return $this->mailService->sendTemplate(
+            $user->email, 
+            'Your request has been approved!',
+            $template, 
+            $variables
+        );
+
     }
 
     public function removeCurrentUser() {
@@ -71,6 +91,5 @@ class UserService {
         }
 
     }
-
 
 }
