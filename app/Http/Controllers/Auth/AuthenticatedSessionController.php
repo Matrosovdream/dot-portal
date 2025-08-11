@@ -8,9 +8,19 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use App\Services\User\UserService;
+
 
 class AuthenticatedSessionController extends Controller
 {
+
+    public function __construct(
+        protected UserService $userService
+    ) { 
+
+    }
+
+
     /**
      * Display the login view.
      */
@@ -56,4 +66,20 @@ class AuthenticatedSessionController extends Controller
 
         return redirect('/');
     }
+
+    /**
+     * Handle one-time login using a token.
+     */
+    public function loginOnce(string $token): RedirectResponse
+    {
+        $res = $this->userService->loginWithToken($token);
+
+        if (!$res) {
+            abort(404, 'Invalid or expired token.');
+        }
+
+        return redirect()->intended(route('dashboard.home', absolute: false));
+    }
+
+
 }
