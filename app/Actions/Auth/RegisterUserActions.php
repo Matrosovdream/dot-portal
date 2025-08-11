@@ -118,6 +118,9 @@ class RegisterUserActions {
             // Activate the subscription
             $this->userService->activateAccount( auth()->user() );
 
+            // Send welcome email
+            $this->userService->sendWelcomeEmail(auth()->user());
+
             return [
                 'result' => true,
                 'next_page' => route('dashboard.home'),
@@ -372,9 +375,6 @@ class RegisterUserActions {
 
         event(new Registered($user));
 
-        // Send welcome email
-        $this->userService->sendWelcomeEmail($user);
-
         Auth::login($user);
 
         return $user;
@@ -419,12 +419,14 @@ class RegisterUserActions {
         $user->reg_step = 'payment';
         $user->save();
 
+        
+
         // If custom request is made
         if( 
             $request->has('is_custom_request') && 
             $request->is_custom_request == 'true' 
             ) {
-            $res = $this->storeCustomRequest( $request );
+            $res = $this->storeCustomRequest( $request ); 
         }
 
         return [
