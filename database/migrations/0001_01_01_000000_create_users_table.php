@@ -191,6 +191,15 @@ return new class extends Migration
             $table->text('value')->nullable();
         });
 
+        // Login tokens
+        Schema::create('login_tokens', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('token', 64)->unique();
+            $table->timestamp('expires_at');
+            $table->timestamps();
+        });
+
     }
 
     /**
@@ -214,5 +223,6 @@ return new class extends Migration
         Schema::dropIfExists('user_payment_history');
         Schema::dropIfExists('user_tasks');
         Schema::dropIfExists('user_task_meta');
+        Schema::dropIfExists('login_tokens');
     }
 };
