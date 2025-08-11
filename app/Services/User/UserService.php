@@ -4,6 +4,8 @@ namespace App\Services\User;
 
 use App\Contracts\Mail\MailServiceInterface;
 use Illuminate\Support\Facades\Auth;
+use App\Models\LoginToken;
+use Illuminate\Support\Str;
 
 class UserService {
 
@@ -67,6 +69,54 @@ class UserService {
             $template, 
             $variables
         );
+
+    }
+
+    public function makeLoginLink( $user ) {
+
+        if( !$user ) { return false; }
+
+        $token = $this->generateLoginToken($user);
+
+        // Return the login link
+        return route('login.onetime', ['token' => $token]);
+    }
+
+    public function generateLoginToken($user) {
+
+        if( !$user ) { return false; }
+
+        // Time 2 days in minutes
+        $expiresAt = now()->addDays(2);
+
+        // Generate a unique token
+        $token = hash('sha256', Str::random(64));
+
+        // Create a login token record
+        $loginToken = new LoginToken([
+            'user_id' => $user->id,
+            'token' => $token,
+            'expires_at' => $expiresAt,
+        ]);
+        $loginToken->save();
+
+        return $token;
+
+    }
+
+    public function validateLoginToken( $token ) {
+
+        $hashed = hash('sha256', $token);
+
+        $record = LoginToken::where('token', $hashed)
+            ->where('expires_at', '>', now())
+            ->first();
+
+        if( $record ) { 
+            return $record;
+        }
+
+        return false; // Token is invalid or expired
 
     }
 
