@@ -23,6 +23,10 @@ Route::middleware('guest')->group(function () {
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 
+    // One-time login link
+    Route::get('login-onetime/{token}', [AuthenticatedSessionController::class, 'loginOnce'])
+        ->name('login.onetime');    
+
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
     Route::get('forgot-password', [PasswordResetLinkController::class, 'create'])
