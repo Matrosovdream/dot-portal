@@ -86,7 +86,11 @@ class SubRequestsActions {
             abort(404, 'Request not found');
         }
 
-        dd($req);
+        $userService = app('App\Services\User\UserService');
+
+        // Send email to the user
+        $user = $req['user']['Model'];
+        $userService->sendApprovedRequestEmail( $user );
 
         // Assuming the email was sent successfully
         return true; // Or return some response indicating success
