@@ -2,6 +2,13 @@
 
 @section('toolbar-buttons')
 
+    @php /*
+    <a href="{{ route('dashboard.subrequests.create') }}" class="btn btn-sm fw-bold btn-primary">
+        <i class="fa fa-plus"></i> 
+        Create new request
+    </a>
+    */ @endphp
+
 @endsection
 
 @section('content')
