@@ -194,9 +194,10 @@ return new class extends Migration
         // Login tokens
         Schema::create('login_tokens', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('user_id')->on('users');
             $table->string('token', 64)->unique();
             $table->timestamp('expires_at');
+            $table->integer('max_uses')->default(1);
             $table->timestamps();
         });
 
