@@ -12,6 +12,7 @@ use App\Repositories\Driver\DriverRepo;
 class UserSubscriptionRepo extends AbstractRepo
 {
 
+    protected $userRepo;
     protected $subscriptionRepo;
     protected $subscriptionPaymentRepo;
 
@@ -26,6 +27,7 @@ class UserSubscriptionRepo extends AbstractRepo
     {
         $this->model = new UserSubscription();
 
+        $this->userRepo = new UserRepo();
         $this->subscriptionRepo = new SubscriptionRepo();
         $this->subscriptionPaymentRepo = new UserSubscriptionPaymentRepo();
         $this->driverRepo = new DriverRepo();
@@ -42,6 +44,9 @@ class UserSubscriptionRepo extends AbstractRepo
 
         $res = [
             'id' => $item->id,
+            'user_id' => $item->user_id,
+            'user' => $this->userRepo->mapItem($item->user),
+            'subscription_id' => $item->subscription_id,
             'subscription' => $subscription, // Can be null
             'price' => $item->price,
             'price_per_driver' => $item->price_per_driver,
