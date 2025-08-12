@@ -73,18 +73,18 @@ class UserService {
 
     }
 
-    public function makeLoginLink( $user_id ) {
+    public function makeLoginLink( $user_id, $max_uses = 1 ) {
 
-        $token = $this->generateLoginToken($user_id);
+        $token = $this->generateLoginToken($user_id, $max_uses);
 
         // Return the login link
         return route('login.onetime', ['token' => $token]);
     }
 
-    public function generateLoginToken($user_id) {
+    public function generateLoginToken($user_id, $max_uses = 1) {
 
         // Fetch the user by ID
-        $user = User::find($user_id);
+        $user = User::find($user_id);   
 
         if( !$user ) { return false; }
 
@@ -99,6 +99,7 @@ class UserService {
             'user_id' => $user->id,
             'token' => $token,
             'expires_at' => $expiresAt,
+            'max_uses' => $max_uses
         ]);
         $loginToken->save();
 
@@ -106,35 +107,26 @@ class UserService {
 
     }
 
-    public function loginWithToken($token) {
+    public function loginWithToken( $token ) {
 
-        $loginToken = $this->validateLoginToken($token);
-
-        if( !$loginToken ) {
+        if( !$this->validateLoginToken($token) ) {
             return false; // Invalid or expired token
         }
+        
+        $loginToken = LoginToken::findByToken($token);
+        if( !$loginToken ) { return false; }
+
+        // Optionally, delete the token after successful login
+        $loginToken->useToken();
 
         // Log in the user
         Auth::loginUsingId($loginToken->user_id);
-
-        // Optionally, delete the token after successful login
-        $loginToken->delete();
 
         return true; // Login successful
     }
 
     public function validateLoginToken( $token ) {
-
-        $record = LoginToken::where('token', $token)
-            ->where('expires_at', '>', now())
-            ->first();
-
-        if( $record ) { 
-            return $record;
-        }
-
-        return false; // Token is invalid or expired
-
+        return (new LoginToken)->isValid( $token );
     }
 
     public function removeCurrentUser() {
