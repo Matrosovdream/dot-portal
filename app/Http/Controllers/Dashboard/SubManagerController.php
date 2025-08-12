@@ -3,7 +3,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Actions\Dashboard\SubRequestsActions;
+use App\Actions\Dashboard\SubManagerActions;
 
 class SubManagerController extends Controller
 {
