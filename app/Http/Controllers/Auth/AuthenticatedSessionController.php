@@ -72,6 +72,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function loginOnce(string $token): RedirectResponse
     {
+
         $res = $this->userService->loginWithToken($token);
 
         if (!$res) {
