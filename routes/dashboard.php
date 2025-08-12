@@ -25,6 +25,7 @@ use App\Http\Controllers\Dashboard\SaferwebController;
 use App\Http\Controllers\Dashboard\PlanFeesController;
 use App\Http\Controllers\Dashboard\SubPlansController;
 use App\Http\Controllers\Dashboard\SubRequestsController;
+use App\Http\Controllers\Dashboard\SubManagerController;
 
 
 
@@ -174,6 +175,16 @@ Route::group([
             Route::get('{fee_id}', [PlanFeesController::class, 'show'])->name('show');
             Route::post('{fee_id}', [PlanFeesController::class, 'update'])->name('update');
             //Route::delete('{fee_id}', [PlanFeesController::class, 'destroy'])->name('destroy');
+        });
+
+        // User subscriptions
+        Route::prefix('user-subscriptions')->name('usersubscriptions.')->group(function () {
+            Route::get('/', [SubManagerController::class, 'index'])->name('index');
+            Route::get('create', [SubManagerController::class, 'create'])->name('create');
+            Route::post('/', [SubManagerController::class, 'store'])->name('store');
+            Route::get('{sub_id}', [SubManagerController::class, 'show'])->name('show');
+            Route::post('{sub_id}', [SubManagerController::class, 'update'])->name('update');
+            Route::delete('{sub_id}', [SubManagerController::class, 'destroy'])->name('destroy');
         });
 
         // Sub plans
