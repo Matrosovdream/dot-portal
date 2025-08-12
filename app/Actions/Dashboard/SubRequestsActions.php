@@ -30,6 +30,21 @@ class SubRequestsActions {
         ];
     }
 
+    public function store($request)
+    {
+
+        $req = $this->reqRepo->create($data);
+
+        if( !$req ) {
+            abort(500, 'Failed to create request');
+        }
+
+        return [
+            'title' => 'Request Created Successfully',
+            'req_id' => $req['id'],
+        ];
+    }
+
     public function show( $req_id )
     {
         $req = $this->reqRepo->getByID( $req_id );

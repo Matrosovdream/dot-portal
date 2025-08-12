@@ -24,6 +24,20 @@ class SubRequestsController extends Controller
         return view('dashboard.subrequests.create', $this->actions->create());
     }
 
+    public function store(Request $request)
+    {
+
+        $validated = $request->validate([
+            'custom_price' => 'required|numeric',
+            'status_id' => 'required|integer',
+        ]);
+
+        $res = $this->actions->store($validated);
+        if( $res ) {
+            return redirect()->route('dashboard.subrequests.show', $res['req_id']);
+        }
+    }
+
     public function show($req_id)
     {
         return view('dashboard.subrequests.show', $this->actions->show($req_id));

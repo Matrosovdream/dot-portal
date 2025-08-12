@@ -2,7 +2,7 @@
 
 @section('content')
 
-<form class="form" method="POST" action="{{ route('dashboard.subplans.store') }}" id="kt_ecommerce_customer_profile">
+<form class="form" method="POST" action="{{ route('dashboard.subrequests.store') }}" id="kt_ecommerce_customer_profile">
     @csrf
 
     <div class="d-flex flex-column flex-xl-row">
@@ -10,7 +10,7 @@
             <div class="card mb-5 mb-xl-8">
                 <div class="card-body pt-5">
                     <div class="d-flex flex-stack fs-4 py-3">
-                        <div class="fw-bold">Create new plan</div>
+                        <div class="fw-bold">Create new request</div>
                     </div>
                 </div>
             </div>
