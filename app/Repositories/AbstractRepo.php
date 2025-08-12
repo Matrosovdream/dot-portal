@@ -42,6 +42,12 @@ abstract class AbstractRepo
         return $this->mapItem($item);
     }
 
+    public function setRelations(array $relations)
+    {
+        $this->withRelations = $relations;
+        return $this;
+    }
+
     public function getAll($filter = [], $paginate = 20, array $sorting = [])
     {
 
