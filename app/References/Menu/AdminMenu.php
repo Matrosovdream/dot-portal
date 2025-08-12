@@ -84,6 +84,12 @@ class AdminMenu implements InterfaceMenu {
                 'roles' => ['admin', 'manager'],
                 'childs' => array(
                     array(
+                        'title' => 'User subscriptions',
+                        'url' => route('dashboard.usersubscriptions.index'),
+                        'route' => 'dashboard.usersubscriptions.index',
+                        'roles' => ['admin', 'manager'],
+                    ),
+                    array(
                         'title' => 'Initial fees',
                         'url' => route('dashboard.planfees.index'),
                         'route' => 'dashboard.planfees.index',
