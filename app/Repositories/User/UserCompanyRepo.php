@@ -31,6 +31,21 @@ class UserCompanyRepo extends AbstractRepo
         $this->userCompanyAddressRepo = new UserCompanyAddressRepo();
     }
 
+    // Sync item by user_id
+    public function syncItem($item_id, $data)
+    {
+        // Sync by user_id
+        $company = $this->model->where('user_id', $item_id)->first();
+        if ($company) {
+            $company->update($data);
+        } else {
+            $data['user_id'] = $item_id;
+            $company = $this->model->create($data);
+        }
+
+        return $this->getById($company->id);
+    }
+
     public function mapItem($item)
     {
 
