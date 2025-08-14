@@ -85,22 +85,21 @@ class SubManagerActions {
 
         $req = $this->getSub( $sub_id );
         $req['Model']->update( $request );
-
         return true;
-
     }
 
     public function userStore($sub_id, $request)
     {
         $req = $this->getSub( $sub_id );
         $req['user']['Model']->update( $request );
-
         return true;
     }
 
     public function companyStore($sub_id, $request)
     {
-        dd('CompanyStore method not implemented yet');
+        $req = $this->getSub( $sub_id );
+        $req['user']['company']['Model']->update( $request );
+        return true;
     }
 
     public function sendEmail($sub_id)

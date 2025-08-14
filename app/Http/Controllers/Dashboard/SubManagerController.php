@@ -82,7 +82,7 @@ class SubManagerController extends Controller
 
         $res = $this->actions->companyStore($sub_id, $validated);
         if( $res ) {
-            return redirect()->route('dashboard.submanager.show', $sub_id);
+            return redirect()->back();
         }
     }
 

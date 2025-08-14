@@ -21,52 +21,67 @@
             @include('dashboard.includes.errors.default')
 
             <div class="row mb-6">
-                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Status</label>
 
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Company name</label>
+    
                 <div class="col-lg-4 fv-row">
-                    <select name="status" class="form-select form-select-solid form-select-lg">
-                        <option value="active" {{ $sub['status'] == 'active' ? 'selected' : '' }}>Active</option>
-                        <option value="inactive" {{ $sub['status'] == 'disabled' ? 'selected' : '' }}>Disabled</option>
-                    </select>
+                    <input 
+                        type="text" 
+                        name="name" 
+                        class="form-control form-control-lg form-control-solid"
+                        placeholder="" 
+                        value="{{ $company['name'] ?? '' }}" 
+                        />
                 </div>
-            </div>
-
-            <div class="row mb-6">
-                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Subscription</label>
-
-                <div class="col-lg-4 fv-row">
-                    <select name="subscription_id" class="form-select form-select-solid form-select-lg">
-                        <option value="">Select Subscription</option>
-                        @foreach($subList['items'] as $subItem)
-                            <option value="{{ $subItem['id'] }}" 
-                                {{ $subItem['id'] == $sub['subscription_id'] ? 'selected' : '' }}>
-                                {{ $subItem['name'] }}
-                            </option>
-                        @endforeach
-                    </select>
-                </div>
+    
             </div>
 
             <div class="row mb-6">
 
-                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Drivers number</label>
-
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Dot Number</label>
+    
                 <div class="col-lg-4 fv-row">
-                    <input type="number" name="drivers_number" class="form-control form-control-lg form-control-solid"
-                        placeholder="" value="{{ $sub['drivers_number'] ?? '' }}" />
+                    <input 
+                        type="text" 
+                        name="dot_number" 
+                        class="form-control form-control-lg form-control-solid"
+                        placeholder="" 
+                        value="{{ $company['dot_number'] ?? '' }}" 
+                        />
                 </div>
-
+    
             </div>
 
             <div class="row mb-6">
 
-                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Price per driver</label>
-
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">MC Number</label>
+    
                 <div class="col-lg-4 fv-row">
-                    <input type="number" name="price_per_driver" class="form-control form-control-lg form-control-solid"
-                        placeholder="" value="{{ $sub['price_per_driver'] ?? '' }}" />
+                    <input 
+                        type="text" 
+                        name="mc_number" 
+                        class="form-control form-control-lg form-control-solid"
+                        placeholder="" 
+                        value="{{ $company['mc_number'] ?? '' }}" 
+                        />
                 </div>
+    
+            </div>
 
+            <div class="row mb-6">
+
+                <label class="col-lg-4 col-form-label required fw-semibold fs-6">Phone</label>
+    
+                <div class="col-lg-4 fv-row">
+                    <input 
+                        type="text" 
+                        name="phone" 
+                        class="form-control form-control-lg form-control-solid"
+                        placeholder="" 
+                        value="{{ $company['phone'] ?? '' }}" 
+                        />
+                </div>
+    
             </div>
 
         </div>
