@@ -73,6 +73,33 @@ class UserService {
 
     }
 
+    public function sendOnceLoginLink( $user ) {
+
+        if( !$user ) { return false; }
+
+        // Generate the one-time login link
+        $loginLink = $this->makeLoginLink($user->id);
+
+        if( !$loginLink ) { return false; }
+
+        $template = 'one-time-login';
+        $variables = [
+            'firstname' => $user->firstname,
+            'login_link' => $loginLink
+        ];
+
+        // Send email using MailgunService
+        $res = $this->mailService->sendTemplate(
+            $user->email, 
+            'Your one-time login link',
+            $template, 
+            $variables
+        );
+
+        return $res;
+
+    }
+
     public function makeLoginLink( $user_id, $max_uses = 1 ) {
 
         $token = $this->generateLoginToken($user_id, $max_uses);
