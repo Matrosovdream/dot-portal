@@ -2,15 +2,18 @@
 namespace App\Actions\Dashboard;
 
 use App\Repositories\User\UserSubscriptionRepo;
+use App\Repositories\Subscription\SubscriptionRepo;
 
 
 class SubManagerActions {
 
     private $subRepo;
+    private $subListRepo;
 
     public function __construct()
     {
         $this->subRepo = new UserSubscriptionRepo();
+        $this->subListRepo = new SubscriptionRepo();
 
     }
 
@@ -20,9 +23,6 @@ class SubManagerActions {
         $this->subRepo->setRelations(['user', 'subscription']);
         $subs = $this->subRepo->getAll();
 
-        if( request()->has('debug') ) {
-            dd($subs);
-        }
         return [
             'title' => 'User Subscriptions',
             'subs' => $subs,
@@ -58,17 +58,26 @@ class SubManagerActions {
 
     public function show( $sub_id )
     {
-        $req = $this->subRepo->getByID( $sub_id );
+        $this->subRepo->setRelations(['user', 'subscription']);
+        $sub = $this->subRepo->getByID( $sub_id );
 
-        if( !$req ) {
-            abort(404, 'Request not found');
+        if( !$sub ) {
+            abort(404, 'Subscription not found');
+        }
+        $data =  [
+            'title' => 'Subscription Details #' . $sub['id'],
+            'statuses' => $this->getStatuses(),
+            'sub' => $sub,
+            'user' => $sub['user'],
+            'company' => $sub['user']['company'],
+            'subList' => $this->subListRepo->getAll()
+        ];
+
+        if( request()->has('debug') ) {
+            dd($data);
         }
 
-        return [
-            'title' => 'Request Details #' . $req['id'],
-            'statuses' => $this->getStatuses(),
-            'req' => $req,
-        ];
+        return $data;
     }
 
     public function update($sub_id, $request)
