@@ -183,7 +183,13 @@ Route::group([
             Route::get('create', [SubManagerController::class, 'create'])->name('create');
             Route::post('/', [SubManagerController::class, 'store'])->name('store');
             Route::get('{sub_id}', [SubManagerController::class, 'show'])->name('show');
-            Route::post('{sub_id}', [SubManagerController::class, 'update'])->name('update');
+            Route::post('{sub_id}', [SubManagerController::class, 'update'])->name('show.update');
+            Route::get('{sub_id}/profile', [SubManagerController::class, 'show'])->name('show.profile');
+            Route::post('{sub_id}/profile', [SubManagerController::class, 'profileStore'])->name('show.profile.store');
+            Route::get('{sub_id}/user', [SubManagerController::class, 'show'])->name('show.user');
+            Route::post('{sub_id}/user', [SubManagerController::class, 'userStore'])->name('show.user.store');
+            Route::get('{sub_id}/company', [SubManagerController::class, 'show'])->name('show.company');
+            Route::post('{sub_id}/company', [SubManagerController::class, 'companyStore'])->name('show.company.store');
             Route::delete('{sub_id}', [SubManagerController::class, 'destroy'])->name('destroy');
         });
 
