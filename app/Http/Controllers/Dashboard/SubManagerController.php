@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Actions\Dashboard\SubManagerActions;
+use App\Http\Requests\Dashboard\SubManager\StoreRequest;
 
 class SubManagerController extends Controller
 {
@@ -24,17 +25,14 @@ class SubManagerController extends Controller
         return view('dashboard.submanager.create', $this->actions->create());
     }
 
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
+        $res = $this->actions->store($request);
 
-        $validated = $request->validate([
-            'custom_price' => 'required|numeric',
-            'status_id' => 'required|integer',
-        ]);
-
-        $res = $this->actions->store($validated);
         if( $res ) {
-            return redirect()->route('dashboard.submanager.show', $res['req_id']);
+            return redirect()->route('dashboard.usersubscriptions.show', $res['sub']['id']);
+        } else {
+            return redirect()->back()->withErrors(['error' => 'Failed to create subscription.']);
         }
     }
 

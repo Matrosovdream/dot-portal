@@ -66,6 +66,10 @@
                                 <a href="{{ route('dashboard.usersubscriptions.show', $item['id']) }}"
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold">
                                     {{ $item['user']['firstname'] }} {{ $item['user']['lastname'] }} 
+                                    <br/>
+                                    <span class="text-muted fs-7">
+                                        {{ $item['user']['email'] }}
+                                    </span>
                                 </a>
                             </td>
                             <td>
