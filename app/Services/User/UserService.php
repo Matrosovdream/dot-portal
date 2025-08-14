@@ -85,7 +85,7 @@ class UserService {
         $template = 'one-time-login';
         $variables = [
             'firstname' => $user->firstname,
-            'login_link' => $loginLink
+            'login_url' => $loginLink
         ];
 
         // Send email using MailgunService
