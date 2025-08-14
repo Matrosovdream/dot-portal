@@ -88,13 +88,14 @@ class SubManagerActions {
 
         return true;
 
-        //dd($req, $request);
-
     }
 
     public function userStore($sub_id, $request)
     {
-        dd('UserStore method not implemented yet');
+        $req = $this->getSub( $sub_id );
+        $req['user']['Model']->update( $request );
+
+        return true;
     }
 
     public function companyStore($sub_id, $request)

@@ -60,12 +60,14 @@ class SubManagerController extends Controller
     public function userStore($sub_id, Request $request)
     {
         $validated = $request->validate([
-            //'custom_price' => 'required|numeric',
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'phone' => 'nullable|string|max:20',
         ]);
 
         $res = $this->actions->userStore($sub_id, $validated);
         if( $res ) {
-            return redirect()->route('dashboard.submanager.show', $res['sub_id']);
+            return redirect()->back();
         }
     }
 
