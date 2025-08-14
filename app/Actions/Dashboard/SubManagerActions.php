@@ -1,30 +1,29 @@
 <?php
 namespace App\Actions\Dashboard;
 
+use App\Repositories\User\UserRepo;
 use App\Repositories\User\UserSubscriptionRepo;
 use App\Repositories\Subscription\SubscriptionRepo;
+use App\Repositories\User\UserCompanyRepo;
 use App\Services\User\UserService;
 
 
 class SubManagerActions {
 
-    private $subRepo;
-    private $subListRepo;
-
     public function __construct(
-        protected UserService $userService
+        protected UserService $userService,
+        protected UserRepo $userRepo,
+        protected UserSubscriptionRepo $userSubRepo,
+        protected UserCompanyRepo $userCompanyRepo,
+        protected SubscriptionRepo $subListRepo,
     )
-    {
-        $this->subRepo = new UserSubscriptionRepo();
-        $this->subListRepo = new SubscriptionRepo();
-
-    }
+    {}
 
     public function index()
     {
 
-        $this->subRepo->setRelations(['user', 'subscription']);
-        $subs = $this->subRepo->getAll();
+        $this->userSubRepo->setRelations(['user', 'subscription']);
+        $subs = $this->userSubRepo->getAll();
 
         return [
             'title' => 'User Subscriptions',
@@ -37,32 +36,54 @@ class SubManagerActions {
     {
         return [
             'title' => 'Create New Subscription',
+            'subList' => $this->subListRepo->getAll()
         ];
     }
 
     public function store($request)
     {
 
-        $data = $request->only([
-            'custom_price',
-        ]);
+        // Create a new user and assign role
+        $user = $this->userRepo->create($request->user);
+        $user['Model']->setRole('company');
 
-        $req = $this->subRepo->create($data);
+        if( $user ) {
 
-        if( !$req ) {
-            abort(500, 'Failed to create request');
+            // Sync user company
+            $userCompany = $this->userCompanyRepo->syncItem($user['id'], $request->company);
+
+            // Sync subscription details
+            $userSub = $this->userSubRepo->create(
+                $request->sub + [
+                    'user_id' => $user['id'],
+                    'status' => 'disabled', // Default status
+                ]
+            );
+
+            if( $userCompany && $userSub ) {
+                return [
+                    'error' => false,
+                    'user' => $user,
+                    'sub' => $userSub,
+                ];
+            } 
+
+            //dd($user, $userCompany, $userSub, $request->all());
+
+        } else {
+            return [
+                'error' => true,
+                'message' => 'User creation failed, please try again.',
+            ];
         }
 
-        return [
-            'title' => 'Request Created Successfully',
-            'sub_id' => $req['id'],
-        ];
+        return true;
     }
 
     public function show( $sub_id )
     {
-        $this->subRepo->setRelations(['user', 'subscription']);
-        $sub = $this->subRepo->getByID( $sub_id );
+        $this->userSubRepo->setRelations(['user', 'subscription']);
+        $sub = $this->userSubRepo->getByID( $sub_id );
 
         if( !$sub ) {
             abort(404, 'Subscription not found');
@@ -118,8 +139,8 @@ class SubManagerActions {
 
     private function getSub($sub_id)
     {
-        $this->subRepo->setRelations(['user', 'subscription']);
-        $sub = $this->subRepo->getByID($sub_id);
+        $this->userSubRepo->setRelations(['user', 'subscription']);
+        $sub = $this->userSubRepo->getByID($sub_id);
 
         if (!$sub) {
             abort(404, 'Subscription not found');
