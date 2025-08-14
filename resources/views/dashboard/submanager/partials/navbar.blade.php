@@ -56,16 +56,25 @@ $sections = [
             </div>
 
             <div class="d-flex my-4">
+
+                <!--
                 <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
                     <i class="ki-duotone ki-check fs-3 d-none"></i>
                     <span class="indicator-label">
                         Disable
                     </span>
                 </a>
-                <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal"
-                    data-bs-target="#kt_modal_offer_a_deal">
-                    Update from API
-                </a>
+                -->
+                
+                <form id="kt_account_profile_details_form" class="form" method="POST"
+                    action="{{ route('dashboard.usersubscriptions.send.oncelogin', $sub['id']) }}" 
+                    enctype="multipart/form-data"
+                    >
+                    @csrf
+
+                    <input type="submit" class="btn btn-sm btn-primary me-3" value="Send one-time login" />
+
+                </form>
 
                 <div class="me-0">
                     <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary"
@@ -98,7 +107,12 @@ $sections = [
 
         </div>
 
-
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        
     </div>
 
 </div>

@@ -86,11 +86,11 @@ class SubManagerController extends Controller
         }
     }
 
-    public function sendEmail($sub_id)
+    public function sendOnceLogin($sub_id, Request $request)
     {
-        $res = $this->actions->sendEmail($sub_id); 
+        $res = $this->actions->sendOnceLogin($sub_id); 
         if( $res ) {
-            return redirect()->route('dashboard.submanager.show', $sub_id);
+            return redirect()->back()->with('success', 'One-time login link sent successfully.');
         }
     }
 

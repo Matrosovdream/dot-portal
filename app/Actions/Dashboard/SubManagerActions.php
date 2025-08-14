@@ -3,6 +3,7 @@ namespace App\Actions\Dashboard;
 
 use App\Repositories\User\UserSubscriptionRepo;
 use App\Repositories\Subscription\SubscriptionRepo;
+use App\Services\User\UserService;
 
 
 class SubManagerActions {
@@ -10,7 +11,9 @@ class SubManagerActions {
     private $subRepo;
     private $subListRepo;
 
-    public function __construct()
+    public function __construct(
+        protected UserService $userService
+    )
     {
         $this->subRepo = new UserSubscriptionRepo();
         $this->subListRepo = new SubscriptionRepo();
@@ -83,41 +86,34 @@ class SubManagerActions {
     public function update($sub_id, $request)
     {
 
-        $req = $this->getSub( $sub_id );
-        $req['Model']->update( $request );
+        $sub = $this->getSub( $sub_id );
+        $sub['Model']->update( $request );
         return true;
     }
 
     public function userStore($sub_id, $request)
     {
-        $req = $this->getSub( $sub_id );
-        $req['user']['Model']->update( $request );
+        $sub = $this->getSub( $sub_id );
+        $sub['user']['Model']->update( $request );
         return true;
     }
 
     public function companyStore($sub_id, $request)
     {
-        $req = $this->getSub( $sub_id );
-        $req['user']['company']['Model']->update( $request );
+        $sub = $this->getSub( $sub_id );
+        $sub['user']['company']['Model']->update( $request );
         return true;
     }
 
-    public function sendEmail($sub_id)
+    public function sendOnceLogin($sub_id)
     {
-        $req = $this->subRepo->getByID($sub_id);
+        $sub = $this->getSub( $sub_id );
 
-        if (!$req) {
-            abort(404, 'Request not found');
-        }
-
-        $userService = app('App\Services\User\UserService');
-
-        // Send email to the user
-        $user = $req['user']['Model'];
-        $userService->sendApprovedRequestEmail( $user );
+        // Send one-time login link to the user
+        $this->userService->sendOnceLoginLink($sub['user']['Model']);
 
         // Assuming the email was sent successfully
-        return true; // Or return some response indicating success
+        return true; 
     }
 
     private function getSub($sub_id)
