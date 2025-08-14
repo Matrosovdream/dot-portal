@@ -10,7 +10,7 @@
     </div>
 
     <form id="kt_account_profile_details_form" class="form" method="POST"
-        action="{{ route('dashboard.usersubscriptions.show.update', $sub['id']) }}" enctype="multipart/form-data">
+        action="{{ route('dashboard.usersubscriptions.show.company.store', $sub['id']) }}" enctype="multipart/form-data">
 
         @csrf
 
