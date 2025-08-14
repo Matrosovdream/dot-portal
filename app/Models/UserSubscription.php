@@ -25,6 +25,19 @@ class UserSubscription extends Model
         'status',
     ];
 
+    protected static function booted(): void
+    {
+        static::saving(function (self $model) {
+            // Default calculation
+            $model->price = $model->price_per_driver * $model->drivers_number;
+
+            // Optional: Apply discount if present
+            if (!empty($model->discount)) {
+                $model->price -= $model->price * ($model->discount / 100);
+            }
+        });
+    }
+
     public function user()
     {
         return $this->belongsTo(User::class);
