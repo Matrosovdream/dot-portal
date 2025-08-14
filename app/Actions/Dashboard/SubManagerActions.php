@@ -82,12 +82,24 @@ class SubManagerActions {
 
     public function update($sub_id, $request)
     {
-        $req = $this->subRepo->getByID($sub_id);
 
-        if (!$req) {
-            abort(404, 'Request not found');
-        }
+        $req = $this->getSub( $sub_id );
+        $req['Model']->update( $request );
 
+        return true;
+
+        //dd($req, $request);
+
+    }
+
+    public function userStore($sub_id, $request)
+    {
+        dd('UserStore method not implemented yet');
+    }
+
+    public function companyStore($sub_id, $request)
+    {
+        dd('CompanyStore method not implemented yet');
     }
 
     public function sendEmail($sub_id)
@@ -106,6 +118,18 @@ class SubManagerActions {
 
         // Assuming the email was sent successfully
         return true; // Or return some response indicating success
+    }
+
+    private function getSub($sub_id)
+    {
+        $this->subRepo->setRelations(['user', 'subscription']);
+        $sub = $this->subRepo->getByID($sub_id);
+
+        if (!$sub) {
+            abort(404, 'Subscription not found');
+        }
+
+        return $sub;
     }
 
     private function getStatuses() {

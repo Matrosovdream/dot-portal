@@ -26,7 +26,7 @@
                 <div class="col-lg-4 fv-row">
                     <select name="status" class="form-select form-select-solid form-select-lg">
                         <option value="active" {{ $sub['status'] == 'active' ? 'selected' : '' }}>Active</option>
-                        <option value="inactive" {{ $sub['status'] == 'disabled' ? 'selected' : '' }}>Disabled</option>
+                        <option value="disabled" {{ $sub['status'] == 'disabled' ? 'selected' : '' }}>Disabled</option>
                     </select>
                 </div>
             </div>
