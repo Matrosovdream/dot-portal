@@ -22,8 +22,24 @@ class SubManagerActions {
     public function index()
     {
 
+        $filter = [];
+
+        // Filter by search form
+        if( request()->has('q') && !empty(request()->input('q')) ) {
+
+            $subsFound = $this->userSubRepo->modelSearch( request()->input('q'), false);
+            $sub_ids = $subsFound->pluck('id')->toArray();
+
+            if( empty($sub_ids) ) {
+                $filter['id'] = [0];
+            } else {
+                $filter['id'] = $sub_ids; 
+            }
+            
+        }
+
         $this->userSubRepo->setRelations(['user', 'subscription']);
-        $subs = $this->userSubRepo->getAll();
+        $subs = $this->userSubRepo->getAll( $filter );
 
         return [
             'title' => 'User Subscriptions',
@@ -67,8 +83,6 @@ class SubManagerActions {
                     'sub' => $userSub,
                 ];
             } 
-
-            //dd($user, $userCompany, $userSub, $request->all());
 
         } else {
             return [
