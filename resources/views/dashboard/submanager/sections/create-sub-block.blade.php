@@ -65,55 +65,6 @@
 </div>
 
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const driversInput = document.getElementById('drivers_number');
-        const subSelect = document.querySelector('select[name="sub[subscription_id]"]');
-        const pricePerDriverInput = document.querySelector('input[name="sub[price_per_driver]"]');
-    
-        if (!driversInput || !subSelect || !pricePerDriverInput) return;
-    
-        function updateSubscriptionByDrivers() {
-            const driversNumber = parseInt(driversInput.value, 10);
-    
-            if (!isNaN(driversNumber) && driversNumber > 0) {
-                let matchedOption = null;
-    
-                Array.from(subSelect.options).forEach(option => {
-                    const from = parseInt(option.dataset.driversFrom, 10);
-                    const to = parseInt(option.dataset.driversTo, 10);
-    
-                    if (!isNaN(from) && !isNaN(to) && driversNumber >= from && driversNumber <= to) {
-                        matchedOption = option;
-                    }
-                });
-    
-                if (matchedOption) {
-                    pricePerDriverInput.value = matchedOption.dataset.pricePerDriver || '';
-                    subSelect.value = matchedOption.value || '';
-                } else {
-                    pricePerDriverInput.value = '';
-                    subSelect.value = '';
-                }
-            } else {
-                pricePerDriverInput.value = '';
-                subSelect.value = '';
-            }
-        }
-    
-        // Trigger on typing
-        driversInput.addEventListener('keyup', updateSubscriptionByDrivers);
-    
-        // Also trigger when value is programmatically changed after USDOT fetch
-        const origFetch = window.fetch;
-        window.fetch = function (...args) {
-            return origFetch.apply(this, args).then(response => {
-                // Run after response is processed by your existing script
-                setTimeout(updateSubscriptionByDrivers, 50);
-                return response;
-            });
-        };
-    });
-    </script>
+
     
     
