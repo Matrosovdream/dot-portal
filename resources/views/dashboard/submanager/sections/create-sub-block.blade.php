@@ -15,8 +15,13 @@
             <select name="sub[subscription_id]" class="form-select form-select-solid form-select-lg mb-2">
                 <option value="">Select Subscription</option>
                 @foreach($subList['items'] as $subItem)
-                    <option value="{{ $subItem['id'] }}" 
-                        {{ $subItem['id'] == old('sub.subscription_id') ? 'selected' : '' }}>
+                    <option 
+                        value="{{ $subItem['id'] }}" 
+                        data-price-per-driver="{{ $subItem['price_per_driver'] }}"
+                        data-drivers-from="{{ $subItem['drivers_amount_from'] }}"
+                        data-drivers-to="{{ $subItem['drivers_amount_to'] }}"
+                        {{ $subItem['id'] == old('sub.subscription_id') ? 'selected' : '' }}
+                        >
                         {{ $subItem['name'] }}
                     </option>
                 @endforeach
@@ -38,6 +43,7 @@
             <input 
                     type="number" 
                     name="sub[drivers_number]" 
+                    id="drivers_number"
                     class="form-control mb-2 {{ $errors->has('sub.drivers_number') ? 'is-invalid' : '' }}"
                     placeholder="" 
                     value="{{ old('sub.drivers_number') }}" 
@@ -59,11 +65,55 @@
 </div>
 
 
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<!-- JS Logic -->
 <script>
-</script>
-
-
+    document.addEventListener('DOMContentLoaded', function () {
+        const driversInput = document.getElementById('drivers_number');
+        const subSelect = document.querySelector('select[name="sub[subscription_id]"]');
+        const pricePerDriverInput = document.querySelector('input[name="sub[price_per_driver]"]');
+    
+        if (!driversInput || !subSelect || !pricePerDriverInput) return;
+    
+        function updateSubscriptionByDrivers() {
+            const driversNumber = parseInt(driversInput.value, 10);
+    
+            if (!isNaN(driversNumber) && driversNumber > 0) {
+                let matchedOption = null;
+    
+                Array.from(subSelect.options).forEach(option => {
+                    const from = parseInt(option.dataset.driversFrom, 10);
+                    const to = parseInt(option.dataset.driversTo, 10);
+    
+                    if (!isNaN(from) && !isNaN(to) && driversNumber >= from && driversNumber <= to) {
+                        matchedOption = option;
+                    }
+                });
+    
+                if (matchedOption) {
+                    pricePerDriverInput.value = matchedOption.dataset.pricePerDriver || '';
+                    subSelect.value = matchedOption.value || '';
+                } else {
+                    pricePerDriverInput.value = '';
+                    subSelect.value = '';
+                }
+            } else {
+                pricePerDriverInput.value = '';
+                subSelect.value = '';
+            }
+        }
+    
+        // Trigger on typing
+        driversInput.addEventListener('keyup', updateSubscriptionByDrivers);
+    
+        // Also trigger when value is programmatically changed after USDOT fetch
+        const origFetch = window.fetch;
+        window.fetch = function (...args) {
+            return origFetch.apply(this, args).then(response => {
+                // Run after response is processed by your existing script
+                setTimeout(updateSubscriptionByDrivers, 50);
+                return response;
+            });
+        };
+    });
+    </script>
+    
+    

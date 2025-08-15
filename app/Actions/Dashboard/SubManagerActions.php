@@ -50,6 +50,7 @@ class SubManagerActions {
 
     public function create()
     {
+        //dd($this->subListRepo->getAll());
         return [
             'title' => 'Create New Subscription',
             'subList' => $this->subListRepo->getAll()
