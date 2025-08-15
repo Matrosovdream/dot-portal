@@ -17,13 +17,15 @@ class GovernApiService implements SaferwebInterface {
         if (!$snapshot) {
             return [];
         }
-
+        
         // to retrieve the USDOT information. For this example, we'll just return a dummy response.
         $response = [
             'usdot' => $usdot,
+            'mc_number' => $snapshot['mc_number'] ?? '',
             'company_name' => $snapshot['legal_name'] ?? '',
             'trucks_number' => $snapshot['truck_units'] ?? 0,
             'drivers_number' => $snapshot['total_drivers'] ?? 0,
+            'phone' => $snapshot['phone'] ?? '',
         ];
 
         return $response;
