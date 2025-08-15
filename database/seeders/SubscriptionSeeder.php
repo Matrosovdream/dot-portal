@@ -16,47 +16,62 @@ class SubscriptionSeeder extends Seeder
         
         $subs = [
             [
-                'name' => '1-5 Drivers ($30 per driver)', 
-                'slug' => '1-5-drivers',
-                'price_per_driver' => 30.00,
+                'name' => '1-3 Drivers ($35 per driver)', 
+                'slug' => '1-3-drivers',
+                'price_per_driver' => 35.00,
                 'drivers_amount_from' => 1,
-                'drivers_amount_to' => 5,
+                'drivers_amount_to' => 3,
                 'discount' => 0,
                 'duration' => 'monthly',
                 'short_description' => 'Best for a small company',
-                'description' => '1-5 drivers for $30 per driver',
+                'description' => '1-3 drivers for $35 per driver',
                 'points' => [
-                    [ 'title' => 'Up to 5 Active Drivers', 'included' => 1 ],
+                    [ 'title' => 'Up to 3 Active Drivers', 'included' => 1 ],
                     [ 'title' => 'Request section for free', 'included' => 1 ]
                 ]
             ],
             [
-                'name' => '6-10 Drivers ($25 per driver)',
-                'slug' => '6-10-drivers',
-                'price_per_driver' => 25.00,
-                'drivers_amount_from' => 6,
+                'name' => '4-10 Drivers ($30 per driver)',
+                'slug' => '4-10-drivers',
+                'price_per_driver' => 30.00,
+                'drivers_amount_from' => 4,
                 'drivers_amount_to' => 10,
                 'discount' => 0,
                 'duration' => 'monthly',
                 'short_description' => 'Best for a medium company',
-                'description' => '6-10 drivers for $25 per driver',
+                'description' => '4-10 drivers for $30 per driver',
                 'points' => [
                     [ 'title' => 'Up to 10 Active Drivers', 'included' => 1 ],
                     [ 'title' => 'Request section for free', 'included' => 1 ]
                 ]
             ],
             [
-                'name' => '11-100 Drivers ($20 per driver)',
-                'slug' => '11-100-drivers',
-                'price_per_driver' => 20.00,
+                'name' => '11-50 Drivers ($25 per driver)',
+                'slug' => '11-50-drivers',
+                'price_per_driver' => 25.00,
                 'drivers_amount_from' => 11,
-                'drivers_amount_to' => 100, 
+                'drivers_amount_to' => 50, 
                 'discount' => 0,
                 'duration' => 'monthly',
                 'short_description' => 'Best for a large company',
-                'description' => '11+ drivers for $20 per driver',
+                'description' => '11-50 drivers for $25 per driver',
                 'points' => [
-                    [ 'title' => 'Unlimited Active Drivers', 'included' => 1 ],
+                    [ 'title' => 'Up to 50 Active Drivers', 'included' => 1 ],
+                    [ 'title' => 'Request section for free', 'included' => 1 ]
+                ]
+            ],
+            [
+                'name' => '50-99 Drivers ($20 per driver)',
+                'slug' => '50-99-drivers',
+                'price_per_driver' => 20.00,
+                'drivers_amount_from' => 50,
+                'drivers_amount_to' => 99,
+                'discount' => 0,
+                'duration' => 'monthly',
+                'short_description' => 'Best for a large company',
+                'description' => '50-99 drivers for $20 per driver',
+                'points' => [
+                    [ 'title' => 'Up to 100 Active Drivers', 'included' => 1 ],
                     [ 'title' => 'Request section for free', 'included' => 1 ]
                 ]
             ],
@@ -70,7 +85,7 @@ class SubscriptionSeeder extends Seeder
                 'short_description' => 'Custom subscription for your needs',
                 'description' => 'Create a custom subscription based on your requirements',
                 'points' => [
-                    [ 'title' => 'Custom Active Drivers', 'included' => 1 ],
+                    [ 'title' => 'Unlimited Active Drivers', 'included' => 1 ],
                     [ 'title' => 'Request section for free', 'included' => 1 ]
                 ]
             ]
