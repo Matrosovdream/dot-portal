@@ -10,24 +10,29 @@
     <div class="card-body pt-0 pb-5">
 
         <div class="fv-row mb-7">
-            <label class="fs-6 fw-semibold mb-2 required">Company Name</label>
-            <input 
-                    type="text" 
-                    name="company[name]" 
-                    class="form-control mb-2 {{ $errors->has('company.name') ? 'is-invalid' : '' }}"
-                    placeholder="" 
-                    value="{{ old('company.name') }}" 
-                    />
-        </div>
-
-        <div class="fv-row mb-7">
             <label class="fs-6 fw-semibold mb-2 required">Dot Number</label>
             <input 
                     type="text" 
                     name="company[dot_number]" 
+                    id="usdot"
                     class="form-control mb-2 {{ $errors->has('company.dot_number') ? 'is-invalid' : '' }}"
                     placeholder="" 
                     value="{{ old('company.dot_number') }}" 
+                    />
+            <span id="usdot-loader" class="spinner-border text-primary position-absolute top-50 end-0 d-none" style="margin-top: -3px; margin-right: 15px;" role="status">
+                <span class="visually-hidden">Loading...</span>
+            </span>
+        </div>
+
+        <div class="fv-row mb-7">
+            <label class="fs-6 fw-semibold mb-2 required">Company Name</label>
+            <input 
+                    type="text" 
+                    name="company[name]" 
+                    id="company_name"
+                    class="form-control mb-2 {{ $errors->has('company.name') ? 'is-invalid' : '' }}"
+                    placeholder="" 
+                    value="{{ old('company.name') }}" 
                     />
         </div>
 
@@ -56,12 +61,5 @@
     </div>
 </div>
 
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-<!-- JS Logic -->
-<script>
-</script>
 
 
