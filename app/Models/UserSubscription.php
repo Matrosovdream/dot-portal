@@ -4,11 +4,13 @@ namespace App\Models;
 
 use App\Traits\Metaable;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class UserSubscription extends Model
 {
 
     use Metaable;
+    use Searchable;
     protected $table = 'user_subscription';
 
     protected $fillable = [
@@ -24,6 +26,18 @@ class UserSubscription extends Model
         'end_date',
         'status',
     ];
+
+    public function toSearchableArray()
+    {
+        return [
+            'user_id' => $this->user_id ?? '',
+            'user_firstname' => $this->user->firstname ?? '',
+            'user_lastname' => $this->user->lastname ?? '',
+            'phone' => $this->user->phone ?? '',
+            'user_email' => $this->user->email ?? '',
+            'subscription_name' => $this->subscription->name ?? '',
+        ];
+    }
 
     protected static function booted(): void
     {
