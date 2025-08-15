@@ -81,8 +81,9 @@
 
                 // Fill the fields
                 document.getElementById('company_name').value = data.company_name || '';
-                //document.getElementById('trucks_number').value = data.trucks_number || '';
+                document.getElementById('company_phone').value = data.phone || '';
                 document.getElementById('drivers_number').value = data.drivers_number || '';
+                document.getElementById('mc_number').value = data.mc_number || '';
     
                 if( data.trucks_number ) {
                     //setTruckNumber(data.trucks_number);
@@ -98,8 +99,59 @@
             .finally(() => {
                 setTimeout(() => {
                     loader.classList.add('d-none');
-                }, 100);
+                }, 500);
             });
+        });
+    </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const driversInput = document.getElementById('drivers_number');
+            const subSelect = document.querySelector('select[name="sub[subscription_id]"]');
+            const pricePerDriverInput = document.querySelector('input[name="sub[price_per_driver]"]');
+        
+            if (!driversInput || !subSelect || !pricePerDriverInput) return;
+        
+            function updateSubscriptionByDrivers() {
+                const driversNumber = parseInt(driversInput.value, 10);
+        
+                if (!isNaN(driversNumber) && driversNumber > 0) {
+                    let matchedOption = null;
+        
+                    Array.from(subSelect.options).forEach(option => {
+                        const from = parseInt(option.dataset.driversFrom, 10);
+                        const to = parseInt(option.dataset.driversTo, 10);
+        
+                        if (!isNaN(from) && !isNaN(to) && driversNumber >= from && driversNumber <= to) {
+                            matchedOption = option;
+                        }
+                    });
+        
+                    if (matchedOption) {
+                        pricePerDriverInput.value = matchedOption.dataset.pricePerDriver || '';
+                        subSelect.value = matchedOption.value || '';
+                    } else {
+                        pricePerDriverInput.value = '';
+                        subSelect.value = '';
+                    }
+                } else {
+                    pricePerDriverInput.value = '';
+                    subSelect.value = '';
+                }
+            }
+        
+            // Trigger on typing
+            driversInput.addEventListener('keyup', updateSubscriptionByDrivers);
+        
+            // Also trigger when value is programmatically changed after USDOT fetch
+            const origFetch = window.fetch;
+            window.fetch = function (...args) {
+                return origFetch.apply(this, args).then(response => {
+                    // Run after response is processed by your existing script
+                    setTimeout(updateSubscriptionByDrivers, 50);
+                    return response;
+                });
+            };
         });
     </script>
 
