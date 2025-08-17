@@ -97,8 +97,8 @@ class SubManagerActions {
 
     public function show( $sub_id )
     {
-        $this->userSubRepo->setRelations(['user', 'subscription']);
-        $sub = $this->userSubRepo->getByID( $sub_id );
+
+        $sub = $this->getSub( $sub_id );
 
         if( !$sub ) {
             abort(404, 'Subscription not found');
