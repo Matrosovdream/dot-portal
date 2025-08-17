@@ -7,11 +7,13 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\LoginToken;
 use Illuminate\Support\Str;
 use App\Models\User;
+use App\Repositories\User\UserRepo;
 
 class UserService {
 
     public function __construct(
-        protected MailServiceInterface $mailService
+        protected MailServiceInterface $mailService,
+        protected UserRepo $userRepo,
     ) {}
 
     public function activateAccount( $user )
@@ -92,6 +94,33 @@ class UserService {
         $res = $this->mailService->sendTemplate(
             $user->email, 
             'Your one-time login link',
+            $template, 
+            $variables
+        );
+
+        return $res;
+
+    }
+
+    public function sendPaymentLink( $user ) {
+
+        if( !$user ) { return false; }
+
+        // Generate the one-time login link
+        $loginLink = $this->makeLoginLink($user->id);
+
+        if( !$loginLink ) { return false; }
+
+        $template = 'payment-link';
+        $variables = [
+            'firstname' => $user->firstname,
+            'login_url' => $loginLink
+        ];
+
+        // Send email using MailgunService
+        $res = $this->mailService->sendTemplate(
+            $user->email, 
+            'Your link to pay Subscription',
             $template, 
             $variables
         );
