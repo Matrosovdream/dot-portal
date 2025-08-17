@@ -61,6 +61,18 @@
                     />
         </div>
 
+        <div class="fv-row mb-7">
+            <label class="fs-6 fw-semibold mb-2" for="send_payment_link">Send Payment Link</label>
+            <br/>
+            <input 
+                    type="checkbox" 
+                    name="send_payment_link" 
+                    class="form-check-input" 
+                    id="send_payment_link"
+                    {{ old('send_payment_link') ? 'checked' : '' }}
+            />
+        </div>
+
     </div>
 </div>
 

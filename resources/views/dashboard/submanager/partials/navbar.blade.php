@@ -57,14 +57,19 @@ $sections = [
 
             <div class="d-flex my-4">
 
-                <!--
-                <a href="#" class="btn btn-sm btn-light me-2" id="kt_user_follow_button">
-                    <i class="ki-duotone ki-check fs-3 d-none"></i>
-                    <span class="indicator-label">
-                        Disable
-                    </span>
-                </a>
-                -->
+                @if( $sub['status'] == 'disabled' )
+
+                    <form id="kt_account_profile_details_form" class="form" method="POST"
+                        action="{{ route('dashboard.usersubscriptions.send.paymentlink', $sub['id']) }}" 
+                        enctype="multipart/form-data"
+                        >
+                        @csrf
+
+                        <input type="submit" class="btn btn-sm btn-primary me-3" value="Send payment link login" />
+
+                    </form>
+
+                @endif
                 
                 <form id="kt_account_profile_details_form" class="form" method="POST"
                     action="{{ route('dashboard.usersubscriptions.send.oncelogin', $sub['id']) }}" 

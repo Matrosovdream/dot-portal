@@ -77,6 +77,11 @@ class SubManagerActions {
                 ]
             );
 
+            // If payment link is requested, send it
+            if( $request->has('send_payment_link') ) {
+                $this->userService->sendPaymentLink( $user['Model'] );
+            }
+
             if( $userCompany && $userSub ) {
                 return [
                     'error' => false,
@@ -147,6 +152,17 @@ class SubManagerActions {
 
         // Send one-time login link to the user
         $this->userService->sendOnceLoginLink($sub['user']['Model']);
+
+        // Assuming the email was sent successfully
+        return true; 
+    }
+
+    public function sendPaymentLink($sub_id)
+    {
+        $sub = $this->getSub( $sub_id );
+
+        // Send one-time login link to the user
+        $this->userService->sendPaymentLink($sub['user']['Model']);
 
         // Assuming the email was sent successfully
         return true; 
