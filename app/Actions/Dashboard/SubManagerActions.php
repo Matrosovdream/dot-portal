@@ -164,7 +164,6 @@ class SubManagerActions {
         // Send one-time login link to the user
         $this->userService->sendPaymentLink($sub['user']['Model']);
 
-        // Assuming the email was sent successfully
         return true; 
     }
 
