@@ -64,13 +64,16 @@ class SubManagerActions {
         $user = $this->userRepo->create($request->user);
         $user['Model']->setRole('company');
 
+        
+
         if( $user ) {
 
             // Sync user company
             $userCompany = $this->userCompanyRepo->syncItem($user['id'], $request->company);
 
             // Sync subscription details
-            $userSub = $this->userSubRepo->create(
+            $userSub = $this->userSubRepo->syncItem(
+                $user['id'],
                 $request->sub + [
                     'user_id' => $user['id'],
                     'status' => 'disabled', // Default status
@@ -128,7 +131,12 @@ class SubManagerActions {
     {
 
         $sub = $this->getSub( $sub_id );
-        $sub['Model']->update( $request );
+
+        $this->userSubRepo->update(
+            $sub_id,
+            $request
+        );
+
         return true;
     }
 
@@ -162,7 +170,7 @@ class SubManagerActions {
         $sub = $this->getSub( $sub_id );
 
         // Send one-time login link to the user
-        $this->userService->sendPaymentLink($sub['user']['Model']);
+        $this->userService->sendPaymentLink($sub['user']['Model'], 100);
 
         return true; 
     }
