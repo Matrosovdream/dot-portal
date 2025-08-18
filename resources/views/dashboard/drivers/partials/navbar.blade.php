@@ -45,6 +45,7 @@
             'title' => 'To Do',
             'url' => route('dashboard.drivers.show.todo', $driver['id']),
             'alert' => $validation['valid'] ?? null,
+            'classes' => 'fw-bolder text-danger',
         ],
         /*'logs' => [
             'title' => 'Logs',
@@ -269,6 +270,7 @@
             <a 
                 class="nav-link text-active-primary py-5 
                 {{ request()->url() == $section['url'] ? 'active' : '' }}
+                {{ $section['classes'] ?? '' }}
                 " 
                 href="{{ $section['url'] }}"
                 >
