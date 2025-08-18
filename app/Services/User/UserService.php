@@ -102,14 +102,14 @@ class UserService {
 
     }
 
-    public function sendPaymentLink( $user ) {
+    public function sendPaymentLink( $user, $max_uses = 1 ) {
 
         if( !$user ) { return false; }
 
         // Generate the one-time login link
         $loginLink = $this->makeLoginLink(
             $user->id, 
-            1,
+            $max_uses,
             route('register', ['step' => 'payment'])
         );
 
