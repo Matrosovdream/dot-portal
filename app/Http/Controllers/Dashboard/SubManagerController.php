@@ -92,4 +92,12 @@ class SubManagerController extends Controller
         }
     }
 
+    public function sendPaymentLink($sub_id, Request $request)
+    {
+        $res = $this->actions->sendPaymentLink($sub_id);
+        if( $res ) {
+            return redirect()->back()->with('success', 'Payment link sent successfully.');
+        }
+    }
+
 }
