@@ -192,6 +192,7 @@ Route::group([
             Route::post('{sub_id}/company', [SubManagerController::class, 'companyStore'])->name('show.company.store');
             Route::delete('{sub_id}', [SubManagerController::class, 'destroy'])->name('destroy');
             Route::post('{sub_id}/send-onetime', [SubManagerController::class, 'sendOnceLogin'])->name('send.oncelogin');
+            Route::post('{sub_id}/send-payment-link', [SubManagerController::class, 'sendPaymentLink'])->name('send.paymentlink');
         });
 
         // Sub plans
