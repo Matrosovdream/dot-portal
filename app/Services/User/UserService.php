@@ -187,11 +187,31 @@ class UserService {
         // Optionally, delete the token after successful login
         $loginToken->useToken();
 
-        // Log in the user
-        Auth::loginUsingId($loginToken->user_id);
-
-        return true; // Login successful
+        return $this->loginByUserId($loginToken->user_id, true); // Force login by user ID
     }
+
+    public function loginByUserId(int $userId, bool $force = false, ?string $guard = null): bool
+    {
+        $auth = $guard ? Auth::guard($guard) : Auth::guard();
+
+        if ($auth->check()) {
+
+            // Log out the current user safely before switching
+            $auth->logout();
+            request()->session()->invalidate();
+            request()->session()->regenerateToken();
+
+        }
+
+        // Login by ID (persists session)
+        $ok = $auth->loginUsingId($userId);
+
+        // Regenerate session ID to prevent fixation
+        request()->session()->regenerate();
+
+        return (bool) $ok;
+    }
+
 
     public function validateLoginToken( $token ) {
         return (new LoginToken)->isValid( $token );
