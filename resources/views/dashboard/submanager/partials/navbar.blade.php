@@ -65,7 +65,7 @@ $sections = [
                         >
                         @csrf
 
-                        <input type="submit" class="btn btn-sm btn-primary me-3" value="Send payment link login" />
+                        <input type="submit" class="btn btn-sm btn-primary me-3" value="Send payment link" />
 
                     </form>
 
