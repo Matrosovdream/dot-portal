@@ -38,7 +38,7 @@ class StoreRequest extends FormRequest
             ],
             'sub.drivers_number' => 'required|integer',
             'sub.price_per_driver' => 'required|numeric',
-            'send_payment_link' => 'nullable|boolean',
+            //'send_payment_link' => 'nullable|boolean',
         ];
     }
 
