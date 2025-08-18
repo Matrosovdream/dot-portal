@@ -44,8 +44,6 @@ class UserService {
             'login_url' => route('login')
         ];
 
-        $user->email = 'matrosovdream@gmail.com';
-
         // Send email using MailgunService
         return $this->mailService->sendTemplate(
             $user->email, 
