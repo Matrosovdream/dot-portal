@@ -107,14 +107,18 @@ class UserService {
         if( !$user ) { return false; }
 
         // Generate the one-time login link
-        $loginLink = $this->makeLoginLink($user->id);
+        $loginLink = $this->makeLoginLink(
+            $user->id, 
+            1,
+            route('register', ['step' => 'payment'])
+        );
 
         if( !$loginLink ) { return false; }
 
         $template = 'payment-link';
         $variables = [
             'firstname' => $user->firstname,
-            'login_url' => $loginLink
+            'login_url' => $loginLink,
         ];
 
         // Send email using MailgunService
@@ -129,12 +133,20 @@ class UserService {
 
     }
 
-    public function makeLoginLink( $user_id, $max_uses = 1 ) {
+    public function makeLoginLink( $user_id, $max_uses = 1, $redirect_url = null ) {
 
         $token = $this->generateLoginToken($user_id, $max_uses);
 
         // Return the login link
-        return route('login.onetime', ['token' => $token]);
+        $loginLink = route('login.onetime', ['token' => $token]);
+
+        // If a redirect URL is provided, append it to the login link
+        if ($redirect_url) {
+            $loginLink .= '?redirect=' . urlencode($redirect_url);
+        }
+
+        return $loginLink;
+
     }
 
     public function generateLoginToken($user_id, $max_uses = 1) {
