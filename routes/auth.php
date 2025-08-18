@@ -16,16 +16,16 @@ Route::get('register', [RegisteredUserController::class, 'create'])->name('regis
 Route::get('register-remove', [RegisteredUserController::class, 'registerRemove'])->name('register.remove');
 Route::post('register', [RegisteredUserController::class, 'store']);
 
+// One-time login link
+Route::get('login-onetime/{token}', [AuthenticatedSessionController::class, 'loginOnce'])
+->name('login.onetime');    
+
 
 // This routes are available for guest users
 Route::middleware('guest')->group(function () {
 
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
-
-    // One-time login link
-    Route::get('login-onetime/{token}', [AuthenticatedSessionController::class, 'loginOnce'])
-        ->name('login.onetime');    
 
     Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
