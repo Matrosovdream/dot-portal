@@ -70,7 +70,7 @@ class AuthenticatedSessionController extends Controller
     /**
      * Handle one-time login using a token.
      */
-    public function loginOnce(string $token): RedirectResponse
+    public function loginOnce(Request $request, string $token): RedirectResponse
     {
 
         $res = $this->userService->loginWithToken($token);
@@ -79,8 +79,14 @@ class AuthenticatedSessionController extends Controller
             abort(404, 'Invalid or expired token.');
         }
 
-        return redirect()->intended(route('dashboard.home', absolute: false));
-    }
+        if( $request->has('redirect') ) {
+            $redirectUrl = $request->input('redirect');
+            return redirect()->to($redirectUrl);
+        } else {
+            // Default redirect if no specific URL is provided
+            return redirect()->intended(route('dashboard.home', absolute: false));
+        }
 
+    }
 
 }
