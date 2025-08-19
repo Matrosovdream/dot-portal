@@ -16,7 +16,7 @@ class CompanyMenu implements InterfaceMenu {
 
     public function sidebarMenu() : array {
 
-        return array(
+        $menu = array(
             /*array(
                 'title' => 'Notifications',
                 'url' => route('dashboard.notifications'),
@@ -60,6 +60,7 @@ class CompanyMenu implements InterfaceMenu {
             array(
                 'title' => 'Documents',
                 'url' => route('dashboard.documents.index'),
+                'route' => 'dashboard.documents.index',
                 'icon' => 'ki-document',
                 'roles' => ['user', 'manager', 'admin'],
                 /*'childs' => array(
@@ -74,6 +75,7 @@ class CompanyMenu implements InterfaceMenu {
             array(
                 'title' => 'Drivers',
                 'url' => route('dashboard.drivers.index'),
+                'route' => 'dashboard.drivers.index',
                 'icon' => 'ki-user',
                 'roles' => ['user', 'manager', 'admin'],
                 /*'childs' => array(
@@ -100,6 +102,7 @@ class CompanyMenu implements InterfaceMenu {
             array(
                 'title' => 'Vehicles',
                 'url' => route('dashboard.vehicles.index'),
+                'route' => 'dashboard.vehicles.index',
                 'icon' => 'ki-car',
                 'roles' => ['user', 'manager', 'admin'],
                 /*'childs' => array(
@@ -187,6 +190,45 @@ class CompanyMenu implements InterfaceMenu {
             ),
         );
 
+        return $this->checkAlerts($menu);
+
+    }
+
+    private function checkAlerts( $menu ) {
+
+        $conditions = [
+            [
+                'route' => 'dashboard.drivers.index',
+                'func' => 'hasDriverTasks',
+            ],
+            [
+                'route' => 'dashboard.vehicles.index',
+                'func' => 'hasVehicleTasks',
+            ]
+        ];
+
+        foreach( $conditions as $condition ) {
+
+            if( $this->{$condition['func']}() ) {
+                foreach( $menu as &$item ) {
+                    if( isset($item['route']) && $item['route'] === $condition['route'] ) {
+                        $item['alert'] = true;
+                    }
+                }
+            }
+
+        }
+
+        return $menu;
+
+    }
+
+    private function hasDriverTasks() {
+        return auth()->user()->hasOpenDriverTasks();
+    }
+
+    private function hasVehicleTasks() {
+        return auth()->user()->hasOpenVehicleTasks();
     }
 
     private function getUserRequestGroups( $user_id = null ) {
