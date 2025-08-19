@@ -76,11 +76,7 @@
                                                 isset($validation[ $vehicle['id'] ]) && 
                                                 !$validation[ $vehicle['id'] ]['valid'] 
                                                 )    
-                                                <i class="ki-duotone ki-information fs-2x text-warning">
-                                                    <span class="path1"></span>
-                                                    <span class="path2"></span>
-                                                    <span class="path3"></span>
-                                                </i>
+                                                <x-alert-small class="ms-1" />
                                             @endif
                                         </span>
                                     </td>
