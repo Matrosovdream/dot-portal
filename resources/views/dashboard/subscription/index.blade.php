@@ -33,4 +33,7 @@
     <!-- Subscription Modal -->
     @include('dashboard.subscription.modals.upgrade-plan')
 
+    <!-- Subscription JS -->
+    @include('dashboard.subscription.partials.sub-js')
+
 @endsection

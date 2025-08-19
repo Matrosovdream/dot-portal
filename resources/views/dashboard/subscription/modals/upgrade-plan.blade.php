@@ -21,130 +21,76 @@
                     </div>
                 </div>
 
+                <div class="w-75 mx-auto">
+
                 <form method="POST" action="{{ route('dashboard.subscription.update') }}">
                     @csrf
- 
-                    <div class="d-flex flex-column">
 
-                        <div class="nav-group nav-group-outline mx-auto" data-kt-buttons="true">
-                            <button 
-                                class="btn btn-color-gray-500 btn-active btn-active-secondary px-6 py-3 active"
-                                data-kt-plan="month">
-                                Monthly
-                            </button>
-                        </div>
+                    <input type="hidden" name="is_custom_request" id="is_custom_request" value="false">
+                    <input type="hidden" name="price_per_driver" id="price_per_driver" value="">
+                    <input type="hidden" name="subscription_price" id="subscription_price" value="">
+                    <input type="hidden" name="subscription_id" id="subscription_id" value="">
 
-                        <div class="row mt-10">
+                    <div class="row">
 
-                            <div class="col-lg-6 mb-10 mb-lg-0">
-                                <div class="nav flex-column">
-
-                                    @foreach( $allSubscriptions['items'] as $sub )
-
-                                        <label
-                                            class="nav-link btn btn-outline btn-outline-dashed btn-color-dark btn-active btn-active-primary d-flex flex-stack text-start p-6 mb-6
-                                            @if( $subscription['subscription'] )
-                                            {{ $sub['id'] == $subscription['subscription']['id'] ? 'active btn-active btn-active-primary' : '' }}
-                                            @endif
-                                            "
-                                            data-bs-toggle="tab" 
-                                            data-bs-target="#kt_upgrade_plan_{{ $sub['id'] }}"
-                                            >
-
-                                            <div class="d-flex align-items-center me-2">
-
-                                                <div
-                                                    class="form-check form-check-custom form-check-solid form-check-success flex-shrink-0 me-6">
-                                                    <input 
-                                                        class="form-check-input" 
-                                                        type="radio" 
-                                                        name="plan" 
-                                                        @if( $subscription['subscription'] )
-                                                        {{ $sub['id'] == $subscription['subscription']['id'] ? ' checked="checked"' : '' }}
-                                                        @endif
-                                                        value="{{ $sub['id'] }}" 
-                                                        />
-                                                </div>
-        
-                                                <div class="flex-grow-1">
-                                                    <div class="d-flex align-items-center fs-2 fw-bold flex-wrap">
-                                                        {{ $sub['name'] }}
-                                                    </div>
-                                                    <div class="fw-semibold opacity-75">
-                                                        {{ $sub['short_description'] }}
-                                                    </div>
-                                                </div>
-
-                                            </div>
-
-                                            <div class="ms-5">
-                                                <span class="mb-2">$</span>
-                                                <span class="fs-3x fw-bold" data-kt-plan-price-month="{{ $sub['price'] }}"
-                                                    data-kt-plan-price-annual="{{ $sub['price'] }}">{{ $sub['price'] }}</span>
-                                                <span class="fs-7 opacity-50">/
-                                                    <span data-kt-element="period">Mon</span>
-                                                </span>
-                                            </div>
-
-                                        </label>
-
-                                    @endforeach
-
-                                </div>
+                        <!-- Number of drivers -->
+                        <div class="fv-row mb-8">
+                            
+                            <div class="fv-row mb-5 ">
+                                <x-input-label for="drivers_number" :value="__('Number of drivers')" />
+                                <x-text-input 
+                                id="drivers_number" 
+                                class="form-control bg-transparent {{ $errors->has('drivers_number') ? 'is-invalid' : '' }} d-none" 
+                                type="number" 
+                                name="drivers_number" 
+                                :value="$subscription['drivers_number'] ?? 1"
+                                required 
+                                />
                             </div>
 
-                            <div class="col-lg-6">
-                                <div class="tab-content rounded h-100 bg-light p-10">
-
-                                    @foreach( $allSubscriptions['items'] as $sub )
-
-                                        <div 
-                                            class="tab-pane fade 
-                                            @if( $subscription['subscription'] )
-                                            {{ $sub['id'] == $subscription['subscription']['id'] ? 'show active' : '' }}
-                                            @endif
-                                             " 
-                                            id="kt_upgrade_plan_{{ $sub['id'] }}"
-                                            >
-
-                                            <div class="pb-5">
-                                                <h2 class="fw-bold text-gray-900">
-                                                    {{ $sub['name'] }}
-                                                </h2>
-                                                <div class="text-muted fw-semibold">
-                                                    {{ $sub['short_description'] }}
-                                                </div>
-                                            </div>
-
-                                            <div class="pt-1">
-
-                                                @foreach( $sub['points']['items'] as $point )
-        
-                                                    <div class="d-flex align-items-center mb-7">
-                                                        <span class="fw-semibold fs-5 text-gray-700 flex-grow-1">
-                                                            {{ $point['title'] }}
-                                                        </span>
-                                                        <i class="ki-duotone ki-check-circle fs-1 
-                                                        {{ $point['included'] ? 'text-success' : 'text-danger' }}
-                                                        ">
-                                                            <span class="path1"></span>
-                                                            <span class="path2"></span>
-                                                        </i>
-                                                    </div>
-
-                                                @endforeach
-        
-                                            </div>
-
-                                        </div>
-
-                                    @endforeach
-
-                                </div>
+                            <div class="d-flex flex-stack">
+                                <div id="slider_drivers_number_value" class="fs-7 fw-semibold text-muted"></div>
+                                <div id="slider_drivers_number_slider" class="noUi-sm w-100 ms-5 me-8"></div>
                             </div>
 
+                        </div>  
+
+                    </div>
+
+
+                    <!--begin::Subscription Summary-->
+                    <div id="subscription-summary" class="card mt-10">
+                        <div class="card-body p-7 bg-light-primary">
+                            <div class="d-flex align-items-center mb-4">
+                                <i class="ki-duotone ki-wallet fs-1 text-primary me-4">
+                                    <span class="path1"></span><span class="path2"></span>
+                                </i>
+                                <div>
+                                    <h3 class="mb-0 fw-bold text-gray-900">Subscription Plan</h3>
+                                    <div class="text-muted fs-6">Calculated based on number of drivers</div>
+                                </div>
+                            </div>
+                            <div class="fs-6 fw-semibold text-gray-700 mb-2" id="subscription-description"></div>
+                            <div class="fs-2 fw-bold text-primary" id="subscription-total"></div>
                         </div>
                     </div>
+                    <!--end::Subscription Summary-->
+
+                    <!--begin::Custom Price Request Form-->
+                    <div id="custom-price-request-form" class="mt-5 d-none">
+
+                        <label for="custom_request_details" class="form-label fw-semibold">
+                            Describe your business needs or add any details
+                        </label>
+                        <textarea 
+                            id="custom_request_details" 
+                            name="request_details" 
+                            class="form-control {{ $errors->has('request_details') ? 'is-invalid' : '' }}" 
+                            rows="10" 
+                            placeholder="E.g., We operate across 5 states and need scalable pricing...">{{ $subRequest->request_details ?? '' }}</textarea>
+
+                    </div>
+                    <!--end::Custom Price Request Form-->
 
                     @if( 
                         isset($subscription['refundSum']) &&
@@ -163,17 +109,34 @@
 
                     @endif
 
-                    <div class="d-flex flex-center flex-row-fluid pt-12">
-                        <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" class="btn btn-primary" id="kt_modal_upgrade_plan_btn">
-                            <span class="indicator-label">Upgrade Plan</span>
-                            <span class="indicator-progress">Please wait...
-                                <span class="spinner-border spinner-border-sm align-middle ms-2"></span></span>
-
-                        </button>
+                    <div class="d-flex flex-stack pt-15 submit-block">
+                        <div class="mr-2">
+                            <a href="#" class="btn btn-lg btn-primary" data-bs-dismiss="modal">
+                                <span class="indicator-label">Back</span>
+                            </a>
+                        </div>
+                        <div>
+                            <button type="submit" id="btn-continue" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
+                                Update Plan
+                                <i class="ki-duotone ki-arrow-right fs-4 ms-1">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </button>
+                    
+                            <button type="submit" id="btn-custom-request" class="btn btn-lg btn-primary d-none" data-kt-stepper-action="next">
+                                Request Custom Quote
+                                <i class="ki-duotone ki-arrow-right fs-4 ms-1">
+                                    <span class="path1"></span>
+                                    <span class="path2"></span>
+                                </i>
+                            </button>
+                        </div>
                     </div>
 
                 </form>
+
+            </div>
 
             </div>
 
@@ -184,42 +147,6 @@
 </div>
 
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        const planRadios = document.querySelectorAll('input[name="plan"]');
-        const upgradeBtn = document.getElementById('kt_modal_upgrade_plan_btn');
-        const refundSummary = document.getElementById('upgrade-refund-summary');
 
-        // Store the initially selected plan ID
-        let initialPlanId = null;
-        planRadios.forEach(radio => {
-            if (radio.checked) {
-                initialPlanId = radio.value;
-            }
-        });
-
-        // Disable upgrade button initially
-        upgradeBtn.disabled = true;
-
-        // Listen for changes
-        planRadios.forEach(radio => {
-            radio.addEventListener('change', function () {
-                if (this.value !== initialPlanId) {
-                    upgradeBtn.disabled = false;
-                    // Show refund summary if it exists
-                    if (refundSummary) {
-                        refundSummary.style.display = 'block';
-                    }
-                } else {
-                    upgradeBtn.disabled = true;
-                    // Hide refund summary if it exists
-                    if (refundSummary) {
-                        refundSummary.style.display = 'none';
-                    }
-                }
-            });
-        });
-    });
-</script>
 
 
