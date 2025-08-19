@@ -14,21 +14,25 @@
             <span class="menu-link">
         @endif
 
-            <span class="menu-icon">
-                <i class="ki-duotone {{ $item['icon'] }} fs-2">
-                    <span class="path1"></span>
-                    <span class="path2"></span>
-                    <span class="path3"></span>
-                </i>
-            </span>
+        <span class="menu-icon">
+            <i class="ki-duotone {{ $item['icon'] }} fs-2">
+                <span class="path1"></span>
+                <span class="path2"></span>
+                <span class="path3"></span>
+            </i>
+        </span>  
 
-            <span class="menu-title">
-                {{ $item['title'] }}
-            </span>
+        <span class="menu-title">
+            {{ $item['title'] }}
+        </span>
 
-            @if($hasChilds)
-                <span class="menu-arrow"></span>
-            @endif
+        @if( isset($item['alert']) )
+            <x-alert-small />
+        @endif  
+
+        @if($hasChilds)
+            <span class="menu-arrow"></span>
+        @endif
 
         @if($hasUrl)
             </a>
