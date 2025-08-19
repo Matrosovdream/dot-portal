@@ -489,7 +489,7 @@ class DriverUserActions {
 
         // Validate driver
         $validation = $this->driverValidation->setData($driver)->validateAll();
-        $validation['task'] = 'Field is empty';
+        $validation['task'] = 'MISSING';
 
         return [
             'title' => 'Driver todo',
