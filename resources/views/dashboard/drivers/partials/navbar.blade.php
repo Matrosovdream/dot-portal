@@ -277,13 +277,7 @@
                 {{ $section['title'] }}
 
                 @if( $section['alert'] )
-                
-                    <i class="ki-duotone ki-information fs-2x text-warning  me-4" style="margin-left: 5px;">
-                        <span class="path1"></span>
-                        <span class="path2"></span>
-                        <span class="path3"></span>
-                    </i>
-
+                    <x-alert-small class="ms-1" />
                 @endif
 
             </a>
