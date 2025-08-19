@@ -10,6 +10,7 @@ use App\View\Components\Dashboard\Forms\Date;
 use App\View\Components\Dashboard\Layout\SidebarMenu;
 use App\View\Components\Dashboard\Layout\TopbarNotifications;
 use App\View\Components\Dashboard\Layout\TopbarSearch;
+use App\View\Components\Dashboard\Elements\AlertSmall;
 use App\Services\Mail\MailgunService;
 use App\Contracts\Saferweb\SaferwebInterface;
 use App\Contracts\Mail\MailServiceInterface;
@@ -44,6 +45,7 @@ class AppServiceProvider extends ServiceProvider
         Blade::component('date', Date::class);
         Blade::component('topbar-notifications', TopbarNotifications::class);
         Blade::component('topbar-search', TopbarSearch::class);
+        Blade::component('alert-small', AlertSmall::class);
 
         // Services binding
         $this->app->bind(MailServiceInterface::class, MailgunService::class);
