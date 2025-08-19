@@ -19,6 +19,7 @@
         <script>
             axios.defaults.headers.common['X-CSRF-TOKEN'] = document.querySelector('meta[name="csrf-token"]').content;
         </script>
+        
 
         @php /*
         @vite(
@@ -48,6 +49,7 @@
         @endforeach
 
         <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noUiSlider/15.8.1/nouislider.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     </head>
 
@@ -147,6 +149,8 @@
         <script src="{{ asset('/assets/admin/js/custom/utilities/modals/users-search.js') }}"></script>
         <!--end::Custom Javascript-->
         <!--end::Javascript-->
+
+        
 
         @yield('footer-scripts')
 
