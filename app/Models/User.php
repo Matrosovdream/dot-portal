@@ -114,6 +114,33 @@ class User extends Authenticatable
         return $this->hasMany(SubscriptionCustomRequest::class, 'user_id');
     }
 
+    // User tasks
+    public function tasks()
+    {
+        return $this->hasMany(UserTask::class, 'user_id');
+    }
+
+    public function hasOpenTasks()
+    {
+        return $this->tasks()->where('status', 'open')->exists();
+    }
+
+    public function hasOpenDriverTasks()
+    {
+        return $this->tasks()
+            ->where('status', 'open')
+            ->where('category', 'driver')
+            ->exists();
+    }
+
+    public function hasOpenVehicleTasks()
+    {
+        return $this->tasks()
+            ->where('status', 'open')
+            ->where('category', 'vehicle')
+            ->exists();
+    }
+
     // User subscription custom request, take the first one
     public function subRequest()
     {
