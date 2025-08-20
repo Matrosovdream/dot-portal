@@ -2,6 +2,8 @@
 
 namespace App\Helpers\Validation\Models;
 
+use App\Repositories\User\UserTaskRepo;
+
 class AbstractValidation
 {
     public $data = [];
@@ -109,6 +111,8 @@ class AbstractValidation
     public function updateUserTasks(int $item_id): void
     {
 
+        $userTaskRepo = app(UserTaskRepo::class);
+
         // Set data model based on item_id
         $this->setDataModel($item_id);
 
@@ -131,7 +135,18 @@ class AbstractValidation
                 if( !isset( $errors[$tab] ) ) { $closedTabs[] = $tab; }
             }    
 
-            dd($closedTabs, $validRes, $data);
+            $res = $userTaskRepo->model
+            ->where(
+                [
+                    'entity_id' => $data['id'],
+                    'entity' => $this->entity
+                ]
+            )->whereIn('tab',$closedTabs)
+            ->update(
+                [
+                    'status' => 'closed',
+                ]
+            );
 
         }
     }
