@@ -43,6 +43,7 @@ class UserTaskHelper {
                     'priority' => 'normal',
                     'link' => route('dashboard.drivers.show', $item['id']),
                     'entity' => 'driver',
+                    'tab' => $tabCode,
                     'entity_id' => $item['id'],
                 ];
 
