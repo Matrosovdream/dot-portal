@@ -127,6 +127,8 @@ class AbstractValidation
         $errors = $validRes['errors'] ?? null;
         $tabs = $validRes['tabs'] ?? null;
 
+        //dd($validRes);
+
         if( $errors && $tabs) {
 
             // Match for missing tabs and deactivate respective tasks

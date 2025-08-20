@@ -97,6 +97,7 @@ class UserTaskHelper {
                     'priority' => 'normal',
                     'link' => route('dashboard.vehicles.show', $item['id']),
                     'entity' => 'vehicle',
+                    'tab' => $tabCode,
                     'entity_id' => $item['id'],
                 ];
 

@@ -2,8 +2,12 @@
 
 namespace App\Helpers\Validation\Models;
 
+use App\Repositories\Vehicle\VehicleRepo;
+
 
 class VehicleValidation extends AbstractValidation {
+
+    public $entity = 'vehicle';
 
     public function validateAll() {
 
@@ -98,6 +102,12 @@ class VehicleValidation extends AbstractValidation {
             ],
         ];
 
+    }
+
+    public function setDataModel( $item_id ): void
+    {
+        $vehicleRepo = app(VehicleRepo::class);
+        $this->setData( $vehicleRepo->getByID($item_id) );
     }
 
 }

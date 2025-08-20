@@ -3,16 +3,13 @@
 namespace App\Observers\Driver;
 
 use App\Models\Driver;
-use App\Helpers\Driver\DriverValidationHelper;
 use App\Helpers\Validation\Models\DriverValidation;
-
 
 
 class DriverObserver
 {
 
     public function __construct(
-        //protected DriverValidationHelper $validationHelper
         protected DriverValidation $driverValidation 
     )
     { }
@@ -25,10 +22,8 @@ class DriverObserver
 
     public function updated(Driver $driver): void
     {
-
         // Validate driver data and update events if necessary
         $this->driverValidation->updateUserTasks($driver->id);
-
     }
 
     public function deleted(Driver $driver): void

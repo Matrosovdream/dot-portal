@@ -3,7 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\Vehicle\VehicleInsuranceObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
+
+#[ObservedBy([VehicleInsuranceObserver::class])]
 class VehicleInsuranceLink extends Model
 {
     
