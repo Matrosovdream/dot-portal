@@ -5,6 +5,7 @@ namespace App\Helpers\Validation\Models;
 class AbstractValidation
 {
     public $data = [];
+    public $entity = '';
 
     public function __construct( $data = [] ) {
         $this->data = $data;
@@ -89,6 +90,10 @@ class AbstractValidation
         return $this; // To make calls chainable
     }
 
+    public function getData() {
+        return $this->data ?? null;
+    }
+
     private function getFields() {
         // This method should be implemented in the child classes to return the fields for validation
         return [];
@@ -97,6 +102,38 @@ class AbstractValidation
     private function getTabs() {
         // This method should be implemented in the child classes to return the tabs for validation
         return [];
+    }
+
+    public function setDataModel($item_id): void {}
+
+    public function updateUserTasks(int $item_id): void
+    {
+
+        // Set data model based on item_id
+        $this->setDataModel($item_id);
+
+        // Get data from the class
+        $data = $this->getData();
+        if (!$data) {
+            return; // Handle case where driver data is not found
+        }
+        
+        // Set data and validate
+        $validRes = $this->setData($data)->validateAll();
+        $errors = $validRes['errors'] ?? null;
+        $tabs = $validRes['tabs'] ?? null;
+
+        if( $errors && $tabs) {
+
+            // Match for missing tabs and deactivate respective tasks
+            $closedTabs = [];
+            foreach( $tabs as $tab => $tabItem ) {
+                if( !isset( $errors[$tab] ) ) { $closedTabs[] = $tab; }
+            }    
+
+            dd($closedTabs, $validRes, $data);
+
+        }
     }
 
 }
