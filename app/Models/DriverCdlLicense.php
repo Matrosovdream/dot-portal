@@ -3,7 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\Driver\DriverCdlLicenseObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
+
+#[ObservedBy([DriverCdlLicenseObserver::class])]
 class DriverCdlLicense extends Model
 {
     

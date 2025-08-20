@@ -3,7 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\Driver\DriverDrugTestObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
+
+#[ObservedBy([DriverDrugTestObserver::class])]
 class DriverDrugTest extends Model
 {
     

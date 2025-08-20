@@ -3,7 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\Driver\DriverMvrObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
+
+#[ObservedBy([DriverMvrObserver::class])]
 class DriverMvr extends Model
 {
     

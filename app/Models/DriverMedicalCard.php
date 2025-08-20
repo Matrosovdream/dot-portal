@@ -3,7 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Observers\Driver\DriverMedicalCardObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
+
+#[ObservedBy([DriverMedicalCardObserver::class])]
 class DriverMedicalCard extends Model
 {
     
