@@ -26,6 +26,7 @@ class UserTask extends Model
         'priority',
         'link',
         'entity',
+        'tab',
         'entity_id',
     ];
 
