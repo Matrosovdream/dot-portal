@@ -2,8 +2,12 @@
 
 namespace App\Helpers\Validation\Models;
 
+use App\Repositories\Driver\DriverRepo;
+
 
 class DriverValidation extends AbstractValidation {
+
+    public $entity = 'driver';
 
     public function validateAll() {
 
@@ -186,6 +190,12 @@ class DriverValidation extends AbstractValidation {
             ],
         ];
 
+    }
+
+    public function setDataModel( $item_id ): void
+    {
+        $driverRepo = app(DriverRepo::class);
+        $this->setData( $driverRepo->getByID($item_id) );
     }
 
 }
