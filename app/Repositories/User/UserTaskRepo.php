@@ -50,6 +50,7 @@ class UserTaskRepo extends AbstractRepo
             'priority' => $item->priority,
             'link' => $item->link,
             'entity' => $item->entity,
+            'tab' => $item->tab,
             'entity_id' => $item->entity_id,
             'meta' => $this->metaRepo->mapItems($item->meta),
             'Model' => $item
