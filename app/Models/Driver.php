@@ -2,10 +2,14 @@
 
 namespace App\Models;
 
+
 use App\Traits\Metaable;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
+use App\Observers\Driver\DriverObserver;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
 
+#[ObservedBy([DriverObserver::class])]
 class Driver extends Model
 {
 
