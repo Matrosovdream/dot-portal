@@ -140,7 +140,7 @@ class VehicleRepo extends AbstractRepo
         $vehicle = $this->getByID($vehicle_id);
 
         if( isset($vehicle['insurance']) ) {
-            $this->vehicleInsuranceRepo->update( $vehicle_id, ['insurance_id' => $insurance_id] );
+            $this->vehicleInsuranceRepo->update( $vehicle['insurance']['id'], ['insurance_id' => $insurance_id] );
         } else {
             $this->vehicleInsuranceRepo->create( ['vehicle_id' => $vehicle_id, 'insurance_id' => $insurance_id] );
         }
