@@ -179,6 +179,7 @@ return new class extends Migration
             $table->string('priority')->default('normal')->nullable();
             $table->string('link')->nullable();
             $table->string('entity')->nullable();
+            $table->string('tab')->nullable();
             $table->string('entity_id')->nullable();
             $table->timestamps();
         });
