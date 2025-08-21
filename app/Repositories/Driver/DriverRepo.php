@@ -348,6 +348,7 @@ class DriverRepo extends AbstractRepo
             'hire_date' => $item->hire_date,
             'driver_type_id' => $item->driver_type_id,
             'user_id' => $item->user_id,
+            'user' => $this->userRepo->mapItem($item->user),
             'status_id' => $item->status_id,
             'isTerminated' => $item->status_id === 3,
             'Model' => $item
@@ -355,9 +356,11 @@ class DriverRepo extends AbstractRepo
 
         $res = array_merge($res, $this->mapRelations($item));
 
-        $res['firstname'] = $res['user']['firstname'];
-        $res['lastname'] = $res['user']['lastname'];
-        $res['email'] = $res['user']['email'];
+        if( isset($item->user) ) {
+            $res['firstname'] = $item->user['firstname'];
+            $res['lastname'] = $item->user['lastname'];
+            $res['email'] = $item->user['email'];
+        }
 
         return $res;
     }
