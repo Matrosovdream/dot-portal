@@ -151,10 +151,15 @@
 
                 @endif
 
-                <a href="#" class="btn btn-sm btn-primary me-3" data-bs-toggle="modal"
-                    data-bs-target="#kt_modal_offer_a_deal">
-                    Update from API
-                </a>
+                <form id="kt_account_profile_details_form" class="form" method="POST"
+                    action="{{ route('dashboard.drivers.send.oncelogin', $driver['id']) }}" 
+                    enctype="multipart/form-data"
+                    >
+                    @csrf
+
+                    <input type="submit" class="btn btn-sm btn-primary me-3" value="Send one-time login" />
+
+                </form>
 
                 <div class="me-0">
                     <button class="btn btn-sm btn-icon btn-bg-light btn-active-color-primary"
@@ -258,6 +263,12 @@
             </div>
 
         </div>
+
+        @if(session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
 
     </div>
 
