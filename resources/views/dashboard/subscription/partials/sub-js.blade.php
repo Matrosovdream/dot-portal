@@ -8,7 +8,7 @@
     const initialDriverCount = document.getElementById('drivers_number').value;
 
     noUiSlider.create(sliderDrivers, {
-        start: [{{ auth()->user()->company->drivers_number ?? old('drivers_number', 1) }}],
+        start: [{{ $subscription['drivers_number'] ?? 1 }}],
         connect: [true, false],
         range: {
             min: 1,
