@@ -85,14 +85,16 @@ class SubscriptionUserActions
         $user_id = auth()->user()->id;
 
         // Get subscription by request
-        $subscriptionPlan = $this->subRepo->getByID($request['plan']);
+        $subscriptionPlan = $this->subRepo->getByID($request['subscription_id']);
         $userSubscription = $this->userSubRepo->getByUserID($user_id);
         if (!$userSubscription) {
             return false;
         }
 
+        $subscriptionPlan['price'] = $request['subscription_price'];
+
         // Let's cancel the old subscription
-        $authnetSubId = $userSubscription['Model']->getMeta('authnet_sub_id');
+        $authnetSubId = $userSubscription['Model']->getMeta('authnet_sub_id'); 
         if ($authnetSubId) {
 
             // Make a refund of the latest subscription
@@ -157,10 +159,13 @@ class SubscriptionUserActions
             $nextDate = date('Y-m-d H:i:s', strtotime('+1 month'));
 
             // Update subscription in database
-            $userSubscription['Model']->update(
+            $this->userSubRepo->update(
+                $userSubscription['id'],
                 [
-                    'subscription_id' => $request['plan'],
+                    'subscription_id' => $request['subscription_id'],
                     'price' => $subscriptionPlan['price'],
+                    'price_per_driver' => $request['price_per_driver'] ?? null,
+                    'drivers_number' => $request['drivers_number'] ?? null,
                     'status' => 'active',
                     'payment_card_id' => $primaryCard['id'],
                     'start_date' => date('Y-m-d H:i:s'),

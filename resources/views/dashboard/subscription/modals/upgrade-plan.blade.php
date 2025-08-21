@@ -116,7 +116,7 @@
                             </a>
                         </div>
                         <div>
-                            <button type="submit" id="btn-continue" class="btn btn-lg btn-primary" data-kt-stepper-action="next">
+                            <button type="submit" id="btn-continue" class="btn btn-lg btn-primary" disabled data-kt-stepper-action="next">
                                 Update Plan
                                 <i class="ki-duotone ki-arrow-right fs-4 ms-1">
                                     <span class="path1"></span>

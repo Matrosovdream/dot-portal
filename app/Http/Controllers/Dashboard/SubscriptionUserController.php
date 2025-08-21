@@ -25,11 +25,16 @@ class SubscriptionUserController extends Controller
 
     public function updateSubscription(Request $request)
     {
-
+        /*
         $validated = $request->validate([
-            'plan' => 'required',
+            'price_per_driver' => 'required|integer|min:1',
+            'drivers_number' => 'required|integer|min:1',
+            'is_custom_request' => 'nullable',
+            'subcription_price' => 'required|integer|min:1',
+            'subscription_id' => 'required|integer',
         ]);
-        $this->serviceAdminActions->updateSubscription($validated);
+        */
+        $this->serviceAdminActions->updateSubscription($request->all());
         
         return redirect()->back()->with('success', 'Subscription updated successfully.');
     }
