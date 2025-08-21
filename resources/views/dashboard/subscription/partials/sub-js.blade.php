@@ -5,6 +5,7 @@
     const sliderDrivers = document.querySelector("#slider_drivers_number_slider");
     const sliderDriversValue = document.querySelector("#slider_drivers_number_value");
     const hiddenDriversInput = document.querySelector("#drivers_number");   
+    const initialDriverCount = document.getElementById('drivers_number').value;
 
     noUiSlider.create(sliderDrivers, {
         start: [{{ auth()->user()->company->drivers_number ?? old('drivers_number', 1) }}],
@@ -89,10 +90,6 @@
             total.innerHTML = `<span class="text-danger">Price by request</span>`;
             customForm.classList.remove('d-none');
 
-            // Show request button, hide continue button
-            btnCustomRequest.classList.remove('d-none');
-            btnContinue.classList.add('d-none');
-
             inputIsCustom.value = 'true';
         } else {
             description.innerHTML = `
@@ -102,19 +99,27 @@
             total.innerText = `Total: $${totalPrice}/month`;
             customForm.classList.add('d-none');
 
-            // Show continue button, hide request button
-            btnCustomRequest.classList.add('d-none');
-            btnContinue.classList.remove('d-none');
-
             inputIsCustom.value = 'false';
         }
 
         summaryCard.classList.remove('d-none');
 
+        console.log('Updating subscription summary:', {
+            driverCount,
+            initialDriverCount
+        });
+
+        if( initialDriverCount == driverCount ) {
+            document.getElementById('btn-continue').disabled = true;
+        } else {
+            document.getElementById('btn-continue').disabled = false;
+        }
+
         // Update hidden inputs
         document.getElementById('price_per_driver').value = price_per_driver;
         document.getElementById('subscription_price').value = is_custom_price ? '' : totalPrice;
         document.getElementById('subscription_id').value = id;
+
     }
 
     // Hook into slider update
@@ -167,10 +172,12 @@
 
 
 <script>
+    /*
     window.addEventListener('load', function() {
         const upgradeBtn = document.querySelector('[data-bs-target="#kt_modal_upgrade_plan"]');
         if (upgradeBtn) {
             upgradeBtn.click();
         }
     });
+    */
 </script>
