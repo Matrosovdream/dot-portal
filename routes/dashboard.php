@@ -64,6 +64,7 @@ Route::group([
         Route::post('{driver}', [DriverController::class, 'update'])->name('update');
         Route::post('{driver}', [DriverController::class, 'terminateDriver'])->name('terminate');
         Route::delete('{driver}', [DriverController::class, 'destroy'])->name('destroy');
+        Route::post('{driver}/send-onetime', [DriverController::class, 'sendOnceLogin'])->name('send.oncelogin');
 
         // Driver subroutes
         Route::prefix('{driver}')->name('show.')->group(function () {
