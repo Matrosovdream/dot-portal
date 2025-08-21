@@ -116,6 +116,11 @@
                         <option value="">Select driver</option>
 
                         @foreach($references['driver']['items'] as $item)
+
+                            @if( !isset($item['user']) )
+                                @continue
+                            @endif
+
                             <option 
                                 value="{{ $item['id'] }}" 
                                 {{ $item['id'] == $vehicle['driver']['id'] ? 'selected' : '' }}
