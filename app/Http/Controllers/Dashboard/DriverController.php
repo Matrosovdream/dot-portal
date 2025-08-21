@@ -290,4 +290,15 @@ class DriverController extends Controller
         );
     }
 
+    public function sendOnceLogin($driver_id)
+    {
+        $data = $this->driverUserActions->sendOnceLogin($driver_id);
+        
+        if( !isset($data['error']) ) {
+            return redirect()->back()->with('success', 'One-time login sent successfully');
+        } else {
+            return redirect()->back()->withError($data['message']);
+        }
+    }
+
 }
