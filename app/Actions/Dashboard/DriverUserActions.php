@@ -16,6 +16,7 @@ use App\Mixins\File\FileStorage;
 use App\Repositories\User\UserRepo;
 use App\Helpers\Validation\Models\DriverValidation;
 use App\Helpers\Driver\DriverHelper;
+use App\Services\User\UserService;
 
 
 class DriverUserActions {
@@ -36,7 +37,9 @@ class DriverUserActions {
     protected $driverValidation;
     protected $driverHelper;
 
-    public function __construct()
+    public function __construct(
+        protected UserService $userService
+    )
     {
         $this->driverRepo = new DriverRepo();
         $this->driverLicenseRepo = new DriverLicenseRepo();
@@ -497,6 +500,17 @@ class DriverUserActions {
             'validation' => $validation,
             'references' => $this->getReferences()
         ];
+    }
+
+    public function sendOnceLogin($driver_id)
+    {
+        $driver = $this->driverRepo->getByID($driver_id);
+
+        // Send one-time login link to the user
+        $this->userService->sendOnceLoginLink($driver['user']['Model']);
+
+        // Assuming the email was sent successfully
+        return true; 
     }
 
     public function terminateDriver($driver_id)
