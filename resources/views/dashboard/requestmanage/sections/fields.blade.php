@@ -18,10 +18,6 @@
 
         @if( $formType == 'custom' )
 
-            @php
-                //dd($request['fieldValues']['items']);
-            @endphp
-
             @foreach( $request['fieldValues']['items'] as $item )
 
                 <div class="row mb-7">
@@ -72,7 +68,11 @@
                             @else
 
                                 @if( is_array( $field['value'] ) )
-                                    {{ implode( ', ', $field['value'] ) }}
+
+                                    @foreach( $field['value'] as $val )
+                                        {{ $val }}<br/>
+                                    @endforeach
+
                                 @else 
                                     {{ $field['value'] ?? '-' }}
                                 @endif
