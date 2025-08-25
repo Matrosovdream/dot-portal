@@ -489,5 +489,68 @@ class MscForm extends AbstractForm
 
     }
 
+    public function matchFieldValues( $fields ): array {
+
+        // Call parent to match references
+        $fields = parent::matchFieldValues( $fields );
+
+        // Process hazardous_materials values
+        if( isset( $fields['hazardous_materials'] ) ) {
+            $fields['hazardous_materials'] = $this->matchHazardousValues( $fields['hazardous_materials'] );
+        }
+
+        return $fields;
+
+    }
+
+    private function matchHazardousValues( $field ): array {
+
+        $references = $this->getReferences();
+
+        // Process hazardous_materials extra labels
+        $subTypes = [
+            'carrier' => 'Carrier',
+            'shipper' => 'Shipper',
+            'bulk' => 'Bulk',
+            'non_bulk' => 'Non-Bulk',
+        ];
+
+        $valueRef = $field['valueRef'] ?? null;
+        $options = $references['hazardous_materials']['options'] ?? [];
+        
+        $newLabels = [];
+        foreach ( $valueRef as $val ) {
+
+            $withoutPrefix = $this->removeSuffix($val);
+
+            $lastPart = '';
+            foreach ( $subTypes as $key => $label ) {
+                if ( strpos( $val, $key ) !== false ) {
+                    $lastPart = ' - '.$label;
+                }
+            }
+
+            $newLabels[] = ( $options[ $withoutPrefix ]['title'] ?? '' ).' '.$lastPart;
+
+        }
+        $field['value'] = $newLabels;
+
+        return $field;
+
+    }
+
+    function removeSuffix(string $item): string
+    {
+        $suffixes = ['_carrier', '_shipper','_non_bulk', '_bulk'];
+    
+        foreach ($suffixes as $suffix) {
+            if (str_ends_with($item, $suffix)) {
+                return substr($item, 0, -strlen($suffix));
+            }
+        }
+    
+        return $item; // if no match, return as is
+    }
+
 
 }
