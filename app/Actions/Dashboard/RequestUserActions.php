@@ -254,7 +254,7 @@ class RequestUserActions {
             }
 
         }
-
+        
         return $data;
     }
 
