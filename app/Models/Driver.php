@@ -31,6 +31,7 @@ class Driver extends Model
         'company_id',
         'profile_photo_id',
         'status_id', // 1 - active, 2 - inactive, 3 - terminated
+        'is_finished',
     ];
 
     public function toSearchableArray()
