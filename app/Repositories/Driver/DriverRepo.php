@@ -333,7 +333,6 @@ class DriverRepo extends AbstractRepo
         return $this->cdlLicenseRepo->getByDriverID($driver_id);
     }
 
-
     public function mapItem($item)
     {
 
