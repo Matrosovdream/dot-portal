@@ -8,6 +8,7 @@ use App\Repositories\Driver\DriverRepo;
 class DriverValidation extends AbstractValidation {
 
     public $entity = 'driver';
+    public $repoClass = DriverRepo::class;
 
     public function validateAll() {
 
@@ -194,7 +195,7 @@ class DriverValidation extends AbstractValidation {
 
     public function setDataModel( $item_id ): void
     {
-        $driverRepo = app(DriverRepo::class);
+        $driverRepo = app( $this->repoClass );
         $this->setData( $driverRepo->getByID($item_id) );
     }
 
