@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('hire_date')->nullable();
             $table->foreignId('driver_type_id')->on('ref_driver_type')->nullable();
             $table->integer('status_id')->default(1)->nullable(); // 1 - active, 2 - inactive, 3 - terminated
+            $table->boolean('is_finished')->default(false);
             $table->timestamps();
         });
 
