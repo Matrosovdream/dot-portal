@@ -140,13 +140,22 @@ class AbstractForm
             }
 
             // If the field is multiple then parse by comma
-            if ( isset($field['multiple']) && $field['multiple'] ) {
+            if ( 
+                isset($field['multiple']) && 
+                $field['multiple'] &&
+                $field['type'] == 'select'
+                ) {
                 $value = explode(',', $value);
                 $value = array_map('trim', $value);
                 // Remove empty values
                 $value = array_filter($value, function($v) {
                     return !empty($v) && $v !== null;
                 });
+            }
+
+            // If json type then decode
+            if ( isset($field['type']) && $field['type'] == 'json' ) {
+                $value = json_decode($value, true);
             }
 
             // If it's a reference field then set value
