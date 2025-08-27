@@ -8,6 +8,7 @@ use App\Repositories\Vehicle\VehicleRepo;
 class VehicleValidation extends AbstractValidation {
 
     public $entity = 'vehicle';
+    public $repoClass = VehicleRepo::class;
 
     public function validateAll() {
 
@@ -106,7 +107,7 @@ class VehicleValidation extends AbstractValidation {
 
     public function setDataModel( $item_id ): void
     {
-        $vehicleRepo = app(VehicleRepo::class);
+        $vehicleRepo = app( $this->repoClass );
         $this->setData( $vehicleRepo->getByID($item_id) );
     }
 
