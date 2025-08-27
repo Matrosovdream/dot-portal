@@ -23,74 +23,82 @@
     $vehicle_groups = [
         'truck_and_trailers' => [
             'title' => 'Truck and Trailers',
-            'options' => [
-                'Straight Trucks',
-                'Truck Tractors',
-                'Trailers',
-                'Hazmat Cargo Tank Trucks',
-                'Hazmat Cargo Tank Trailers',
-            ],
+            'options' => array_slice($formRefs['vehicle_counts']['options'], 0, 5)
         ],
         'passenger_vehicles' => [
             'title' => 'Passenger Vehicles',
-            'options' => [
-                'Motor-Coach',
-                'School Bus (8 or less Passengers)',
-                'School Bus (9-15 Passengers)',
-                'School Bus (16+ Passengers)',
-                'Bus (16+)',
-                'Van (8 or less Passengers)',
-                'Van (9-15 Passengers)',
-                'Limousine (8 or less Passengers)',
-                'Limousine (9-15 Passengers)',
-            ],
-        ], 
+            'options' => array_slice($formRefs['vehicle_counts']['options'], 6)
+        ],
     ];
-?>
+    ?>
 
 
 
 <div class="separator my-6"></div>
 <h3 class="fw-bold mb-6">Vehicles</h3>
 
-<?php foreach ($vehicle_groups as $group_key => $group): ?>
+<?php foreach ($vehicle_groups as $key_group => $group): ?>
     <div class="mb-8">
         <label class="d-block1 fw-semibold fs-5 mb-3"><?= $group['title'] ?>:</label>
 
         <div class="row">
-            <?php foreach ($group['options'] as $option):
-                $option_key = md5($option); ?>
+            <?php foreach ($group['options'] as $option_key=>$option): ?>
+
                 <div class="col-md-6 mb-6">
                     <div class="form-check form-check-custom form-check-solid mb-3">
-                        <input class="form-check-input vehicle-toggle" type="checkbox"
-                               id="toggle-<?= $option_key ?>"
-                               data-target="<?= $option_key ?>">
+                        <input 
+                            class="form-check-input vehicle-toggle" 
+                            type="checkbox"
+                            id="toggle-<?= $option_key ?>"
+                            data-target="<?= $option_key ?>"
+                            @if (( isset($values['vehicle_counts'][$option['value'].'_owned']) && $values['vehicle_counts'][$option['value'].'_owned'] > 0 ) ||
+                            ( isset($values['vehicle_counts'][$option['value'].'_term']) && $values['vehicle_counts'][$option['value'].'_term'] > 0 ) ||
+                            ( isset($values['vehicle_counts'][$option['value'].'_trip']) && $values['vehicle_counts'][$option['value'].'_trip'] > 0 ) )
+                                checked  
+                            @endif
+                        >
                         <label class="form-check-label" for="toggle-<?= $option_key ?>">
-                            <?= $option ?>
+                            <?= $option['title'] ?>
                         </label>
                     </div>
 
                     <div class="row1 gx-5 gy-3 vehicle-section" id="section-<?= $option_key ?>" style="display: none;">
                         <div class="col-md-4 fv-row">
                             <label class="form-label">Owned</label>
-                            <input type="number" name="item_meta[<?= $option_key ?>][owned]"
-                                   class="form-control form-control-solid"
-                                   placeholder="0" min="0">
+                            <input 
+                                type="number" 
+                                name="fields[vehicle_counts][{{ $option['value'] }}_owned]" 
+                                class="form-control form-control-solid w-75"
+                                placeholder="0" 
+                                value="{{ $values['vehicle_counts'][$option['value'].'_owned'] ?? '' }}"
+                                min="0"
+                                >
                         </div>
                         <div class="col-md-4 fv-row">
                             <label class="form-label">Term Leased</label>
-                            <input type="number" name="item_meta[<?= $option_key ?>][term]"
-                                   class="form-control form-control-solid"
-                                   placeholder="0" min="0">
+                            <input 
+                                type="number" 
+                                name="fields[vehicle_counts][{{ $option['value'] }}_term]" 
+                                class="form-control form-control-solid w-75"
+                                placeholder="0" 
+                                min="0"
+                                value="{{ $values['vehicle_counts'][$option['value'].'_term'] ?? '' }}"
+                                >
                         </div>
                         <div class="col-md-4 fv-row">
                             <label class="form-label">Trip Leased</label>
-                            <input type="number" name="item_meta[<?= $option_key ?>][trip]"
-                                   class="form-control form-control-solid"
-                                   placeholder="0" min="0">
+                            <input 
+                                type="number" 
+                                name="fields[vehicle_counts][{{ $option['value'] }}_trip]" 
+                                class="form-control form-control-solid w-75"
+                                placeholder="0" 
+                                min="0"
+                                value="{{ $values['vehicle_counts'][$option['value'].'_trip'] ?? '' }}"
+                                >
                         </div>
                     </div>
                 </div>
+
             <?php endforeach; ?>
         </div>
     </div>
