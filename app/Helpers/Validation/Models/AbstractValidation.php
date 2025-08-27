@@ -8,6 +8,7 @@ class AbstractValidation
 {
     public $data = [];
     public $entity = '';
+    public $repoClass = null;
 
     public function __construct( $data = [] ) {
         $this->data = $data;
@@ -127,8 +128,6 @@ class AbstractValidation
         $errors = $validRes['errors'] ?? null;
         $tabs = $validRes['tabs'] ?? null;
 
-        //dd($validRes);
-
         if( $errors && $tabs) {
 
             // Match for missing tabs and deactivate respective tasks
@@ -151,6 +150,16 @@ class AbstractValidation
             );
 
         }
+
+        // Set finished status
+        $this->setFinishedStatus($item_id, $validRes['valid'] ?? false);
+
+    }
+
+    public function setFinishedStatus(int $item_id, bool $finished): void
+    {
+        $driverRepo = app( $this->repoClass );
+        $driverRepo->setFinishedStatus($item_id, $finished);
     }
 
 }
