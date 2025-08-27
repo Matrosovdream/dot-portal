@@ -24,7 +24,8 @@ class Vehicle extends Model
         'profile_photo_id',
         'driver_id',
         'company_id',
-        'search_index'
+        'search_index',
+        'is_finished',
     ];
 
     public function toSearchableArray()
