@@ -177,6 +177,13 @@ class MscForm extends AbstractForm
             //'default' => true,
             'section' => 'vehicles-info',
         ],
+        'vehicle_counts' => [
+            'type' => 'json',
+            'label' => 'Vehicle Counts',
+            'reference' => 'vehicle_counts',
+            'required' => false,
+            'multiple' => true,
+        ],
 
         // Driver counts
         'driver_counts_toggle' => [
@@ -364,7 +371,7 @@ class MscForm extends AbstractForm
                 ]
             ],
             'hazardous_materials' => [
-                'type' => 'select',
+                'type' => 'multiple',
                 'label' => 'Hazardous Materials',
                 'options' => [
                     [ 'value' => 'explosives_1_1', 'title' => 'Div 1.1 Explosives (mass explosion hazard)' ],
@@ -393,6 +400,26 @@ class MscForm extends AbstractForm
                     [ 'value' => 'haz_substance_rq', 'title' => 'Hazardous Substances (RQ)' ],
                     [ 'value' => 'haz_waste', 'title' => 'Hazardous Waste' ],
                     [ 'value' => 'orm', 'title' => 'ORM' ],
+                ]
+            ],
+            'vehicle_counts' => [
+                'type' => 'multiple',
+                'label' => 'Vehicle Counts',
+                'options' => [
+                    [ 'value' => 'straight_trucks', 'title' => 'Straight Trucks' ],
+                    [ 'value' => 'truck_tractors', 'title' => 'Truck Tractors' ],
+                    [ 'value' => 'trailers', 'title' => 'Trailers' ],
+                    [ 'value' => 'hazmat_tank_trucks', 'title' => 'Hazmat Cargo Tank Trucks' ],
+                    [ 'value' => 'hazmat_tank_trailers', 'title' => 'Hazmat Cargo Tank Trailers' ],
+                    [ 'value' => 'motor_coaches', 'title' => 'Motor Coaches' ],
+                    [ 'value' => 'school_buses_8', 'title' => 'School Bus (8 or less Passengers)' ],
+                    [ 'value' => 'school_buses_9_15', 'title' => 'School Bus (9-15 Passengers)' ],
+                    [ 'value' => 'school_buses_16_plus', 'title' => 'School Bus (16 or more Passengers)' ],
+                    [ 'value' => 'buses_16_plus', 'title' => 'Buses (≥16 seats)' ],
+                    [ 'value' => 'vans_8', 'title' => 'Vans (8 or less Passengers)' ],
+                    [ 'value' => 'vans_9_15', 'title' => 'Vans (9-15 Passengers)' ],
+                    [ 'value' => 'limousines_8', 'title' => 'Limousines (8 or less Passengers)' ],
+                    [ 'value' => 'limousines_9_15', 'title' => 'Limousines (9-15 Passengers)' ],
                 ]
             ],
             'vehicle_categories' => [
@@ -476,6 +503,16 @@ class MscForm extends AbstractForm
             $fields['hazardous_materials'] = array_keys( $fields['hazardous_materials'] );
         }
 
+        if( isset( $fields['vehicle_counts'] ) ) {
+            // Remove null values
+            $fields['vehicle_counts'] = array_filter($fields['vehicle_counts'], function($value) {
+                return !is_null($value) && $value !== '';
+            });
+            
+            // Convert to JSON
+            $fields['vehicle_counts'] = json_encode($fields['vehicle_counts']);
+        }
+
         return $fields;
     }
 
@@ -483,6 +520,10 @@ class MscForm extends AbstractForm
 
         if( isset( $fields['hazardous_materials'] ) ) {
             $fields['hazardous_materials'] = explode( ',', $fields['hazardous_materials'] );
+        }
+
+        if( isset( $fields['vehicle_counts'] ) ) {
+            $fields['vehicle_counts'] = json_decode( $fields['vehicle_counts'], true );
         }
 
         return $fields;
@@ -499,7 +540,44 @@ class MscForm extends AbstractForm
             $fields['hazardous_materials'] = $this->matchHazardousValues( $fields['hazardous_materials'] );
         }
 
+        if( isset( $fields['vehicle_counts'] ) ) {
+            //$fields['vehicle_counts'] = $this->matchVehicleCounts( $fields['vehicle_counts'] );
+        }
+
         return $fields;
+
+    }
+
+    private function matchVehicleCounts( $field ): array {
+
+        $references = $this->getReferences();
+
+        $options = $references['vehicle_counts']['options'] ?? [];
+
+        $field['valueRef'] = json_decode( $field['valueRef'], true );
+
+        dd($options, $field, $references);
+
+        $newLabels = [];
+        foreach ( $field['valueRef'] as $val ) {
+
+            $withoutSuffix = $this->removeSuffix($val);
+
+            $lastPart = '';
+            if ( str_ends_with( $val, '_owned' ) ) {
+                $lastPart = ' - Owned';
+            } elseif ( str_ends_with( $val, '_term' ) ) {
+                $lastPart = ' - Term Leased';
+            } elseif ( str_ends_with( $val, '_trip' ) ) {
+                $lastPart = ' - Trip Leased';
+            }
+
+            $newLabels[] = ( $options[ $withoutSuffix ]['title'] ?? '' ).' '.$lastPart;
+
+        }
+        $field['value'] = $newLabels;
+
+        return $field;
 
     }
 
