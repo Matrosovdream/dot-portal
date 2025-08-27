@@ -180,6 +180,26 @@ abstract class AbstractRepo
         return $items;
     }
 
+    /*  
+    Set finished status of the item
+    $finished - true/false
+    */
+    public function setFinishedStatus(int $item_id, bool $finished): void
+    {
+        $driver = $this->getByID($item_id);
+
+        if( !$driver ) { return; }
+
+        // if model has is_finished field
+        if( !isset($driver['Model']->is_finished) ) { return; }
+
+        // Turn off observers to prevent loops
+        $driver['Model']->withoutEvents(function() use ($item_id, $finished) {
+            $this->update( $item_id, [ 'is_finished' => $finished ] );
+        });
+
+    }
+
     public function modelSearch( $query, $map=true, $paginate = 20 ) {
 
         // Validate the query because we depend on the Scout package
