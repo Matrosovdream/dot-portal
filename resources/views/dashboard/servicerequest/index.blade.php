@@ -22,7 +22,7 @@
                         <div class="card-body text-center">
 
                             <a
-                                href="{{ route('dashboard.servicerequest.show', ['group' => $group['slug'], 'service' => $service['slug']]) }}">
+                                href="{{ $service['url'] }}">
 
                                 <img src="https://www.lifestyleglitz.com/wp-content/uploads/2019/07/Follow-These-Tips-To-File-Your-Personal-Injury-Claim.png" class="rounded-3 mb-4 w-100" alt="">
 
