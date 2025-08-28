@@ -24,6 +24,7 @@ class Vehicle extends Model
         'profile_photo_id',
         'driver_id',
         'company_id',
+        'company_user_id',
         'search_index',
         'is_finished',
     ];
@@ -40,11 +41,23 @@ class Vehicle extends Model
     {
         // Set fullname on creating and updating
         static::creating(function ($user) {
+
+            // Search index
             $user->search_index = self::prepareSearchIndex( $user);
+
+            // Update company user
+            self::updateCompanyUser( $user );
+
         });
 
         static::updating(function ($user) {
+
+            // Update company user
             $user->search_index = self::prepareSearchIndex( $user );
+
+            // Update company user
+            self::updateCompanyUser( $user );
+
         });
     }
     
@@ -115,6 +128,17 @@ class Vehicle extends Model
 
         $searchIndex = implode(' | ', $fields);
         return $searchIndex;
+    }
+
+    public static function updateCompanyUser( $driver ) {
+
+        if ($driver->company_id) {
+            $userCompany = UserCompany::find($driver->company_id);
+            if ($userCompany) {
+                $driver->company_user_id = $userCompany->user_id;
+            }
+        }
+
     }
 
 }
