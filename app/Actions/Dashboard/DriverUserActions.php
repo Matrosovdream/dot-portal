@@ -67,7 +67,7 @@ class DriverUserActions {
     public function index()
     {
 
-        $filter = ['company_id' => auth()->user()->id, 'status_id' => 1];
+        $filter = ['company_user_id' => auth()->user()->id, 'status_id' => 1];
 
         // Filter by search form
         if( request()->has('q') && !empty(request()->input('q')) ) {
@@ -103,7 +103,7 @@ class DriverUserActions {
 
     public function terminated()
     {
-        $filter = ['company_id' => auth()->user()->id, 'status_id' => 3];
+        $filter = ['company_user_id' => auth()->user()->id, 'status_id' => 3];
 
         // Filter by search form
         if( request()->has('q') && !empty(request()->input('q')) ) {
