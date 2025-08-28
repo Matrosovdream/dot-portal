@@ -155,20 +155,16 @@ class DriverUserActions {
 
     public function update($driver_id, $request)
     {
-        $data = $this->driverRepo->update($driver_id, $request);
-
-        return $data;
+        return $this->driverRepo->update($driver_id, $request);
     }
 
     public function create()
     {
-        $data = [
+        return [
             'title' => 'Create driver',
             'references' => $this->getReferences(),
             'userSubscription' => $this->userSubRepo->getByUserID(auth()->user()->id),
         ];
-
-        return $data;
     }
 
     public function store($request)
@@ -186,9 +182,7 @@ class DriverUserActions {
 
     public function destroy($driver_id)
     {
-        $data = $this->driverRepo->delete($driver_id);
-
-        return $data;
+        return $this->driverRepo->delete($driver_id);
     }
 
     public function profile($driver_id)
@@ -334,14 +328,13 @@ class DriverUserActions {
     {
         $driver = $this->driverRepo->getByID($driver_id);
 
-        $data = [
+        return [
             'title' => 'Driver address',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences()
         ];
 
-        return $data;
     }
 
     public function updateAddress($driver_id, $request)
@@ -363,14 +356,13 @@ class DriverUserActions {
     {
         $driver = $this->driverRepo->getByID($driver_id);
 
-        $data = [
+        return [
             'title' => 'Driver medical card',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences()
         ];
 
-        return $data;
     }
 
     public function updateMedicalCard($driver_id, $request)
@@ -419,14 +411,13 @@ class DriverUserActions {
     {
         $driver = $this->driverRepo->getByID($driver_id);
 
-        $data = [
+        return [
             'title' => 'Driver drug test',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences()
         ];
 
-        return $data;
     }
 
     public function updateDrugtest($driver_id, $request)
@@ -486,13 +477,12 @@ class DriverUserActions {
     {
         $driver = $this->driverRepo->getByID($driver_id);
 
-        $data = [
+        return [
             'title' => 'Driver logs',
             'driver' => $driver,
             'references' => $this->getReferences()
         ];
 
-        return $data;
     }
 
     public function todo($driver_id, $request)
@@ -549,13 +539,11 @@ class DriverUserActions {
 
     public function getReferences()
     {
-        $references = [
+        return [
             'driverType' => $this->refDriverLicenseTypeRepo->getAll([], $paginate=100),
             'state' => $this->refStateRepo->getAll([], $paginate=100),
             'licenseEndrs' => $this->refDriverLicenseEndrsRepo->getAll([], $paginate=100),
         ];
-
-        return $references;
     }
 
 }
