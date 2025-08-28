@@ -29,10 +29,22 @@ class Driver extends Model
         'driver_type_id',
         'user_id',
         'company_id',
+        'company_user_id',
         'profile_photo_id',
         'status_id', // 1 - active, 2 - inactive, 3 - terminated
         'is_finished',
     ];
+
+    protected static function booted(): void
+    {
+        static::creating(function ($driver) {
+            self::updateCompanyUser( $driver );
+        });     
+
+        static::updating(function ($driver) {
+            self::updateCompanyUser( $driver );
+        });
+    }
 
     public function toSearchableArray()
     {
@@ -106,6 +118,17 @@ class Driver extends Model
     public function mvr()
     {
         return $this->hasOne(DriverMvr::class);
+    }
+
+    public static function updateCompanyUser( $driver ) {
+
+        if ($driver->company_id) {
+            $userCompany = UserCompany::find($driver->company_id);
+            if ($userCompany) {
+                $driver->company_user_id = $userCompany->user_id;
+            }
+        }
+
     }
 
 }
