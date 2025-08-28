@@ -111,13 +111,13 @@ class User extends Authenticatable
     // Drivers
     public function drivers()
     {
-        return $this->hasMany(Driver::class, 'company_id');
+        return $this->hasMany(Driver::class, 'company_user_id');
     }
 
     // Vehicles
     public function vehicles()  
     {
-        return $this->hasMany(Vehicle::class, 'company_id');
+        return $this->hasMany(Vehicle::class, 'company_user_id');
     }
 
     // User subscription custom requests
