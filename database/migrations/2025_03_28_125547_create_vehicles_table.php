@@ -18,7 +18,8 @@ return new class extends Migration
             $table->string('vin')->nullable();
             $table->foreignId('ownership_type_id')->on('ref_vehicle_ownership_type')->nullable();
             $table->foreignId('driver_id')->on('drivers');
-            $table->foreignId('company_id')->on('users');
+            $table->foreignId('company_id')->on('user_company')->nullable();
+            $table->foreignId('company_user_id')->on('users')->nullable();
             $table->date('reg_expire_date')->nullable();
             $table->date('inspection_expire_date')->nullable();
             $table->integer('profile_photo_id')->nullable();
