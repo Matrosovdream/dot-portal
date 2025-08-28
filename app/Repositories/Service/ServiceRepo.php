@@ -63,13 +63,21 @@ class ServiceRepo extends AbstractRepo
 
     }
 
+    private function prepareUrl( $item ) {
+
+        return route('dashboard.servicerequest.show', 
+            ['group' => $item['group']['slug'], 'service' => $item['slug']]
+        );
+
+    }
+
     public function mapItem($item)
     {
         if (empty($item)) {
             return null;
         }
 
-        return [
+        $res = [
             'id' => $item->id,
             'status_id' => $item->status_id,
             'name' => $item->name,
@@ -83,6 +91,11 @@ class ServiceRepo extends AbstractRepo
             'formFields' => $this->serviceFieldRepo->mapItems($item->formFields->sortBy('order')),
             'Model' => $item
         ];
+
+        $res['url'] = $this->prepareUrl( $res );
+
+        return $res;
+
     }
 
 }
