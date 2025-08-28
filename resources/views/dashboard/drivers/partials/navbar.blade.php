@@ -171,17 +171,25 @@
                         data-kt-menu="true">
 
                         <div class="menu-item px-3">
-                            <a href="#" class="menu-link flex-stack px-3">Create Payment
-                                <span class="ms-2" data-bs-toggle="tooltip"
-                                    aria-label="Specify a target name for future usage and reference"
-                                    data-bs-original-title="Specify a target name for future usage and reference"
-                                    data-kt-initialized="1">
-                                    <i class="ki-duotone ki-information fs-6">
-                                        <span class="path1"></span>
-                                        <span class="path2"></span>
-                                        <span class="path3"></span>
-                                    </i>
-                                </span></a>
+
+                            @if( isset( $links['drugtest_service'] ) )
+
+                                <a href="{{ $links['drugtest_service'] }}" class="menu-link flex-stack px-3">
+                                    Request Drug Test
+                                    <span class="ms-2" data-bs-toggle="tooltip"
+                                        aria-label=""
+                                        data-bs-original-title=""
+                                        data-kt-initialized="1">
+                                        <i class="ki-duotone ki-information fs-6">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                        </i>
+                                    </span>
+                                </a>
+
+                            @endif
+
                         </div>
 
                     </div>

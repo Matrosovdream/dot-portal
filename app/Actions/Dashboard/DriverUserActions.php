@@ -17,6 +17,7 @@ use App\Repositories\User\UserRepo;
 use App\Helpers\Validation\Models\DriverValidation;
 use App\Helpers\Driver\DriverHelper;
 use App\Services\User\UserService;
+use App\Repositories\Service\ServiceRepo;
 
 
 class DriverUserActions {
@@ -134,11 +135,19 @@ class DriverUserActions {
     {
         $driver = $this->driverRepo->getByID($driver_id);
 
+        $serviceRepo = app(ServiceRepo::class);
+        $links = [
+            'drugtest_service' => $serviceRepo->getBySlug('drug-test'),
+        ];
+
+        //dd($links);
+
         $data = [
             'title' => 'Driver details',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
-            'references' => $this->getReferences()
+            'references' => $this->getReferences(),
+            'links' => $links
         ];
 
         return $data;
