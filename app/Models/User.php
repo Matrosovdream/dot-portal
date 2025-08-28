@@ -108,6 +108,18 @@ class User extends Authenticatable
         return $this->hasOne(Driver::class);
     }
 
+    // Drivers
+    public function drivers()
+    {
+        return $this->hasMany(Driver::class, 'company_id');
+    }
+
+    // Vehicles
+    public function vehicles()  
+    {
+        return $this->hasMany(Vehicle::class, 'company_id');
+    }
+
     // User subscription custom requests
     public function subRequests()
     {
@@ -175,6 +187,18 @@ class User extends Authenticatable
     public function isDriver()
     {
         return $this->roles()->where('slug', 'driver')->exists();
+    }
+
+    // Has unfinished drivers
+    public function hasUnfinishedDrivers()
+    {
+        return $this->drivers()->where('is_finished', 0)->exists();
+    }
+
+    // Has unfinished vehicles
+    public function hasUnfinishedVehicles()
+    {
+        return $this->vehicles()->where('is_finished', 0)->exists();
     }
 
     // Get the user role
