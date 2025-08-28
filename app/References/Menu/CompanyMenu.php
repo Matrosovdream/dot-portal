@@ -224,11 +224,11 @@ class CompanyMenu implements InterfaceMenu {
     }
 
     private function hasDriverTasks() {
-        return auth()->user()->hasOpenDriverTasks();
+        return auth()->user()->hasUnfinishedDrivers();
     }
 
     private function hasVehicleTasks() {
-        return auth()->user()->hasOpenVehicleTasks();
+        return auth()->user()->hasUnfinishedVehicles();
     }
 
     private function getUserRequestGroups( $user_id = null ) {
