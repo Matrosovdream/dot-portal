@@ -32,7 +32,7 @@ class DriverSeeder extends Seeder
                 "ssn" => "123456789",
                 "hire_date" => "2021-01-01",
                 "driver_type_id" => 1,
-                "company_id" => 3,
+                "company_id" => 1,
             ],
             "address" => [
                 "address1" => "123 Main St",
@@ -66,7 +66,7 @@ class DriverSeeder extends Seeder
                 "ssn" => "888899922",
                 "hire_date" => "2024-01-01",
                 "driver_type_id" => 1,
-                'company_id' => 3,
+                'company_id' => 1,
             ],
             "address" => [
                 "address1" => "123 Main St",
