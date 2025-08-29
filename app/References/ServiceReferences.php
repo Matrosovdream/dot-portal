@@ -59,6 +59,14 @@ class ServiceReferences {
                 'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\ChQueryChecksForm',
                 'fields' => []
             ],
+            8 => [
+                'id' => 7,
+                'name' => 'Randomized Drug Testing Program',
+                'path' => 'forms.request.drug-test',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\DrugTestForm',
+                'fields' => []
+            ],
+            
         ];
         
     }
