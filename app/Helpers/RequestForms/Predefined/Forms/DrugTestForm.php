@@ -3,6 +3,7 @@
 namespace App\Helpers\RequestForms\Predefined\Forms;
 
 use App\Helpers\RequestForms\Predefined\AbstractForm;
+use App\Repositories\Service\ServiceRepo;
 
 class DrugTestForm extends AbstractForm
 {
@@ -93,6 +94,19 @@ class DrugTestForm extends AbstractForm
         }
 
         return $vehicleFilter;
+
+    }
+
+    public function processRequestBeforeSave($requestData, $request)
+    {
+
+        $serviceRepo = app(ServiceRepo::class);
+        $service = $serviceRepo->getById( $requestData['service_id'] );
+        
+        // Set the price based on the drivers count
+        $requestData['price'] = $service['price'] * count($request['drivers'] ?? []);
+
+        return $requestData;    
 
     }
 

@@ -343,4 +343,20 @@ class AbstractForm
         return [];
     }
 
+        /**
+     * Process the request data before saving.
+     *
+     * @param array $requestData
+     * @return array
+    */
+    public function processRequestBeforeSave( $requestData, $request )
+    {
+
+        // Here you can modify the request data before saving
+        // For example, you can set default values or transform data
+
+        return $requestData;
+
+    }  
+
 }
