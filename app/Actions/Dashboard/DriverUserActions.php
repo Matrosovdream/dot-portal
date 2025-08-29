@@ -135,19 +135,12 @@ class DriverUserActions {
     {
         $driver = $this->driverRepo->getByID($driver_id);
 
-        $serviceRepo = app(ServiceRepo::class);
-        $links = [
-            'drugtest_service' => $serviceRepo->getBySlug('drug-test'),
-        ];
-
-        //dd($links);
-
         $data = [
             'title' => 'Driver details',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences(),
-            'links' => $links
+            'links' => $this->getLinks()
         ];
 
         return $data;
@@ -193,7 +186,8 @@ class DriverUserActions {
             'title' => 'Driver profile',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
-            'references' => $this->getReferences()
+            'references' => $this->getReferences(),
+            'links' => $this->getLinks()
         ];
 
         return $data;
@@ -239,7 +233,8 @@ class DriverUserActions {
             'title' => 'Driver license',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
-            'references' => $this->getReferences()
+            'references' => $this->getReferences(),
+            'links' => $this->getLinks()
         ];
 
         return $data;
@@ -296,7 +291,8 @@ class DriverUserActions {
             'title' => 'Driver license',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
-            'references' => $this->getReferences()
+            'references' => $this->getReferences(),
+            'links' => $this->getLinks()
         ];
 
         return $data;
@@ -332,7 +328,8 @@ class DriverUserActions {
             'title' => 'Driver address',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
-            'references' => $this->getReferences()
+            'references' => $this->getReferences(),
+            'links' => $this->getLinks()
         ];
 
     }
@@ -360,7 +357,8 @@ class DriverUserActions {
             'title' => 'Driver medical card',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
-            'references' => $this->getReferences()
+            'references' => $this->getReferences(),
+            'links' => $this->getLinks()
         ];
 
     }
@@ -415,7 +413,8 @@ class DriverUserActions {
             'title' => 'Driver drug test',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
-            'references' => $this->getReferences()
+            'references' => $this->getReferences(),
+            'links' => $this->getLinks()
         ];
 
     }
@@ -450,7 +449,8 @@ class DriverUserActions {
         return [
             'title' => 'Driver MVR',
             'driver' => $driver,
-            'validation' => $this->driverValidation->setData($driver)->validateAll()
+            'validation' => $this->driverValidation->setData($driver)->validateAll(),
+            'links' => $this->getLinks()
         ];
 
     }
@@ -480,7 +480,8 @@ class DriverUserActions {
         return [
             'title' => 'Driver logs',
             'driver' => $driver,
-            'references' => $this->getReferences()
+            'references' => $this->getReferences(),
+            'links' => $this->getLinks()
         ];
 
     }
@@ -497,7 +498,8 @@ class DriverUserActions {
             'title' => 'Driver todo',
             'driver' => $driver,
             'validation' => $validation,
-            'references' => $this->getReferences()
+            'references' => $this->getReferences(),
+            'links' => $this->getLinks()
         ];
     }
 
@@ -535,6 +537,14 @@ class DriverUserActions {
             );
         }
 
+    }
+
+    private function getLinks()
+    {
+        $serviceRepo = app(ServiceRepo::class);
+        return [
+            'drugtest_service' => $serviceRepo->getBySlug('drug-test'),
+        ];
     }
 
     public function getReferences()
