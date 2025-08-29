@@ -111,6 +111,17 @@ The Clearing House Query Check form is used by employers and carriers to verify 
                 'form_type' => 'predefined',
                 'form_id' => 7, 
             ],
+            [
+                'name' => 'Randomized Drug Testing Program', 
+                'slug' => 'drug-test', 
+                'description' => '', 
+                'is_paid' => true,
+                'price' => 100, 
+                'status_id' => 1, 
+                'group_id' => 2,
+                'form_type' => 'predefined',
+                'form_id' => 8, 
+            ],
 
         ];
         
