@@ -21,6 +21,7 @@
                         <tr class="text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0">
                             <th class="min-w-200px">Service</th>
                             <th class="min-w-200px text-center">Status</th>
+                            <th class="min-w-200px text-center">Price</th>
                             <th class="min-w-200px text-center">Added</th>
                             <th class="min-w-200px text-center">Actions</th>
                         </tr>
@@ -40,6 +41,15 @@
                                 <td class="text-center pe-0">
                                     <span class="text-gray-800 fw-bold d-block fs-6">
                                         {{ $request['status']['name'] }}
+                                    </span>
+                                </td>
+                                <td class="text-center pe-0">
+                                    <span class="text-gray-800 fw-bold d-block fs-6">
+                                        @if( $request['price'] != 0 )
+                                            ${{ number_format( $request['price'], 2 ) }}
+                                        @else
+                                            Free
+                                        @endif
                                     </span>
                                 </td>
                                 <td class="text-center">
