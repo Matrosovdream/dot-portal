@@ -129,6 +129,8 @@ class AbstractForm
         $references = $this->getReferences();
         $values = $values['Mapped'];
 
+        //dd($values, $references);
+
         foreach ( $fields as $slug => $field ) {
 
             $value = '';
