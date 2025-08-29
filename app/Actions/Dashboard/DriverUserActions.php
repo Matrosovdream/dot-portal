@@ -187,7 +187,7 @@ class DriverUserActions {
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences(),
-            'links' => $this->getLinks()
+            'links' => $this->getLinks( $driver )
         ];
 
         return $data;
@@ -234,7 +234,7 @@ class DriverUserActions {
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences(),
-            'links' => $this->getLinks()
+            'links' => $this->getLinks( $driver )
         ];
 
         return $data;
@@ -292,7 +292,7 @@ class DriverUserActions {
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences(),
-            'links' => $this->getLinks()
+            'links' => $this->getLinks( $driver )
         ];
 
         return $data;
@@ -329,7 +329,7 @@ class DriverUserActions {
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences(),
-            'links' => $this->getLinks()
+            'links' => $this->getLinks( $driver )
         ];
 
     }
@@ -358,7 +358,7 @@ class DriverUserActions {
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences(),
-            'links' => $this->getLinks()
+            'links' => $this->getLinks( $driver )
         ];
 
     }
@@ -414,7 +414,7 @@ class DriverUserActions {
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences(),
-            'links' => $this->getLinks()
+            'links' => $this->getLinks( $driver )
         ];
 
     }
@@ -450,7 +450,7 @@ class DriverUserActions {
             'title' => 'Driver MVR',
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
-            'links' => $this->getLinks()
+            'links' => $this->getLinks( $driver )
         ];
 
     }
@@ -481,7 +481,7 @@ class DriverUserActions {
             'title' => 'Driver logs',
             'driver' => $driver,
             'references' => $this->getReferences(),
-            'links' => $this->getLinks()
+            'links' => $this->getLinks( $driver )
         ];
 
     }
@@ -499,7 +499,7 @@ class DriverUserActions {
             'driver' => $driver,
             'validation' => $validation,
             'references' => $this->getReferences(),
-            'links' => $this->getLinks()
+            'links' => $this->getLinks( $driver )
         ];
     }
 
@@ -541,10 +541,20 @@ class DriverUserActions {
 
     private function getLinks( $driver=null )
     {
+
         $serviceRepo = app(ServiceRepo::class); 
-        return [
-            'drugtest_service' => $serviceRepo->getBySlug('drug-test')['url'].'?drivers='.$driver['id']
-        ];
+
+        $links = [];
+
+        $cdlTypes = ['cdl_a', 'cdl_b', 'cdl_c'];
+        if( 
+            isset( $driver['license'] ) &&
+            in_array( $driver['license']['driverType']['slug'], $cdlTypes )
+            ) {
+            $links['drugtest_service'] = $serviceRepo->getBySlug('drug-test')['url'].'?drivers='.$driver['id'];
+        }
+
+        return $links;
     }
 
     public function getReferences()
