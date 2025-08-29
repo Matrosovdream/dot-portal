@@ -85,6 +85,7 @@ class RequestRepo extends AbstractRepo
             'predefinedValues' => $this->predefinedValueRepo->mapItems($item->predefinedValues, $item->id),
             'history' => $this->requestHistoryRepo->mapItems($item->history),
             'is_paid' => $item->is_paid,
+            'price' => $item->price,
             'Model' => $item
         ];
     }
