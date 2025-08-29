@@ -81,6 +81,10 @@ class DrugTestForm extends AbstractForm
 
         $requestData = $this->requestData;
 
+        if( auth()->user()->isAdmin() ) {
+            return [];
+        }
+
         // Vehicle filter based on request data or user company
         if( isset( $requestData['id'] ) ) {
             $vehicleFilter = ['company_user_id' => $requestData['user']['id']];
