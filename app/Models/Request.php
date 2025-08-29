@@ -16,7 +16,8 @@ class Request extends Model
         'user_id', 
         'status_id',
         'service_id',
-        'is_paid'
+        'is_paid',
+        'price'
     ];
     
     public function user()
