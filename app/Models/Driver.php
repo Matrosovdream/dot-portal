@@ -32,6 +32,7 @@ class Driver extends Model
         'company_user_id',
         'profile_photo_id',
         'status_id', // 1 - active, 2 - inactive, 3 - terminated
+        'search_index',
         'is_finished',
     ];
 
@@ -39,10 +40,16 @@ class Driver extends Model
     {
         static::creating(function ($driver) {
             self::updateCompanyUser( $driver );
+
+            // Search index
+            $driver->search_index = self::prepareSearchIndex( $driver);
         });     
 
         static::updating(function ($driver) {
             self::updateCompanyUser( $driver );
+
+            // Search index
+            $driver->search_index = self::prepareSearchIndex( $driver);
         });
     }
 
@@ -58,6 +65,31 @@ class Driver extends Model
             'license_number' => $this->license->license_number ?? '',
             'medical_national_registry' => $this->medicalCard->national_registry ?? '',
         ];
+    }
+
+    protected static function prepareSearchIndex( $user )
+    {
+
+        $fields = [
+            $user->firstname ?? '',
+            $user->lastname ?? '',
+            $user->middlename ?? '',
+            $user->email ?? '',
+            $user->phone ?? '',
+            $user->ssn ?? '',
+            $user->license->license_number ?? '',
+            $user->medicalCard->national_registry ?? '',
+        ];
+
+        // Remove empty fields from the array
+        foreach ($fields as $key => $value) {
+            if (empty($value) || $value == "") {
+                unset($fields[$key]);
+            }
+        }
+
+        $searchIndex = implode(' | ', $fields);
+        return $searchIndex;
     }
     
     public function user()
