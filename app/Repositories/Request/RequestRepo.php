@@ -86,6 +86,7 @@ class RequestRepo extends AbstractRepo
             'history' => $this->requestHistoryRepo->mapItems($item->history),
             'is_paid' => $item->is_paid,
             'price' => $item->price,
+            'discount_price' => $item->discount_price,
             'Model' => $item
         ];
     }

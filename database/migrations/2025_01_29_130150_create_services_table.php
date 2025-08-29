@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->text('description')->nullable()->nullable();
             $table->boolean('is_paid')->default(false);
             $table->decimal('price', 10, 2)->nullable();
+            $table->string('price_title')->nullable();
             $table->foreignId('status_id')->on('ref_request_status')->nullable();
             $table->foreignId('group_id')->on('ref_service_groups')->nullable();
             $table->string('form_type')->nullable();

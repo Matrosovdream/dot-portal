@@ -18,6 +18,7 @@ class Service extends Model
         'description', 
         'is_paid',
         'price', 
+        'price_title',
         'status_id',
         'group_id',
         'form_type',
