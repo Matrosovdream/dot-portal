@@ -139,6 +139,10 @@ class RequestUserActions {
             'references' => $references,
         ];
 
+        if( request()->has('drivers') ) {
+            $data['values']['drivers'] = request()->get('drivers');
+        }
+
         if( request()->has('ff') ) {
             dd($data);
         }

@@ -6,40 +6,30 @@ use App\Helpers\RequestForms\Predefined\AbstractForm;
 
 class DrugTestForm extends AbstractForm
 {
-    protected $formName = 'ifta';
-    protected $formTitle = 'IFTA';
+    protected $formName = 'drug_test';
+    protected $formTitle = 'Drug Test';
     protected $formFields = [
-        'request_type' => [
+        'drivers' => [
             'type' => 'select',
-            'label' => 'Request Type',
-            'reference' => 'request_type',
+            'label' => 'Driver',
+            'reference' => 'drivers',
             'required' => true,
+            'multiple' => true,
         ],
-        'country_state_id' => [
+        'test_type' => [
             'type' => 'select',
-            'label' => 'State',
-            'reference' => 'country_state',
+            'label' => 'Test Type',
+            'reference' => 'test_type',
             'required' => true,
-        ],
-        'vehicle_id' => [
-            'type' => 'select',
-            'label' => 'Vehicle',
-            'reference' => 'vehicles',
-            'required' => true,
-        ],
-        'filing_period' => [
-            'type' => 'select',
-            'label' => 'Filing Period',
-            'reference' => 'filing_period',
         ],
     ];
-
 
     public function validateFormData($requestData)
     {
 
         $errors = [];
 
+        /*
         if( $requestData['request_type'] == 'reg' ) {
             if( empty($requestData['country_state_id']) ) {
                 $errors['country_state'] = 'State is required field.';
@@ -55,6 +45,7 @@ class DrugTestForm extends AbstractForm
                 $errors['vehicle'] = 'Vehicle is required field.';
             }
         }
+        */
 
         return $errors;
     }
@@ -62,26 +53,42 @@ class DrugTestForm extends AbstractForm
     public function getReferences() {
 
         $fields = [
-            'country_state' => [
+            'drivers' => [
                 'type' => 'select',
-                'label' => 'State',
-                'options' => $this->getCountryStates(),
-            ],
-            'vehicles' => [
-                'type' => 'select',
-                'label' => 'Vehicles',
-                'options' => $this->getVehicles(
-                    ['company_id' => auth()->user()->company->id ?? null]
+                'label' => 'Driver',
+                'options' => $this->getDrivers(
+                    $this->prepareDriversFilter()
                 ), 
             ],
-            'filing_period' => [
+            'test_type' => [
                 'type' => 'select',
-                'label' => 'Filing Period',
-                'options' => $this->getQuarterPeriods(),
+                'label' => 'Test Type',
+                'options' => $this->getTestTypes()
             ],
         ];
-
         return $this->prepareReferences($fields);
+
+    }
+
+    private function getTestTypes() {
+        return [
+            ['value' => 'consortium', 'title' => 'Consortium Pool (shared)'],
+            ['value' => 'standalone', 'title' => 'Standalone Pool (company-only)'],
+        ];
+    }
+
+    private function prepareDriversFilter() {
+
+        $requestData = $this->requestData;
+
+        // Vehicle filter based on request data or user company
+        if( isset( $requestData['id'] ) ) {
+            $vehicleFilter = ['company_user_id' => $requestData['user']['id']];
+        } else {
+            $vehicleFilter = ['company_user_id' => auth()->user()->id ?? null];
+        }
+
+        return $vehicleFilter;
 
     }
 
