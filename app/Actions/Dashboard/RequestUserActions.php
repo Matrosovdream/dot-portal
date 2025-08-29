@@ -204,6 +204,11 @@ class RequestUserActions {
             'service_id' => $service['id'],
         ];
 
+        
+        // Process request data before save if predefined form
+        $requestPayload = $refsClass->processRequestBeforeSave($requestPayload, $request->fields);
+
+        // Save request
         $requestData = $this->requestRepo->create($requestPayload);
 
         // Prepare request data
