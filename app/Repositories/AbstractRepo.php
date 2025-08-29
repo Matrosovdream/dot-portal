@@ -209,9 +209,16 @@ abstract class AbstractRepo
             Log::error('Search error: '.$e->getMessage());
 
             // Return an empty collection or null based on your preference
-            return new Collection();
+            $items = new Collection();
 
         }
+
+        // Fallback to basic LIKE search if Scout search fails or nothing found
+        if( !$items || $items->isEmpty()) {
+            $items = $this->model
+                ->where('search_index', 'like', '%' . $query . '%')
+                ->paginate($paginate);
+        }    
         
         if ( $map && isset($items) ) {
             return $this->mapItems($items);
