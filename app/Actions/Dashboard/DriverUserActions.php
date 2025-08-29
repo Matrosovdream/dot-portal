@@ -140,7 +140,7 @@ class DriverUserActions {
             'driver' => $driver,
             'validation' => $this->driverValidation->setData($driver)->validateAll(),
             'references' => $this->getReferences(),
-            'links' => $this->getLinks()
+            'links' => $this->getLinks( $driver )
         ];
 
         return $data;
@@ -539,11 +539,11 @@ class DriverUserActions {
 
     }
 
-    private function getLinks()
+    private function getLinks( $driver=null )
     {
-        $serviceRepo = app(ServiceRepo::class);
+        $serviceRepo = app(ServiceRepo::class); 
         return [
-            'drugtest_service' => $serviceRepo->getBySlug('drug-test'),
+            'drugtest_service' => $serviceRepo->getBySlug('drug-test')['url'].'?drivers='.$driver['id']
         ];
     }
 
