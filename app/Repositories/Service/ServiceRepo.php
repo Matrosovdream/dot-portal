@@ -16,6 +16,9 @@ class ServiceRepo extends AbstractRepo
     protected $model;
 
     protected $fields = ['formFields'];
+    protected $links = [
+        'service.request.show' => 'dashboard.servicerequest.show'
+    ];
 
     public function __construct()
     {
@@ -65,7 +68,7 @@ class ServiceRepo extends AbstractRepo
 
     private function prepareUrl( $item ) {
 
-        return route('dashboard.servicerequest.show', 
+        return route($this->links['service.request.show'], 
             ['group' => $item['group']['slug'], 'service' => $item['slug']]
         );
 
