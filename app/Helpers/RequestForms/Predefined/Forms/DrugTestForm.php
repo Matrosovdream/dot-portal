@@ -30,23 +30,12 @@ class DrugTestForm extends AbstractForm
 
         $errors = [];
 
-        /*
-        if( $requestData['request_type'] == 'reg' ) {
-            if( empty($requestData['country_state_id']) ) {
-                $errors['country_state'] = 'State is required field.';
-            }
-            if( empty($requestData['vehicle_id']) ) {
-                $errors['vehicle'] = 'Vehicle is required field.';
-            }
-        } elseif( $requestData['request_type'] == 'quarterly_filing' ) {
-            if( empty($requestData['filing_period']) ) {
-                $errors['filing_period'] = 'Period is required field.';
-            }
-            if( empty($requestData['vehicle_id']) ) {
-                $errors['vehicle'] = 'Vehicle is required field.';
-            }
+        if( empty($requestData['drivers']) || !is_array($requestData['drivers']) ) {
+            $errors['drivers'] = 'At least one driver must be selected.';
         }
-        */
+        if( empty($requestData['test_type']) ) {
+            $errors['test_type'] = 'Test type is required field.';
+        }
 
         return $errors;
     }
