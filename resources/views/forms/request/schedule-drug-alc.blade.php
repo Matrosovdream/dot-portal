@@ -37,10 +37,10 @@
   <div class="row mb-6">
 
     <x-select 
-        inputName="fields[business_address_state_id]"
+        inputName="fields[address_state_id]"
         label="Select a State"
         :options="$formRefs['country_state']['options']"
-        value="{{ $values['business_address_state_id'] ?? '' }}"
+        value="{{ $values['address_state_id'] ?? '' }}"
         :multiple=false
         :required=true
         template="inline"
@@ -55,8 +55,8 @@
           type="text" 
           class="form-control form-control-lg form-control-solid" 
           placeholder="City"
-          name="fields[business_address_city]" 
-          value="{{ $values['business_address_city'] ?? '' }}"
+          name="fields[address_city]" 
+          value="{{ $values['address_city'] ?? '' }}"
           />
     </div>
   </div>
@@ -68,8 +68,8 @@
           type="text" 
           class="form-control form-control-lg form-control-solid" 
           placeholder="Zip Code"
-          name="fields[business_address_zip]" 
-          value="{{ $values['business_address_zip'] ?? '' }}"
+          name="fields[address_zip]" 
+          value="{{ $values['address_zip'] ?? '' }}"
           />
     </div>
   </div>
