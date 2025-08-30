@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('disk')->nullable();
             $table->string('visibility')->default('public');
             $table->foreignId('user_id')->on('users')->nullable();
+            $table->text('search_index')->nullable();
             $table->timestamps();
         });
 
