@@ -123,6 +123,18 @@ The Clearing House Query Check form is used by employers and carriers to verify 
                 'form_type' => 'predefined',
                 'form_id' => 8, 
             ],
+            [
+                'name' => 'Schedule Drug/Alcohol Test', 
+                'slug' => 'schedule-drug-alcohol-test', 
+                'description' => '', 
+                'is_paid' => true,
+                'price' => 59.99,
+                'price_title' => 'per driver', 
+                'status_id' => 1, 
+                'group_id' => 2,
+                'form_type' => 'predefined',
+                'form_id' => 9,
+            ],
 
         ];
         
