@@ -66,6 +66,13 @@ class ServiceReferences {
                 'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\DrugTestForm',
                 'fields' => []
             ],
+            9 => [
+                'id' => 8,
+                'name' => 'Schedule Drug/Alcohol Test',
+                'path' => 'forms.request.schedule-drug-alc',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\ScheduleDrugAlcForm',
+                'fields' => []
+            ],
             
         ];
         
