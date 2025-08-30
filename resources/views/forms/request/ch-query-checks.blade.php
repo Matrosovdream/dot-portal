@@ -1,3 +1,5 @@
+<h2 class="mb-6">General</h2>
+
 <div class="row mb-6">
     <label class="col-lg-4 col-form-label fw-semibold fs-6">
         Amount of Queries

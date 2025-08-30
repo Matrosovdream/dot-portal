@@ -1,3 +1,5 @@
+<h2 class="mb-6">General</h2>
+
 
       <!-- Change Type -->
       <div class="row mb-6">
@@ -35,6 +37,10 @@
               template="inline"
           />
       </div>
+
+      <div class="separator mb-8"></div>
+
+      <h2 class="mb-6">Address</h2>
   
       <!-- Editable Fields -->
       <div id="editableFields" style="display: none;">
