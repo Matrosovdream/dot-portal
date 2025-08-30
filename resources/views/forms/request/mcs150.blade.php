@@ -1,5 +1,7 @@
-
-      <!-- PIN -->
+<h2 class="mb-6">General</h2>
+     
+     
+     <!-- PIN -->
       <div class="row mb-6">
         <label class="col-lg-4 col-form-label fw-semibold fs-6 required">PIN</label>
         <div class="col-lg-4 fv-row">

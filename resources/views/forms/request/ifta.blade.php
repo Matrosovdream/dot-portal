@@ -1,3 +1,5 @@
+<h2 class="mb-6">General</h2>
+
 <!-- Change Type -->
 <div class="row mb-6">
 
@@ -15,7 +17,24 @@
 
 </div>
 
+<div class="row mb-6">
+  <x-select 
+    inputName="fields[vehicle_id]"
+    label="Choose Vehicle"
+    inputId="vehicles1"
+    :options="$formRefs['vehicles']['options']"
+    value="{{ $values['vehicle_id'] ?? '' }}"
+    :multiple=false
+    :required=true
+    template="inline"
+  />
+</div>
+
 <div id="tab_registration">
+
+  <div class="separator mb-8"></div>
+
+  <h2 class="mb-6">Address</h2>
   
   <div class="row mb-6">
     <x-select 
@@ -26,19 +45,6 @@
         :multiple=false
         :required=true
         template="inline"
-    />
-  </div>
-
-  <div class="row mb-6">
-    <x-select 
-      inputName="fields[vehicle_id]"
-      label="Choose Vehicle"
-      inputId="vehicles1"
-      :options="$formRefs['vehicles']['options']"
-      value="{{ $values['vehicle_id'] ?? '' }}"
-      :multiple=false
-      :required=true
-      template="inline"
     />
   </div>
 
