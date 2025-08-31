@@ -53,6 +53,9 @@ class ScheduleDrugAlcForm extends AbstractForm
         if( empty($requestData['test_type']) ) {
             $errors['test_type'] = 'Test type is required field.';
         }
+        if( empty($requestData['address_state_id']) ) {
+            $errors['address_state_id'] = 'State is required field.';
+        }
 
         return $errors;
     }
