@@ -284,6 +284,10 @@ class RequestUserActions {
         $service = $this->serviceRepo->getById($request['service']['id']);
         $user = $this->userRepo->getByID( auth()->user()->id );
 
+        if( $request['price'] != 0 ) {
+            $service['price'] = $request['price'];
+        }
+
         return [
             'title' => 'Request payment #' . $request_id,
             'request' => $request,
@@ -301,15 +305,17 @@ class RequestUserActions {
 
         if( !$requestData ) { return false; }
 
-        $price = $requestData['service']['price'];
+        if( $request['price'] != 0 ) {
+            $price = $request['price'];
+        } else {
+            $price = $requestData['service']['price'];
+        }
 
         // Prepare payment data
         $profile = [
             'customerProfileId' => $paymentCard['Meta']['authnet_profile_id'],
             'paymentProfileId' => $paymentCard['Meta']['authnet_payment_profile_id'],
         ];
-
-        //$profile['customerProfileId'] = 11111;
 
         // Charge the customer
         $paymentRes = $this->authnet->chargeCustomerProfile(
