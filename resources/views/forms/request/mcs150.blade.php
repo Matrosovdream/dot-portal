@@ -1,5 +1,5 @@
+
 <h2 class="mb-6">General</h2>
-     
      
      <!-- PIN -->
       <div class="row mb-6">
