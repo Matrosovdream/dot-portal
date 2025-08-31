@@ -16,12 +16,32 @@
                     <div class="overlay-layer rounded bg-black" style="opacity: 0.4"></div>
                 </div>
 
-                <div class="position-absolute text-white mb-8 ms-10 bottom-0">
-                    <h3 class="text-white fs-2qx fw-bold mb-3 m">
-                        {{ $service['name'] }}
-                    </h3>
-                    <div class="fs-5 fw-semibold">
-                        Some text here
+                <!-- Overlayed content -->
+                <div class="position-absolute bottom-0 start-0 end-0 p-6">
+                    <div class="d-flex justify-content-between align-items-end">
+            
+                        <!-- Left side -->
+                        <div>
+                            <h3 class="fs-2qx fw-bold mb-3 text-white">
+                                {{ $service['name'] }}
+                            </h3>
+                            <div class="fs-5 fw-semibold text-white">
+                                Some text here
+                            </div>
+                        </div>
+
+                        @if( isset($service['price']) && $service['price'] != 0 )
+            
+                            <!-- Right side -->
+                            <div class="bg-white text-dark px-6 py-4 rounded shadow-sm">
+                                <div class="fw-bold fs-2" id="service-price" data-price="{{ $service['price'] }}">
+                                    ${{ $service['price'] }}
+                                </div>
+                                <div class="fs-7 text-muted">Service Fee</div>
+                            </div>
+
+                        @endif
+            
                     </div>
                 </div>
 
@@ -123,7 +143,7 @@
 
                             </div>
 
-                            <!--
+                            <!--\
                             <div class="mb-8">
 
                                 <h4 class="text-gray-700 w-bolder mb-0">Title</h4>
