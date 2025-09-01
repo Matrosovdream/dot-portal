@@ -36,7 +36,14 @@ class RequestAdminActions {
 
     public function index()
     {
-        $requests = $this->requestRepo->getAll( [] );
+
+        // Filter by search form
+        $filter = [];
+        if( request()->has('q') ) {
+            $filter['user_id'] = '%' . request()->input('q') . '%';
+        }
+
+        $requests = $this->requestRepo->getAll( $filter );
 
         return [
             'title' => 'All requests',
