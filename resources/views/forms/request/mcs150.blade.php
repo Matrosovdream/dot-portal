@@ -18,16 +18,6 @@
       <!-- Change Type -->
       <div class="row mb-6">
 
-        <!--
-        <label class="col-lg-4 col-form-label fw-semibold fs-6 required">Change Type</label>
-        <div class="col-lg-4 fv-row">
-          <select name="fields[change_type]" id="changeType" class="form-select form-select-lg form-select-solid">
-            <option value="keep" @if( $values['change_type'] == 'keep' ) selected @endif>Keep same</option>
-            <option value="change" @if( $values['change_type'] == 'change' ) selected @endif>Make changes</option>
-          </select>
-        </div>
-      -->
-
         <x-select 
             inputName="fields[change_type]"
             label="Change Type"
