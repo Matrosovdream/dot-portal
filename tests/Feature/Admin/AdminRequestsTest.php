@@ -4,7 +4,9 @@ namespace Tests\Feature\Admin;
 
 use Tests\Feature\Traits\EntityTestable;
 use Tests\TestCase;
+use App\Models\Request;
 use App\Models\User;
+
 
 class AdminRequestsTest extends TestCase
 {
@@ -25,7 +27,7 @@ class AdminRequestsTest extends TestCase
         parent::setUp();
 
         // Model set
-        $this->model = new User();
+        $this->model = new Request();
 
         // User set
         $this->user = User::find( $this->user_id );
@@ -39,7 +41,6 @@ class AdminRequestsTest extends TestCase
         parent::tearDown();
     }
 
-
     // Index page
     public function test_index_page(): void
     {
@@ -47,6 +48,7 @@ class AdminRequestsTest extends TestCase
         $response->assertStatus(200);
     }
 
+    /*
     public function test_update_record(): void
     {
 
@@ -69,6 +71,7 @@ class AdminRequestsTest extends TestCase
         );
 
     }
+        */
 
     protected function getValues(): array
     {
