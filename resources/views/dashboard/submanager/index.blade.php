@@ -65,11 +65,15 @@
                             <td>
                                 <a href="{{ route('dashboard.usersubscriptions.show', $item['id']) }}"
                                     class="text-gray-800 text-hover-primary fs-5 fw-bold">
-                                    {{ $item['user']['firstname'] }} {{ $item['user']['lastname'] }} 
-                                    <br/>
-                                    <span class="text-muted fs-7">
-                                        {{ $item['user']['email'] }}
-                                    </span>
+                                    @if( isset( $item['user'] ) )
+                                        {{ $item['user']['firstname'] }} {{ $item['user']['lastname'] }} 
+                                        <br/>
+                                        <span class="text-muted fs-7">
+                                            {{ $item['user']['email'] }}
+                                        </span>
+                                    @else
+                                        -
+                                    @endif
                                 </a>
                             </td>
                             <td>
