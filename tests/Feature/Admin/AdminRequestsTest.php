@@ -71,18 +71,30 @@ class AdminRequestsTest extends TestCase
         );
 
     }
-        */
+    */
 
     protected function getValues(): array
     {
         return [
             'new' => [
+                'user_id' => 3,
+                'status_id' => 1,
+                'service_id' => 1,
             ],
             'newFind' => [
+                'user_id' => 3,
+                'status_id' => 1,
+                'service_id' => 1,
             ],
             'update' => [
+                'user_id' => 3,
+                'status_id' => 2, // Change status to 2
+                'service_id' => 1,
             ],
             'updateFind'=> [
+                'user_id' => 3,
+                'status_id' => 2, // Changed status to 2
+                'service_id' => 1,
             ]
         ];
     }
