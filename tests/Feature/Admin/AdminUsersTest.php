@@ -111,11 +111,9 @@ class AdminUsersTest extends TestCase
             'update' => [
                 'firstname' => 'Updated',
                 'lastname' => 'User',
-                'fullname' => 'Updated User',
                 'email' => 'featuretest@email.com',
-                'phone' => '0987654321',
-                'birthday' => '1990-01-01',
-                'role'=> 'driver',
+                'role' => 'driver',
+                'action' => 'save_general'
             ],
             'updateFind'=> [
                 'firstname' => 'Updated',
