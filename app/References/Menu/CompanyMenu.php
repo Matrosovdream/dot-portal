@@ -169,6 +169,13 @@ class CompanyMenu implements InterfaceMenu {
                 ),
             ),
             array(
+                'title' => 'Clearinghouse Management',
+                'url' => route('dashboard.clearinghouse.index'),
+                'route' => 'dashboard.clearing.index',
+                'icon' => 'ki-check-circle',
+                'roles' => ['user']
+            ),
+            array(
                 'title' => 'My cabinet',
                 'url' => '',
                 'icon' => 'ki-user',
