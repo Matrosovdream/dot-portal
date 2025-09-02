@@ -381,7 +381,15 @@ class DriverRepo extends AbstractRepo
             'profilePhoto' => $this->fileRepo->mapItem( $item['profilePhoto'] )
         ];
 
+        $res['is_cdl'] = $this->is_cdl($res);
+
+         // Determine if driver has CDL
         return $res;
+    }
+
+    private function is_cdl($driver) {
+        $cdlTypes = ['cdl_a', 'cdl_b', 'cdl_c'];
+        return in_array( ($driver['license']['driverType']['slug'] ?? ''), $cdlTypes );
     }
 
 }
