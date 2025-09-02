@@ -125,7 +125,7 @@ class DriverRepo extends AbstractRepo
         $items = $this->model
             ->with($this->withRelations)
             ->where(function ($query) use ($user_id) {
-                $query->where('company_id', $user_id)
+                $query->where('company_user_id', $user_id)
                     ->orWhereNull('company_id');
             })
             ->paginate($paginate);
