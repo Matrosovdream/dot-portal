@@ -26,6 +26,7 @@ use App\Http\Controllers\Dashboard\PlanFeesController;
 use App\Http\Controllers\Dashboard\SubPlansController;
 use App\Http\Controllers\Dashboard\SubRequestsController;
 use App\Http\Controllers\Dashboard\SubManagerController;
+use App\Http\Controllers\Dashboard\ClearingHouseController;
 
 
 
@@ -223,6 +224,17 @@ Route::group([
             Route::get('/', [DashboardSettingsController::class, 'index'])->name('index');
             Route::post('/', [DashboardSettingsController::class, 'store'])->name('store');
         });
+    });
+
+    // Clearing house
+    Route::prefix('clearing-house')->name('clearinghouse.')->group(function () {
+        // Main routes
+        Route::get('/', [ClearingHouseController::class, 'index'])->name('index');
+        Route::post('/', [ClearingHouseController::class, 'store'])->name('store');
+
+        // Forms
+        Route::post('/buy-queries', [ClearingHouseController::class, 'buyQueries'])->name('buyqueries');
+        Route::get('/register-company', [ClearingHouseController::class, 'registerCompany'])->name('registercompany');
     });
 
     // User routes
