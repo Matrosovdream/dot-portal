@@ -51,7 +51,7 @@ class DriverLicenseRepo extends AbstractRepo
             'license_number' => $item->license_number,
             'expiration_date' => $item->expiration_date,
             'state_id' => $item->state_id,
-            'state' => $this->refStateRepo->mapItem($item->countryState->first()),
+            'state' => $this->refStateRepo->mapItem($item->countryState),
             'Model' => $item
         ];
 
