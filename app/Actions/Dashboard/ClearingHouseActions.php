@@ -1,32 +1,30 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Helpers\TranspGov\TranspGovSnapshot;
-use App\Helpers\TranspGov\TranspGovInspection;
-use App\Helpers\TranspGov\TranspGovCrash;
-use App\Mixins\Integrations\SaferwebAPI;
-use App\Models\Service;
-use App\Repositories\User\UserTaskRepo;
-use App\Helpers\User\CompanyHelper;
-use App\Helpers\User\UserTaskHelper;
-
+use App\Repositories\Driver\DriverRepo;
+use App\Repositories\User\UserRepo;
 
 
 class ClearingHouseActions {
 
-    private $todoRepo;
-
-    public function __construct()
+    public function __construct(
+        private DriverRepo $driverRepo,
+        private UserRepo $userRepo
+    )
     {
-        $this->todoRepo = new UserTaskRepo();
 
     }
 
-
-    public function index()
+    public function index( $request )
     {
+
+        $user = $this->userRepo->getById( auth()->user()->id );
+
         $data = [
-            'title' => 'Company To-Do List',
+            'title' => 'Clearing House Management',
+            'user' => $user,
+            'company' => $user['company'] ?? null,
+            'drivers' => $this->driverRepo->getUserDrivers( auth()->user()->id ),
         ];
 
         return $data;
