@@ -16,8 +16,14 @@ class ClearingHouseController extends Controller
     public function index( Request $request )
     {
 
+        if( $request->has('proto') ) {
+            $template = 'dashboard.clearinghouse.proto';
+        } else {
+            $template = 'dashboard.clearinghouse.index';
+        }
+        
         return view(
-            'dashboard.clearinghouse.index', 
+            $template,
             $this->actions->index( $request )
         );
 
