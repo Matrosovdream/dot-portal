@@ -41,13 +41,13 @@ class DriverLicenseRepo extends AbstractRepo
         if( empty($item) ) {
             return null;
         }
-        
+
         $res = [
             'id' => $item->id,
             'type_id' => $item->type_id,
-            'driverType' => $this->refDriverTypeRepo->mapItem( $item->type->first() ),
+            'driverType' => $this->refDriverTypeRepo->mapItem( $item->type ),
             'endorsement_id' => $item->endorsement_id,
-            'endorsement' => $this->refDriverLicenseEndrsRepo->mapItem($item->endorsement->first()),
+            'endorsement' => $this->refDriverLicenseEndrsRepo->mapItem($item->endorsement),
             'license_number' => $item->license_number,
             'expiration_date' => $item->expiration_date,
             'state_id' => $item->state_id,
