@@ -87,10 +87,9 @@ class ServiceSeeder extends Seeder
                 'form_id' => 5, 
             ],
             [
-                'name' => 'Clearing House New Driver / Company Registration', 
-                'slug' => 'ch-new-driver', 
-                'description' => '
-The Clearing House New Driver/Company Registration form is used to enroll new drivers or companies into the U.S. Department of Transportation’s (DOT) Drug and Alcohol Clearinghouse. For drivers, it registers their personal and professional information to ensure compliance with federal drug and alcohol testing regulations. For companies, the form registers them as employers or carriers who are required to query the Clearinghouse for driver safety and compliance records. This registration is essential for verifying that drivers meet federal standards and maintaining a compliant workforce.', 
+                'name' => 'Clearing House Company Registration', 
+                'slug' => 'ch-company-register', 
+                'description' => '', 
                 'is_paid' => false,
                 'price' => 0, 
                 'status_id' => 1, 
