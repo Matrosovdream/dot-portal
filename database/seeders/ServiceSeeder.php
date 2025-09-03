@@ -98,6 +98,17 @@ class ServiceSeeder extends Seeder
                 'form_id' => 6, 
             ],
             [
+                'name' => 'Clearing House Driver Registration', 
+                'slug' => 'ch-driver-register', 
+                'description' => '', 
+                'is_paid' => false,
+                'price' => 0, 
+                'status_id' => 1, 
+                'group_id' => 2,
+                'form_type' => 'predefined',
+                'form_id' => 10, 
+            ],
+            [
                 'name' => 'Clearing House Query Checks', 
                 'slug' => 'ch-query-checks', 
                 'description' => "
