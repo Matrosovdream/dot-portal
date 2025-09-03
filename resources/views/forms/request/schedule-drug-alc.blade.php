@@ -31,7 +31,6 @@
   </div>
 
   <div class="separator mb-8"></div>
-
   <h2 class="mb-6">Address</h2>
 
   <div class="row mb-6">
@@ -71,6 +70,21 @@
           name="fields[address_zip]" 
           value="{{ $values['address_zip'] ?? '' }}"
           />
+    </div>
+  </div>
+
+  <div class="separator mb-8"></div>
+  <h2 class="mb-6">Other</h2>
+
+  <div class="row mb-6">
+    <label class="col-lg-4 col-form-label fw-semibold fs-6">Notes</label>
+    <div class="col-lg-4 fv-row">
+      <textarea
+          class="form-control form-control-lg form-control-solid" 
+          placeholder="Notes"
+          name="fields[notes]" 
+          rows="6"
+          >{{ $values['notes'] ?? '' }}</textarea>
     </div>
   </div>
 
