@@ -47,9 +47,9 @@ class ServiceReferences {
             ],
             6 => [
                 'id' => 6,
-                'name' => 'Clearing House New Driver',
-                'path' => 'forms.request.ch-new-driver',
-                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\ChNewDriverForm',
+                'name' => 'Clearing House Company Registration',
+                'path' => 'forms.request.ch-company-register',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\ChNewCompanyForm',
                 'fields' => []
             ],
             7 => [
