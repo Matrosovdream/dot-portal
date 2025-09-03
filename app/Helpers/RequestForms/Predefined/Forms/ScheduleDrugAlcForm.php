@@ -10,6 +10,7 @@ class ScheduleDrugAlcForm extends AbstractForm
     protected $formName = 'schedule_drug_alc';
     protected $formTitle = 'Schedule Drug/Alcohol Test';
     protected $formFields = [
+        // General
         'test_type' => [
             'type' => 'select',
             'label' => 'Test Type',
@@ -23,6 +24,7 @@ class ScheduleDrugAlcForm extends AbstractForm
             'required' => true,
             'multiple' => true,
         ],
+        // Address
         'address_city' => [
             'type' => 'text',
             'label' => 'Business Address City',
@@ -39,7 +41,12 @@ class ScheduleDrugAlcForm extends AbstractForm
             'label' => 'Business Address Zip',
             'required' => false,
         ],
-        
+        // Other
+        'notes' => [
+            'type' => 'text',
+            'label' => 'Notes',
+            'required' => false,
+        ],
     ];
 
     public function validateFormData($requestData)
