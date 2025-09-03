@@ -73,6 +73,13 @@ class ServiceReferences {
                 'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\ScheduleDrugAlcForm',
                 'fields' => []
             ],
+            10 => [
+                'id' => 6,
+                'name' => 'Clearing House Driver Registration',
+                'path' => 'forms.request.ch-driver-register',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\ChNewDriverForm',
+                'fields' => []
+            ],
             
         ];
         
