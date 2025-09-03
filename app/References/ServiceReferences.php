@@ -80,7 +80,13 @@ class ServiceReferences {
                 'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\ChNewDriverForm',
                 'fields' => []
             ],
-            
+            11 => [
+                'id' => 11,
+                'name' => 'Run Driver Query',
+                'path' => 'forms.request.run-driver-query',
+                'classProcess' => 'App\Helpers\RequestForms\Predefined\Forms\RunDriverQueryForm',
+                'fields' => []
+            ],
         ];
         
     }
