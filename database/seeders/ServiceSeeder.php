@@ -145,7 +145,17 @@ The Clearing House Query Check form is used by employers and carriers to verify 
                 'form_type' => 'predefined',
                 'form_id' => 9,
             ],
-
+            [
+                'name' => 'Run Driver Query', 
+                'slug' => 'run-driver-query', 
+                'description' => '', 
+                'is_paid' => true,
+                'price' => 10, 
+                'status_id' => 1, 
+                'group_id' => 2,
+                'form_type' => 'predefined',
+                'form_id' => 11,
+            ],
         ];
         
         foreach ($services as $service) {
