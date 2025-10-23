@@ -192,6 +192,27 @@ return new class extends Migration
             $table->text('value')->nullable();
         });
 
+        // User Query balance
+        Schema::create('user_query_balance', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->on('users');
+            $table->foreignId('user_company_id')->on('user_company')->nullable();
+            $table->string('type')->nullable();
+            $table->integer('amount')->default(0);
+            $table->timestamps();
+        });
+
+        // User query balance history
+        Schema::create('user_query_balance_history', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('user_id')->on('users');
+            $table->foreignId('user_company_id')->on('user_company');
+            $table->integer('amount')->default(0);
+            $table->string('type')->nullable();
+            $table->string('notes')->nullable();
+            $table->timestamps();
+        });
+
         // Login tokens
         Schema::create('login_tokens', function (Blueprint $table) {
             $table->id();
@@ -225,6 +246,8 @@ return new class extends Migration
         Schema::dropIfExists('user_payment_history');
         Schema::dropIfExists('user_tasks');
         Schema::dropIfExists('user_task_meta');
+        Schema::dropIfExists('user_query_balance');
+        Schema::dropIfExists('user_query_balance_history');
         Schema::dropIfExists('login_tokens');
     }
 };
