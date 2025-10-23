@@ -16,23 +16,16 @@ class DashboardReferences
 
         $userRole = auth()->user()->getRole()->slug;
 
-        switch ($userRole) {
-            case 'admin':
-                $menu = new AdminMenu();
-                break;
-            case 'company':
-                $menu = new CompanyMenu();
-                break;
-            case 'manager':
-                $menu = new ManagerMenu();
-                break;
-            case 'driver':
-                $menu = new DriverMenu();
-                break;
-            default:
-                $menu = new CompanyMenu();
-                break;
-        }
+        $menuMap = [
+            'admin'   => AdminMenu::class,
+            'company' => CompanyMenu::class,
+            'manager' => ManagerMenu::class,
+            'driver'  => DriverMenu::class,
+        ];
+        
+        // Default to CompanyMenu if role not found
+        $menuClass = $menuMap[$userRole] ?? CompanyMenu::class;
+        $menu = new $menuClass();        
 
         return $menu->getMenus()['sidebar'];
 
