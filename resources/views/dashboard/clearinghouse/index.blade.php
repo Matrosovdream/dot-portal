@@ -2,7 +2,7 @@
 
 @section('toolbar-buttons')
     {{-- Optional quick actions (can be removed if you prefer only the summary buttons) --}}
-    <a href="{{ route('dashboard.clearinghouse.buyqueries') }}" class="btn btn-sm fw-bold btn-light-primary">
+    <a href="{{ route('dashboard.clearinghouse.buyqueries.index') }}" class="btn btn-sm fw-bold btn-light-primary">
         <i class="ki-duotone ki-search-list me-2"><span class="path1"></span><span class="path2"></span></i>
         Buy Queries
     </a>
