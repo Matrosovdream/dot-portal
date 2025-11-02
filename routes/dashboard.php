@@ -233,8 +233,15 @@ Route::group([
         Route::post('/', [ClearingHouseController::class, 'store'])->name('store');
 
         // Forms
-        Route::post('/buy-queries', [ClearingHouseController::class, 'buyQueries'])->name('buyqueries');
         Route::get('/register-company', [ClearingHouseController::class, 'registerCompany'])->name('registercompany');
+
+        // Buy queries prefix
+        Route::prefix('buy-queries')->name('buyqueries.')->group(function () {
+            Route::get('/', [ClearingHouseController::class, 'buyQueriesIndex'])->name('form');
+            Route::post('/process', [ClearingHouseController::class, 'buyQueriesProcess'])->name('process');
+            Route::get('/success', [ClearingHouseController::class, 'buyQueriesSuccess'])->name('success');
+        });
+
     });
 
     // User routes
