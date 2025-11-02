@@ -29,4 +29,12 @@ class ClearingHouseController extends Controller
 
     }
 
+    public function buyQueriesIndex( Request $request )
+    {
+        return view(
+            'dashboard.clearinghouse.buyqueries.index',
+            $this->actions->buyQueriesForm( $request )
+        );
+    }
+
 }
