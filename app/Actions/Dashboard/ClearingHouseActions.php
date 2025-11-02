@@ -30,4 +30,14 @@ class ClearingHouseActions {
         return $data;
     }
 
+    public function buyQueriesForm( $request )
+    {
+        $data = [
+            'title' => 'Buy Queries',
+        ];
+
+        return $data;
+
+    }
+
 }
