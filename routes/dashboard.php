@@ -237,7 +237,7 @@ Route::group([
 
         // Buy queries prefix
         Route::prefix('buy-queries')->name('buyqueries.')->group(function () {
-            Route::get('/', [ClearingHouseController::class, 'buyQueriesIndex'])->name('form');
+            Route::get('/', [ClearingHouseController::class, 'buyQueriesIndex'])->name('index');
             Route::post('/process', [ClearingHouseController::class, 'buyQueriesProcess'])->name('process');
             Route::get('/success', [ClearingHouseController::class, 'buyQueriesSuccess'])->name('success');
         });
