@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->on('users');
             $table->foreignId('status_id')->on('request_statuses');
             $table->foreignId('service_id')->on('services');
+            $table->foreignId('order_id')->on('orders')->nullable();
             $table->boolean('is_paid')->default(false);
             $table->decimal('price', 10, 2)->default(0);
             $table->decimal('discount_price', 10, 2)->default(0);
