@@ -27,6 +27,7 @@ use App\Http\Controllers\Dashboard\SubPlansController;
 use App\Http\Controllers\Dashboard\SubRequestsController;
 use App\Http\Controllers\Dashboard\SubManagerController;
 use App\Http\Controllers\Dashboard\ClearingHouseController;
+use App\Http\Controllers\Dashboard\OrdersController;
 
 
 
@@ -242,6 +243,13 @@ Route::group([
             Route::get('/success', [ClearingHouseController::class, 'buyQueriesSuccess'])->name('success');
         });
 
+    });
+
+    // Orders
+    Route::prefix('orders')->name('orders.')->group(function () {
+        //Route::get('/', [OrdersController::class, 'index'])->name('index');
+        Route::get('{order_id}', [OrdersController::class, 'show'])->name('show');
+        Route::get('{order_id}/pay', [OrdersController::class, 'showPay'])->name('show.pay');
     });
 
     // User routes
