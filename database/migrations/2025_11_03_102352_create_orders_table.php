@@ -19,8 +19,6 @@ return new class extends Migration
             $table->string('order_number')->unique();
             $table->decimal('amount', 10, 2);
             $table->decimal('discount_amount', 10, 2)->default(0);
-            $table->string('entity')->nullable();
-            $table->integer('entity_id')->nullable();
             $table->foreignId('status_id')->on('ref_order_statuses')->nullable();
             $table->foreignId('payment_method_id')->on('ref_payment_methods')->nullable();
             $table->text('notes')->nullable();
@@ -42,6 +40,20 @@ return new class extends Migration
             $table->string('name')->unique();
             $table->string('code')->unique();
             $table->string('description')->nullable();
+            $table->timestamps();
+        });
+
+        // Order items
+        Schema::create('order_items', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('order_id')->on('orders');
+            $table->string('item_name');
+            $table->text('item_description')->nullable();
+            $table->string('entity')->nullable();
+            $table->integer('entity_id')->nullable();
+            $table->integer('quantity')->default(1);
+            $table->decimal('unit_price', 10, 2);
+            $table->decimal('total_price', 10, 2);
             $table->timestamps();
         });
 
@@ -76,6 +88,7 @@ return new class extends Migration
         Schema::dropIfExists('orders');
         Schema::dropIfExists('order_meta');
         Schema::dropIfExists('ref_order_statuses');
+        Schema::dropIfExists('order_items');
         Schema::dropIfExists('order_payments');
         Schema::dropIfExists('ref_payment_methods');
     }
