@@ -36,6 +36,8 @@ class DatabaseSeeder extends Seeder
             ReferenceServiceGroupSeeder::class,
             RefVehicleUnitTypeSeeder::class,
             RefVehicleOwnershipTypeSeeder::class,
+            RefPaymentMethodSeeder::class,
+            RefOrderStatusSeeder::class,
 
             // Services
             ServiceSeeder::class,
