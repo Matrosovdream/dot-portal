@@ -20,8 +20,6 @@ class Order extends Model
         'order_number',
         'amount',
         'discount_amount',
-        'entity',
-        'entity_id',
         'status_id',
         'payment_method_id',
         'notes',
@@ -30,8 +28,6 @@ class Order extends Model
     protected static function booted(): void
     {
         static::creating(function ($order) {
-            self::updateCompanyUser( $order );
-
             // Order number
             $order->order_number = self::generateOrderNumber( $order );
         });     
@@ -55,6 +51,11 @@ class Order extends Model
     public function payments()
     {
         return $this->hasMany(OrderPayment::class, 'order_id');
+    }
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class, 'order_id');
     }
 
     protected static function generateOrderNumber( $order )
