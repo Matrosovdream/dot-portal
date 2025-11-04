@@ -47,7 +47,7 @@ class OrderService {
                     $order['user_id'], 
                     $queryType,
                     $item['quantity'],
-                    $order['id']
+                    [ 'initiator' => 'order', 'initiator_id' => $order['id'] ]
                 );
             }
 

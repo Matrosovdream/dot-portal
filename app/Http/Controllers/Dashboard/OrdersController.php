@@ -22,4 +22,18 @@ class OrdersController extends Controller
         );
     }
 
+    public function processPay( Request $request, $order_id )
+    {
+        $res = $this->actions->processPay( $order_id, $request );
+
+        if( $res['success'] ) {
+            return redirect()->route('dashboard.clearinghouse.index')
+                            ->with('success', 'Payment processed successfully.');
+        } else {
+            return redirect()->back()
+                            ->with('errors', [$res['message'] ?? 'Payment processing failed.']);
+        }
+
+    }
+
 }
