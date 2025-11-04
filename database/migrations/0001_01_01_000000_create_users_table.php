@@ -207,9 +207,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->on('users');
             $table->foreignId('user_company_id')->on('user_company');
-            $table->foreignId('order_id')->on('orders')->nullable();
             $table->integer('amount')->default(0);
-            $table->string('type')->nullable();
+            $table->string('type')->nullable(); // add, deduct
+            $table->string('initiator')->nullable();
+            $table->integer('initiator_id')->nullable();
             $table->string('notes')->nullable();
             $table->timestamps();
         });
