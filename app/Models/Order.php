@@ -5,9 +5,12 @@ namespace App\Models;
 
 use App\Traits\Metaable;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use App\Observers\Order\OrderObserver;
 
 
 
+#[ObservedBy([OrderObserver::class])]
 class Order extends Model
 {
 

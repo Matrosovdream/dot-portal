@@ -71,7 +71,9 @@
                 <div class="d-flex flex-column">
                     <div class="text-muted fs-7">Query Balance</div>
                     <div class="d-flex align-items-center gap-2">
-                        <div class="fs-5 fw-bold">0</div>
+                        <div class="fs-5 fw-bold">
+                            {{ $queryBalance['amount'] ?? 0 }}
+                        </div>
                         <span class="text-muted">remaining</span>
                         <a href="http://127.0.0.1:8000/dashboard/clearing-house/buy-queries" class="btn btn-sm btn-light-info">Buy Queries</a>
                     </div>

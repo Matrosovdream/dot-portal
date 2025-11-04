@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Actions\Dashboard\ClearingHouseActions;
 
+
 class ClearingHouseController extends Controller
 {
 
@@ -35,6 +36,28 @@ class ClearingHouseController extends Controller
             'dashboard.clearinghouse.buyqueries.index',
             $this->actions->buyQueriesForm( $request )
         );
+    }
+
+    public function buyQueriesProcess( Request $request )
+    {
+
+        $validated = $request->validate([
+            'amount' => 'required|integer|min:1',
+        ]);
+       
+        $res = $this->actions->buyQueriesProcess( $validated );
+        $order = $res['order'] ?? null;
+
+        if( 
+            $res['success'] && $order
+            ) {
+            return redirect()->route('dashboard.orders.show.pay', ['order_id' => $order['id'] ]);
+        } else {
+            return redirect()
+                ->back()
+                ->withErrors( [ 'general' => $res['message'] ] );
+        }
+
     }
 
 }

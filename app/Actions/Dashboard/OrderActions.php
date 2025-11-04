@@ -80,13 +80,16 @@ class OrderActions {
     }
 
     private function updateSuccessfulPayment( $paymentRes, $order, $amount ) {
+
+        // Update order status to paid
+        $this->orderRepo->update( $order['id'], [
+            'status_id' => 3, // Completed status
+        ]);
         
         // Create payment history record
         $this->userPaymentHistoryRepo->create([
             'user_id' => $order['user_id'],
             'payment_method_id' => $order['payment_method_id'],
-            //'subscription_id' => null,
-            'request_id' => 123,
             'type' => 'chm_query_payment',
             'amount' => $amount,
             'payment_date' => date('Y-m-d H:i:s'),

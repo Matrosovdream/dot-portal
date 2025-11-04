@@ -100,6 +100,7 @@ class OrderRepo extends AbstractRepo
             'notes' => $item->notes,
             //'items' => $orderItems,
             'item' => $orderItems['items'][0] ?? null,
+            'items' => $orderItems['items'] ?? [],
             'payments' => $this->orderPaymentRepo->mapItems( $item->payments ),
             'created_at' => $item->created_at,
             'updated_at' => $item->updated_at,
