@@ -33,6 +33,11 @@ class Order extends Model
         });     
     }
 
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function meta()
     {
         return $this->hasMany(OrderMeta::class, 'item_id');
@@ -60,7 +65,7 @@ class Order extends Model
 
     protected static function generateOrderNumber( $order )
     {
-        return strtoupper(uniqid());
+        return dechex(time()) . substr(md5(uniqid((string) mt_rand(), true)), 0, 8);
     }
 
 }
