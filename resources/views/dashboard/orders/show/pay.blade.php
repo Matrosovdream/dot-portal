@@ -50,7 +50,7 @@
                         </a>
                     </div>
                 @else
-                    <form action="{{ route('dashboard.servicerequest.history.showpayprocess', $request['id']) }}" method="POST" class="text-center">
+                    <form action="{{ route('dashboard.orders.process.pay', $order_id) }}" method="POST" class="text-center">
                         @csrf
 
                         <div class="mb-6">
