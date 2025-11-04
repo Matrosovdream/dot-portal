@@ -38,7 +38,7 @@ class OrderRepo extends AbstractRepo
 
     }
 
-    public function createWithPayload( $payload )
+    public function createWithPayload( array $payload )
     {
         // Create order
         $order = parent::create( [
@@ -63,7 +63,7 @@ class OrderRepo extends AbstractRepo
                     'entity_id' => $item['entity_id'],
                     'quantity' => $item['quantity'] ?? 1,
                     'unit_price' => $item['price'],
-                    'total_price' => ( $item['quantity'] ?? 1 ) * $item['price'],
+                    'total_price' => ( $item['quantity'] ?? 1 ) * $item['unit_price'],
                 ] );
 
             }
