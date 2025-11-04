@@ -206,8 +206,8 @@ return new class extends Migration
         Schema::create('user_query_balance_history', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->on('users');
-            $table->foreignId('order_id')->on('orders')->nullable();
             $table->foreignId('user_company_id')->on('user_company');
+            $table->foreignId('order_id')->on('orders')->nullable();
             $table->integer('amount')->default(0);
             $table->string('type')->nullable();
             $table->string('notes')->nullable();
