@@ -250,6 +250,7 @@ Route::group([
         //Route::get('/', [OrdersController::class, 'index'])->name('index');
         Route::get('{order_id}', [OrdersController::class, 'show'])->name('show');
         Route::get('{order_id}/pay', [OrdersController::class, 'showPay'])->name('show.pay');
+        Route::post('{order_id}/pay', [OrdersController::class, 'processPay'])->name('process.pay');
     });
 
     // User routes
