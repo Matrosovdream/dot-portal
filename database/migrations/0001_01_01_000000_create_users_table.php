@@ -216,6 +216,15 @@ return new class extends Migration
             $table->timestamps();
         });
 
+        // Ref query prices
+        Schema::create('ref_query_prices', function (Blueprint $table) {
+            $table->id();
+            $table->string('type')->unique();
+            $table->float('price_per_query')->default(0);
+            $table->text('rules')->nullable();
+            $table->timestamps();
+        });
+
         // Login tokens
         Schema::create('login_tokens', function (Blueprint $table) {
             $table->id();
@@ -251,6 +260,7 @@ return new class extends Migration
         Schema::dropIfExists('user_task_meta');
         Schema::dropIfExists('user_query_balance');
         Schema::dropIfExists('user_query_balance_history');
+        Schema::dropIfExists('ref_query_prices');
         Schema::dropIfExists('login_tokens');
     }
 };
