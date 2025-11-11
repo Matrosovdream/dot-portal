@@ -9,6 +9,7 @@ class UserQueryBalanceHistory extends Model {
     protected $table = 'user_query_balance_history';   
 
     protected $fillable = [
+        'query_balance_id',
         'user_id',
         'user_company_id',
         'amount',

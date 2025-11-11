@@ -55,6 +55,7 @@ class UserQueryBalanceService {
 
         // Log the balance addition in history
         $this->queryBalanceHistoryRepo->create( [
+            'query_balance_id' => $balanceRecord->id,
             'user_id' => $user_id,
             'user_company_id' => 0,
             'amount' => $quantity,

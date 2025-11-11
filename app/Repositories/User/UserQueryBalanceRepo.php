@@ -15,11 +15,15 @@ class UserQueryBalanceRepo extends AbstractRepo
     protected $withRelations = [];
 
     protected $userRepo;
+    protected $historyRepo;
     protected $metaRepo;
 
     public function __construct()
     {
         $this->model = new UserQueryBalance();
+
+        // Relations
+        $this->historyRepo = new UserQueryBalanceHistoryRepo();
     }
 
     public function getByTypeUser( $type, $user_id )
@@ -32,6 +36,18 @@ class UserQueryBalanceRepo extends AbstractRepo
         $item = $query->first();
 
         return $this->mapItem( $item );
+    }
+
+    public function getHistoryById( $id )
+    {
+        $item = $this->getById( $id );
+        if( empty( $item ) ) {
+            return null;
+        }
+
+        // Get history records
+        $history = $item['Model']->history;
+        return $this->historyRepo->mapItems( $history );
     }
 
     public function mapItem($item)
