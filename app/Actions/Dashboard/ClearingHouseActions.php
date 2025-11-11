@@ -6,7 +6,7 @@ use App\Repositories\User\UserRepo;
 use App\Repositories\Order\OrderRepo;
 use App\Repositories\User\UserQueryBalanceRepo;
 use App\Models\Order;
-use User;
+use App\Services\References\RefQueryPriceService;
 
 
 class ClearingHouseActions {
@@ -15,7 +15,8 @@ class ClearingHouseActions {
         private DriverRepo $driverRepo,
         private UserRepo $userRepo,
         private OrderRepo $orderRepo,
-        private UserQueryBalanceRepo $userQueryBalanceRepo
+        private UserQueryBalanceRepo $userQueryBalanceRepo,
+        private RefQueryPriceService $refQueryPriceService
     )
     {
 
@@ -72,8 +73,13 @@ class ClearingHouseActions {
     public function buyQueriesProcess( $request )
     {
 
+        $priceItem = $this->refQueryPriceService->getByUserId( 
+            auth()->user()->id, 
+            'chm' 
+        );
+
         $query_amount = $request['amount'];
-        $price_per_query = 15.00;
+        $price_per_query = $priceItem['price_per_query'];
         $total_price = $query_amount * $price_per_query;
 
         // Add order with queries

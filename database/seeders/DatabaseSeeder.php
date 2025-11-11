@@ -38,6 +38,7 @@ class DatabaseSeeder extends Seeder
             RefVehicleOwnershipTypeSeeder::class,
             RefPaymentMethodSeeder::class,
             RefOrderStatusSeeder::class,
+            RefQueryPriceSeeder::class,
 
             // Services
             ServiceSeeder::class,
