@@ -31,13 +31,13 @@ class UserQueryBalanceService {
 
     }
 
-    public function addBalanceUser( $user_id, $type, $quantity, array $options = [] )
+    public function addBalanceUser( $user_id, $balanceType, $quantity, array $options = [] )
     {
         
         // Check if user balance record exists
         $balanceRecord = $this->userQueryBalance
             ->where('user_id', $user_id)
-            ->where('type', $type)
+            ->where('type', $balanceType)
             ->first();
 
         if( $balanceRecord ) {
@@ -48,7 +48,7 @@ class UserQueryBalanceService {
             // Create new balance record
             $balanceRecord = $this->userQueryBalance->create( [
                 'user_id' => $user_id,
-                'type' => $type,
+                'type' => $balanceType,
                 'amount' => $quantity,
             ] );
         }
@@ -67,31 +67,49 @@ class UserQueryBalanceService {
 
     }
 
-    public function deductBalanceUser( $user_id, $type, $quantity, array $options = [] )
+    public function deductBalanceUser( $user_id, $balanceType, $quantity, array $options = [] )
     {
         
         // Get user balance record
         $balanceRecord = $this->userQueryBalance
             ->where('user_id', $user_id)
-            ->where('type', $type)
+            ->where('type', $balanceType)
             ->first();
 
         if( $balanceRecord && $balanceRecord->amount >= $quantity ) {
             // Deduct balance
             $balanceRecord->amount -= $quantity;
             $balanceRecord->save();
-            return true;
         }
+
+        // Type
+        $type = $options['type'] ?? 'deduct';
 
         // Log the balance addition in history
         $this->queryBalanceHistoryRepo->create( [
+            'query_balance_id' => $balanceRecord->id ?? 0,
             'user_id' => $user_id,
             'user_company_id' => 0,
             'amount' => $quantity,
-            'type' => 'deduct',
+            'type' => $type,
             'initiator' => $options['initiator'] ?? null,
             'initiator_id' => $options['initiator_id'] ?? null,
         ] );
+
+    }
+
+    public function refundBalanceUser( $user_id, $balanceType, $quantity, array $options = [] )
+    {
+
+        $options['type'] = 'refund';
+
+        // Deduct balance
+        $this->deductBalanceUser( 
+            $user_id, 
+            $balanceType, 
+            $quantity, 
+            $options 
+        );
 
     }
 
