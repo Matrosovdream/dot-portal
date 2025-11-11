@@ -58,6 +58,7 @@ class ClearingHouseActions {
             'user' => $user,
             'company' => $user['company'] ?? null,
             'queryBalance' => $queryBalance,
+            'queryBalanceHistory' => $queryBalanceHistory,
             'drivers' => $this->driverRepo->getUserDrivers( auth()->user()->id ),
         ];
 
