@@ -26,7 +26,7 @@ class ClearingHouseActions {
     public function index( $request )
     {
 
-        // Test code
+        // Test code for observer on order status change
         if( $request->has('test') ) {
             
             $order_id = 1;
@@ -51,6 +51,7 @@ class ClearingHouseActions {
 
         $user = $this->userRepo->getById( $user_id );
         $queryBalance = $this->userQueryBalanceRepo->getByTypeUser( 'chm', $user_id );
+        $queryBalanceHistory = $this->userQueryBalanceRepo->getHistoryById( $queryBalance['id'] ?? 0 );
 
         $data = [
             'title' => 'Clearing House Management',

@@ -15,5 +15,10 @@ class UserQueryBalance extends Model {
         'amount',
     ];
 
+    public function history()
+    {
+        return $this->hasMany(UserQueryBalanceHistory::class, 'query_balance_id');
+    }
+
 
 }

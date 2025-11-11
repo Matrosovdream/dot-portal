@@ -31,6 +31,7 @@ class UserQueryBalanceHistoryRepo extends AbstractRepo
 
         $res = [
             'id' => $item->id,
+            'query_balance_id' => $item->query_balance_id,
             'user_id' => $item->user_id,
             'user_company_id' => $item->user_company_id,
             'amount' => $item->amount,

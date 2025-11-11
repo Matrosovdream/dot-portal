@@ -205,6 +205,7 @@ return new class extends Migration
         // User query balance history
         Schema::create('user_query_balance_history', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('query_balance_id')->on('user_query_balance');
             $table->foreignId('user_id')->on('users');
             $table->foreignId('user_company_id')->on('user_company');
             $table->integer('amount')->default(0);
