@@ -1,11 +1,9 @@
 <?php
 namespace App\Actions\Dashboard;
 
-use App\Models\UserQueryBalance;
 use App\Repositories\Driver\DriverRepo;
 use App\Repositories\User\UserRepo;
 use App\Repositories\Order\OrderRepo;
-use App\Services\Order\OrderService;
 use App\Repositories\User\UserQueryBalanceRepo;
 use App\Models\Order;
 use User;
@@ -39,12 +37,6 @@ class ClearingHouseActions {
             $order->status_id = 3; // Completed
             $order->save();
 
-            /*
-            $orderService = new OrderService();
-            $orderService->afterChangeStatus( $order );
-            */
-
-            // 
         }
 
         $user_id = auth()->user()->id;
