@@ -1,0 +1,219 @@
+services:
+  web:
+    image: nginx:latest
+    container_name: dotportal-web
+    volumes:
+      - ./:/var/www
+      - ./docker/development/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    ports:
+      - "${NGINX_PORT:-8080}:80"
+    environment:
+      - NGINX_HOST=localhost
+    networks:
+      - dotportal-development
+    depends_on:
+      php-fpm:
+        condition: service_started
+
+  php-fpm:
+    build:
+      context: .
+      dockerfile: ./docker/common/php-fpm/Dockerfile
+      target: development
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+        XDEBUG_ENABLED: ${XDEBUG_ENABLED:-true}
+        XDEBUG_MODE: develop,coverage,debug,profile
+        XDEBUG_HOST: ${XDEBUG_HOST:-host.docker.internal}
+        XDEBUG_IDE_KEY: ${XDEBUG_IDE_KEY:-DOCKER}
+        XDEBUG_LOG: /dev/stdout
+        XDEBUG_LOG_LEVEL: 0
+    container_name: dotportal-php-fpm
+    env_file:
+      - .env
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ./:/var/www
+    networks:
+      - dotportal-development
+    depends_on:
+      postgres:
+        condition: service_started
+      redis:
+        condition: service_started
+
+  workspace:
+    build:
+      context: .
+      dockerfile: ./docker/development/workspace/Dockerfile
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+        XDEBUG_ENABLED: ${XDEBUG_ENABLED:-true}
+        XDEBUG_MODE: develop,coverage,debug,profile
+        XDEBUG_HOST: ${XDEBUG_HOST:-host.docker.internal}
+        XDEBUG_IDE_KEY: ${XDEBUG_IDE_KEY:-DOCKER}
+        XDEBUG_LOG: /dev/stdout
+        XDEBUG_LOG_LEVEL: 0
+    container_name: dotportal-workspace
+    ports:
+      - '${VITE_PORT:-5173}:5173'
+    tty: true
+    stdin_open: true
+    env_file:
+      - .env
+    volumes:
+      - ./:/var/www
+    networks:
+      - dotportal-development
+
+  horizon:
+    build:
+      context: .
+      dockerfile: ./docker/common/php-fpm/Dockerfile
+      target: development
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    container_name: dotportal-horizon
+    env_file:
+      - .env
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ./:/var/www
+    networks:
+      - dotportal-development
+    depends_on:
+      php-fpm:
+        condition: service_started
+      redis:
+        condition: service_started
+    entrypoint: []
+    command: ["php", "-d", "memory_limit=512M", "artisan", "horizon"]
+    stop_signal: SIGTERM
+    stop_grace_period: 60s
+    restart: unless-stopped
+
+  reverb:
+    build:
+      context: .
+      dockerfile: ./docker/common/php-fpm/Dockerfile
+      target: development
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    container_name: dotportal-reverb
+    env_file:
+      - .env
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ./:/var/www
+    networks:
+      - dotportal-development
+    ports:
+      - "${REVERB_PORT:-9090}:8080"
+    depends_on:
+      redis:
+        condition: service_started
+    entrypoint: []
+    command: ["php", "artisan", "reverb:start", "--host=0.0.0.0", "--port=8080"]
+    restart: unless-stopped
+
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: dotportal-meilisearch
+    ports:
+      - "${MEILISEARCH_PORT:-7700}:7700"
+    environment:
+      - MEILI_MASTER_KEY=${MEILISEARCH_KEY:-masterKey}
+      - MEILI_ENV=${MEILI_ENV:-development}
+      - MEILI_NO_ANALYTICS=true
+    volumes:
+      - dotportal-meilisearch-data-development:/meili_data
+    networks:
+      - dotportal-development
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--spider", "http://localhost:7700/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  scheduler:
+    build:
+      context: .
+      dockerfile: ./docker/common/php-fpm/Dockerfile
+      target: development
+      args:
+        UID: ${UID:-1000}
+        GID: ${GID:-1000}
+    container_name: dotportal-scheduler
+    env_file:
+      - .env
+    user: "${UID:-1000}:${GID:-1000}"
+    volumes:
+      - ./:/var/www
+    networks:
+      - dotportal-development
+    depends_on:
+      php-fpm:
+        condition: service_started
+    entrypoint: []
+    command: ["php", "artisan", "schedule:work"]
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16
+    container_name: dotportal-postgres
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      - POSTGRES_DB=${DB_DATABASE:-dotportal}
+      - POSTGRES_USER=${DB_USERNAME:-dotportal}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-secret}
+    volumes:
+      - dotportal-postgres-data-development:/var/lib/postgresql/data
+    networks:
+      - dotportal-development
+
+  redis:
+    image: redis:alpine
+    container_name: dotportal-redis
+    ports:
+      - "${REDIS_PORT:-6379}:6379"
+    networks:
+      - dotportal-development
+
+  redis-commander:
+    image: rediscommander/redis-commander:latest
+    container_name: dotportal-redis-commander
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "${REDIS_COMMANDER_PORT:-8081}:8081"
+    networks:
+      - dotportal-development
+    depends_on:
+      redis:
+        condition: service_started
+
+  adminer:
+    image: adminer:latest
+    container_name: dotportal-adminer
+    ports:
+      - "${ADMINER_PORT:-9091}:8080"
+    environment:
+      - ADMINER_DEFAULT_SERVER=postgres
+      - ADMINER_DESIGN=dracula
+    networks:
+      - dotportal-development
+    depends_on:
+      postgres:
+        condition: service_started
+
+networks:
+  dotportal-development:
+
+volumes:
+  dotportal-postgres-data-development:
+  dotportal-meilisearch-data-development:

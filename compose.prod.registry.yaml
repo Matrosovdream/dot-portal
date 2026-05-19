@@ -1,0 +1,154 @@
+services:
+  web:
+    image: ${REGISTRY:-ghcr.io/yourorg}/dotportal-nginx:${APP_VERSION:-latest}
+    container_name: dotportal-web
+    restart: unless-stopped
+    volumes:
+      - dotportal-storage-production:/var/www/storage:ro
+      - dotportal-public-assets:/var/www/public/build:ro
+    networks:
+      - dotportal-production
+    ports:
+      - "${NGINX_PORT:-8080}:80"
+    depends_on:
+      php-fpm:
+        condition: service_healthy
+
+  php-fpm:
+    image: ${REGISTRY:-ghcr.io/yourorg}/dotportal-php:${APP_VERSION:-latest}
+    container_name: dotportal-php-fpm
+    restart: unless-stopped
+    volumes:
+      - dotportal-public-assets:/var/www/public/build
+      - dotportal-storage-production:/var/www/storage
+    env_file:
+      - .env
+    networks:
+      - dotportal-production
+    healthcheck:
+      test: ["CMD-SHELL", "php-fpm-healthcheck || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  horizon:
+    image: ${REGISTRY:-ghcr.io/yourorg}/dotportal-php:${APP_VERSION:-latest}
+    container_name: dotportal-horizon
+    restart: unless-stopped
+    volumes:
+      - dotportal-storage-production:/var/www/storage
+    env_file:
+      - .env
+    networks:
+      - dotportal-production
+    depends_on:
+      php-fpm:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    entrypoint: []
+    command: ["php", "artisan", "horizon"]
+    stop_signal: SIGTERM
+    stop_grace_period: 60s
+    healthcheck:
+      test: ["CMD-SHELL", "php artisan horizon:status | grep -q running || exit 1"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  reverb:
+    image: ${REGISTRY:-ghcr.io/yourorg}/dotportal-php:${APP_VERSION:-latest}
+    container_name: dotportal-reverb
+    restart: unless-stopped
+    env_file:
+      - .env
+    networks:
+      - dotportal-production
+    ports:
+      - "${REVERB_PORT:-9090}:8080"
+    depends_on:
+      redis:
+        condition: service_healthy
+    entrypoint: []
+    command: ["php", "artisan", "reverb:start", "--host=0.0.0.0", "--port=8080"]
+
+  scheduler:
+    image: ${REGISTRY:-ghcr.io/yourorg}/dotportal-php:${APP_VERSION:-latest}
+    container_name: dotportal-scheduler
+    restart: unless-stopped
+    volumes:
+      - dotportal-storage-production:/var/www/storage
+    env_file:
+      - .env
+    networks:
+      - dotportal-production
+    depends_on:
+      php-fpm:
+        condition: service_healthy
+    entrypoint: []
+    command: ["php", "artisan", "schedule:work"]
+
+  postgres:
+    image: postgres:16
+    container_name: dotportal-postgres
+    restart: unless-stopped
+    user: postgres
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      - POSTGRES_DB=${DB_DATABASE:-dotportal}
+      - POSTGRES_USER=${DB_USERNAME:-dotportal}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-secret}
+    volumes:
+      - dotportal-postgres-data-production:/var/lib/postgresql/data
+    networks:
+      - dotportal-production
+    healthcheck:
+      test: ["CMD", "pg_isready"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  redis:
+    image: redis:alpine
+    container_name: dotportal-redis
+    restart: unless-stopped
+    networks:
+      - dotportal-production
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  meilisearch:
+    image: getmeili/meilisearch:latest
+    container_name: dotportal-meilisearch
+    restart: unless-stopped
+    environment:
+      - MEILI_MASTER_KEY=${MEILISEARCH_KEY}
+      - MEILI_ENV=production
+      - MEILI_NO_ANALYTICS=true
+    volumes:
+      - dotportal-meilisearch-data-production:/meili_data
+    networks:
+      - dotportal-production
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--spider", "http://localhost:7700/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+networks:
+  dotportal-production:
+
+volumes:
+  dotportal-postgres-data-production:
+  dotportal-storage-production:
+  dotportal-public-assets:
+  dotportal-meilisearch-data-production:
