@@ -12,6 +12,8 @@
         "guzzlehttp/guzzle": "^7.9",
         "http-interop/http-factory-guzzle": "^1.2",
         "laravel/framework": "^11.9",
+        "laravel/horizon": "^5.46",
+        "laravel/reverb": "^1.10",
         "laravel/scout": "^10.15",
         "laravel/tinker": "^2.9",
         "league/omnipay": "^3.2",
