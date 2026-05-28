@@ -1,10 +1,4 @@
-FROM debian AS builder
-
-RUN apt-get update && apt-get install -y --no-install-recommends \
-    curl \
-    nodejs \
-    npm \
-    && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+FROM node:22-slim AS builder
 
 WORKDIR /var/www
 

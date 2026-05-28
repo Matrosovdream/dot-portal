@@ -1,0 +1,88 @@
+<?php
+
+namespace Tests\Feature\Api\V1\InsuranceVehicles;
+
+use App\Models\InsuranceVehicle;
+use App\Models\UserCompany;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Laravel\Sanctum\Sanctum;
+use Tests\Feature\Api\V1\ApiTestCase;
+use Tests\Feature\Traits\RoleFixtures;
+
+class InsuranceVehicleCrudTest extends ApiTestCase
+{
+    use RefreshDatabase;
+    use RoleFixtures;
+
+    public function test_guest_blocked(): void
+    {
+        $this->getJson('/api/v1/insurance-vehicles')->assertStatus(401);
+    }
+
+    public function test_company_user_lists_only_own(): void
+    {
+        $a = $this->makeUserWithRole('company');
+        $ac = UserCompany::create(['user_id' => $a->id, 'name' => 'A']);
+        InsuranceVehicle::create(['name' => 'A Ins', 'company_id' => $ac->id, 'user_id' => $a->id]);
+
+        $b = $this->makeUserWithRole('company');
+        $bc = UserCompany::create(['user_id' => $b->id, 'name' => 'B']);
+        InsuranceVehicle::create(['name' => 'B Ins', 'company_id' => $bc->id, 'user_id' => $b->id]);
+
+        Sanctum::actingAs($a);
+        $this->getJson('/api/v1/insurance-vehicles')
+            ->assertOk()->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.name', 'A Ins');
+    }
+
+    public function test_store_creates(): void
+    {
+        $u = $this->makeUserWithRole('company');
+        UserCompany::create(['user_id' => $u->id, 'name' => 'C']);
+        Sanctum::actingAs($u);
+
+        $this->postJson('/api/v1/insurance-vehicles', [
+            'name' => 'StateFarm Policy',
+            'number' => 'POL-001',
+            'start_date' => '2024-01-01',
+            'end_date' => '2025-01-01',
+        ])->assertStatus(201)->assertJsonPath('data.name', 'StateFarm Policy');
+
+        $this->assertDatabaseHas('insurances_vehicle', ['name' => 'StateFarm Policy', 'number' => 'POL-001']);
+    }
+
+    public function test_store_requires_name(): void
+    {
+        $u = $this->makeUserWithRole('company');
+        UserCompany::create(['user_id' => $u->id, 'name' => 'C']);
+        Sanctum::actingAs($u);
+        $this->postJson('/api/v1/insurance-vehicles', [])
+            ->assertStatus(422)->assertJsonValidationErrors('name');
+    }
+
+    public function test_end_date_must_be_after_start(): void
+    {
+        $u = $this->makeUserWithRole('company');
+        UserCompany::create(['user_id' => $u->id, 'name' => 'C']);
+        Sanctum::actingAs($u);
+        $this->postJson('/api/v1/insurance-vehicles', [
+            'name' => 'X',
+            'start_date' => '2024-12-01',
+            'end_date' => '2024-01-01',
+        ])->assertStatus(422)->assertJsonValidationErrors('end_date');
+    }
+
+    public function test_update_and_destroy(): void
+    {
+        $u = $this->makeUserWithRole('company');
+        $c = UserCompany::create(['user_id' => $u->id, 'name' => 'C']);
+        $rec = InsuranceVehicle::create(['name' => 'Old', 'company_id' => $c->id, 'user_id' => $u->id]);
+
+        Sanctum::actingAs($u);
+        $this->putJson('/api/v1/insurance-vehicles/'.$rec->id, ['name' => 'New'])
+            ->assertOk()->assertJsonPath('data.name', 'New');
+
+        $this->deleteJson('/api/v1/insurance-vehicles/'.$rec->id)->assertNoContent();
+        $this->assertDatabaseMissing('insurances_vehicle', ['id' => $rec->id]);
+    }
+}
