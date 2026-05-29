@@ -72,6 +72,64 @@ class InsuranceVehicleCrudTest extends ApiTestCase
         ])->assertStatus(422)->assertJsonValidationErrors('end_date');
     }
 
+    public function test_show_returns_own_record(): void
+    {
+        $u = $this->makeUserWithRole('company');
+        $c = UserCompany::create(['user_id' => $u->id, 'name' => 'C']);
+        $rec = InsuranceVehicle::create([
+            'name' => 'My Policy', 'number' => 'POL-9',
+            'company_id' => $c->id, 'user_id' => $u->id,
+        ]);
+
+        Sanctum::actingAs($u);
+        $this->getJson('/api/v1/insurance-vehicles/'.$rec->id)
+            ->assertOk()
+            ->assertJsonPath('data.id', $rec->id)
+            ->assertJsonPath('data.name', 'My Policy')
+            ->assertJsonPath('data.number', 'POL-9');
+    }
+
+    public function test_show_404_for_foreign_record(): void
+    {
+        $a = $this->makeUserWithRole('company');
+        UserCompany::create(['user_id' => $a->id, 'name' => 'A']);
+
+        $b = $this->makeUserWithRole('company');
+        $bc = UserCompany::create(['user_id' => $b->id, 'name' => 'B']);
+        $foreign = InsuranceVehicle::create(['name' => 'B Ins', 'company_id' => $bc->id, 'user_id' => $b->id]);
+
+        Sanctum::actingAs($a);
+        $this->getJson('/api/v1/insurance-vehicles/'.$foreign->id)->assertStatus(404);
+    }
+
+    public function test_update_404_for_foreign_record(): void
+    {
+        $a = $this->makeUserWithRole('company');
+        UserCompany::create(['user_id' => $a->id, 'name' => 'A']);
+
+        $b = $this->makeUserWithRole('company');
+        $bc = UserCompany::create(['user_id' => $b->id, 'name' => 'B']);
+        $foreign = InsuranceVehicle::create(['name' => 'B Ins', 'company_id' => $bc->id, 'user_id' => $b->id]);
+
+        Sanctum::actingAs($a);
+        $this->putJson('/api/v1/insurance-vehicles/'.$foreign->id, ['name' => 'Hacked'])
+            ->assertStatus(404);
+    }
+
+    public function test_destroy_404_for_foreign_record(): void
+    {
+        $a = $this->makeUserWithRole('company');
+        UserCompany::create(['user_id' => $a->id, 'name' => 'A']);
+
+        $b = $this->makeUserWithRole('company');
+        $bc = UserCompany::create(['user_id' => $b->id, 'name' => 'B']);
+        $foreign = InsuranceVehicle::create(['name' => 'B Ins', 'company_id' => $bc->id, 'user_id' => $b->id]);
+
+        Sanctum::actingAs($a);
+        $this->deleteJson('/api/v1/insurance-vehicles/'.$foreign->id)->assertStatus(404);
+        $this->assertDatabaseHas('insurances_vehicle', ['id' => $foreign->id]);
+    }
+
     public function test_update_and_destroy(): void
     {
         $u = $this->makeUserWithRole('company');

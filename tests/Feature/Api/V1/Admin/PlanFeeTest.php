@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\Api\V1\Admin;
 
+use App\Models\PlanFee;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Laravel\Sanctum\Sanctum;
 use Tests\Feature\Api\V1\ApiTestCase;
@@ -36,5 +37,25 @@ class PlanFeeTest extends ApiTestCase
 
         // No destroy route on this resource by design — make sure it 405s.
         $this->deleteJson('/api/v1/admin/plan-fees/'.$created['id'])->assertStatus(405);
+    }
+
+    public function test_admin_lists_fees(): void
+    {
+        PlanFee::create(['name' => 'Setup fee', 'price' => 49.99]);
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+
+        $this->getJson('/api/v1/admin/plan-fees')
+            ->assertOk()->assertJsonCount(1, 'data');
+    }
+
+    public function test_admin_shows_single_fee(): void
+    {
+        $fee = PlanFee::create(['name' => 'Setup fee', 'price' => 49.99]);
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+
+        $this->getJson('/api/v1/admin/plan-fees/'.$fee->id)
+            ->assertOk()
+            ->assertJsonPath('data.id', $fee->id)
+            ->assertJsonPath('data.name', 'Setup fee');
     }
 }

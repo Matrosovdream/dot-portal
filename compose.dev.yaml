@@ -173,6 +173,8 @@ services:
       - POSTGRES_PASSWORD=${DB_PASSWORD:-secret}
     volumes:
       - dotportal-postgres-data-development:/var/lib/postgresql/data
+      # Auto-creates the dotportal_test database for the test suite (fresh volume only).
+      - ./docker/development/postgres/init:/docker-entrypoint-initdb.d:ro
     networks:
       - dotportal-development
 

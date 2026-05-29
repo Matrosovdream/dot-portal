@@ -38,6 +38,18 @@ class SubPlanTest extends ApiTestCase
         $this->deleteJson('/api/v1/admin/sub-plans/'.$created['id'])->assertNoContent();
     }
 
+    public function test_admin_shows_single_plan(): void
+    {
+        $plan = Subscription::create(['name' => 'Basic', 'slug' => 'basic', 'price_per_driver' => 9.99]);
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+
+        $this->getJson('/api/v1/admin/sub-plans/'.$plan->id)
+            ->assertOk()
+            ->assertJsonPath('data.id', $plan->id)
+            ->assertJsonPath('data.name', 'Basic')
+            ->assertJsonPath('data.slug', 'basic');
+    }
+
     public function test_uniqueness_on_slug(): void
     {
         Subscription::create(['name' => 'A', 'slug' => 'a']);

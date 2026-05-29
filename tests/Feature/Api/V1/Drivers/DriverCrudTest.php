@@ -161,6 +161,65 @@ class DriverCrudTest extends ApiTestCase
         $this->getJson('/api/v1/drivers/'.$foreignDriver->id)->assertStatus(404);
     }
 
+    public function test_show_returns_own_driver(): void
+    {
+        $companyUser = $this->makeUserWithRole('company');
+        $company = UserCompany::create(['user_id' => $companyUser->id, 'name' => 'C']);
+        $u = User::factory()->create(['firstname' => 'Mine', 'email' => 'mine@example.com']);
+        $driver = Driver::create([
+            'user_id' => $u->id,
+            'company_id' => $company->id,
+            'company_user_id' => $companyUser->id,
+            'status_id' => 1,
+        ]);
+
+        Sanctum::actingAs($companyUser);
+        $this->getJson('/api/v1/drivers/'.$driver->id)
+            ->assertOk()
+            ->assertJsonPath('data.id', $driver->id)
+            ->assertJsonPath('data.firstname', 'Mine');
+    }
+
+    public function test_update_404_for_foreign_driver(): void
+    {
+        $companyUser = $this->makeUserWithRole('company');
+        UserCompany::create(['user_id' => $companyUser->id, 'name' => 'C']);
+
+        $otherCompanyUser = $this->makeUserWithRole('company');
+        $otherCompany = UserCompany::create(['user_id' => $otherCompanyUser->id, 'name' => 'Other']);
+        $u = User::factory()->create();
+        $foreignDriver = Driver::create([
+            'user_id' => $u->id,
+            'company_id' => $otherCompany->id,
+            'company_user_id' => $otherCompanyUser->id,
+            'status_id' => 1,
+        ]);
+
+        Sanctum::actingAs($companyUser);
+        $this->putJson('/api/v1/drivers/'.$foreignDriver->id, ['firstname' => 'Hacked'])
+            ->assertStatus(404);
+    }
+
+    public function test_destroy_404_for_foreign_driver(): void
+    {
+        $companyUser = $this->makeUserWithRole('company');
+        UserCompany::create(['user_id' => $companyUser->id, 'name' => 'C']);
+
+        $otherCompanyUser = $this->makeUserWithRole('company');
+        $otherCompany = UserCompany::create(['user_id' => $otherCompanyUser->id, 'name' => 'Other']);
+        $u = User::factory()->create();
+        $foreignDriver = Driver::create([
+            'user_id' => $u->id,
+            'company_id' => $otherCompany->id,
+            'company_user_id' => $otherCompanyUser->id,
+            'status_id' => 1,
+        ]);
+
+        Sanctum::actingAs($companyUser);
+        $this->deleteJson('/api/v1/drivers/'.$foreignDriver->id)->assertStatus(404);
+        $this->assertDatabaseHas('drivers', ['id' => $foreignDriver->id]);
+    }
+
     public function test_update_persists(): void
     {
         $companyUser = $this->makeUserWithRole('company');

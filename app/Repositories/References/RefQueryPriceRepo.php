@@ -29,6 +29,10 @@ class RefQueryPriceRepo extends AbstractRepo
 
     public function mapItem($item)
     {
+        if (empty($item)) {
+            return null;
+        }
+
         $res = [
             'id' => $item->id,
             'type' => $item->type,

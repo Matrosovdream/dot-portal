@@ -33,6 +33,24 @@ class ServiceCrudTest extends ApiTestCase
             ->assertOk()->assertJsonCount(1, 'data');
     }
 
+    public function test_admin_shows_single_service(): void
+    {
+        $svc = Service::create(['name' => 'Reg', 'slug' => 'reg', 'description' => 'Renewal']);
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+
+        $this->getJson('/api/v1/admin/services/'.$svc->id)
+            ->assertOk()
+            ->assertJsonPath('data.id', $svc->id)
+            ->assertJsonPath('data.name', 'Reg')
+            ->assertJsonPath('data.slug', 'reg');
+    }
+
+    public function test_show_404_for_missing_service(): void
+    {
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/admin/services/999999')->assertStatus(404);
+    }
+
     public function test_admin_can_create_and_uniqueness_enforced(): void
     {
         Sanctum::actingAs($this->makeUserWithRole('admin'));

@@ -47,6 +47,40 @@ class SubRequestTest extends ApiTestCase
         $this->assertDatabaseMissing('subscription_custom_requests', ['id' => $created['id']]);
     }
 
+    public function test_admin_lists_requests(): void
+    {
+        $user = $this->makeUserWithRole('company');
+        $plan = Subscription::create(['name' => 'P', 'slug' => 'p']);
+        SubscriptionCustomRequest::create([
+            'user_id' => $user->id,
+            'subscription_id' => $plan->id,
+            'request_details' => 'Need 50 drivers',
+            'status_id' => 1,
+        ]);
+
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/admin/sub-requests')
+            ->assertOk()->assertJsonCount(1, 'data');
+    }
+
+    public function test_admin_shows_single_request(): void
+    {
+        $user = $this->makeUserWithRole('company');
+        $plan = Subscription::create(['name' => 'P', 'slug' => 'p']);
+        $req = SubscriptionCustomRequest::create([
+            'user_id' => $user->id,
+            'subscription_id' => $plan->id,
+            'request_details' => 'Need 50 drivers',
+            'status_id' => 1,
+        ]);
+
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/admin/sub-requests/'.$req->id)
+            ->assertOk()
+            ->assertJsonPath('data.id', $req->id)
+            ->assertJsonPath('data.user_id', $user->id);
+    }
+
     public function test_validation_user_id_required(): void
     {
         Sanctum::actingAs($this->makeUserWithRole('admin'));

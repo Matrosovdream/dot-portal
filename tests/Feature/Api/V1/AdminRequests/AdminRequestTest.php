@@ -50,6 +50,35 @@ class AdminRequestTest extends ApiTestCase
             ->assertJsonPath('data.0.status_id', 2);
     }
 
+    public function test_show_returns_request_with_service(): void
+    {
+        $svc = Service::create(['name' => 'X', 'slug' => 'x']);
+        $a = $this->makeUserWithRole('company');
+        $req = ServiceRequest::create(['user_id' => $a->id, 'service_id' => $svc->id, 'status_id' => 1]);
+
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/admin/requests/'.$req->id)
+            ->assertOk()
+            ->assertJsonPath('data.id', $req->id)
+            ->assertJsonPath('data.service_id', $svc->id)
+            ->assertJsonPath('data.service.id', $svc->id);
+    }
+
+    public function test_update_persists_price_and_paid(): void
+    {
+        $svc = Service::create(['name' => 'X', 'slug' => 'x']);
+        $a = $this->makeUserWithRole('company');
+        $req = ServiceRequest::create(['user_id' => $a->id, 'service_id' => $svc->id, 'status_id' => 1, 'is_paid' => false]);
+
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->putJson('/api/v1/admin/requests/'.$req->id, ['price' => 99.99, 'is_paid' => true])
+            ->assertOk()
+            ->assertJsonPath('data.price', 99.99)
+            ->assertJsonPath('data.is_paid', true);
+
+        $this->assertDatabaseHas('requests', ['id' => $req->id, 'is_paid' => true]);
+    }
+
     public function test_update_status(): void
     {
         $svc = Service::create(['name' => 'X', 'slug' => 'x']);

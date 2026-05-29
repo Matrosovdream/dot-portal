@@ -11,6 +11,51 @@ abstract class AbstractRepo
     protected $fields = [];
     protected $withRelations = [];
 
+    /**
+     * Expose the underlying Eloquent model instance.
+     * API Actions rely on this (e.g. $repo->getModel()::query()->paginate()).
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Count rows, optionally filtered by simple [column => value] equality.
+     */
+    public function count(array $filter = []): int
+    {
+        $query = $this->model->newQuery();
+        foreach ($filter as $column => $value) {
+            $query->where($column, $value);
+        }
+        return $query->count();
+    }
+
+    /**
+     * Return the first matching row (mapped), or null. Filters are [column => value] equality.
+     */
+    public function getFirst(array $filter = [])
+    {
+        $query = $this->model->with($this->withRelations);
+        foreach ($filter as $column => $value) {
+            $query->where($column, $value);
+        }
+        return $this->mapItem($query->first());
+    }
+
+    /**
+     * Whether any row matches the [column => value] equality filter.
+     */
+    public function exists(array $filter = []): bool
+    {
+        $query = $this->model->newQuery();
+        foreach ($filter as $column => $value) {
+            $query->where($column, $value);
+        }
+        return $query->exists();
+    }
+
     public function getByID($id)
     {
         $item = $this->model
@@ -152,6 +197,9 @@ abstract class AbstractRepo
     public function update($id, $data)
     {
         $item = $this->model->find($id);
+        if (!$item) {
+            return null;
+        }
         $item->update($data);
         return $this->mapItem($item);
     }
@@ -160,7 +208,11 @@ abstract class AbstractRepo
     public function delete($id)
     {
         $item = $this->model->find($id);
+        if (!$item) {
+            return false;
+        }
         $item->delete();
+        return true;
     }
 
     public function prepareItemsUpsert($items)

@@ -18,6 +18,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // SPA uses the API routes with cookie/session auth (Sanctum stateful).
+        $middleware->statefulApi();
+
         $middleware->alias([
             'isAdmin' => isAdmin::class,
             'isUser' => isUser::class,

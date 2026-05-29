@@ -22,6 +22,10 @@ class RefDriverLicenseTypeRepo extends AbstractRepo
 
     public function mapItem($item)
     {
+        if (empty($item)) {
+            return null;
+        }
+
         $res = [
             'id' => $item->id,
             'title' => $item->title,
