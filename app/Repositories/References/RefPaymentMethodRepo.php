@@ -19,6 +19,10 @@ class RefPaymentMethodRepo extends AbstractRepo
 
     public function mapItem($item)
     {
+        if (empty($item)) {
+            return null;
+        }
+
         $res = [
             'id' => $item->id,
             'name' => $item->name,

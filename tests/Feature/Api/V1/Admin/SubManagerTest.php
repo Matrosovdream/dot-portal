@@ -49,4 +49,45 @@ class SubManagerTest extends ApiTestCase
         $this->deleteJson('/api/v1/admin/user-subscriptions/'.$created['id'])->assertNoContent();
         $this->assertDatabaseMissing('user_subscription', ['id' => $created['id']]);
     }
+
+    public function test_admin_lists_user_subscriptions(): void
+    {
+        $user = $this->makeUserWithRole('company');
+        $plan = Subscription::create(['name' => 'P', 'slug' => 'p', 'price_per_driver' => 5]);
+        $sub = UserSubscription::create([
+            'user_id' => $user->id,
+            'subscription_id' => $plan->id,
+            'price_per_driver' => 5,
+            'drivers_number' => 2,
+            'status' => 'active',
+        ]);
+
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        // UserObserver auto-creates a placeholder per user, so assert by fragment, not count.
+        $this->getJson('/api/v1/admin/user-subscriptions')
+            ->assertOk()
+            ->assertJsonStructure(['data' => [['id', 'user_id', 'subscription_id', 'subscription']]])
+            ->assertJsonFragment(['id' => $sub->id]);
+    }
+
+    public function test_admin_shows_single_user_subscription(): void
+    {
+        $user = $this->makeUserWithRole('company');
+        $plan = Subscription::create(['name' => 'P', 'slug' => 'p', 'price_per_driver' => 5]);
+        $sub = UserSubscription::create([
+            'user_id' => $user->id,
+            'subscription_id' => $plan->id,
+            'price_per_driver' => 5,
+            'drivers_number' => 4,
+            'status' => 'active',
+        ]);
+
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/admin/user-subscriptions/'.$sub->id)
+            ->assertOk()
+            ->assertJsonPath('data.id', $sub->id)
+            ->assertJsonPath('data.user_id', $user->id)
+            ->assertJsonPath('data.subscription_id', $plan->id)
+            ->assertJsonPath('data.subscription.id', $plan->id);
+    }
 }

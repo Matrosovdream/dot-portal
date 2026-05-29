@@ -70,6 +70,47 @@ class VehicleCrudTest extends ApiTestCase
         $this->getJson('/api/v1/vehicles/'.$foreign->id)->assertStatus(404);
     }
 
+    public function test_show_returns_own_vehicle(): void
+    {
+        $u = $this->makeUserWithRole('company');
+        $c = UserCompany::create(['user_id' => $u->id, 'name' => 'Acme']);
+        $v = Vehicle::create(['number' => 'MINE-1', 'company_id' => $c->id, 'company_user_id' => $u->id]);
+
+        Sanctum::actingAs($u);
+        $this->getJson('/api/v1/vehicles/'.$v->id)
+            ->assertOk()
+            ->assertJsonPath('data.id', $v->id)
+            ->assertJsonPath('data.number', 'MINE-1');
+    }
+
+    public function test_update_404_for_foreign_vehicle(): void
+    {
+        $a = $this->makeUserWithRole('company');
+        UserCompany::create(['user_id' => $a->id, 'name' => 'A']);
+
+        $b = $this->makeUserWithRole('company');
+        $bc = UserCompany::create(['user_id' => $b->id, 'name' => 'B']);
+        $foreign = Vehicle::create(['number' => 'B1', 'company_id' => $bc->id, 'company_user_id' => $b->id]);
+
+        Sanctum::actingAs($a);
+        $this->putJson('/api/v1/vehicles/'.$foreign->id, ['number' => 'HACKED'])
+            ->assertStatus(404);
+    }
+
+    public function test_destroy_404_for_foreign_vehicle(): void
+    {
+        $a = $this->makeUserWithRole('company');
+        UserCompany::create(['user_id' => $a->id, 'name' => 'A']);
+
+        $b = $this->makeUserWithRole('company');
+        $bc = UserCompany::create(['user_id' => $b->id, 'name' => 'B']);
+        $foreign = Vehicle::create(['number' => 'B1', 'company_id' => $bc->id, 'company_user_id' => $b->id]);
+
+        Sanctum::actingAs($a);
+        $this->deleteJson('/api/v1/vehicles/'.$foreign->id)->assertStatus(404);
+        $this->assertDatabaseHas('vehicles', ['id' => $foreign->id]);
+    }
+
     public function test_update_persists(): void
     {
         $u = $this->makeUserWithRole('company');

@@ -39,6 +39,18 @@ class ServiceGroupCrudTest extends ApiTestCase
         $this->assertDatabaseMissing('ref_service_groups', ['id' => $created['id']]);
     }
 
+    public function test_admin_shows_single_group(): void
+    {
+        $group = RefServiceGroup::create(['name' => 'Driver', 'slug' => 'driver']);
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+
+        $this->getJson('/api/v1/admin/service-groups/'.$group->id)
+            ->assertOk()
+            ->assertJsonPath('data.id', $group->id)
+            ->assertJsonPath('data.name', 'Driver')
+            ->assertJsonPath('data.slug', 'driver');
+    }
+
     public function test_uniqueness_on_slug(): void
     {
         RefServiceGroup::create(['name' => 'X', 'slug' => 'x']);

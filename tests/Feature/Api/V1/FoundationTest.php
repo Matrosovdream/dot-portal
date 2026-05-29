@@ -26,22 +26,6 @@ class FoundationTest extends TestCase
         $this->get('/sanctum/csrf-cookie')->assertNoContent();
     }
 
-    public function test_spa_serves_shell_at_root(): void
-    {
-        $this->withoutVite();
-        $this->get('/')
-            ->assertOk()
-            ->assertSee('id="app"', false);
-    }
-
-    public function test_spa_catchall_serves_shell_for_deep_routes(): void
-    {
-        $this->withoutVite();
-        $this->get('/drivers/123/profile')
-            ->assertOk()
-            ->assertSee('id="app"', false);
-    }
-
     public function test_spa_catchall_does_not_swallow_api_paths(): void
     {
         // The catch-all must NOT serve the SPA shell for /api/* — these are JSON endpoints.

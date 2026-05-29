@@ -8,12 +8,16 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Observers\UserObserver;
 use Illuminate\Database\Eloquent\Attributes\ObservedBy;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
 #[ObservedBy([UserObserver::class])]
 class User extends Authenticatable
 {
 
+    use HasApiTokens;
     use HasFactory;
+    use Notifiable;
     use Metaable;
 
     protected $fillable = [

@@ -13,8 +13,12 @@ class hasRole
     {
 
         $roles = array_slice(func_get_args(), 2);
-        
+
         if ( !auth()->user()->hasRole($roles) ) {
+            // API clients get a JSON 403; web clients keep the redirect.
+            if ($request->expectsJson()) {
+                abort(403, 'Forbidden.');
+            }
             return redirect()->route('web.index');
         }
 
