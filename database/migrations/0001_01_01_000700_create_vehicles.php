@@ -85,45 +85,12 @@ return new class extends Migration
             $table->foreignId('insurance_id');
         });
 
-        Schema::create('vehicle_crashes_saferweb', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('vehicle_id')->nullable();
-            $table->string('unit_vin')->nullable();
-            $table->foreignId('company_id')->nullable();
-            $table->string('dot_number')->nullable();
-            $table->date('report_date')->nullable();
-            $table->string('report_number')->unique()->nullable();
-            $table->string('report_sequence_number')->nullable();
-            $table->string('report_state')->nullable();
-            $table->foreignId('report_state_id')->nullable();
-            $table->integer('total_injuries')->nullable();
-            $table->integer('total_fatalities')->nullable();
-            $table->json('api_data')->nullable();
-            $table->timestamps();
-        });
-
-        Schema::create('vehicle_inspections_saferweb', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('vehicle_id')->nullable();
-            $table->string('unit_vin')->nullable();
-            $table->foreignId('company_id')->nullable();
-            $table->string('dot_number')->nullable();
-            $table->integer('unique_id')->unique()->nullable();
-            $table->date('report_date')->nullable();
-            $table->string('report_number')->nullable();
-            $table->string('report_sequence_number')->nullable();
-            $table->string('inspection_level')->nullable();
-            $table->string('report_state')->nullable();
-            $table->foreignId('report_state_id')->nullable();
-            $table->json('api_data')->nullable();
-            $table->timestamps();
-        });
+        // Saferweb crash/inspection tables live in their own dedicated migrations
+        // (0001_01_01_001310 / 001320), alongside company_saferweb (001300).
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('vehicle_inspections_saferweb');
-        Schema::dropIfExists('vehicle_crashes_saferweb');
         Schema::dropIfExists('vehicle_insurance_link');
         Schema::dropIfExists('insurances_vehicle');
         Schema::dropIfExists('vehicle_driver_history');

@@ -23,6 +23,7 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
     |   08 → routes/api/admin/services.php, /service-fields.php, /service-groups.php
     |   09 → routes/api/service-requests.php, routes/api/admin/requests.php
     |   10 → routes/api/subscription.php, routes/api/admin/{sub-plans,sub-requests,sub-manager,plan-fees}.php
+    |   13 → routes/api/notifications.php, routes/api/todo.php, routes/api/search.php
     |-----------------------------------------------------------------------
     */
 
@@ -34,12 +35,18 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         require __DIR__.'/api/globals.php';
     });
 
-    // Authenticated + active user — dashboard home + drivers + vehicles
+    // Authenticated + active user — dashboard home + drivers + vehicles + shell endpoints
     Route::middleware(['auth:sanctum', 'user.isActive'])->group(function () {
         require __DIR__.'/api/dashboard.php';
         require __DIR__.'/api/drivers.php';
+        require __DIR__.'/api/orders.php';
+        require __DIR__.'/api/files.php';
+        require __DIR__.'/api/documents.php';
         require __DIR__.'/api/vehicles.php';
         require __DIR__.'/api/insurance-vehicles.php';
+        require __DIR__.'/api/notifications.php';
+        require __DIR__.'/api/todo.php';
+        require __DIR__.'/api/search.php';
     });
 
     // Authenticated, active-user, driver/company only — profile + service-requests + subscription
@@ -47,6 +54,7 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
         require __DIR__.'/api/profile.php';
         require __DIR__.'/api/service-requests.php';
         require __DIR__.'/api/subscription.php';
+        require __DIR__.'/api/saferweb.php';
     });
 
     // Admin/Manager — service catalog admin + admin requests + subscriptions admin
@@ -60,6 +68,14 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             require __DIR__.'/api/admin/sub-requests.php';
             require __DIR__.'/api/admin/sub-manager.php';
             require __DIR__.'/api/admin/plan-fees.php';
+            require __DIR__.'/api/admin/gateways.php';
+            require __DIR__.'/api/admin/settings.php';
+
+            // Admin-only (manager excluded)
+            Route::middleware('hasRole:admin')->group(function () {
+                require __DIR__.'/api/admin/users.php';
+                require __DIR__.'/api/admin/notifications.php';
+            });
         });
 
 });

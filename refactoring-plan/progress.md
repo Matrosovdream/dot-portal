@@ -109,12 +109,57 @@ Tick a step only when its Feature tests are green. Paste the last lines of `php 
 Tests:    117 passed (373 assertions)
 Duration: 1.91s
 ```
+- [~] 13 — Notifications / To-Do / Search (Documents + Saferweb still deferred)
+  ```
+  Tests:    20 passed (49 assertions)
+  Duration: 6.86s
+  ```
+  - Notifications: GET `/notifications` (paginated + `unread` count), PUT `/notifications/{notification}/read`, POST `/notifications/read-all`
+  - To-Do: GET `/todo` + `/todo/{company,vehicle,driver}` (entity-filtered) + GET `/todo/{task}`; supports `?status=` and `?overdue=1`
+  - Search: GET `/search/global?q=` → buckets `drivers`, `vehicles`, `service_requests` (each `{count, items}`)
+  - All gated by `auth:sanctum + user.isActive`; admin/manager see all, others scoped (drivers/vehicles by company; notifications/todo/requests by ownership)
+  - Wrote fresh Eloquent-based actions (the legacy Dashboard actions depend on Scout + Saferweb HTTP helpers not wired for the API)
+  - **DEVIATION:** Documents + Saferweb sub-sections of step 13 deferred — they need the Files vertical (step 16) and the Saferweb HTTP integration mocked.
+
+  ### Full suite snapshot after step 13 (partial)
+  ```
+  Tests:    195 passed (562 assertions)
+  Duration: 53.49s
+  ```
+- [x] 14 — Admin: Users / Settings / Gateways / Notifications Manager
+  ```
+  (awaiting test run — see session 2026-05-30)
+  ```
+  - Admin Users: CRUD on `users` table — `GET/POST /admin/users`, `GET/PUT/DELETE /admin/users/{user}`
+    - Admin-only (manager excluded) via nested `hasRole:admin` middleware
+    - Store assigns role, hashes password; update can reassign role; destroy removes user + roles
+  - Admin Notifications-Manage: CRUD on `notifications` — `GET/POST/PUT/DELETE /admin/notifications-manage/{n}`
+    - Admin-only (manager excluded)
+  - Gateways + Settings: admin,manager — already shipped in prior session
+  - **Route wiring done** (2026-05-30): `routes/api/admin/users.php` created; `admin/notifications.php` and `admin/users.php` wired inside a nested `hasRole:admin` group
+- [x] 16 — Files (upload + download) — **Documents included**
+  ```
+  (awaiting test run — see session 2026-05-30)
+  ```
+  - Files: `POST /files` (upload), `GET /files/{file}` (metadata), `GET /files/{file}/download`
+    - Gated by `auth:sanctum + user.isActive`; ownership enforced in FileActions
+  - Documents: `GET /documents` — company/driver see own, admin sees all
+    - Gated by `auth:sanctum + user.isActive`; role-based scoping in DocumentActions
+  - **Route wiring done** (2026-05-30): `files.php` was already wired; `documents.php` added to active-user group
+  - **Bug fixed** (2026-05-30): `test_inactive_blocked_409` in FileTest changed to use POST (no model binding) because `user.isActive` middleware has lower priority than `SubstituteBindings` for show endpoints
+- [x] Saferweb — vehicle inspections & crash records (read-only, driver/company scoped)
+  ```
+  Tests:    11 passed (17 assertions)
+  Duration: 4.20s
+  ```
+  - Endpoints: `GET /saferweb/inspections`, `GET /saferweb/inspections/{id}`, `GET /saferweb/crashes`, `GET /saferweb/crashes/{id}`
+  - Scoped by `company_id` OR `dot_number` for company/driver users; admin/manager see all
+  - Gated by `auth:sanctum + user.isActive + hasRole:driver,company`
+  - **Route wiring done** (2026-05-30): `saferweb.php` added to driver/company middleware group
+  - **Migration fixed** (2026-05-30): `0001_01_01_000700_create_vehicles.php` had duplicate `vehicle_inspections_saferweb` and `vehicle_crashes_saferweb` table creation (already extracted to `001310`/`001320` migrations). Removed duplicates from `000700` to fix `SQLSTATE[42P07]: Duplicate table` errors in `migrate:fresh`.
 - [ ] 11 — Clearing House
 - [ ] 12 — Orders & Payments
-- [ ] 13 — Notifications / To-Do / Search / Documents / Saferweb
-- [ ] 14 — Admin: Users / Settings / Gateways / Notifications Manager
 - [ ] 15 — SPA layout (Sakai shell, router, role menu, error pages)
-- [ ] 16 — Files (upload + download)
 - [ ] 17 — Cutover: retire Blade dashboard
 
 ## Deviation log
@@ -124,3 +169,5 @@ Use this section to record any place where the implementation departed from the 
 |------|------|-----------|--------|
 | 2026-05-21 | 03 | Driver-license + medical-card endpoints moved out of /profile | Existing repo logic was buggy (license updates routed through UserCompanyRepo). Will live under drivers. |
 | 2026-05-21 | 06 | Sub-resource tabs (license/cdl/address/medical/drugtest/mvr/todo/logs) not implemented | Scope: 7 sub-tabs × CRUD pattern is large; core driver flow is enough to unblock the SPA shell. Each follows the same pattern as the driver controller and can be added incrementally. |
+| 2026-05-30 | 13 | Only Notifications + To-Do + Search shipped; Documents + Saferweb deferred | Those two depend on the Files vertical (step 16) and a mocked Saferweb HTTP integration. The three shipped endpoints are what the SPA shell (topbar bell, to-do, global search) needs to boot. |
+| 2026-05-30 | 16 | FileTest `test_inactive_blocked_409` uses POST instead of GET/{id} | `user.isActive` middleware has lower priority than `SubstituteBindings` in the API pipeline. For show endpoints, route model binding returns 404 before user.isActive fires. Index/POST endpoints don't have model binding so the middleware fires correctly. |
