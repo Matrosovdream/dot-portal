@@ -1,0 +1,8 @@
+/Users/stan/Desktop/Projects/dot-portal/routes/dashboard.php:273:            // Cards
+/Users/stan/Desktop/Projects/dot-portal/routes/dashboard.php:274:            //Route::get('cards', [SubscriptionUserController::class, 'cards'])->name('cards');
+/Users/stan/Desktop/Projects/dot-portal/routes/dashboard.php:275:            Route::post('cards', [SubscriptionUserController::class, 'storeCard'])->name('cards.store');
+/Users/stan/Desktop/Projects/dot-portal/routes/dashboard.php:276:            Route::post('cards/{card_id}/delete', [SubscriptionUserController::class, 'destroyCard'])->name('cards.destroy');
+/Users/stan/Desktop/Projects/dot-portal/routes/dashboard.php:277:            Route::get('cards/{card_id}', [SubscriptionUserController::class, 'showCard'])->name('cards.show');
+/Users/stan/Desktop/Projects/dot-portal/routes/dashboard.php:278:            Route::post('cards/{card_id}', [SubscriptionUserController::class, 'updateCard'])->name('cards.update');
+/Users/stan/Desktop/Projects/dot-portal/routes/dashboard.php:280:            Route::post('cards/{card_id}', [SubscriptionUserController::class, 'makePrimaryCard'])->name('cards.makeprimary');
+/Users/stan/Desktop/Projects/dot-portal/routes/api/references.php:15:    Route::get('/payment-methods',         [ReferencesController::class, 'paymentMethods'])->name('payment-methods');
