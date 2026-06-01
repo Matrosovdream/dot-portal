@@ -11,7 +11,7 @@
         "authorizenet/authorizenet": "^2.0",
         "guzzlehttp/guzzle": "^7.9",
         "http-interop/http-factory-guzzle": "^1.2",
-        "laravel/framework": "^11.9",
+        "laravel/framework": "^12.0",
         "laravel/horizon": "^5.46",
         "laravel/reverb": "^1.10",
         "laravel/sanctum": "^4.0",
