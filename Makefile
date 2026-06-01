@@ -1,5 +1,5 @@
 # ============================================================================
-#  DotPortal — Makefile
+#  Laravel — Makefile
 #
 #  Dev  uses compose.dev.yaml  (commands run in the `workspace` container).
 #  Prod uses compose.prod.yaml (commands run in the `php-fpm` container).
@@ -29,7 +29,7 @@ ARGS ?=
         prod-seed prod-wipe prod-test prod-generate-key
 
 help: ## Show this help
-	@echo "DotPortal — available make targets:"
+	@echo "Laravel — available make targets:"
 	@echo ""
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) \
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-20s\033[0m %s\n", $$1, $$2}'
