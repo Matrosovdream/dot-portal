@@ -20,4 +20,10 @@ export default defineConfig({
             '@': path.resolve(__dirname, 'resources/spa'),
         },
     },
+    css: {
+        preprocessorOptions: {
+            // Use Sass's modern compiler API (silences the legacy-JS-API deprecation).
+            scss: { api: 'modern-compiler' },
+        },
+    },
 });

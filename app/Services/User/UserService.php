@@ -41,7 +41,7 @@ class UserService {
         $template = 'welcome-company';
         $variables = [
             'firstname' => $user->firstname,
-            'login_url' => route('login')
+            'login_url' => config('app.url') . '/login'
         ];
 
         // Send email using MailgunService
@@ -60,7 +60,7 @@ class UserService {
         $template = 'approved-drivers-request';
         $variables = [
             'firstname' => $user->firstname,
-            'login_url' => route('login')
+            'login_url' => config('app.url') . '/login'
         ];
 
         // Send email using MailgunService
@@ -106,9 +106,9 @@ class UserService {
 
         // Generate the one-time login link
         $loginLink = $this->makeLoginLink(
-            $user->id, 
+            $user->id,
             $max_uses,
-            route('register', ['step' => 'payment'])
+            config('app.url') . '/register?step=payment'
         );
 
         if( !$loginLink ) { return false; }
@@ -135,8 +135,9 @@ class UserService {
 
         $token = $this->generateLoginToken($user_id, $max_uses);
 
-        // Return the login link
-        $loginLink = route('login.onetime', ['token' => $token]);
+        // Return the login link — points at the SPA, which consumes the
+        // one-time token via GET /api/v1/auth/login-onetime/{token}.
+        $loginLink = config('app.url') . '/login-onetime/' . $token;
 
         // If a redirect URL is provided, append it to the login link
         if ($redirect_url) {

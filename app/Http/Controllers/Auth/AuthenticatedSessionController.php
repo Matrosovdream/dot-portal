@@ -39,7 +39,9 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->regenerate();
 
-        return redirect()->intended(route('dashboard.home', absolute: false));
+        // SPA cutover: '/' is now the Vue SPA. (This controller is unrouted
+        // after the cutover, but keep the redirect target valid as a safety.)
+        return redirect()->intended('/');
 
         /*
         if( Auth::user()->isAdmin() ) {
@@ -84,7 +86,7 @@ class AuthenticatedSessionController extends Controller
             return redirect()->to($redirectUrl);
         } else {
             // Default redirect if no specific URL is provided
-            return redirect()->intended(route('dashboard.home', absolute: false));
+            return redirect()->intended('/');
         }
 
     }

@@ -1,11 +1,21 @@
+<script setup>
+import { useRouter } from 'vue-router';
+import Button from 'primevue/button';
+const router = useRouter();
+</script>
+
 <template>
     <div class="err-page">
-        <h1>404</h1>
-        <p>Page not found.</p>
-        <router-link to="/">Go home</router-link>
+        <div class="err-code">404</div>
+        <h2>Page not found</h2>
+        <p class="text-muted">The page you're looking for doesn't exist or has moved.</p>
+        <Button label="Back to dashboard" icon="pi pi-home" @click="router.push('/dashboard')" />
     </div>
 </template>
+
 <style scoped>
-.err-page { text-align: center; padding: 4rem; }
-h1 { font-size: 4rem; margin: 0; }
+.err-page { text-align: center; padding: 4rem 1rem; }
+.err-code { font-size: 5rem; font-weight: 800; color: var(--p-primary-color); line-height: 1; }
+.err-page h2 { margin: 0.5rem 0 0.25rem; }
+.err-page p { margin-bottom: 1.5rem; }
 </style>

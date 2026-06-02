@@ -1,0 +1,121 @@
+@use 'variables' as *;
+
+.layout-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: $topbar-height;
+    z-index: 997;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.5rem;
+    background: var(--p-surface-0);
+    border-bottom: 1px solid var(--p-content-border-color);
+
+    .app-dark & {
+        background: var(--p-surface-900);
+    }
+}
+
+.layout-topbar-start {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    // Align the logo column with the sidebar width.
+    width: calc(#{$sidebar-width} - 1.5rem);
+}
+
+.layout-topbar-end {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.layout-menu-button,
+.layout-topbar-action {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    height: 2.5rem;
+    border: none;
+    border-radius: 50%;
+    background: transparent;
+    color: var(--p-text-muted-color);
+    cursor: pointer;
+    transition: background-color $transition, color $transition;
+
+    i { font-size: 1.15rem; }
+
+    &:hover {
+        background: var(--p-surface-100);
+        color: var(--p-text-color);
+
+        .app-dark & { background: var(--p-surface-800); }
+    }
+}
+
+.layout-topbar-logo {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    text-decoration: none;
+    margin-left: 0.25rem;
+}
+
+.brand-mark {
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: var(--p-primary-color);
+}
+.brand-name {
+    font-weight: 600;
+    color: var(--p-text-color);
+}
+
+.layout-topbar-user {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.3rem 0.6rem 0.3rem 0.4rem;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    background: transparent;
+    cursor: pointer;
+    transition: background-color $transition, border-color $transition;
+
+    &:hover {
+        background: var(--p-surface-100);
+        border-color: var(--p-content-border-color);
+
+        .app-dark & { background: var(--p-surface-800); }
+    }
+
+    .topbar-avatar {
+        background: var(--p-primary-color);
+        color: var(--p-primary-contrast-color);
+        font-weight: 600;
+    }
+
+    .topbar-user-meta {
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+    }
+    .topbar-user-name {
+        font-weight: 600;
+        font-size: 0.875rem;
+        color: var(--p-text-color);
+    }
+    > .pi-angle-down {
+        color: var(--p-text-muted-color);
+        font-size: 0.8rem;
+    }
+}
+
+@media screen and (max-width: $breakpoint-lg) {
+    .layout-topbar-start { width: auto; }
+    .layout-topbar-user .topbar-user-meta { display: none; }
+}

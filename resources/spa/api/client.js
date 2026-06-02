@@ -29,3 +29,21 @@ api.interceptors.response.use(
         return Promise.reject(err);
     },
 );
+
+/**
+ * Single-resource endpoints return `{ data: {...} }`; aggregate/bundle
+ * endpoints sometimes return the object directly. `unwrap` normalises both.
+ */
+export function unwrap(body) {
+    return body?.data ?? body;
+}
+
+/** Pull a Laravel validation-error map (`{ field: [msg] }`) out of an axios error. */
+export function fieldErrors(err) {
+    return err?.response?.data?.errors ?? {};
+}
+
+/** Best-effort human message from an axios error. */
+export function errorMessage(err, fallback = 'Something went wrong') {
+    return err?.response?.data?.message ?? err?.message ?? fallback;
+}
