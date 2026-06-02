@@ -1,0 +1,84 @@
+@use 'variables' as *;
+
+.layout-wrapper {
+    min-height: 100vh;
+    background: var(--p-surface-100);
+
+    .app-dark & {
+        background: var(--p-surface-950);
+    }
+}
+
+.layout-main-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: $topbar-height 0 0 0;
+    margin-left: $sidebar-width;
+    transition: margin-left $transition;
+}
+
+.layout-main {
+    flex: 1 1 auto;
+    padding: 1.75rem 2rem;
+    width: 100%;
+    max-width: $content-max-width;
+    margin: 0 auto;
+}
+
+// Collapsed sidebar on desktop
+.layout-static.layout-static-inactive {
+    .layout-sidebar {
+        transform: translateX(-100%);
+    }
+    .layout-main-container {
+        margin-left: 0;
+    }
+}
+
+// Dimming mask for the mobile drawer
+.layout-mask {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 990;
+    background: rgba(15, 23, 42, 0.45);
+    animation: mask-in 0.2s ease;
+}
+
+@keyframes mask-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+// ----- Responsive: sidebar becomes an overlay drawer -----
+@media screen and (max-width: $breakpoint-lg) {
+    .layout-main-container {
+        margin-left: 0;
+    }
+    .layout-sidebar {
+        transform: translateX(-100%);
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.18);
+    }
+    .layout-wrapper.layout-mobile-active {
+        .layout-sidebar {
+            transform: translateX(0);
+        }
+        .layout-mask {
+            display: block;
+        }
+    }
+}
+
+// Route transition
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.18s ease, transform 0.18s ease;
+}
+.fade-enter-from {
+    opacity: 0;
+    transform: translateY(4px);
+}
+.fade-leave-to {
+    opacity: 0;
+}

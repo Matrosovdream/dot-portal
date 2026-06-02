@@ -17,6 +17,9 @@ use App\Contracts\Mail\MailServiceInterface;
 use App\Services\Saferweb\GovernApiService;
 use App\Contracts\Payment\PaymentInterface;
 use App\Services\Payments\AuthnetService;
+use Illuminate\Auth\Notifications\ResetPassword;
+use Illuminate\Auth\Notifications\VerifyEmail;
+use Illuminate\Support\Facades\URL;
 
 
 class AppServiceProvider extends ServiceProvider
@@ -51,6 +54,31 @@ class AppServiceProvider extends ServiceProvider
         $this->app->bind(MailServiceInterface::class, MailgunService::class);
         $this->app->bind(SaferwebInterface::class, GovernApiService::class);
         $this->app->bind(PaymentInterface::class, AuthnetService::class);
+
+        // SPA cutover: framework auth emails must link to the Vue SPA at '/',
+        // not the (now-unrouted) Breeze web routes. Without these overrides the
+        // default ResetPassword / VerifyEmail notifications build URLs via the
+        // bare route names 'password.reset' / 'verification.verify', which no
+        // longer exist and would throw RouteNotFoundException.
+        ResetPassword::createUrlUsing(function ($notifiable, string $token) {
+            return config('app.url') . '/reset-password/' . $token
+                . '?email=' . urlencode($notifiable->getEmailForPasswordReset());
+        });
+
+        VerifyEmail::createUrlUsing(function ($notifiable) {
+            $signedApiUrl = URL::temporarySignedRoute(
+                'api.v1.auth.verification.verify',
+                now()->addMinutes(60),
+                [
+                    'id'   => $notifiable->getKey(),
+                    'hash' => sha1($notifiable->getEmailForVerification()),
+                ]
+            );
+
+            // Hand the signed API URL to the SPA, which completes verification
+            // by GETting it (with the session cookie) from VerifyEmailView.
+            return config('app.url') . '/verify-email?verify=' . urlencode($signedApiUrl);
+        });
 
     }
 

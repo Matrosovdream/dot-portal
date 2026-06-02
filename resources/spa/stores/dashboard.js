@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia';
-import { api } from '@/api/client';
+import { dashboardApi, unwrap, errorMessage } from '@/api';
 
 export const useDashboardStore = defineStore('dashboard', {
     state: () => ({
@@ -13,12 +13,11 @@ export const useDashboardStore = defineStore('dashboard', {
             this.loading = true;
             this.error = null;
             try {
-                const { data } = await api.get('/dashboard/home');
-                const payload = data.data ?? data;
+                const payload = unwrap(await dashboardApi.home());
                 this.role = payload.role;
                 this.widgets = payload.widgets;
             } catch (e) {
-                this.error = e.response?.data?.message ?? e.message;
+                this.error = errorMessage(e, 'Failed to load dashboard');
             } finally {
                 this.loading = false;
             }

@@ -47,6 +47,10 @@ async function submit() {
                     </div>
                     <small v-if="errors._" class="err">{{ errors._[0] }}</small>
                     <Button type="submit" label="Sign in" :loading="submitting" />
+                    <div class="login-links">
+                        <router-link :to="{ name: 'forgot-password' }">Forgot password?</router-link>
+                        <router-link :to="{ name: 'register' }">Create account</router-link>
+                    </div>
                 </form>
             </template>
         </Card>
@@ -65,4 +69,5 @@ async function submit() {
 .form { display: flex; flex-direction: column; gap: 1rem; }
 .field { display: flex; flex-direction: column; gap: 0.25rem; }
 .err { color: #b00; font-size: 0.85rem; }
+.login-links { display: flex; justify-content: space-between; gap: 1rem; font-size: 0.85rem; }
 </style>

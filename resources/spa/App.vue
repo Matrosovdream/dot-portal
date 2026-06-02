@@ -1,30 +1,10 @@
 <script setup>
-import { onMounted } from 'vue';
-import { useAuthStore } from '@/stores/auth';
-import Toast from 'primevue/toast';
-
-const auth = useAuthStore();
-onMounted(() => auth.bootstrap());
+// Root component. The active route decides the chrome:
+//  - /login renders LoginView standalone
+//  - everything else renders inside the AppLayout shell (Sakai-style).
+// Auth bootstrap + the global Toast/ConfirmDialog live in those layers.
 </script>
 
 <template>
-    <div class="app-shell">
-        <router-view />
-        <Toast />
-    </div>
+    <router-view />
 </template>
-
-<style>
-:root {
-    font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
-}
-body, html, #app {
-    margin: 0;
-    padding: 0;
-    min-height: 100vh;
-}
-.app-shell {
-    min-height: 100vh;
-    background: #fafafa;
-}
-</style>
