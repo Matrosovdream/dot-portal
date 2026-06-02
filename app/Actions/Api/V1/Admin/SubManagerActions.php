@@ -13,7 +13,14 @@ class SubManagerActions
     public function index(Request $request)
     {
         $perPage = min(100, (int) $request->query('per_page', 25));
-        return $this->repo->getModel()::query()->with('subscription')->paginate($perPage);
+
+        $query = $this->repo->getModel()::query()->with('subscription');
+
+        if ($status = $request->query('status')) {
+            $query->where('status', $status);
+        }
+
+        return $query->paginate($perPage);
     }
 
     public function store(array $data): UserSubscription

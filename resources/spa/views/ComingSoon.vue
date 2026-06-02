@@ -6,13 +6,16 @@ import Button from 'primevue/button';
 const route = useRoute();
 const router = useRouter();
 const title = computed(() => route.meta?.title || 'Section');
+// Optional per-route override (e.g. for sections whose backend API isn't built).
+const note = computed(() => route.meta?.note || null);
 </script>
 
 <template>
     <div class="surface-card surface-card-pad coming-soon">
         <div class="cs-icon"><i class="pi pi-wrench" /></div>
         <h2>{{ title }}</h2>
-        <p class="text-muted">
+        <p v-if="note" class="text-muted">{{ note }}</p>
+        <p v-else class="text-muted">
             This section's screens are on the way. Its API endpoints are already built
             and reachable under <code>/api/v1</code> — wiring up the UI is the next step.
         </p>

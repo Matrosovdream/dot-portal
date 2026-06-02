@@ -4,15 +4,47 @@
 // until their screens are built out.
 
 const ComingSoon = () => import('@/views/ComingSoon.vue');
+const CrudList = () => import('@/views/crud/CrudListView.vue');
+const CrudForm = () => import('@/views/crud/CrudFormView.vue');
 
 /** A reachable placeholder route for a section that isn't fully built yet. */
-function stub(path, name, title, roles) {
+function stub(path, name, title, roles, note) {
     return {
         path,
         name,
         component: ComingSoon,
-        meta: { requiresAuth: true, title, roles, breadcrumb: [title] },
+        meta: { requiresAuth: true, title, roles, breadcrumb: [title], note },
     };
+}
+
+/**
+ * Generate list (+ optional create/edit) routes for a config-driven CRUD
+ * section. `section` must match a key in views/crud/configs.js; the generic
+ * views read route.meta.section to resolve their config.
+ */
+function crud(path, section, title, roles, { create = true, edit = true } = {}) {
+    const base = { requiresAuth: true, section, roles };
+    const out = [
+        { path, name: section, component: CrudList, meta: { ...base, title, breadcrumb: [title] } },
+    ];
+    if (create) {
+        out.push({
+            path: `${path}/new`,
+            name: `${section}.create`,
+            component: CrudForm,
+            meta: { ...base, title: `New ${title}`, breadcrumb: [title, 'New'] },
+        });
+    }
+    if (edit) {
+        out.push({
+            path: `${path}/:id`,
+            name: `${section}.edit`,
+            component: CrudForm,
+            props: true,
+            meta: { ...base, title: `Edit ${title}`, breadcrumb: [title, 'Edit'] },
+        });
+    }
+    return out;
 }
 
 const routes = [
@@ -197,32 +229,63 @@ const routes = [
                 meta: { requiresAuth: true, title: 'Notifications', breadcrumb: ['Notifications'] },
             },
 
-            // ----- Operations (stubs) -----
-            stub('insurance-vehicles', 'insurance-vehicles', 'Insurance Vehicles'),
-            stub('clearing-house', 'clearing-house', 'Clearing House'),
-            stub('todo', 'todo', 'To-Do'),
-            stub('documents', 'documents', 'Documents'),
-            stub('saferweb', 'saferweb', 'Saferweb', ['driver', 'company']),
+            // ----- Operations -----
+            ...crud('insurance-vehicles', 'insurance-vehicles', 'Insurance Vehicles', ['driver', 'company', 'admin', 'manager']),
+            ...crud('documents', 'documents', 'Documents', undefined, { create: false, edit: false }),
+            {
+                path: 'todo',
+                name: 'todo',
+                component: () => import('@/views/todo/TodoView.vue'),
+                meta: { requiresAuth: true, title: 'To-Do', breadcrumb: ['To-Do'] },
+            },
+            {
+                path: 'saferweb',
+                name: 'saferweb',
+                component: () => import('@/views/saferweb/SaferwebView.vue'),
+                meta: { requiresAuth: true, roles: ['driver', 'company'], title: 'SAFER Web', breadcrumb: ['SAFER Web'] },
+            },
+            stub('clearing-house', 'clearing-house', 'Clearing House', undefined,
+                "Clearing House isn't available in the new portal yet — its backend API hasn't been built (refactor step 11). It will appear here once that lands."),
 
-            // ----- Billing (stubs) -----
-            stub('subscription', 'subscription', 'Subscription', ['driver', 'company']),
-            stub('orders', 'orders', 'Orders'),
+            // ----- Billing -----
+            {
+                path: 'subscription',
+                name: 'subscription',
+                component: () => import('@/views/subscription/SubscriptionView.vue'),
+                meta: { requiresAuth: true, roles: ['driver', 'company'], title: 'Subscription', breadcrumb: ['Subscription'] },
+            },
+            {
+                path: 'orders',
+                name: 'orders',
+                component: () => import('@/views/orders/OrdersView.vue'),
+                meta: { requiresAuth: true, roles: ['admin', 'manager'], title: 'Orders', breadcrumb: ['Orders'] },
+            },
 
-            // ----- Administration (stubs) -----
-            stub('admin/requests', 'admin.requests', 'Requests Manage', ['admin', 'manager']),
-            stub('admin/services', 'admin.services', 'Services', ['admin', 'manager']),
-            stub('admin/service-fields', 'admin.service-fields', 'Service Fields', ['admin', 'manager']),
-            stub('admin/service-groups', 'admin.service-groups', 'Service Groups', ['admin', 'manager']),
-            stub('admin/sub-plans', 'admin.sub-plans', 'Subscription Plans', ['admin', 'manager']),
-            stub('admin/sub-requests', 'admin.sub-requests', 'Subscription Requests', ['admin', 'manager']),
-            stub('admin/plan-fees', 'admin.plan-fees', 'Plan Fees', ['admin', 'manager']),
-            stub('admin/user-subscriptions', 'admin.user-subscriptions', 'User Subscriptions', ['admin', 'manager']),
-            stub('admin/notifications-manage', 'admin.notifications-manage', 'Notifications Manager', ['admin', 'manager']),
+            // ----- Administration (admin / manager) -----
+            {
+                path: 'admin/requests',
+                name: 'admin.requests',
+                component: () => import('@/views/admin/RequestManageView.vue'),
+                meta: { requiresAuth: true, roles: ['admin', 'manager'], title: 'Requests Manage', breadcrumb: ['Requests Manage'] },
+            },
+            ...crud('admin/services', 'admin.services', 'Services', ['admin', 'manager']),
+            ...crud('admin/service-fields', 'admin.service-fields', 'Service Fields', ['admin', 'manager']),
+            ...crud('admin/service-groups', 'admin.service-groups', 'Service Groups', ['admin', 'manager']),
+            ...crud('admin/sub-plans', 'admin.sub-plans', 'Subscription Plans', ['admin', 'manager']),
+            ...crud('admin/sub-requests', 'admin.sub-requests', 'Subscription Requests', ['admin', 'manager']),
+            ...crud('admin/plan-fees', 'admin.plan-fees', 'Plan Fees', ['admin', 'manager']),
+            ...crud('admin/user-subscriptions', 'admin.user-subscriptions', 'User Subscriptions', ['admin', 'manager']),
+            ...crud('admin/notifications-manage', 'admin.notifications-manage', 'Notifications', ['admin']),
 
-            // ----- System (stubs) -----
-            stub('admin/users', 'admin.users', 'Users', ['admin']),
-            stub('admin/settings', 'admin.settings', 'Settings', ['admin']),
-            stub('admin/gateways', 'admin.gateways', 'Payment Gateways', ['admin']),
+            // ----- System (admin) -----
+            ...crud('admin/users', 'admin.users', 'Users', ['admin']),
+            {
+                path: 'admin/settings',
+                name: 'admin.settings',
+                component: () => import('@/views/admin/SettingsView.vue'),
+                meta: { requiresAuth: true, roles: ['admin'], title: 'Settings', breadcrumb: ['Settings'] },
+            },
+            ...crud('admin/gateways', 'admin.gateways', 'Payment Gateways', ['admin'], { create: false, edit: false }),
 
             // ----- Error pages -----
             {

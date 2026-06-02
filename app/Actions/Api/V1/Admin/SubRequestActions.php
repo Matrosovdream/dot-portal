@@ -13,7 +13,14 @@ class SubRequestActions
     public function index(Request $request)
     {
         $perPage = min(100, (int) $request->query('per_page', 25));
-        return $this->repo->getModel()::query()->paginate($perPage);
+
+        $query = $this->repo->getModel()::query();
+
+        if ($statusId = $request->query('status_id')) {
+            $query->where('status_id', (int) $statusId);
+        }
+
+        return $query->paginate($perPage);
     }
 
     public function store(array $data): SubscriptionCustomRequest
