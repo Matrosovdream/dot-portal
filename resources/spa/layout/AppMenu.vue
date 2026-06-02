@@ -42,7 +42,7 @@ const model = computed(() => {
             label: 'Billing',
             items: [
                 item('Subscription', 'pi pi-fw pi-star', '/subscription', ['driver', 'company']),
-                item('Orders', 'pi pi-fw pi-shopping-cart', '/orders'),
+                item('Orders', 'pi pi-fw pi-shopping-cart', '/orders', ['admin', 'manager']),
             ],
         },
         {
@@ -57,7 +57,7 @@ const model = computed(() => {
                 item('Sub Requests', 'pi pi-fw pi-envelope', '/admin/sub-requests'),
                 item('Plan Fees', 'pi pi-fw pi-dollar', '/admin/plan-fees'),
                 item('User Subscriptions', 'pi pi-fw pi-users', '/admin/user-subscriptions'),
-                item('Notifications', 'pi pi-fw pi-bell', '/admin/notifications-manage'),
+                item('Notifications', 'pi pi-fw pi-bell', '/admin/notifications-manage', ['admin']),
             ],
         },
         {
