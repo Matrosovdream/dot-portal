@@ -1,7 +1,6 @@
 <script setup>
 import { computed } from 'vue';
 import { useRouter } from 'vue-router';
-import Card from 'primevue/card';
 import Button from 'primevue/button';
 import { useAuthStore } from '@/stores/auth';
 
@@ -17,31 +16,23 @@ async function signOut() {
 </script>
 
 <template>
-    <div class="auth-page">
-        <Card class="auth-card">
-            <template #title>
-                <div class="auth-head">
-                    <div class="auth-brand">DOT Portal</div>
-                    <div class="auth-sub">Account created</div>
-                </div>
-            </template>
-            <template #content>
-                <div class="pending-body">
-                    <i class="pi pi-clock pending-icon" />
-                    <p>
-                        Thanks{{ firstName ? `, ${firstName}` : '' }} — your account has been created and is
-                        <strong>pending activation</strong>. You'll get full access to the dashboard once your
-                        registration is complete and approved.
-                    </p>
-                    <p class="text-muted">If you were asked to verify your email, check your inbox.</p>
-                </div>
+    <div class="auth-head">
+        <h1>Account created</h1>
+    </div>
 
-                <div class="auth-form">
-                    <Button label="Verify email" icon="pi pi-envelope" outlined @click="router.push({ name: 'verify-email' })" />
-                    <Button label="Sign out" icon="pi pi-sign-out" severity="secondary" text @click="signOut" />
-                </div>
-            </template>
-        </Card>
+    <div class="pending-body">
+        <i class="pi pi-clock pending-icon" />
+        <p>
+            Thanks{{ firstName ? `, ${firstName}` : '' }} — your account has been created and is
+            <strong>pending activation</strong>. You'll get full access to the dashboard once your
+            registration is complete and approved.
+        </p>
+        <p class="text-muted">If you were asked to verify your email, check your inbox.</p>
+    </div>
+
+    <div class="auth-form">
+        <Button label="Verify email" icon="pi pi-envelope" outlined @click="router.push({ name: 'verify-email' })" />
+        <Button label="Sign out" icon="pi pi-sign-out" severity="secondary" text @click="signOut" />
     </div>
 </template>
 
