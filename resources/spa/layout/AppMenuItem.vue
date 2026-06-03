@@ -66,9 +66,11 @@ function checkActiveRoute(item) {
             {{ item.label }}
         </div>
 
-        <!-- parent with submenu / external link -->
+        <!-- parent with submenu / external link. Skipped for root items: those
+             are section headers (rendered above) whose children are always shown,
+             so a clickable root row would just duplicate the section title. -->
         <a
-            v-if="(!item.to || item.items) && item.visible !== false"
+            v-if="!root && (!item.to || item.items) && item.visible !== false"
             :href="item.url"
             @click="itemClick($event, item)"
             :class="item.class"
