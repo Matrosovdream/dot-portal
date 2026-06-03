@@ -39,17 +39,15 @@ onMounted(async () => {
 </script>
 
 <template>
-    <div class="auth-page">
-        <div style="text-align:center">
-            <template v-if="!failed">
-                <ProgressSpinner style="width:48px;height:48px" strokeWidth="4" />
-                <p class="text-muted">Signing you in…</p>
-            </template>
-            <template v-else>
-                <div class="auth-brand">DOT Portal</div>
-                <p class="text-muted">This login link is invalid or has expired.</p>
-                <router-link :to="{ name: 'login' }"><Button label="Go to sign in" /></router-link>
-            </template>
-        </div>
+    <div class="auth-head" style="text-align:center">
+        <template v-if="!failed">
+            <ProgressSpinner style="width:48px;height:48px" strokeWidth="4" />
+            <p class="text-muted">Signing you in…</p>
+        </template>
+        <template v-else>
+            <h1>Sign in</h1>
+            <p class="text-muted">This login link is invalid or has expired.</p>
+            <router-link :to="{ name: 'login' }"><Button label="Go to sign in" /></router-link>
+        </template>
     </div>
 </template>

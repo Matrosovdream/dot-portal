@@ -1,7 +1,6 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import { useRoute } from 'vue-router';
-import Card from 'primevue/card';
 import Button from 'primevue/button';
 import Message from 'primevue/message';
 import { api, authApi, errorMessage } from '@/api';
@@ -59,39 +58,31 @@ async function resend() {
 </script>
 
 <template>
-    <div class="auth-page">
-        <Card class="auth-card">
-            <template #title>
-                <div class="auth-head">
-                    <div class="auth-brand">DOT Portal</div>
-                    <div class="auth-sub">Email verification</div>
-                </div>
-            </template>
-            <template #content>
-                <div v-if="loading" class="text-muted" style="text-align:center">
-                    <i class="pi pi-spin pi-spinner" /> Checking…
-                </div>
-
-                <template v-else>
-                    <Message v-if="verified" severity="success" :closable="false">
-                        Your email{{ email ? ` (${email})` : '' }} is verified.
-                    </Message>
-                    <Message v-else severity="warn" :closable="false">
-                        Your email{{ email ? ` (${email})` : '' }} isn't verified yet. Check your inbox,
-                        or resend the verification link below.
-                    </Message>
-
-                    <Message v-if="statusMsg" severity="info" :closable="false" class="mt">{{ statusMsg }}</Message>
-                    <Message v-if="errorMsg" severity="error" :closable="false" class="mt">{{ errorMsg }}</Message>
-
-                    <div class="auth-form mt">
-                        <Button v-if="!verified" label="Resend verification email" icon="pi pi-envelope" :loading="resending" @click="resend" />
-                        <router-link :to="{ name: 'dashboard' }"><Button label="Go to dashboard" severity="secondary" outlined class="w-full" /></router-link>
-                    </div>
-                </template>
-            </template>
-        </Card>
+    <div class="auth-head">
+        <h1>Email verification</h1>
     </div>
+
+    <div v-if="loading" class="text-muted" style="text-align:center">
+        <i class="pi pi-spin pi-spinner" /> Checking…
+    </div>
+
+    <template v-else>
+        <Message v-if="verified" severity="success" :closable="false">
+            Your email{{ email ? ` (${email})` : '' }} is verified.
+        </Message>
+        <Message v-else severity="warn" :closable="false">
+            Your email{{ email ? ` (${email})` : '' }} isn't verified yet. Check your inbox,
+            or resend the verification link below.
+        </Message>
+
+        <Message v-if="statusMsg" severity="info" :closable="false" class="mt">{{ statusMsg }}</Message>
+        <Message v-if="errorMsg" severity="error" :closable="false" class="mt">{{ errorMsg }}</Message>
+
+        <div class="auth-form mt">
+            <Button v-if="!verified" label="Resend verification email" icon="pi pi-envelope" :loading="resending" @click="resend" />
+            <router-link :to="{ name: 'dashboard' }"><Button label="Go to dashboard" severity="secondary" outlined class="w-full" /></router-link>
+        </div>
+    </template>
 </template>
 
 <style scoped>

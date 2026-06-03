@@ -1,7 +1,6 @@
 <script setup>
 import { reactive, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import Card from 'primevue/card';
 import InputText from 'primevue/inputtext';
 import Password from 'primevue/password';
 import Button from 'primevue/button';
@@ -41,37 +40,29 @@ const err = (f) => errors.value[f]?.[0];
 </script>
 
 <template>
-    <div class="auth-page">
-        <Card class="auth-card">
-            <template #title>
-                <div class="auth-head">
-                    <div class="auth-brand">DOT Portal</div>
-                    <div class="auth-sub">Choose a new password</div>
-                </div>
-            </template>
-            <template #content>
-                <form class="auth-form" @submit.prevent="submit">
-                    <div class="field">
-                        <label>Email</label>
-                        <InputText v-model="form.email" type="email" :invalid="!!err('email')" autocomplete="email" />
-                        <small v-if="err('email')" class="err">{{ err('email') }}</small>
-                    </div>
-                    <div class="field">
-                        <label>New password</label>
-                        <Password v-model="form.password" toggleMask :invalid="!!err('password')" :inputProps="{ autocomplete: 'new-password' }" />
-                        <small v-if="err('password')" class="err">{{ err('password') }}</small>
-                    </div>
-                    <div class="field">
-                        <label>Confirm new password</label>
-                        <Password v-model="form.password_confirmation" :feedback="false" toggleMask :inputProps="{ autocomplete: 'new-password' }" />
-                    </div>
-                    <small v-if="err('_')" class="err">{{ err('_') }}</small>
-                    <Button type="submit" label="Reset password" :loading="submitting" />
-                    <div class="auth-links">
-                        <router-link :to="{ name: 'login' }">Back to sign in</router-link>
-                    </div>
-                </form>
-            </template>
-        </Card>
+    <div class="auth-head">
+        <h1>Choose a new password</h1>
     </div>
+
+    <form class="auth-form" @submit.prevent="submit">
+        <div class="field">
+            <label>Email</label>
+            <InputText v-model="form.email" type="email" :invalid="!!err('email')" autocomplete="email" />
+            <small v-if="err('email')" class="err">{{ err('email') }}</small>
+        </div>
+        <div class="field">
+            <label>New password</label>
+            <Password v-model="form.password" toggleMask :invalid="!!err('password')" :inputProps="{ autocomplete: 'new-password' }" />
+            <small v-if="err('password')" class="err">{{ err('password') }}</small>
+        </div>
+        <div class="field">
+            <label>Confirm new password</label>
+            <Password v-model="form.password_confirmation" :feedback="false" toggleMask :inputProps="{ autocomplete: 'new-password' }" />
+        </div>
+        <small v-if="err('_')" class="err">{{ err('_') }}</small>
+        <Button type="submit" label="Reset password" :loading="submitting" />
+        <div class="auth-links">
+            <router-link :to="{ name: 'login' }">Back to sign in</router-link>
+        </div>
+    </form>
 </template>

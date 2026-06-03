@@ -7,6 +7,12 @@ const ComingSoon = () => import('@/views/ComingSoon.vue');
 const CrudList = () => import('@/views/crud/CrudListView.vue');
 const CrudForm = () => import('@/views/crud/CrudFormView.vue');
 
+// ----- Page templates (layouts). Each is a route parent with a nested
+// <router-view/>; the matched layout wraps its child pages. -----
+const WebLayout = () => import('@/layout/WebLayout.vue');   // public/marketing chrome
+const AuthLayout = () => import('@/layout/AuthLayout.vue'); // split-screen auth chrome
+const AppLayout = () => import('@/layout/AppLayout.vue');   // authenticated portal shell
+
 /** A reachable placeholder route for a section that isn't fully built yet. */
 function stub(path, name, title, roles, note) {
     return {
@@ -48,63 +54,87 @@ function crud(path, section, title, roles, { create = true, edit = true } = {}) 
 }
 
 const routes = [
-    {
-        path: '/login',
-        name: 'login',
-        component: () => import('@/views/LoginView.vue'),
-        meta: { requiresAuth: false, title: 'Sign in' },
-    },
-    // ----- Public auth flows (standalone, outside the app shell) -----
-    {
-        path: '/register',
-        name: 'register',
-        component: () => import('@/views/auth/RegisterView.vue'),
-        meta: { requiresAuth: false, title: 'Create account' },
-    },
-    {
-        path: '/forgot-password',
-        name: 'forgot-password',
-        component: () => import('@/views/auth/ForgotPasswordView.vue'),
-        meta: { requiresAuth: false, title: 'Forgot password' },
-    },
-    {
-        path: '/reset-password/:token',
-        name: 'reset-password',
-        component: () => import('@/views/auth/ResetPasswordView.vue'),
-        props: true,
-        meta: { requiresAuth: false, title: 'Reset password' },
-    },
-    {
-        path: '/login-onetime/:token',
-        name: 'login-onetime',
-        component: () => import('@/views/auth/OneTimeLoginView.vue'),
-        props: true,
-        meta: { requiresAuth: false, title: 'Signing in…' },
-    },
-    {
-        // Email-verification landing. Needs an authenticated session, so it
-        // sits outside the app shell but with requiresAuth so the guard
-        // redirects unauthenticated hits to /login.
-        path: '/verify-email',
-        name: 'verify-email',
-        component: () => import('@/views/auth/VerifyEmailView.vue'),
-        meta: { requiresAuth: true, title: 'Verify email' },
-    },
-    {
-        // Landing for authenticated-but-not-yet-activated accounts (the guard
-        // funnels new sign-ups here instead of the app, which would 409).
-        path: '/pending',
-        name: 'onboarding-pending',
-        component: () => import('@/views/auth/OnboardingPendingView.vue'),
-        meta: { requiresAuth: true, title: 'Account pending' },
-    },
+    // Bare root → dashboard. Declared first so it deterministically owns '/'
+    // (otherwise a layout parent below, all sharing path '/', would match the
+    // root as an empty shell). The guard then bounces guests on to /login.
+    { path: '/', redirect: { name: 'dashboard' } },
+
+    // ===== Web template — public/marketing pages (not auth, not the portal) =====
     {
         path: '/',
-        component: () => import('@/layout/AppLayout.vue'),
+        component: WebLayout,
+        children: [
+            {
+                path: 'welcome',
+                name: 'web-home',
+                component: () => import('@/views/web/HomeView.vue'),
+                meta: { requiresAuth: false, title: 'Welcome' },
+            },
+        ],
+    },
+
+    // ===== Auth template — sign-in / registration / recovery flows =====
+    {
+        path: '/',
+        component: AuthLayout,
+        children: [
+            {
+                path: 'login',
+                name: 'login',
+                component: () => import('@/views/auth/LoginView.vue'),
+                meta: { requiresAuth: false, title: 'Sign in' },
+            },
+            {
+                path: 'register',
+                name: 'register',
+                component: () => import('@/views/auth/RegisterView.vue'),
+                meta: { requiresAuth: false, title: 'Create account' },
+            },
+            {
+                path: 'forgot-password',
+                name: 'forgot-password',
+                component: () => import('@/views/auth/ForgotPasswordView.vue'),
+                meta: { requiresAuth: false, title: 'Forgot password' },
+            },
+            {
+                path: 'reset-password/:token',
+                name: 'reset-password',
+                component: () => import('@/views/auth/ResetPasswordView.vue'),
+                props: true,
+                meta: { requiresAuth: false, title: 'Reset password' },
+            },
+            {
+                path: 'login-onetime/:token',
+                name: 'login-onetime',
+                component: () => import('@/views/auth/OneTimeLoginView.vue'),
+                props: true,
+                meta: { requiresAuth: false, title: 'Signing in…' },
+            },
+            {
+                // Email-verification landing. requiresAuth so the guard
+                // redirects unauthenticated hits to /login.
+                path: 'verify-email',
+                name: 'verify-email',
+                component: () => import('@/views/auth/VerifyEmailView.vue'),
+                meta: { requiresAuth: true, title: 'Verify email' },
+            },
+            {
+                // Landing for authenticated-but-not-yet-activated accounts (the
+                // guard funnels new sign-ups here instead of the app, which 409s).
+                path: 'pending',
+                name: 'onboarding-pending',
+                component: () => import('@/views/auth/OnboardingPendingView.vue'),
+                meta: { requiresAuth: true, title: 'Account pending' },
+            },
+        ],
+    },
+
+    // ===== Dashboard template — the authenticated portal shell =====
+    {
+        path: '/',
+        component: AppLayout,
         meta: { requiresAuth: true },
         children: [
-            { path: '', redirect: { name: 'dashboard' } },
-
             {
                 path: 'dashboard',
                 name: 'dashboard',
