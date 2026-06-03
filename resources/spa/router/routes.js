@@ -162,7 +162,7 @@ const routes = [
                 component: () => import('@/views/drivers/DriverListView.vue'),
                 meta: {
                     requiresAuth: true,
-                    roles: ['driver', 'company', 'admin', 'manager'],
+                    roles: ['company', 'admin'],
                     title: 'Drivers',
                     breadcrumb: ['Drivers'],
                 },
@@ -173,7 +173,7 @@ const routes = [
                 component: () => import('@/views/drivers/DriverFormView.vue'),
                 meta: {
                     requiresAuth: true,
-                    roles: ['driver', 'company', 'admin', 'manager'],
+                    roles: ['company', 'admin'],
                     title: 'New Driver',
                     breadcrumb: ['Drivers', 'New'],
                 },
@@ -185,7 +185,7 @@ const routes = [
                 props: true,
                 meta: {
                     requiresAuth: true,
-                    roles: ['driver', 'company', 'admin', 'manager'],
+                    roles: ['company', 'admin'],
                     title: 'Edit Driver',
                     breadcrumb: ['Drivers', 'Edit'],
                 },
@@ -198,7 +198,7 @@ const routes = [
                 component: () => import('@/views/vehicles/VehicleListView.vue'),
                 meta: {
                     requiresAuth: true,
-                    roles: ['driver', 'company', 'admin', 'manager'],
+                    roles: ['company', 'admin'],
                     title: 'Vehicles',
                     breadcrumb: ['Vehicles'],
                 },
@@ -209,7 +209,7 @@ const routes = [
                 component: () => import('@/views/vehicles/VehicleFormView.vue'),
                 meta: {
                     requiresAuth: true,
-                    roles: ['driver', 'company', 'admin', 'manager'],
+                    roles: ['company', 'admin'],
                     title: 'New Vehicle',
                     breadcrumb: ['Vehicles', 'New'],
                 },
@@ -221,7 +221,7 @@ const routes = [
                 props: true,
                 meta: {
                     requiresAuth: true,
-                    roles: ['driver', 'company', 'admin', 'manager'],
+                    roles: ['company', 'admin'],
                     title: 'Edit Vehicle',
                     breadcrumb: ['Vehicles', 'Edit'],
                 },
@@ -234,7 +234,7 @@ const routes = [
                 component: () => import('@/views/serviceRequests/ServiceRequestListView.vue'),
                 meta: {
                     requiresAuth: true,
-                    roles: ['driver', 'company'],
+                    roles: ['company'],
                     title: 'Service Requests',
                     breadcrumb: ['Service Requests'],
                 },
@@ -245,7 +245,7 @@ const routes = [
                 component: () => import('@/views/serviceRequests/ServiceRequestFormView.vue'),
                 meta: {
                     requiresAuth: true,
-                    roles: ['driver', 'company'],
+                    roles: ['company'],
                     title: 'New Service Request',
                     breadcrumb: ['Service Requests', 'New'],
                 },
@@ -260,21 +260,21 @@ const routes = [
             },
 
             // ----- Operations -----
-            ...crud('insurance-vehicles', 'insurance-vehicles', 'Insurance Vehicles', ['driver', 'company', 'admin', 'manager']),
-            ...crud('documents', 'documents', 'Documents', undefined, { create: false, edit: false }),
+            ...crud('insurance-vehicles', 'insurance-vehicles', 'Insurance Vehicles', ['company', 'admin']),
+            ...crud('documents', 'documents', 'Documents', ['driver', 'company', 'admin'], { create: false, edit: false }),
             {
                 path: 'todo',
                 name: 'todo',
                 component: () => import('@/views/todo/TodoView.vue'),
-                meta: { requiresAuth: true, title: 'To-Do', breadcrumb: ['To-Do'] },
+                meta: { requiresAuth: true, roles: ['driver', 'company', 'admin'], title: 'To-Do', breadcrumb: ['To-Do'] },
             },
             {
                 path: 'saferweb',
                 name: 'saferweb',
                 component: () => import('@/views/saferweb/SaferwebView.vue'),
-                meta: { requiresAuth: true, roles: ['driver', 'company'], title: 'SAFER Web', breadcrumb: ['SAFER Web'] },
+                meta: { requiresAuth: true, roles: ['company'], title: 'SAFER Web', breadcrumb: ['SAFER Web'] },
             },
-            stub('clearing-house', 'clearing-house', 'Clearing House', undefined,
+            stub('clearing-house', 'clearing-house', 'Clearing House', ['company', 'admin'],
                 "Clearing House isn't available in the new portal yet — its backend API hasn't been built (refactor step 11). It will appear here once that lands."),
 
             // ----- Billing -----
@@ -282,13 +282,13 @@ const routes = [
                 path: 'subscription',
                 name: 'subscription',
                 component: () => import('@/views/subscription/SubscriptionView.vue'),
-                meta: { requiresAuth: true, roles: ['driver', 'company'], title: 'Subscription', breadcrumb: ['Subscription'] },
+                meta: { requiresAuth: true, roles: ['company'], title: 'Subscription', breadcrumb: ['Subscription'] },
             },
             {
                 path: 'orders',
                 name: 'orders',
                 component: () => import('@/views/orders/OrdersView.vue'),
-                meta: { requiresAuth: true, roles: ['admin', 'manager'], title: 'Orders', breadcrumb: ['Orders'] },
+                meta: { requiresAuth: true, roles: ['admin'], title: 'Orders', breadcrumb: ['Orders'] },
             },
 
             // ----- Administration (admin / manager) -----
@@ -299,12 +299,12 @@ const routes = [
                 meta: { requiresAuth: true, roles: ['admin', 'manager'], title: 'Requests Manage', breadcrumb: ['Requests Manage'] },
             },
             ...crud('admin/services', 'admin.services', 'Services', ['admin', 'manager']),
-            ...crud('admin/service-fields', 'admin.service-fields', 'Service Fields', ['admin', 'manager']),
-            ...crud('admin/service-groups', 'admin.service-groups', 'Service Groups', ['admin', 'manager']),
-            ...crud('admin/sub-plans', 'admin.sub-plans', 'Subscription Plans', ['admin', 'manager']),
-            ...crud('admin/sub-requests', 'admin.sub-requests', 'Subscription Requests', ['admin', 'manager']),
-            ...crud('admin/plan-fees', 'admin.plan-fees', 'Plan Fees', ['admin', 'manager']),
-            ...crud('admin/user-subscriptions', 'admin.user-subscriptions', 'User Subscriptions', ['admin', 'manager']),
+            ...crud('admin/service-fields', 'admin.service-fields', 'Service Fields', ['admin']),
+            ...crud('admin/service-groups', 'admin.service-groups', 'Service Groups', ['admin']),
+            ...crud('admin/sub-plans', 'admin.sub-plans', 'Subscription Plans', ['admin']),
+            ...crud('admin/sub-requests', 'admin.sub-requests', 'Subscription Requests', ['admin']),
+            ...crud('admin/plan-fees', 'admin.plan-fees', 'Plan Fees', ['admin']),
+            ...crud('admin/user-subscriptions', 'admin.user-subscriptions', 'User Subscriptions', ['admin']),
             ...crud('admin/notifications-manage', 'admin.notifications-manage', 'Notifications', ['admin']),
 
             // ----- System (admin) -----
