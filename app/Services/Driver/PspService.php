@@ -98,7 +98,7 @@ class PspService
      */
     private function mapInspections(array $inspections): array
     {
-        return array_values(array_map(static function ($i) {
+        return array_values(array_map(function ($i) {
             $i = is_array($i) ? $i : [];
 
             return [

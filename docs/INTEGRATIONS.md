@@ -145,3 +145,27 @@ recording the driver's consent first**:
    to `.env.example`.
 4. Resolve the service with `app(<Name>Service::class)` from an Action / Job /
    Controller — never call the client directly.
+
+## Tests
+
+Each integration has a dummy-data test at `tests/Unit/Integrations/<Name>Test.php`
+that fakes the provider with `Http::fake()` and asserts the service's mapping,
+request shape (URL / verb / auth), the not-configured `503` path, and error
+pass-through. They use **no database** (no `RefreshDatabase`) and make no real
+network calls.
+
+Run just the integration tests:
+
+```bash
+# Inside the app container (PHP 8.4):
+php artisan test --testsuite=Unit -- --filter Integrations
+# or directly:
+vendor/bin/phpunit tests/Unit/Integrations
+```
+
+> The vendored dependencies require **PHP ≥ 8.4**. On a host with only PHP 8.3,
+> use the 8.4 binary explicitly, e.g.
+> `/opt/homebrew/opt/php@8.4/bin/php vendor/bin/phpunit tests/Unit/Integrations`.
+
+Because each client reads its credentials in its constructor, tests
+`config()->set('services.*', …)` **before** resolving the service via `app()`.
