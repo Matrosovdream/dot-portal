@@ -55,6 +55,42 @@ exit
 
 ---
 
+## 🧪 Dummy Data
+
+Generate realistic synthetic business data (companies, drivers, vehicles,
+subscriptions, service requests, orders, tasks and notifications) for dev, demo
+or testing. Run the reference seeders first, then generate.
+
+### Via Make (recommended)
+
+```bash
+make dev-seed                                    # reference + base data first
+make dev-dummy                                   # generate dummy data
+make dev-dummy ARGS="--fresh"                     # wipe dummy data, then regenerate
+make dev-dummy ARGS="--companies=20 --seed=42"    # 20 companies, reproducible output
+```
+
+A `prod-dummy` target exists for staging/demo environments
+(`make prod-dummy ARGS="--fresh"`).
+
+### Via Artisan
+
+```bash
+php artisan dummy:generate                 # default volumes
+php artisan dummy:generate --fresh         # wipe existing dummy data first
+php artisan dummy:generate --companies=20  # number of company accounts
+php artisan dummy:generate --seed=42       # reproducible Faker output
+```
+
+All dummy records are marked by the email domain `@dummy.dotportal.test`, so
+`--fresh` removes only generated data and never touches real records. Sign in with
+any company account, e.g. `dummy+co-1@dummy.dotportal.test` / password `password`.
+
+See [docs/dummy-data-generator.md](docs/dummy-data-generator.md) for the full
+design, entity list and idempotency details.
+
+---
+
 ## 📝 Notes
 
 - Ensure `.env` file has the correct DB configuration:
