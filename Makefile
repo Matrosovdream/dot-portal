@@ -24,9 +24,9 @@ ARGS ?=
 
 .PHONY: help \
         dev-build dev-down dev-restart dev-shell dev-bash dev-migrate dev-seed \
-        dev-wipe dev-test dev-generate-key dev-wait-db \
+        dev-dummy dev-wipe dev-test dev-generate-key dev-wait-db \
         prod-build prod-down prod-restart prod-shell prod-bash prod-migrate \
-        prod-seed prod-wipe prod-test prod-generate-key
+        prod-seed prod-dummy prod-wipe prod-test prod-generate-key
 
 help: ## Show this help
 	@echo "Laravel — available make targets:"
@@ -59,6 +59,9 @@ dev-migrate: ## Run migrations
 
 dev-seed: ## Run database seeders (ARGS="--class=...")
 	$(DEV_WS) php artisan db:seed $(ARGS)
+
+dev-dummy: ## Generate dummy business data (ARGS="--fresh --companies=20 --seed=42")
+	$(DEV_WS) php artisan dummy:generate $(ARGS)
 
 dev-wipe: ## Drop all tables, views and types
 	$(DEV_WS) php artisan db:wipe
@@ -98,6 +101,9 @@ prod-migrate: ## Run migrations (--force)
 
 prod-seed: ## Run seeders (--force) (ARGS="--class=...")
 	$(PROD_PHP) php artisan db:seed --force $(ARGS)
+
+prod-dummy: ## Generate dummy business data (staging/demo only — ARGS="--fresh --companies=20")
+	$(PROD_PHP) php artisan dummy:generate $(ARGS)
 
 prod-wipe: ## DANGER: drop all tables, views and types (--force)
 	$(PROD_PHP) php artisan db:wipe --force
