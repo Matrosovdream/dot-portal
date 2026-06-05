@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Blue Ridge Logistics LLC",
+        "phone": "+1-205-555-0140",
+        "dot_number": "3215097",
+        "mc_number": "1042781",
+        "trucks_number": 12,
+        "drivers_number": 9
+    },
+    {
+        "name": "Summit Freight Carriers",
+        "phone": "+1-303-555-0188",
+        "dot_number": "2884416",
+        "mc_number": "0998123",
+        "trucks_number": 28,
+        "drivers_number": 24
+    },
+    {
+        "name": "Coastline Transport Inc",
+        "phone": "+1-904-555-0177",
+        "dot_number": "1765320",
+        "mc_number": "0651209",
+        "trucks_number": 6,
+        "drivers_number": 5
+    },
+    {
+        "name": "Prairie Haul Express",
+        "phone": "+1-316-555-0123",
+        "dot_number": "4012998",
+        "mc_number": "1330874",
+        "trucks_number": 41,
+        "drivers_number": 37
+    },
+    {
+        "name": "Ironwood Trucking Co",
+        "phone": "+1-412-555-0159",
+        "dot_number": "2210054",
+        "mc_number": "0774512",
+        "trucks_number": 18,
+        "drivers_number": 15
+    }
+]
