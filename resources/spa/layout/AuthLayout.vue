@@ -19,11 +19,9 @@ const logo = '/assets/admin/media/auth/agency.png';
         <aside class="auth-aside">
             <div class="auth-aside__inner">
                 <img class="auth-logo" :src="logo" alt="DOT Portal" />
-                <h1 class="auth-headline">Fast, Efficient and Productive</h1>
+                <h1 class="auth-headline">Welcome to DOT Portal</h1>
                 <p class="auth-lead">
-                    In this kind of post, the blogger introduces a person they’ve interviewed and
-                    provides some background information about the interviewee and their work
-                    following this is a transcript of the interview.
+                    Manage your business in one place — sign in to get started.
                 </p>
             </div>
         </aside>
