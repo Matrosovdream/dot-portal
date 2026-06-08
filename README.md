@@ -1,39 +1,27 @@
-# Laravel 11 Docker Setup
+# DOT Portal
 
-A simple Docker environment for Laravel 11 with:
-
-- PHP 8.3 (FPM)
-- MySQL (latest)
-- phpMyAdmin
-- Nginx
+A b2b portal for managing DOT-regulated trucking businesses — companies,
+drivers, vehicles, subscriptions, service requests and orders. The backend
+exposes an API consumed by a Vue 3 + PrimeVue SPA, running on Docker (PHP 8.3
+FPM, MySQL, Nginx, phpMyAdmin).
 
 ---
 
-## 🚀 Installation Instructions
+## 🚀 Installation
 
-### 1. Place your Laravel app
-
-Make sure your Laravel project is located in the **root directory**, at the same level as `docker-compose.yml`.
-
-### 2. Start Docker containers
+### 1. Start Docker containers
 
 ```bash
 docker compose up -d --build
 ```
 
-This command builds and runs all required containers in detached mode.
+### 2. Install dependencies & seed the database
 
-### 3. Install Laravel dependencies
-
-Enter the app container:
+Enter the app container and run:
 
 ```bash
 docker exec -it laravel-app bash
-```
 
-Then run:
-
-```bash
 composer install
 php artisan key:generate
 php artisan migrate --seed
@@ -42,12 +30,35 @@ exit
 
 ---
 
+## 🔐 Login credentials
+
+Every seeded account uses the password **`123456`**.
+
+| Role          | Email               | Notes       |
+| ------------- | ------------------- | ----------- |
+| Administrator | `admin@gmail.com`   | Full access |
+| Manager       | `manager@gmail.com` |             |
+| Company       | `company@gmail.com` |             |
+| Driver        | `driver@gmail.com`  |             |
+
+To reseed only the users and roles:
+
+```bash
+php artisan db:seed --class=RoleSeeder
+php artisan db:seed --class=UserSeeder
+```
+
+Source: [database/seeders/UserSeeder.php](database/seeders/UserSeeder.php),
+[database/seeders/RoleSeeder.php](database/seeders/RoleSeeder.php).
+
+---
+
 ## 🌐 Access
 
 - Laravel App: [http://localhost:8000](http://localhost:8000)
 - phpMyAdmin: [http://localhost:8080](http://localhost:8080)
 
-### 🔐 phpMyAdmin Credentials
+### phpMyAdmin credentials
 
 - **Server**: `mysql`
 - **User**: `root`
@@ -64,10 +75,10 @@ or testing. Run the reference seeders first, then generate.
 ### Via Make (recommended)
 
 ```bash
-make dev-seed                                    # reference + base data first
-make dev-dummy                                   # generate dummy data
-make dev-dummy ARGS="--fresh"                     # wipe dummy data, then regenerate
-make dev-dummy ARGS="--companies=20 --seed=42"    # 20 companies, reproducible output
+make dev-seed                                     # reference + base data first
+make dev-dummy                                    # generate dummy data
+make dev-dummy ARGS="--fresh"                      # wipe dummy data, then regenerate
+make dev-dummy ARGS="--companies=20 --seed=42"     # 20 companies, reproducible output
 ```
 
 A `prod-dummy` target exists for staging/demo environments
@@ -93,7 +104,7 @@ design, entity list and idempotency details.
 
 ## 📝 Notes
 
-- Ensure `.env` file has the correct DB configuration:
+- Ensure `.env` has the correct DB configuration:
 
 ```env
 DB_CONNECTION=mysql
@@ -104,11 +115,4 @@ DB_USERNAME=laravel
 DB_PASSWORD=laravel
 ```
 
-- Default ports:
-  - App: `8000`
-  - phpMyAdmin: `8080`
-  - MySQL: `3306`
-
----
-
-Happy coding! ⚡
+- Default ports — App: `8000`, phpMyAdmin: `8080`, MySQL: `3306`
