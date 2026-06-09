@@ -132,4 +132,23 @@ class VehicleCrudTest extends ApiTestCase
         $this->deleteJson('/api/v1/vehicles/'.$v->id)->assertNoContent();
         $this->assertDatabaseMissing('vehicles', ['id' => $v->id]);
     }
+
+    public function test_admin_sees_owner_and_can_filter_by_user(): void
+    {
+        $a = $this->makeUserWithRole('company', ['email' => 'owner-a@example.com']);
+        $ac = UserCompany::create(['user_id' => $a->id, 'name' => 'A']);
+        Vehicle::create(['number' => 'A1', 'company_id' => $ac->id, 'company_user_id' => $a->id]);
+
+        $b = $this->makeUserWithRole('company');
+        $bc = UserCompany::create(['user_id' => $b->id, 'name' => 'B']);
+        Vehicle::create(['number' => 'B1', 'company_id' => $bc->id, 'company_user_id' => $b->id]);
+
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/vehicles')->assertOk()->assertJsonCount(2, 'data');
+        $this->getJson('/api/v1/vehicles?user_id='.$a->id)
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.number', 'A1')
+            ->assertJsonPath('data.0.owner.email', 'owner-a@example.com');
+    }
 }

@@ -11,8 +11,10 @@ import Select from 'primevue/select';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
+import UserSelect from '@/components/UserSelect.vue';
 import { useVehiclesStore } from '@/stores/vehicles';
 import { useReferencesStore } from '@/stores/references';
+import { useAuthStore } from '@/stores/auth';
 import { vehiclesApi, errorMessage } from '@/api';
 
 const router = useRouter();
@@ -20,7 +22,11 @@ const toast = useToast();
 const confirm = useConfirm();
 const store = useVehiclesStore();
 const references = useReferencesStore();
+const auth = useAuthStore();
 const { items, meta, loading, filters } = storeToRefs(store);
+
+const isAdminOrManager = computed(() => auth.isAdmin || auth.isManager);
+const ownerUserLabel = (o) => (o ? `${o.fullname} (${o.email})` : '—');
 
 const search = ref('');
 let debounce;
@@ -75,6 +81,7 @@ function confirmDelete(v) {
             </IconField>
             <Select :options="unitTypeOptions" optionLabel="label" optionValue="value" :modelValue="filters.unit_type_id" @update:modelValue="(v) => store.fetch({ unit_type_id: v, page: 1 })" style="min-width: 12rem" />
             <Select :options="ownershipOptions" optionLabel="label" optionValue="value" :modelValue="filters.ownership_type_id" @update:modelValue="(v) => store.fetch({ ownership_type_id: v, page: 1 })" style="min-width: 12rem" />
+            <UserSelect v-if="isAdminOrManager" :modelValue="filters.user_id" placeholder="Filter by user" @update:modelValue="(v) => store.fetch({ user_id: v, page: 1 })" />
             <span class="spacer" />
             <Button label="Refresh" icon="pi pi-refresh" text :loading="loading" @click="store.fetch()" />
             <Button label="New Vehicle" icon="pi pi-plus" @click="router.push({ name: 'vehicles.create' })" />
@@ -114,6 +121,9 @@ function confirmDelete(v) {
                 </Column>
                 <Column header="Inspection expires">
                     <template #body="{ data }">{{ fmtDate(data.inspection_expire_date) }}</template>
+                </Column>
+                <Column v-if="isAdminOrManager" header="User">
+                    <template #body="{ data }">{{ ownerUserLabel(data.owner) }}</template>
                 </Column>
                 <Column header="" style="width: 7rem">
                     <template #body="{ data }">

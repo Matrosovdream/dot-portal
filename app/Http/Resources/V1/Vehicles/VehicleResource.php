@@ -20,6 +20,12 @@ class VehicleResource extends JsonResource
             'company_id'             => $this->company_id,
             'is_finished'            => (bool) $this->is_finished,
             'created_at'             => optional($this->created_at)->toIso8601String(),
+            // Owning company account — surfaced to admin/manager cross-company views.
+            'owner' => $this->whenLoaded('owner', fn () => $this->owner ? [
+                'id'       => $this->owner->id,
+                'fullname' => $this->owner->fullname,
+                'email'    => $this->owner->email,
+            ] : null),
         ];
     }
 }

@@ -115,4 +115,19 @@ class TodoTest extends ApiTestCase
 
         $this->getJson('/api/v1/todo')->assertOk()->assertJsonCount(2, 'data');
     }
+
+    public function test_admin_sees_owner_and_can_filter_by_user(): void
+    {
+        $a = $this->makeUserWithRole('company', ['email' => 'owner-a@example.com']);
+        $b = $this->makeUserWithRole('company');
+        $this->makeTask($a->id);
+        $this->makeTask($b->id);
+
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/todo')->assertOk()->assertJsonCount(2, 'data');
+        $this->getJson('/api/v1/todo?user_id='.$a->id)
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.owner.email', 'owner-a@example.com');
+    }
 }

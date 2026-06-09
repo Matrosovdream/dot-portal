@@ -7,13 +7,19 @@ import Tag from 'primevue/tag';
 import Dialog from 'primevue/dialog';
 import Select from 'primevue/select';
 import ToggleSwitch from 'primevue/toggleswitch';
+import UserSelect from '@/components/UserSelect.vue';
 import { todoApi, unwrap, errorMessage } from '@/api';
+import { useAuthStore } from '@/stores/auth';
 import { normalizePage, getByPath, fmtDate, fmtDateTime } from '@/views/crud/helpers';
+
+const auth = useAuthStore();
+const isAdminOrManager = computed(() => auth.isAdmin || auth.isManager);
+const ownerLabel = (o) => (o ? `${o.fullname} (${o.email})` : '—');
 
 const items = ref([]);
 const page = reactive({ current_page: 1, per_page: 20, total: 0 });
 const loading = ref(false);
-const filters = reactive({ entity: null, status: null, overdue: false });
+const filters = reactive({ entity: null, status: null, overdue: false, user_id: null });
 
 const detail = ref(null);
 const detailVisible = ref(false);
@@ -36,6 +42,7 @@ function params() {
     const p = { page: page.current_page, per_page: page.per_page };
     if (filters.status) p.status = filters.status;
     if (filters.overdue) p.overdue = 1;
+    if (filters.user_id) p.user_id = filters.user_id;
     return p;
 }
 async function fetch() {
@@ -87,6 +94,7 @@ const detailFields = ['title', 'description', 'category', 'subcategory', 'status
             <Select v-model="filters.entity" :options="entityOptions" optionLabel="label" optionValue="value" placeholder="Entity" style="min-width: 10rem" @update:modelValue="applyFilters" />
             <Select v-model="filters.status" :options="statusOptions" optionLabel="label" optionValue="value" placeholder="Status" style="min-width: 11rem" @update:modelValue="applyFilters" />
             <span class="filter-switch"><ToggleSwitch v-model="filters.overdue" @update:modelValue="applyFilters" /><label>Overdue only</label></span>
+            <UserSelect v-if="isAdminOrManager" v-model="filters.user_id" placeholder="Filter by user" @update:modelValue="applyFilters" />
             <span class="spacer" />
             <Button label="Refresh" icon="pi pi-refresh" text :loading="loading" @click="fetch" />
         </div>
@@ -100,6 +108,7 @@ const detailFields = ['title', 'description', 'category', 'subcategory', 'status
                 <Column header="Priority"><template #body="{ data }"><Tag v-if="data.priority" :value="data.priority" severity="contrast" /><span v-else>—</span></template></Column>
                 <Column field="entity" header="Entity"><template #body="{ data }">{{ data.entity || '—' }}</template></Column>
                 <Column header="Due"><template #body="{ data }">{{ fmtDate(data.due_date) }}</template></Column>
+                <Column v-if="isAdminOrManager" header="User"><template #body="{ data }">{{ ownerLabel(data.owner) }}</template></Column>
                 <Column header="" style="width: 5rem"><template #body="{ data }"><Button icon="pi pi-eye" text rounded v-tooltip.top="'View'" @click="openDetail(data)" /></template></Column>
             </DataTable>
         </div>

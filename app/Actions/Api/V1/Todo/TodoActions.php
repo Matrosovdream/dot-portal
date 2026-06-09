@@ -28,9 +28,14 @@ class TodoActions
 
     protected function baseQuery($request, User $auth)
     {
-        $query = UserTask::query()->with('meta');
+        $query = UserTask::query()->with(['meta', 'user']);
 
         $this->scopeToUser($query, $auth);
+
+        // Admin/manager may narrow the cross-user list to a single owner account.
+        if (($auth->isAdmin() || $auth->isManager()) && ($ownerId = $request->query('user_id'))) {
+            $query->where('user_id', (int) $ownerId);
+        }
 
         if ($status = $request->query('status')) {
             $query->where('status', $status);

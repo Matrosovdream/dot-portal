@@ -32,8 +32,9 @@ export const sections = {
             { key: 'start_date', label: 'Start', type: 'date' },
             { key: 'end_date', label: 'End', type: 'date' },
             { key: 'created_at', label: 'Created', type: 'datetime' },
+            { key: 'owner', label: 'User', type: 'owner', adminOnly: true },
         ],
-        filters: [],
+        filters: [{ key: 'user_id', label: 'Filter by user', type: 'user', adminOnly: true }],
         formFields: [
             { name: 'name', label: 'Name', type: 'text', required: true },
             { name: 'number', label: 'Policy Number', type: 'text' },
@@ -56,8 +57,12 @@ export const sections = {
             { key: 'extension', label: 'Ext', type: 'text' },
             { key: 'size_bytes', label: 'Size (bytes)', type: 'number' },
             { key: 'created_at', label: 'Created', type: 'datetime' },
+            { key: 'owner', label: 'User', type: 'owner', adminOnly: true },
         ],
-        filters: [{ key: 'q', label: 'Search filename', type: 'text' }],
+        filters: [
+            { key: 'q', label: 'Search filename', type: 'text' },
+            { key: 'user_id', label: 'Filter by user', type: 'user', adminOnly: true },
+        ],
         formFields: [],
     },
 

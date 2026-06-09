@@ -20,6 +20,12 @@ class DocumentResource extends JsonResource
             'url'        => $this->resolveUrl(),
             'created_at' => optional($this->created_at)->toIso8601String(),
             'updated_at' => optional($this->updated_at)->toIso8601String(),
+            // Owning account — surfaced to admin/manager cross-user views.
+            'owner' => $this->whenLoaded('user', fn () => $this->user ? [
+                'id'       => $this->user->id,
+                'fullname' => $this->user->fullname,
+                'email'    => $this->user->email,
+            ] : null),
         ];
     }
 
