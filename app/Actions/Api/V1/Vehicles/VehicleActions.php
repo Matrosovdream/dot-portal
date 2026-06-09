@@ -14,8 +14,13 @@ class VehicleActions
 
     public function index(Request $request, User $auth)
     {
-        $q = $this->vehicleRepo->getModel()::query();
+        $q = $this->vehicleRepo->getModel()::query()->with('owner');
         $this->applyScope($q, $auth);
+
+        // Admin/manager may narrow the cross-company list to a single owner account.
+        if (($auth->isAdmin() || $auth->isManager()) && ($ownerId = $request->query('user_id'))) {
+            $q->where('company_user_id', (int) $ownerId);
+        }
 
         if ($search = $request->query('q')) {
             $like = '%'.$search.'%';

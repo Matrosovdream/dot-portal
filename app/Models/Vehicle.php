@@ -91,6 +91,15 @@ class Vehicle extends Model
         return $this->belongsTo(User::class, 'company_id');
     }
 
+    /**
+     * The owning company account (the User that owns this vehicle record).
+     * Reliable link to users — company_id points at user_companies, not users.
+     */
+    public function owner()
+    {
+        return $this->belongsTo(User::class, 'company_user_id');
+    }
+
     public function mvr()
     {
         return $this->hasOne(VehicleMvr::class);

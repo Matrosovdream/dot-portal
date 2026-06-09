@@ -21,8 +21,13 @@ class DriverActions
 
     public function index(Request $request, User $auth)
     {
-        $q = $this->driverRepo->getModel()::query()->with('user');
+        $q = $this->driverRepo->getModel()::query()->with(['user', 'owner']);
         $this->applyScope($q, $auth);
+
+        // Admin/manager may narrow the cross-company list to a single owner account.
+        if (($auth->isAdmin() || $auth->isManager()) && ($ownerId = $request->query('user_id'))) {
+            $q->where('company_user_id', (int) $ownerId);
+        }
 
         if ($status = $request->query('status')) {
             $statusId = match ($status) {

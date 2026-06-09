@@ -297,4 +297,37 @@ class DriverCrudTest extends ApiTestCase
             ->assertOk()
             ->assertJsonStructure(['message']);
     }
+
+    public function test_admin_sees_owner_and_can_filter_by_user(): void
+    {
+        $companyA = $this->makeUserWithRole('company', ['email' => 'owner-a@example.com']);
+        $coA = UserCompany::create(['user_id' => $companyA->id, 'name' => 'A']);
+        Driver::create([
+            'user_id' => User::factory()->create()->id,
+            'company_id' => $coA->id, 'company_user_id' => $companyA->id, 'status_id' => 1,
+        ]);
+
+        $companyB = $this->makeUserWithRole('company');
+        $coB = UserCompany::create(['user_id' => $companyB->id, 'name' => 'B']);
+        Driver::create([
+            'user_id' => User::factory()->create()->id,
+            'company_id' => $coB->id, 'company_user_id' => $companyB->id, 'status_id' => 1,
+        ]);
+
+        // Admin: owner is exposed and the list can be narrowed to one owner account.
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/drivers')->assertOk()->assertJsonCount(2, 'data');
+        $this->getJson('/api/v1/drivers?user_id='.$companyA->id)
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.owner.id', $companyA->id)
+            ->assertJsonPath('data.0.owner.email', 'owner-a@example.com');
+
+        // Company user: the user_id filter cannot widen their own scope.
+        Sanctum::actingAs($companyB);
+        $this->getJson('/api/v1/drivers?user_id='.$companyA->id)
+            ->assertOk()
+            ->assertJsonCount(1, 'data')
+            ->assertJsonPath('data.0.owner.id', $companyB->id);
+    }
 }

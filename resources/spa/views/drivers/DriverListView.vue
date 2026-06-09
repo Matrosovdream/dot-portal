@@ -12,14 +12,20 @@ import Select from 'primevue/select';
 import IconField from 'primevue/iconfield';
 import InputIcon from 'primevue/inputicon';
 import InputText from 'primevue/inputtext';
+import UserSelect from '@/components/UserSelect.vue';
 import { useDriversStore } from '@/stores/drivers';
+import { useAuthStore } from '@/stores/auth';
 import { driversApi, errorMessage } from '@/api';
 
 const router = useRouter();
 const toast = useToast();
 const confirm = useConfirm();
 const store = useDriversStore();
+const auth = useAuthStore();
 const { items, meta, loading, filters } = storeToRefs(store);
+
+const isAdminOrManager = computed(() => auth.isAdmin || auth.isManager);
+const ownerLabel = (o) => (o ? `${o.fullname} (${o.email})` : '—');
 
 const STATUS = { 1: { label: 'Active', severity: 'success' }, 2: { label: 'Inactive', severity: 'warn' }, 3: { label: 'Terminated', severity: 'danger' } };
 const statusOptions = [
@@ -114,6 +120,12 @@ function confirmDelete(d) {
                 @update:modelValue="onStatus"
                 style="min-width: 12rem"
             />
+            <UserSelect
+                v-if="isAdminOrManager"
+                :modelValue="filters.user_id"
+                placeholder="Filter by user"
+                @update:modelValue="(v) => store.fetch({ user_id: v, page: 1 })"
+            />
             <span class="spacer" />
             <Button label="Refresh" icon="pi pi-refresh" text :loading="loading" @click="store.fetch()" />
             <Button label="New Driver" icon="pi pi-plus" @click="router.push({ name: 'drivers.create' })" />
@@ -155,6 +167,9 @@ function confirmDelete(d) {
                 </Column>
                 <Column header="Hire date">
                     <template #body="{ data }">{{ fmtDate(data.hire_date) }}</template>
+                </Column>
+                <Column v-if="isAdminOrManager" header="User">
+                    <template #body="{ data }">{{ ownerLabel(data.owner) }}</template>
                 </Column>
                 <Column header="" style="width: 12rem">
                     <template #body="{ data }">
