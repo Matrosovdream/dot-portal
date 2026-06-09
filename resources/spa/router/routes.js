@@ -162,7 +162,7 @@ const routes = [
                 component: () => import('@/views/drivers/DriverListView.vue'),
                 meta: {
                     requiresAuth: true,
-                    roles: ['company', 'admin'],
+                    roles: ['company', 'admin', 'manager'],
                     title: 'Drivers',
                     breadcrumb: ['Drivers'],
                 },
@@ -173,7 +173,7 @@ const routes = [
                 component: () => import('@/views/drivers/DriverFormView.vue'),
                 meta: {
                     requiresAuth: true,
-                    roles: ['company', 'admin'],
+                    roles: ['company', 'admin', 'manager'],
                     title: 'New Driver',
                     breadcrumb: ['Drivers', 'New'],
                 },
@@ -185,7 +185,7 @@ const routes = [
                 props: true,
                 meta: {
                     requiresAuth: true,
-                    roles: ['company', 'admin'],
+                    roles: ['company', 'admin', 'manager'],
                     title: 'Edit Driver',
                     breadcrumb: ['Drivers', 'Edit'],
                 },
@@ -198,7 +198,7 @@ const routes = [
                 component: () => import('@/views/vehicles/VehicleListView.vue'),
                 meta: {
                     requiresAuth: true,
-                    roles: ['company', 'admin'],
+                    roles: ['company', 'admin', 'manager'],
                     title: 'Vehicles',
                     breadcrumb: ['Vehicles'],
                 },
@@ -209,7 +209,7 @@ const routes = [
                 component: () => import('@/views/vehicles/VehicleFormView.vue'),
                 meta: {
                     requiresAuth: true,
-                    roles: ['company', 'admin'],
+                    roles: ['company', 'admin', 'manager'],
                     title: 'New Vehicle',
                     breadcrumb: ['Vehicles', 'New'],
                 },
@@ -221,7 +221,7 @@ const routes = [
                 props: true,
                 meta: {
                     requiresAuth: true,
-                    roles: ['company', 'admin'],
+                    roles: ['company', 'admin', 'manager'],
                     title: 'Edit Vehicle',
                     breadcrumb: ['Vehicles', 'Edit'],
                 },
@@ -260,13 +260,13 @@ const routes = [
             },
 
             // ----- Operations -----
-            ...crud('insurance-vehicles', 'insurance-vehicles', 'Insurance Vehicles', ['company', 'admin']),
-            ...crud('documents', 'documents', 'Documents', ['driver', 'company', 'admin'], { create: false, edit: false }),
+            ...crud('insurance-vehicles', 'insurance-vehicles', 'Insurance Vehicles', ['company', 'admin', 'manager']),
+            ...crud('documents', 'documents', 'Documents', ['driver', 'company', 'admin', 'manager'], { create: false, edit: false }),
             {
                 path: 'todo',
                 name: 'todo',
                 component: () => import('@/views/todo/TodoView.vue'),
-                meta: { requiresAuth: true, roles: ['driver', 'company', 'admin'], title: 'To-Do', breadcrumb: ['To-Do'] },
+                meta: { requiresAuth: true, roles: ['driver', 'company', 'manager'], title: 'To-Do', breadcrumb: ['To-Do'] },
             },
             {
                 path: 'saferweb',
@@ -274,7 +274,7 @@ const routes = [
                 component: () => import('@/views/saferweb/SaferwebView.vue'),
                 meta: { requiresAuth: true, roles: ['company'], title: 'SAFER Web', breadcrumb: ['SAFER Web'] },
             },
-            stub('clearing-house', 'clearing-house', 'Clearing House', ['company', 'admin'],
+            stub('clearing-house', 'clearing-house', 'Clearing House', ['company'],
                 "Clearing House isn't available in the new portal yet — its backend API hasn't been built (refactor step 11). It will appear here once that lands."),
 
             // ----- Billing -----

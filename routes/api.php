@@ -70,6 +70,7 @@ Route::prefix('v1')->name('api.v1.')->group(function () {
             require __DIR__.'/api/admin/plan-fees.php';
             require __DIR__.'/api/admin/gateways.php';
             require __DIR__.'/api/admin/settings.php';
+            require __DIR__.'/api/admin/user-options.php';
 
             // Admin-only (manager excluded)
             Route::middleware('hasRole:admin')->group(function () {

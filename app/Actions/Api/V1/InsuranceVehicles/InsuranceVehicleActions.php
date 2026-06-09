@@ -14,8 +14,13 @@ class InsuranceVehicleActions
 
     public function index(Request $request, User $auth)
     {
-        $q = $this->repo->getModel()::query();
+        $q = $this->repo->getModel()::query()->with('user');
         $this->applyScope($q, $auth);
+
+        // Admin/manager may narrow the cross-company list to a single owner account.
+        if (($auth->isAdmin() || $auth->isManager()) && ($ownerId = $request->query('user_id'))) {
+            $q->where('user_id', (int) $ownerId);
+        }
 
         $perPage = min(100, (int) $request->query('per_page', 25));
         return $q->paginate($perPage);

@@ -7,7 +7,7 @@ export const useDriversStore = defineStore('drivers', {
         meta: null,
         loading: false,
         error: null,
-        filters: { q: '', status: null, page: 1, per_page: 25 },
+        filters: { q: '', status: null, user_id: null, page: 1, per_page: 25 },
     }),
     actions: {
         async fetch(overrides = {}) {
@@ -21,6 +21,7 @@ export const useDriversStore = defineStore('drivers', {
                 };
                 if (this.filters.q) params.q = this.filters.q;
                 if (this.filters.status) params.status = this.filters.status;
+                if (this.filters.user_id) params.user_id = this.filters.user_id;
 
                 const body = await driversApi.list(params);
                 this.items = body.data ?? [];

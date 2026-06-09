@@ -25,6 +25,12 @@ class TaskResource extends JsonResource
             'tab'          => $this->tab,
             'entity_id'    => $this->entity_id,
             'meta'         => $this->whenLoaded('meta', fn () => $this->meta->pluck('value', 'key')),
+            // Owning account — surfaced to admin/manager cross-user views.
+            'owner'        => $this->whenLoaded('user', fn () => $this->user ? [
+                'id'       => $this->user->id,
+                'fullname' => $this->user->fullname,
+                'email'    => $this->user->email,
+            ] : null),
             'created_at'   => optional($this->created_at)->toIso8601String(),
         ];
     }

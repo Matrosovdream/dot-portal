@@ -21,6 +21,12 @@ class DriverListItemResource extends JsonResource
             'driver_type_id' => $this->driver_type_id,
             'hire_date' => optional($this->hire_date)->format('Y-m-d'),
             'is_finished' => (bool) $this->is_finished,
+            // Owning company account — surfaced to admin/manager cross-company views.
+            'owner' => $this->whenLoaded('owner', fn () => $this->owner ? [
+                'id'       => $this->owner->id,
+                'fullname' => $this->owner->fullname,
+                'email'    => $this->owner->email,
+            ] : null),
         ];
     }
 }

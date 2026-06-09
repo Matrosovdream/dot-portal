@@ -20,6 +20,7 @@ export { searchApi } from './search';
 export { saferwebApi } from './saferweb';
 export { documentsApi } from './documents';
 export { filesApi } from './files';
+export { usersApi } from './users';
 
 // Admin
 export { adminServicesApi } from './admin/services';

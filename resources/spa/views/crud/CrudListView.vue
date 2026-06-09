@@ -12,7 +12,9 @@ import InputText from 'primevue/inputtext';
 import InputNumber from 'primevue/inputnumber';
 import DatePicker from 'primevue/datepicker';
 import ToggleSwitch from 'primevue/toggleswitch';
+import UserSelect from '@/components/UserSelect.vue';
 import { useReferencesStore } from '@/stores/references';
+import { useAuthStore } from '@/stores/auth';
 import { errorMessage } from '@/api';
 import { sections } from './configs';
 import { getByPath, normalizePage, resolveOptions, fmtDate, fmtDateTime, fmtMoney } from './helpers';
@@ -22,8 +24,17 @@ const router = useRouter();
 const toast = useToast();
 const confirm = useConfirm();
 const references = useReferencesStore();
+const auth = useAuthStore();
 
 const cfg = computed(() => sections[route.meta.section]);
+
+// `adminOnly` columns/filters (the owner column + user filter) are hidden from
+// company/driver users, who only ever see their own records.
+const isAdminOrManager = computed(() => auth.isAdmin || auth.isManager);
+const keep = (entry) => !entry.adminOnly || isAdminOrManager.value;
+const visibleColumns = computed(() => (cfg.value.columns ?? []).filter(keep));
+const visibleFilters = computed(() => (cfg.value.filters ?? []).filter(keep));
+const ownerLabel = (o) => (o ? `${o.fullname} (${o.email})` : '—');
 
 const items = ref([]);
 const page = reactive({ current_page: 1, last_page: 1, per_page: 25, total: 0 });
@@ -153,7 +164,7 @@ const hasRowActions = computed(() => cfg.value.canEdit || cfg.value.canDelete ||
 <template>
     <div>
         <div class="list-toolbar">
-            <template v-for="f in cfg.filters" :key="f.key">
+            <template v-for="f in visibleFilters" :key="f.key">
                 <InputText
                     v-if="f.type === 'text'"
                     v-model="filterValues[f.key]"
@@ -190,6 +201,12 @@ const hasRowActions = computed(() => cfg.value.canEdit || cfg.value.canDelete ||
                     <ToggleSwitch v-model="filterValues[f.key]" @update:modelValue="onFilterChange" />
                     <label>{{ f.label }}</label>
                 </span>
+                <UserSelect
+                    v-else-if="f.type === 'user'"
+                    :modelValue="filterValues[f.key]"
+                    :placeholder="f.label"
+                    @update:modelValue="(v) => { filterValues[f.key] = v; onFilterChange(); }"
+                />
             </template>
 
             <span class="spacer" />
@@ -214,7 +231,7 @@ const hasRowActions = computed(() => cfg.value.canEdit || cfg.value.canDelete ||
                     <div class="empty-state"><i :class="cfg.icon || 'pi pi-inbox'" />No {{ cfg.title.toLowerCase() }} found.</div>
                 </template>
 
-                <Column v-for="col in cfg.columns" :key="col.key" :header="col.label">
+                <Column v-for="col in visibleColumns" :key="col.key" :header="col.label">
                     <template #body="{ data }">
                         <Tag
                             v-if="col.type === 'badge' || col.type === 'boolean'"
@@ -222,6 +239,7 @@ const hasRowActions = computed(() => cfg.value.canEdit || cfg.value.canDelete ||
                             :severity="col.type === 'boolean' ? (getByPath(data, col.key) ? 'success' : 'secondary') : 'info'"
                         />
                         <a v-else-if="col.type === 'email'" :href="`mailto:${getByPath(data, col.key)}`">{{ cell(data, col) }}</a>
+                        <span v-else-if="col.type === 'owner'">{{ ownerLabel(data.owner) }}</span>
                         <span v-else>{{ cell(data, col) }}</span>
                     </template>
                 </Column>
