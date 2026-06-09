@@ -36,6 +36,7 @@ const model = computed(() => {
                 item('Drivers', 'pi pi-fw pi-id-card', '/drivers', ['company', 'admin', 'manager']),
                 item('Vehicles', 'pi pi-fw pi-truck', '/vehicles', ['company', 'admin', 'manager']),
                 item('Insurance', 'pi pi-fw pi-shield', '/insurance-vehicles', ['company', 'admin', 'manager']),
+                item('Companies', 'pi pi-fw pi-building', '/admin/companies', ['admin', 'manager']),
                 item('Service Requests', 'pi pi-fw pi-file-edit', '/service-requests', ['company']),
                 item('Clearing House', 'pi pi-fw pi-building-columns', '/clearing-house', ['company']),
                 item('To-Do', 'pi pi-fw pi-check-square', '/todo', ['driver', 'company', 'manager']),

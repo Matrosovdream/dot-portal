@@ -262,6 +262,7 @@ const routes = [
             // ----- Operations -----
             ...crud('insurance-vehicles', 'insurance-vehicles', 'Insurance Vehicles', ['company', 'admin', 'manager']),
             ...crud('documents', 'documents', 'Documents', ['driver', 'company', 'admin', 'manager'], { create: false, edit: false }),
+            ...crud('admin/companies', 'admin.companies', 'Companies', ['admin', 'manager']),
             {
                 path: 'todo',
                 name: 'todo',

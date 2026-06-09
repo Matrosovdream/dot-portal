@@ -14,6 +14,7 @@ import { adminPlanFeesApi } from '@/api/admin/planFees';
 import { adminGatewaysApi } from '@/api/admin/gateways';
 import { adminUsersApi } from '@/api/admin/users';
 import { adminNotificationsApi } from '@/api/admin/notificationsManage';
+import { adminCompaniesApi } from '@/api/admin/companies';
 
 const ROLE_OPTIONS = 'Admin:admin,Manager:manager,Company:company,Driver:driver';
 const SUB_STATUS = 'Active:active,Cancelled:cancelled,Pending:pending';
@@ -64,6 +65,37 @@ export const sections = {
             { key: 'user_id', label: 'Filter by user', type: 'user', adminOnly: true },
         ],
         formFields: [],
+    },
+
+    'admin.companies': {
+        title: 'Companies',
+        singular: 'Company',
+        icon: 'pi pi-building',
+        routeBase: '/admin/companies',
+        api: adminCompaniesApi,
+        canCreate: true, canEdit: true, canDelete: true,
+        columns: [
+            { key: 'name', label: 'Company', type: 'text' },
+            { key: 'dot_number', label: 'DOT #', type: 'text' },
+            { key: 'mc_number', label: 'MC #', type: 'text' },
+            { key: 'phone', label: 'Phone', type: 'text' },
+            { key: 'trucks_number', label: 'Trucks', type: 'number' },
+            { key: 'drivers_number', label: 'Drivers', type: 'number' },
+            { key: 'owner', label: 'Owner', type: 'owner' },
+            { key: 'is_active', label: 'Active', type: 'boolean' },
+            { key: 'created_at', label: 'Created', type: 'datetime' },
+        ],
+        filters: [{ key: 'q', label: 'Search name / DOT / MC', type: 'text' }],
+        formFields: [
+            // user_id (owner account) is set on create only; the update endpoint ignores it.
+            { name: 'user_id', label: 'Owner User ID', type: 'number', required: true, createOnly: true },
+            { name: 'name', label: 'Company name', type: 'text', required: true },
+            { name: 'phone', label: 'Phone', type: 'text' },
+            { name: 'dot_number', label: 'DOT #', type: 'text' },
+            { name: 'mc_number', label: 'MC #', type: 'text' },
+            { name: 'trucks_number', label: 'Trucks', type: 'number' },
+            { name: 'drivers_number', label: 'Drivers', type: 'number' },
+        ],
     },
 
     'admin.gateways': {
