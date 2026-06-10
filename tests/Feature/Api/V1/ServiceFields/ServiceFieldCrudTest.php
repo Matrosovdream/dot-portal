@@ -24,6 +24,20 @@ class ServiceFieldCrudTest extends ApiTestCase
         $this->getJson('/api/v1/admin/service-fields')->assertStatus(403);
     }
 
+    public function test_admin_lists_fields(): void
+    {
+        ReferenceFormField::create(['title' => 'License Number', 'slug' => 'license_number', 'entity' => 'driver']);
+        ReferenceFormField::create(['title' => 'VIN', 'slug' => 'vin', 'entity' => 'vehicle']);
+
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/admin/service-fields')
+            ->assertOk()
+            ->assertJsonCount(2, 'data')
+            ->assertJsonPath('total', 2)
+            ->assertJsonFragment(['slug' => 'license_number'])
+            ->assertJsonFragment(['slug' => 'vin']);
+    }
+
     public function test_admin_full_crud(): void
     {
         Sanctum::actingAs($this->makeUserWithRole('admin'));

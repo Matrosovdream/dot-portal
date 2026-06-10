@@ -24,6 +24,20 @@ class ServiceGroupCrudTest extends ApiTestCase
         $this->getJson('/api/v1/admin/service-groups')->assertStatus(403);
     }
 
+    public function test_admin_lists_groups(): void
+    {
+        RefServiceGroup::create(['name' => 'Driver', 'slug' => 'driver']);
+        RefServiceGroup::create(['name' => 'Vehicle', 'slug' => 'vehicle']);
+
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/admin/service-groups')
+            ->assertOk()
+            ->assertJsonCount(2, 'data')
+            ->assertJsonPath('total', 2)
+            ->assertJsonFragment(['slug' => 'driver'])
+            ->assertJsonFragment(['slug' => 'vehicle']);
+    }
+
     public function test_admin_full_crud(): void
     {
         Sanctum::actingAs($this->makeUserWithRole('admin'));
