@@ -5,6 +5,7 @@ namespace Tests\Feature\Api\V1\Orders;
 use App\Models\Order;
 use App\Models\RefOrderStatus;
 use App\Models\RefPaymentMethod;
+use App\Models\UserPaymentCard;
 use App\Services\Payments\PaymentService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\DB;
@@ -85,6 +86,38 @@ class OrderPaymentTest extends ApiTestCase
 
         Sanctum::actingAs($this->makeUserWithRole('company'));
         $this->postJson('/api/v1/orders/'.$order->id.'/pay')->assertStatus(404);
+    }
+
+    public function test_owner_can_get_pay_form(): void
+    {
+        $owner = $this->makeUserWithRole('company');
+        $order = $this->seedOrder($owner->id);
+
+        UserPaymentCard::create([
+            'user_id'           => $owner->id,
+            'card_number'       => '4242424242424242',
+            'card_holder_name'  => 'John Doe',
+            'payment_method_id' => 1,
+        ]);
+
+        Sanctum::actingAs($owner);
+        $this->getJson('/api/v1/orders/'.$order->id.'/pay')
+            ->assertOk()
+            ->assertJsonPath('data.order_id', $order->id)
+            ->assertJsonPath('data.total', 100)
+            ->assertJsonCount(1, 'data.cards')
+            ->assertJsonPath('data.cards.0.card_number', '4242')
+            ->assertJsonPath('data.cards.0.primary', true)
+            ->assertJsonPath('data.gateways.0.code', 'cc');
+    }
+
+    public function test_foreign_user_404_on_pay_form(): void
+    {
+        $owner = $this->makeUserWithRole('company');
+        $order = $this->seedOrder($owner->id);
+
+        Sanctum::actingAs($this->makeUserWithRole('company'));
+        $this->getJson('/api/v1/orders/'.$order->id.'/pay')->assertStatus(404);
     }
 
     public function test_owner_pay_succeeds_creates_payment_and_flips_status(): void

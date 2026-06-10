@@ -75,6 +75,27 @@ class AdminCompanyTest extends ApiTestCase
             ->assertJsonPath('data.0.name', 'Beta Lines');
     }
 
+    public function test_admin_shows_single_company(): void
+    {
+        $owner = $this->makeUserWithRole('company', ['email' => 'owner@example.com']);
+        $company = UserCompany::create(['user_id' => $owner->id, 'name' => 'Acme', 'dot_number' => 'DOT123']);
+
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/admin/companies/'.$company->id)
+            ->assertOk()
+            ->assertJsonPath('data.id', $company->id)
+            ->assertJsonPath('data.name', 'Acme')
+            ->assertJsonPath('data.dot_number', 'DOT123')
+            ->assertJsonPath('data.owner.email', 'owner@example.com')
+            ->assertJsonPath('data.is_active', true);
+    }
+
+    public function test_show_missing_company_404(): void
+    {
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+        $this->getJson('/api/v1/admin/companies/999999')->assertStatus(404);
+    }
+
     public function test_admin_can_create(): void
     {
         $owner = $this->makeUserWithRole('company', ['email' => 'newco@example.com']);
