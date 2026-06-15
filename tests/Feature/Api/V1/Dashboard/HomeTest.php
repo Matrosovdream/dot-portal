@@ -33,6 +33,18 @@ class HomeTest extends ApiTestCase
             ->assertJsonStructure(['data' => ['role', 'widgets' => ['kpis', 'recent_requests']]]);
     }
 
+    public function test_admin_payload_includes_charts(): void
+    {
+        Sanctum::actingAs($this->makeUserWithRole('admin'));
+
+        $this->getJson('/api/v1/dashboard/home')
+            ->assertOk()
+            ->assertJsonStructure([
+                'data' => ['widgets' => ['charts' => [['key', 'type', 'title', 'labels', 'datasets']]]],
+            ])
+            ->assertJsonPath('data.widgets.charts.0.key', 'requests_by_status');
+    }
+
     public function test_manager_payload_is_admin_shape(): void
     {
         Sanctum::actingAs($this->makeUserWithRole('manager'));

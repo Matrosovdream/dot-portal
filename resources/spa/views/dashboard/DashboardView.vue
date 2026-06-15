@@ -8,6 +8,7 @@ import Tag from 'primevue/tag';
 import Message from 'primevue/message';
 import DataTable from 'primevue/datatable';
 import Column from 'primevue/column';
+import StatChart from '@/components/StatChart.vue';
 
 const dashboard = useDashboardStore();
 const auth = useAuthStore();
@@ -21,15 +22,18 @@ onMounted(() => {
 const role = computed(() => dashboard.role || 'user');
 const widgets = computed(() => dashboard.widgets || {});
 const kpis = computed(() => widgets.value.kpis ?? []);
+const charts = computed(() => widgets.value.charts ?? []);
 const recentRequests = computed(() => widgets.value.recent_requests ?? []);
 const todoSummary = computed(() => widgets.value.todo_summary ?? null);
 const showNewCompanyBanner = computed(() => widgets.value.banner_new_company === true);
 
 const KPI_ICONS = {
     users: 'pi pi-users',
+    companies: 'pi pi-building',
     requests: 'pi pi-inbox',
     drivers: 'pi pi-id-card',
     vehicles: 'pi pi-truck',
+    revenue: 'pi pi-dollar',
 };
 const icon = (key) => KPI_ICONS[key] ?? 'pi pi-chart-bar';
 
@@ -37,7 +41,13 @@ const roleSeverity = computed(
     () => ({ admin: 'danger', manager: 'warn', company: 'info', driver: 'success' }[role.value] ?? 'secondary'),
 );
 
-const fmtKpi = (v) => (typeof v === 'number' ? v.toLocaleString() : (v ?? '—'));
+const fmtCurrency = (v) =>
+    new Intl.NumberFormat(undefined, { style: 'currency', currency: 'USD', maximumFractionDigits: 0 }).format(v ?? 0);
+
+const fmtKpi = (kpi) => {
+    if (kpi.format === 'currency') return fmtCurrency(kpi.value);
+    return typeof kpi.value === 'number' ? kpi.value.toLocaleString() : (kpi.value ?? '—');
+};
 const fmtDate = (v) => (v ? new Date(v).toLocaleDateString() : '—');
 const statusLabel = (id) => references.label('request_statuses', id);
 </script>
@@ -65,10 +75,24 @@ const statusLabel = (id) => references.label('request_statuses', id);
             <div v-for="kpi in kpis" :key="kpi.key" class="surface-card kpi-card">
                 <div class="kpi-icon"><i :class="icon(kpi.key)" /></div>
                 <div>
-                    <div class="kpi-value">{{ fmtKpi(kpi.value) }}</div>
+                    <div class="kpi-value">{{ fmtKpi(kpi) }}</div>
                     <div class="kpi-label">{{ kpi.label }}</div>
                 </div>
+                <span v-if="kpi.delta != null && kpi.delta > 0" class="kpi-delta" title="New in the last 30 days">
+                    <i class="pi pi-arrow-up" />{{ kpi.delta.toLocaleString() }}
+                </span>
             </div>
+        </div>
+
+        <!-- Charts -->
+        <div v-if="dashboard.loading && !charts.length" class="charts-grid">
+            <div v-for="i in 3" :key="i" class="surface-card surface-card-pad">
+                <Skeleton width="40%" height="1rem" class="mb" />
+                <Skeleton width="100%" height="240px" />
+            </div>
+        </div>
+        <div v-else-if="charts.length" class="charts-grid">
+            <StatChart v-for="chart in charts" :key="chart.key" :config="chart" />
         </div>
 
         <div class="dash-grid">
@@ -104,7 +128,7 @@ const statusLabel = (id) => references.label('request_statuses', id);
         </div>
 
         <Message
-            v-if="!dashboard.loading && !kpis.length && !todoSummary && !recentRequests.length"
+            v-if="!dashboard.loading && !kpis.length && !charts.length && !todoSummary && !recentRequests.length"
             severity="secondary"
             :closable="false"
         >
@@ -117,6 +141,26 @@ const statusLabel = (id) => references.label('request_statuses', id);
 .welcome { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; }
 .welcome p { margin: 0; }
 .mb { margin-bottom: 1.25rem; }
+.kpi-delta {
+    margin-left: auto;
+    align-self: flex-start;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.15rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #17c653;
+    background: rgba(23, 198, 83, 0.12);
+    padding: 0.1rem 0.4rem;
+    border-radius: 999px;
+}
+.kpi-delta i { font-size: 0.65rem; }
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.25rem;
+    margin-bottom: 1.5rem;
+}
 .dash-grid { display: grid; grid-template-columns: 1fr 2fr; gap: 1.25rem; }
 @media (max-width: 900px) { .dash-grid { grid-template-columns: 1fr; } }
 .card-title { margin: 0 0 1rem; font-size: 1rem; font-weight: 700; }

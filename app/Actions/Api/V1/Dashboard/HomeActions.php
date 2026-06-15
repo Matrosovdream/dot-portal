@@ -3,20 +3,14 @@
 namespace App\Actions\Api\V1\Dashboard;
 
 use App\Models\User;
-use App\Repositories\Driver\DriverRepo;
-use App\Repositories\Request\RequestRepo;
-use App\Repositories\User\UserRepo;
-use App\Repositories\User\UserTaskRepo;
-use App\Repositories\Vehicle\VehicleRepo;
+use App\Services\Dashboard\StatsService;
 
 class HomeActions
 {
+    private const WINDOW_DAYS = 30;
+
     public function __construct(
-        protected UserRepo     $userRepo,
-        protected DriverRepo   $driverRepo,
-        protected VehicleRepo  $vehicleRepo,
-        protected RequestRepo  $requestRepo,
-        protected UserTaskRepo $taskRepo,
+        protected StatsService $stats,
     ) {}
 
     public function show(User $user): array
@@ -49,17 +43,26 @@ class HomeActions
         };
     }
 
+    /**
+     * Each role just picks the stats it needs from StatsService — no query logic here.
+     */
     private function adminWidgets(): array
     {
         return [
             'kpis' => [
-                ['key' => 'users',    'label' => 'Total users',   'value' => $this->userRepo->count()],
-                ['key' => 'requests', 'label' => 'Open requests', 'value' => $this->requestRepo->count()],
-                ['key' => 'drivers',  'label' => 'Drivers',       'value' => $this->driverRepo->count()],
-                ['key' => 'vehicles', 'label' => 'Vehicles',      'value' => $this->vehicleRepo->count()],
+                $this->stats->kpiUsers(),
+                $this->stats->kpiCompanies(),
+                $this->stats->kpiOpenRequests(),
+                $this->stats->kpiDrivers(),
+                $this->stats->kpiVehicles(),
+                $this->stats->kpiRevenue(),
             ],
-            'recent_requests' => $this->requestRepo->getModel()::query()
-                ->latest()->limit(5)->get(['id', 'service_id', 'status_id', 'created_at']),
+            'charts' => [
+                $this->stats->requestsByStatus(),
+                $this->stats->requestsTimeSeries(),
+                $this->stats->revenueTimeSeries(),
+            ],
+            'recent_requests' => $this->stats->recentRequests(),
         ];
     }
 
@@ -67,33 +70,29 @@ class HomeActions
     {
         $companyId = $user->company?->id;
 
-        $driversTotal  = $this->driverRepo->count(['company_id' => $companyId]);
-        $vehiclesTotal = $this->vehicleRepo->count(['company_id' => $companyId]);
+        $driversTotal  = $this->stats->kpiDrivers($companyId);
+        $vehiclesTotal = $this->stats->kpiVehicles($companyId);
 
         return [
             'kpis' => [
-                ['key' => 'drivers',  'label' => 'Drivers',  'value' => $driversTotal],
-                ['key' => 'vehicles', 'label' => 'Vehicles', 'value' => $vehiclesTotal],
+                $driversTotal,
+                $vehiclesTotal,
+                $this->stats->kpiOpenRequests($user->id),
             ],
-            'todo_summary' => $this->todoSummary($user),
-            'banner_new_company' => $driversTotal === 0 || $vehiclesTotal === 0,
+            'charts' => [
+                $this->stats->requestsByStatus($user->id),
+                $this->stats->requestsTimeSeries(self::WINDOW_DAYS, $user->id),
+            ],
+            'recent_requests'    => $this->stats->recentRequests(5, $user->id),
+            'todo_summary'       => $this->stats->taskSummary($user->id),
+            'banner_new_company' => $driversTotal['value'] === 0 || $vehiclesTotal['value'] === 0,
         ];
     }
 
     private function driverWidgets(User $user): array
     {
         return [
-            'todo_summary' => $this->todoSummary($user),
-        ];
-    }
-
-    private function todoSummary(User $user): array
-    {
-        return [
-            'open'    => $this->taskRepo->count(['user_id' => $user->id, 'status' => 'pending']),
-            'overdue' => $this->taskRepo->getModel()::query()
-                ->where('user_id', $user->id)->where('status', 'pending')
-                ->where('due_date', '<', now())->count(),
+            'todo_summary' => $this->stats->taskSummary($user->id),
         ];
     }
 }

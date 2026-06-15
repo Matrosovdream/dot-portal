@@ -33,6 +33,63 @@ abstract class AbstractRepo
     }
 
     /**
+     * Sum a numeric column, optionally filtered by simple [column => value] equality.
+     */
+    public function sum(string $column, array $filter = []): float
+    {
+        $query = $this->model->newQuery();
+        foreach ($filter as $col => $value) {
+            $query->where($col, $value);
+        }
+        return (float) $query->sum($column);
+    }
+
+    /**
+     * Count rows grouped by a column. Returns [groupValue => count], optionally
+     * filtered by simple [column => value] equality. Handy for status breakdowns.
+     */
+    public function groupCount(string $column, array $filter = []): array
+    {
+        $query = $this->model->newQuery();
+        foreach ($filter as $col => $value) {
+            $query->where($col, $value);
+        }
+        return $query
+            ->selectRaw("{$column} as group_key, COUNT(*) as aggregate")
+            ->groupBy($column)
+            ->pluck('aggregate', 'group_key')
+            ->toArray();
+    }
+
+    /**
+     * Daily time series over the last $days (gap-filled, oldest → newest).
+     * Returns ['Y-m-d' => number]; counts rows by default, or sums $sumColumn when given.
+     * Filters are [column => value] equality.
+     */
+    public function dailyCounts(string $dateColumn = 'created_at', int $days = 30, array $filter = [], ?string $sumColumn = null): array
+    {
+        $start = now()->subDays($days - 1)->startOfDay();
+
+        $query = $this->model->newQuery()->where($dateColumn, '>=', $start);
+        foreach ($filter as $col => $value) {
+            $query->where($col, $value);
+        }
+
+        $aggregate = $sumColumn ? "COALESCE(SUM({$sumColumn}), 0)" : 'COUNT(*)';
+        $rows = $query
+            ->selectRaw("DATE({$dateColumn}) as bucket, {$aggregate} as aggregate")
+            ->groupBy('bucket')
+            ->pluck('aggregate', 'bucket');
+
+        $series = [];
+        for ($i = 0; $i < $days; $i++) {
+            $day = $start->copy()->addDays($i)->format('Y-m-d');
+            $series[$day] = (float) ($rows[$day] ?? 0);
+        }
+        return $series;
+    }
+
+    /**
      * Return the first matching row (mapped), or null. Filters are [column => value] equality.
      */
     public function getFirst(array $filter = [])
