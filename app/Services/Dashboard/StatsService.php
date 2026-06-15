@@ -2,6 +2,7 @@
 
 namespace App\Services\Dashboard;
 
+use App\Repositories\Driver\DriverDocumentRepo;
 use App\Repositories\Driver\DriverRepo;
 use App\Repositories\Order\OrderRepo;
 use App\Repositories\References\RefRequestStatusRepo;
@@ -52,6 +53,7 @@ class StatsService
         protected RequestRepo          $requestRepo,
         protected OrderRepo            $orderRepo,
         protected UserTaskRepo         $taskRepo,
+        protected DriverDocumentRepo   $documentRepo,
         protected RefRequestStatusRepo $requestStatusRepo,
     ) {}
 
@@ -91,6 +93,21 @@ class StatsService
     public function kpiRevenue(int $days = self::WINDOW_DAYS): array
     {
         return $this->kpi('revenue', "Revenue ({$days}d)", $this->revenue($days), null, 'currency');
+    }
+
+    /**
+     * Documents a driver owns. $driverId is Driver.id (resolved from the User via $user->driver);
+     * a driver with no Driver row yet simply reports zero.
+     */
+    public function kpiDocuments(?int $driverId = null): array
+    {
+        if (! $driverId) {
+            return $this->kpi('documents', 'My documents', 0);
+        }
+
+        $filter = ['driver_id' => $driverId];
+
+        return $this->kpi('documents', 'My documents', $this->documentRepo->count($filter), $this->newCount($this->documentRepo, $filter));
     }
 
     /*
@@ -133,6 +150,46 @@ class StatsService
             ->latest()
             ->limit($limit)
             ->get(['id', 'service_id', 'status_id', 'created_at']);
+    }
+
+    /**
+     * Latest documents added for a driver (flattened: name falls back to the file name).
+     * Documents hang off the Driver row, not the User — pass Driver.id, not User.id.
+     */
+    public function recentDocuments(?int $driverId, int $limit = 5): array
+    {
+        if (! $driverId) {
+            return [];
+        }
+
+        return $this->documentRepo->getModel()::query()
+            ->with('file:id,filename')
+            ->where('driver_id', $driverId)
+            ->latest()
+            ->limit($limit)
+            ->get(['id', 'driver_id', 'title', 'type', 'extension', 'file_id', 'created_at'])
+            ->map(fn ($doc) => [
+                'id'         => $doc->id,
+                'name'       => $doc->title ?: ($doc->file?->filename ?? 'Document'),
+                'type'       => $doc->type,
+                'extension'  => $doc->extension,
+                'created_at' => $doc->created_at,
+            ])
+            ->all();
+    }
+
+    /**
+     * A user's todo tasks, soonest due first (nulls last). Scoped by user_id to match
+     * the /todo endpoint; status is returned raw — the SPA maps it to a severity.
+     */
+    public function recentTasks(int $userId, int $limit = 5)
+    {
+        return $this->taskRepo->getModel()::query()
+            ->where('user_id', $userId)
+            ->orderByRaw('due_date IS NULL')
+            ->orderBy('due_date')
+            ->limit($limit)
+            ->get(['id', 'title', 'status', 'priority', 'due_date', 'category']);
     }
 
     /*

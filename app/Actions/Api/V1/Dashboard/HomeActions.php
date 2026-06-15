@@ -91,8 +91,16 @@ class HomeActions
 
     private function driverWidgets(User $user): array
     {
+        // Documents hang off the driver's Driver row (Driver.user_id = User.id), not the User.
+        $driverId = $user->driver?->id;
+
         return [
-            'todo_summary' => $this->stats->taskSummary($user->id),
+            'kpis' => [
+                $this->stats->kpiDocuments($driverId),
+            ],
+            'recent_documents' => $this->stats->recentDocuments($driverId),
+            'recent_tasks'     => $this->stats->recentTasks($user->id),
+            'todo_summary'     => $this->stats->taskSummary($user->id),
         ];
     }
 }
