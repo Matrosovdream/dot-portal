@@ -57,13 +57,20 @@ class ProfileTest extends ApiTestCase
             'lastname'  => 'Name',
             'phone'     => '5551234567',
             'birthday'  => '1990-05-12',
-        ])->assertOk()->assertJsonPath('data.firstname', 'Updated');
+        ])->assertOk()
+            ->assertJsonPath('data.firstname', 'Updated')
+            ->assertJsonPath('data.birthday', '1990-05-12');
 
         $this->assertDatabaseHas('users', [
             'id' => $user->id,
             'firstname' => 'Updated',
             'phone' => '5551234567',
         ]);
+
+        // birthday must survive the round-trip in the response, not just the DB.
+        $this->getJson('/api/v1/profile')
+            ->assertOk()
+            ->assertJsonPath('data.birthday', '1990-05-12');
     }
 
     public function test_update_rejects_duplicate_email(): void
