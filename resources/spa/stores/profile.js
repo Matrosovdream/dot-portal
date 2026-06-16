@@ -4,10 +4,19 @@ import { profileApi, unwrap, errorMessage } from '@/api';
 export const useProfileStore = defineStore('profile', {
     state: () => ({
         profile: null,
+        driver: null,
         loading: false,
         error: null,
     }),
     actions: {
+        async loadDriver() {
+            this.driver = unwrap(await profileApi.getDriver());
+            return this.driver;
+        },
+        async saveDriver(payload) {
+            this.driver = unwrap(await profileApi.updateDriver(payload));
+            return this.driver;
+        },
         async load(force = false) {
             if (this.profile && !force) return this.profile;
             this.loading = true;

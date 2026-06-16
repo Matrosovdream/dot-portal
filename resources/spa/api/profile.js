@@ -7,4 +7,6 @@ export const profileApi = {
     updateAddress: (payload) => api.put('/profile/address', payload).then((r) => r.data),
     getCompany: () => api.get('/profile/company').then((r) => r.data),
     updateCompany: (payload) => api.put('/profile/company', payload).then((r) => r.data),
+    getDriver: () => api.get('/profile/driver').then((r) => r.data),
+    updateDriver: (payload) => api.put('/profile/driver', payload).then((r) => r.data),
 };
