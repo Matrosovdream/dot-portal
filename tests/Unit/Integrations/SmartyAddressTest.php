@@ -2,7 +2,7 @@
 
 namespace Tests\Unit\Integrations;
 
-use App\Services\Address\AddressValidationService;
+use App\Services\Address\AddressVerificationService;
 use Illuminate\Http\Client\Request;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
@@ -10,7 +10,7 @@ use Tests\TestCase;
 /**
  * Unit coverage for the Smarty US Street Address integration.
  *
- * Drives App\Services\Address\AddressValidationService (which wraps the SmartyApi
+ * Drives App\Services\Address\AddressVerificationService (which wraps the SmartyApi
  * transport client) with Http::fake() dummy candidate bodies — no real network
  * calls and no database. Credentials are injected per-test via config() BEFORE the
  * service is resolved, because SmartyApi reads them in its constructor.
@@ -19,7 +19,7 @@ class SmartyAddressTest extends TestCase
 {
     /**
      * A representative Smarty candidate response: a flat JSON array of candidate
-     * objects. Field names match exactly what AddressValidationService reads
+     * objects. Field names match exactly what AddressVerificationService reads
      * (delivery_line_1, components.*, analysis.dpv_match_code).
      */
     private function dummyCandidates(string $dpvMatchCode = 'Y'): array
@@ -64,7 +64,7 @@ class SmartyAddressTest extends TestCase
         ];
     }
 
-    public function test_validate_maps_candidate_and_marks_address_valid(): void
+    public function test_verify_maps_candidate_and_marks_address_valid(): void
     {
         $this->configureCredentials();
 
@@ -72,9 +72,9 @@ class SmartyAddressTest extends TestCase
             'us-street.api.smarty.com/*' => Http::response($this->dummyCandidates('Y'), 200),
         ]);
 
-        $service = app(AddressValidationService::class);
+        $service = app(AddressVerificationService::class);
 
-        $result = $service->validate($this->sampleAddress());
+        $result = $service->verify($this->sampleAddress());
 
         $this->assertTrue($result['valid']);
         $this->assertSame('Y', $result['dpv_match_code']);
@@ -91,7 +91,7 @@ class SmartyAddressTest extends TestCase
         $this->assertSame('AABB', $result['raw'][0]['analysis']['dpv_footnotes']);
     }
 
-    public function test_validate_sends_get_to_street_address_with_query_auth(): void
+    public function test_verify_sends_get_to_street_address_with_query_auth(): void
     {
         $this->configureCredentials();
 
@@ -99,9 +99,9 @@ class SmartyAddressTest extends TestCase
             'us-street.api.smarty.com/*' => Http::response($this->dummyCandidates('Y'), 200),
         ]);
 
-        $service = app(AddressValidationService::class);
+        $service = app(AddressVerificationService::class);
 
-        $service->validate($this->sampleAddress());
+        $service->verify($this->sampleAddress());
 
         Http::assertSent(function (Request $request) {
             return $request->method() === 'GET'
@@ -115,7 +115,7 @@ class SmartyAddressTest extends TestCase
         });
     }
 
-    public function test_validate_marks_non_confirmed_dpv_code_invalid(): void
+    public function test_verify_marks_non_confirmed_dpv_code_invalid(): void
     {
         $this->configureCredentials();
 
@@ -123,15 +123,15 @@ class SmartyAddressTest extends TestCase
             'us-street.api.smarty.com/*' => Http::response($this->dummyCandidates('N'), 200),
         ]);
 
-        $service = app(AddressValidationService::class);
+        $service = app(AddressVerificationService::class);
 
-        $result = $service->validate($this->sampleAddress());
+        $result = $service->verify($this->sampleAddress());
 
         $this->assertFalse($result['valid']);
         $this->assertSame('N', $result['dpv_match_code']);
     }
 
-    public function test_validate_returns_503_error_when_not_configured(): void
+    public function test_verify_returns_503_error_when_not_configured(): void
     {
         config()->set('services.smarty.auth_id', '');
         config()->set('services.smarty.auth_token', '');
@@ -140,9 +140,9 @@ class SmartyAddressTest extends TestCase
             'us-street.api.smarty.com/*' => Http::response($this->dummyCandidates('Y'), 200),
         ]);
 
-        $service = app(AddressValidationService::class);
+        $service = app(AddressVerificationService::class);
 
-        $result = $service->validate($this->sampleAddress());
+        $result = $service->verify($this->sampleAddress());
 
         $this->assertTrue($result['error']);
         $this->assertSame(503, $result['status']);
@@ -151,7 +151,7 @@ class SmartyAddressTest extends TestCase
         Http::assertNothingSent();
     }
 
-    public function test_validate_passes_through_upstream_error_status(): void
+    public function test_verify_passes_through_upstream_error_status(): void
     {
         $this->configureCredentials();
 
@@ -159,11 +159,64 @@ class SmartyAddressTest extends TestCase
             'us-street.api.smarty.com/*' => Http::response(['error' => 'boom'], 500),
         ]);
 
-        $service = app(AddressValidationService::class);
+        $service = app(AddressVerificationService::class);
 
-        $result = $service->validate($this->sampleAddress());
+        $result = $service->verify($this->sampleAddress());
 
         $this->assertTrue($result['error']);
         $this->assertSame(500, $result['status']);
+    }
+
+    public function test_verify_treats_empty_candidate_list_as_invalid(): void
+    {
+        $this->configureCredentials();
+
+        // Smarty returns a 200 with an empty array when no address matches —
+        // a success response, not an error. It must map to an invalid result.
+        Http::fake([
+            'us-street.api.smarty.com/*' => Http::response([], 200),
+        ]);
+
+        $service = app(AddressVerificationService::class);
+
+        $result = $service->verify($this->sampleAddress());
+
+        $this->assertFalse($result['valid']);
+        $this->assertNull($result['dpv_match_code']);
+        $this->assertSame([
+            'line1' => null,
+            'city' => null,
+            'state' => null,
+            'zipcode' => null,
+            'plus4' => null,
+        ], $result['normalized']);
+        $this->assertSame([], $result['raw']);
+    }
+
+    public function test_verify_handles_candidate_missing_components_and_analysis(): void
+    {
+        $this->configureCredentials();
+
+        // A candidate carrying only delivery_line_1 must not break the
+        // components/analysis guards: line1 maps through, the rest fall to null.
+        Http::fake([
+            'us-street.api.smarty.com/*' => Http::response([
+                ['delivery_line_1' => '1600 Amphitheatre Pkwy'],
+            ], 200),
+        ]);
+
+        $service = app(AddressVerificationService::class);
+
+        $result = $service->verify($this->sampleAddress());
+
+        $this->assertFalse($result['valid']);
+        $this->assertNull($result['dpv_match_code']);
+        $this->assertSame([
+            'line1' => '1600 Amphitheatre Pkwy',
+            'city' => null,
+            'state' => null,
+            'zipcode' => null,
+            'plus4' => null,
+        ], $result['normalized']);
     }
 }
