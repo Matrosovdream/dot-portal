@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Mixins\Integrations;
+namespace App\Mixins\Integrations\Address;
+
+use App\Mixins\Integrations\AbstractIntegrationApi;
 
 /**
  * @scaffold Smarty (SmartyStreets) US Street Address API.
