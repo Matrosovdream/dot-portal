@@ -2,16 +2,17 @@
 
 namespace App\Services\Address;
 
+use App\Contracts\Address\AddressVerification;
 use App\Mixins\Integrations\AbstractIntegrationApi;
-use App\Mixins\Integrations\SmartyApi;
+use App\Mixins\Integrations\Address\SmartyApi;
 
 /**
- * App-facing entry point for US street address validation (Smarty).
+ * App-facing entry point for US street address verification (Smarty).
  *
  * Shapes input for the transport client, then maps the raw Smarty candidate list
  * into a clean domain array. The normalized block uses keys that align to the
- * App\Models\UserCompanyAddress columns so a verified address can be persisted
- * with minimal translation:
+ * address tables (UserAddress / DriverAddress / UserCompanyAddress) so a verified
+ * address can be persisted with minimal translation:
  *
  *     normalized.line1   -> address1
  *     normalized.city    -> city
@@ -20,10 +21,10 @@ use App\Mixins\Integrations\SmartyApi;
  *     normalized.zipcode -> zip (combine with plus4 for ZIP+4 when storing)
  *     normalized.plus4   -> (4-digit add-on; not a standalone column)
  *
- * Note: UserCompanyAddress has no address2/secondary column of its own here, and
- * 'state' is returned as the USPS abbreviation rather than the numeric state_id.
+ * Note: 'state' is returned as the USPS abbreviation rather than the numeric
+ * state_id.
  */
-class AddressValidationService
+class AddressVerificationService implements AddressVerification
 {
     /**
      * DPV match codes Smarty considers a confirmed delivery point.
@@ -36,7 +37,7 @@ class AddressValidationService
     }
 
     /**
-     * Validate a US address.
+     * Verify a US address.
      *
      * @param  array  $address  ['street','city','state','zipcode']
      * @return array  Error array is passed straight through; otherwise:
@@ -44,7 +45,7 @@ class AddressValidationService
      *                 'normalized'=>['line1','city','state','zipcode','plus4'],
      *                 'raw'=>array]
      */
-    public function validate(array $address): array
+    public function verify(array $address): array
     {
         $result = $this->api->verify($address);
 

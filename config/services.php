@@ -86,10 +86,15 @@ return [
         'env' => env('PLAID_ENV', 'sandbox'),
     ],
 
-    // Smarty (SmartyStreets) — US address validation for company/driver addresses.
+    // Smarty (SmartyStreets) — US address verification for company/driver addresses.
     'smarty' => [
         'auth_id' => env('SMARTY_AUTH_ID'),
         'auth_token' => env('SMARTY_AUTH_TOKEN'),
+    ],
+
+    // Geoapify — free US address autocomplete/search (~3k req/day, no card).
+    'geoapify' => [
+        'api_key' => env('GEOAPIFY_API_KEY'),
     ],
 
     // Motor Vehicle Records aggregator (e.g. SambaSafety). Provider-agnostic.
